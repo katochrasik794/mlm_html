@@ -1,0 +1,152 @@
+<section class="transaction-history-main mt-16 mx-auto p-4 md:p-6 lg:p-8">
+  <header class="transaction-history-header mb-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+    <div class="transaction-history-header-content">
+      <h1 class="transaction-history-title text-3xl md:text-4xl font-extrabold text-gray-900">Transaction History</h1>
+      <p class="transaction-history-subtitle mt-1 text-sm text-gray-500">View deposits, withdrawals and trades — filter, search or export your transactions.</p>
+    </div>
+
+    <div class="transaction-history-actions flex items-center gap-3">
+      <div class="transaction-history-search flex items-center bg-white border border-gray-200 rounded-lg px-3 py-2 shadow-sm">
+        <input aria-label="Search transactions" type="search" placeholder="Search reference or amount…" class="transaction-history-search-input outline-none text-sm placeholder-gray-400" />
+        <button class="transaction-history-search-btn ml-3 text-sm text-gray-600 hover:text-gray-900" title="Search">
+          <!-- magnifier -->
+          <svg class="transaction-history-search-icon w-4 h-4" viewBox="0 0 24 24" fill="none"><path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="11" cy="11" r="6" stroke="currentColor" stroke-width="1.5"/></svg>
+        </button>
+      </div>
+
+      <button class="transaction-history-export-btn inline-flex items-center gap-2 px-3 py-2 bg-white border border-gray-200 rounded-lg text-sm text-gray-700 hover:shadow-md">
+        <!-- export icon -->
+        <svg class="transaction-history-export-icon w-4 h-4" viewBox="0 0 24 24" fill="none"><path d="M12 3v12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M8 11l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        Export
+      </button>
+    </div>
+  </header>
+
+  <!-- Summary Cards -->
+  <div class="transaction-history-summary-grid grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+    <div class="transaction-history-summary-card-deposits bg-white p-4 rounded-2xl border border-gray-100 shadow-sm flex flex-col items-start">
+      <div class="summary-card-label text-sm text-gray-500">Total Deposits</div>
+      <div class="summary-card-amount mt-2 text-xl font-extrabold text-green-600">$12,500</div>
+      <div class="summary-card-desc mt-2 text-xs text-gray-400">Since last 30 days</div>
+    </div>
+
+    <div class="transaction-history-summary-card-withdrawals bg-white p-4 rounded-2xl border border-gray-100 shadow-sm flex flex-col items-start">
+      <div class="summary-card-label text-sm text-gray-500">Total Withdrawals</div>
+      <div class="summary-card-amount mt-2 text-xl font-extrabold text-red-600">$5,200</div>
+      <div class="summary-card-desc mt-2 text-xs text-gray-400">Fees excluded</div>
+    </div>
+
+    <div class="transaction-history-summary-card-net-change bg-white p-4 rounded-2xl border border-gray-100 shadow-sm flex flex-col items-start">
+      <div class="summary-card-label text-sm text-gray-500">Net Change</div>
+      <div class="summary-card-amount mt-2 text-xl font-extrabold text-blue-600">$7,300</div>
+      <div class="summary-card-desc mt-2 text-xs text-gray-400">Deposits − Withdrawals</div>
+    </div>
+
+    <div class="transaction-history-summary-card-fees bg-white p-4 rounded-2xl border border-gray-100 shadow-sm flex flex-col items-start">
+      <div class="summary-card-label text-sm text-gray-500">Total Fees Paid</div>
+      <div class="summary-card-amount mt-2 text-xl font-extrabold text-gray-800">$120</div>
+      <div class="summary-card-desc mt-2 text-xs text-gray-400">All currencies</div>
+    </div>
+  </div>
+
+  <!-- Filters -->
+  <div class="transaction-history-filters bg-white p-6 rounded-2xl border border-gray-100 shadow-sm mb-6">
+    <h2 class="transaction-history-filters-title text-lg font-semibold text-gray-800 mb-4">Filter Transactions</h2>
+
+    <form class="transaction-history-filters-form grid grid-cols-1 md:grid-cols-4 gap-4">
+      <div class="transaction-history-filter-from">
+        <label class="transaction-history-filter-label text-xs text-gray-600 mb-1 block">From</label>
+        <input type="date" class="transaction-history-filter-input w-full border border-gray-200 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+      </div>
+
+      <div class="transaction-history-filter-to">
+        <label class="transaction-history-filter-label text-xs text-gray-600 mb-1 block">To</label>
+        <input type="date" class="transaction-history-filter-input w-full border border-gray-200 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+      </div>
+
+      <div class="transaction-history-filter-type">
+        <label class="transaction-history-filter-label text-xs text-gray-600 mb-1 block">Transaction Type</label>
+        <select class="transaction-history-filter-select w-full border border-gray-200 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+          <option value="">All types</option>
+          <option value="deposit">Deposit</option>
+          <option value="withdrawal">Withdrawal</option>
+          <option value="trade">Trade</option>
+          <option value="fee">Fee</option>
+        </select>
+      </div>
+
+      <div class="transaction-history-filter-currency">
+        <label class="transaction-history-filter-label text-xs text-gray-600 mb-1 block">Currency / Asset</label>
+        <select class="transaction-history-filter-select w-full border border-gray-200 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+          <option value="">All</option>
+          <option value="usd">USD</option>
+          <option value="btc">BTC</option>
+          <option value="eth">ETH</option>
+        </select>
+      </div>
+
+      <div class="transaction-history-filter-buttons md:col-span-4 flex justify-end gap-2 mt-2">
+        <button type="reset" class="transaction-history-reset-btn px-4 py-2 bg-white border border-gray-200 rounded-md text-sm text-gray-700 hover:shadow-sm">Reset</button>
+        <button type="submit" class="transaction-history-apply-btn px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-md text-sm">Apply filters</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Transaction Table -->
+  <div class="transaction-history-table-container bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
+    <div class="transaction-history-table-wrapper overflow-x-auto">
+      <table class="transaction-history-table w-full min-w-[720px] table-auto">
+        <thead class="transaction-history-table-header bg-gray-50 sticky top-0">
+          <tr class="transaction-history-table-header-row text-left text-sm text-gray-500">
+            <th class="transaction-history-th-date px-4 py-3">Date</th>
+            <th class="transaction-history-th-type px-4 py-3">Type</th>
+            <th class="transaction-history-th-amount px-4 py-3">Amount</th>
+            <th class="transaction-history-th-currency px-4 py-3">Currency</th>
+            <th class="transaction-history-th-status px-4 py-3">Status</th>
+            <th class="transaction-history-th-reference px-4 py-3">Reference</th>
+          </tr>
+        </thead>
+
+        <tbody class="transaction-history-table-body divide-y divide-gray-100">
+          <tr class="transaction-history-row-deposit">
+            <td class="transaction-history-td-date px-4 py-3 text-sm text-gray-700">2025-11-01</td>
+            <td class="transaction-history-td-type px-4 py-3 text-sm font-medium text-gray-800">Deposit</td>
+            <td class="transaction-history-td-amount px-4 py-3 text-sm font-semibold text-green-600">+ $500</td>
+            <td class="transaction-history-td-currency px-4 py-3 text-sm text-gray-700">USD</td>
+            <td class="transaction-history-td-status px-4 py-3">
+              <span class="transaction-history-status-completed inline-flex items-center gap-2 px-3 py-1 rounded-full bg-green-50 text-green-700 text-xs font-semibold">● Completed</span>
+            </td>
+            <td class="transaction-history-td-reference px-4 py-3 text-sm text-gray-500">TXN12345</td>
+          </tr>
+
+          <tr class="transaction-history-row-withdrawal">
+            <td class="transaction-history-td-date px-4 py-3 text-sm text-gray-700">2025-11-03</td>
+            <td class="transaction-history-td-type px-4 py-3 text-sm font-medium text-gray-800">Withdrawal</td>
+            <td class="transaction-history-td-amount px-4 py-3 text-sm font-semibold text-red-600">- $200</td>
+            <td class="transaction-history-td-currency px-4 py-3 text-sm text-gray-700">USD</td>
+            <td class="transaction-history-td-status px-4 py-3">
+              <span class="transaction-history-status-pending inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-50 text-amber-700 text-xs font-semibold">● Pending</span>
+            </td>
+            <td class="transaction-history-td-reference px-4 py-3 text-sm text-gray-500">TXN12346</td>
+          </tr>
+
+          <tr class="transaction-history-row-trade">
+            <td class="transaction-history-td-date px-4 py-3 text-sm text-gray-700">2025-11-05</td>
+            <td class="transaction-history-td-type px-4 py-3 text-sm font-medium text-gray-800">Trade</td>
+            <td class="transaction-history-td-amount px-4 py-3 text-sm font-semibold text-blue-600">+ 0.05 BTC</td>
+            <td class="transaction-history-td-currency px-4 py-3 text-sm text-gray-700">BTC</td>
+            <td class="transaction-history-td-status px-4 py-3">
+              <span class="transaction-history-status-completed inline-flex items-center gap-2 px-3 py-1 rounded-full bg-green-50 text-green-700 text-xs font-semibold">● Completed</span>
+            </td>
+            <td class="transaction-history-td-reference px-4 py-3 text-sm text-gray-500">TXN12347</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="transaction-history-table-footer mt-4 flex items-center justify-between text-sm text-gray-500">
+      <div class="transaction-history-footer-showing">Showing 3 transactions</div>
+      <div class="transaction-history-footer-updated">Last updated 2025-11-05</div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,314 @@
+<!-- <section>
+  <h1 class="text-3xl font-bold mb-6">Profile</h1>
+  <div class="bg-white p-6 rounded border">Profile content here</div>
+</section> -->
+
+
+<section class="mx-auto p-4 mt-16 max-w-6xl">
+  <h1 class="text-4xl font-extrabold mb-8 text-gray-800 border-b pb-2">User Profile Overview 👤</h1>
+
+  <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
+
+    <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-100 hover:shadow-xl transition duration-300">
+      <div class="flex items-center mb-4 border-b pb-3">
+        <h2 class="text-2xl font-semibold text-blue-600">Personal Info</h2>
+        <span class="ml-auto text-blue-500">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+          </svg>
+        </span>
+      </div>
+      <div class="space-y-3">
+        <p><span class="font-medium text-gray-600">Full Name:</span> <span class="text-gray-900">John Doe</span></p>
+        <p><span class="font-medium text-gray-600">Username:</span> <span class="text-gray-900">johndoe123</span></p>
+        <p><span class="font-medium text-gray-600">Email:</span> <span class="text-gray-900">john@example.com</span></p>
+        <p><span class="font-medium text-gray-600">Phone:</span> <span class="text-gray-900">+1 234 567 890</span></p>
+        <p><span class="font-medium text-gray-600">Date of Birth:</span> <span class="text-gray-900">01/01/1990</span></p>
+      </div>
+    </div>
+
+    <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-100 hover:shadow-xl transition duration-300">
+      <div class="flex items-center mb-4 border-b pb-3">
+        <h2 class="text-2xl font-semibold text-green-600">Account Details</h2>
+        <span class="ml-auto text-green-500">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+          </svg>
+        </span>
+      </div>
+      <div class="space-y-3">
+        <p><span class="font-medium text-gray-600">Account ID:</span> <span class="text-gray-900">123456</span></p>
+        <p><span class="font-medium text-gray-600">Account Type:</span> <span class="text-gray-900">Individual</span></p>
+        <p class="flex justify-between items-center">
+            <span class="font-medium text-gray-600">Status:</span> 
+            <span class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-green-100 text-green-800">
+                <svg class="h-2 w-2 mr-1.5" fill="currentColor" viewBox="0 0 8 8"><circle cx="4" cy="4" r="3" /></svg> Active
+            </span>
+        </p>
+        <p><span class="font-medium text-gray-600">Registration Date:</span> <span class="text-gray-900">01/01/2023</span></p>
+      </div>
+    </div>
+
+    <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-100 hover:shadow-xl transition duration-300">
+      <div class="flex items-center mb-4 border-b pb-3">
+        <h2 class="text-2xl font-semibold text-red-600">Security Settings</h2>
+        <span class="ml-auto text-red-500">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.044M21 12H3" />
+          </svg>
+        </span>
+      </div>
+      <div class="space-y-3">
+        <p class="flex justify-between items-center">
+            <span class="font-medium text-gray-600">2FA Enabled:</span> 
+            <span class="text-green-600 font-semibold">Yes</span>
+        </p>
+        <p><span class="font-medium text-gray-600">Last Login:</span> <span class="text-gray-900">06/11/2025 14:32</span></p>
+        <button class="w-full mt-4 px-4 py-2 bg-red-600 text-white font-medium rounded-lg hover:bg-red-700 transition shadow-md">
+            Change Password
+        </button>
+      </div>
+    </div>
+
+    <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-100 hover:shadow-xl transition duration-300">
+        <div class="flex items-center mb-4 border-b pb-3">
+            <h2 class="text-2xl font-semibold text-purple-600">Financial Info</h2>
+            <span class="ml-auto text-purple-500">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
+              </svg>
+            </span>
+        </div>
+        <div class="space-y-3">
+            <p><span class="font-medium text-gray-600">Total Balance:</span> <span class="text-xl font-bold text-gray-900">$10,500</span></p>
+            <p><span class="font-medium text-gray-600">Available Funds:</span> <span class="text-lg font-semibold text-green-600">$8,200</span></p>
+            <p><span class="font-medium text-gray-600">Linked Bank:</span> <span class="text-gray-900">Bank of Example</span></p>
+            <p><span class="font-medium text-gray-600">Open Positions:</span> <span class="text-gray-900">2</span></p>
+        </div>
+    </div>
+
+    <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-100 hover:shadow-xl transition duration-300">
+        <div class="flex items-center mb-4 border-b pb-3">
+            <h2 class="text-2xl font-semibold text-yellow-600">KYC & Verification</h2>
+            <span class="ml-auto text-yellow-500">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.044M21 12v3a2 2 0 01-2 2H5a2 2 0 01-2-2v-3" />
+              </svg>
+            </span>
+        </div>
+        <div class="space-y-3">
+            <p class="flex justify-between items-center">
+                <span class="font-medium text-gray-600">ID Verification:</span> 
+                <span class="text-sm font-semibold text-white bg-blue-500 px-2 py-0.5 rounded-full">Verified</span>
+            </p>
+            <p><span class="font-medium text-gray-600">Documents Submitted:</span> <span class="text-gray-900">Passport, Utility Bill</span></p>
+        </div>
+    </div>
+
+    <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-100 hover:shadow-xl transition duration-300">
+        <div class="flex items-center mb-4 border-b pb-3">
+            <h2 class="text-2xl font-semibold text-indigo-600">Trading Prefs</h2>
+            <span class="ml-auto text-indigo-500">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 11.5V14m0-2.5v-2.5A2.5 2.5 0 019.5 7h5A2.5 2.5 0 0117 9.5v5a2.5 2.5 0 01-2.5 2.5h-5A2.5 2.5 0 017 14V11.5z" />
+              </svg>
+            </span>
+        </div>
+        <div class="space-y-3">
+            <p><span class="font-medium text-gray-600">Default Currency:</span> <span class="text-gray-900">USD</span></p>
+            <p><span class="font-medium text-gray-600">Platform:</span> <span class="text-gray-900">Web & Mobile</span></p>
+            <p><span class="font-medium text-gray-600">Notification Preferences:</span> <span class="text-gray-900">Email, SMS</span></p>
+            <p><span class="font-medium text-gray-600">Risk Profile:</span> <span class="text-gray-900 font-medium text-yellow-700">Moderate</span></p>
+        </div>
+    </div>
+
+    <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-100 hover:shadow-xl transition duration-300">
+        <div class="flex items-center mb-4 border-b pb-3">
+            <h2 class="text-2xl font-semibold text-teal-600">Statements</h2>
+            <span class="ml-auto text-teal-500">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-1.5a2.5 2.5 0 012.5-2.5h2a2.5 2.5 0 012.5 2.5V17m-6 0v2.5a2.5 2.5 0 002.5 2.5h2a2.5 2.5 0 002.5-2.5V17" />
+              </svg>
+            </span>
+        </div>
+        <div class="space-y-3">
+            <p class="flex justify-between items-center">
+                <span class="font-medium text-gray-600">Trading History:</span> 
+                <a href="#" class="text-blue-500 hover:text-blue-700 font-medium">View &rarr;</a>
+            </p>
+            <p class="flex justify-between items-center">
+                <span class="font-medium text-gray-600">Monthly Statements:</span> 
+                <a href="#" class="text-blue-500 hover:text-blue-700 font-medium">Download &darr;</a>
+            </p>
+        </div>
+    </div>
+    
+    <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-100 hover:shadow-xl transition duration-300">
+        <div class="flex items-center mb-4 border-b pb-3">
+            <h2 class="text-2xl font-semibold text-gray-600">Settings & Support</h2>
+            <span class="ml-auto text-gray-500">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.942 3.31.82 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.942 1.543-.82 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.942-3.31-.82-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.942-1.543.82-3.31 2.37-2.37a1.724 1.724 0 002.572-1.065z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+            </span>
+        </div>
+        <div class="space-y-3">
+            <p><span class="font-medium text-gray-600">Support Tickets:</span> <span class="text-gray-900">1 Open</span></p>
+            <p><span class="font-medium text-gray-600">Language:</span> <span class="text-gray-900">English</span></p>
+            <p><span class="font-medium text-gray-600">Affiliate Info:</span> <span class="text-gray-900">Active</span></p>
+            <button class="w-full mt-4 px-4 py-2 bg-gray-200 text-gray-800 font-medium rounded-lg hover:bg-gray-300 transition shadow-md">
+                Logout
+            </button>
+        </div>
+    </div>
+
+  </div>
+
+    <h1 class="text-4xl font-extrabold mb-8 text-gray-800 border-b pb-2">Account Settings ⚙️</h1>
+
+  <div class="bg-white rounded-xl shadow-2xl divide-y divide-gray-100">
+
+    <div class="p-6">
+      <h2 class="text-2xl font-bold mb-4 text-blue-600 flex items-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
+        Account Information
+      </h2>
+      <div class="space-y-4">
+        
+        <div class="flex items-center justify-between border-b pb-4">
+          <span class="text-lg text-gray-700">Username: <span class="font-semibold text-gray-900">johndoe123</span></span>
+          <button class="text-sm px-3 py-1 bg-gray-100 text-blue-600 rounded-lg hover:bg-gray-200 transition">Edit</button>
+        </div>
+
+        <div class="flex items-center justify-between border-b pb-4">
+          <span class="text-lg text-gray-700">Email: <span class="font-semibold text-gray-900">john@example.com</span></span>
+          <button class="text-sm px-3 py-1 bg-gray-100 text-blue-600 rounded-lg hover:bg-gray-200 transition">Change</button>
+        </div>
+        
+        <div class="flex items-center justify-between border-b pb-4">
+          <span class="text-lg text-gray-700">Phone: <span class="font-semibold text-gray-900">+1 234 567 890</span></span>
+          <button class="text-sm px-3 py-1 bg-gray-100 text-blue-600 rounded-lg hover:bg-gray-200 transition">Update</button>
+        </div>
+        
+        <div class="flex items-center justify-between">
+          <span class="text-lg text-gray-700">Language: <span class="font-semibold text-gray-900">English</span></span>
+          <select class="border border-gray-300 rounded-lg px-3 py-1 text-sm focus:ring-blue-500 focus:border-blue-500">
+            <option>English</option>
+            <option>Spanish</option>
+            <option>French</option>
+          </select>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="p-6 bg-gray-50">
+      <h2 class="text-2xl font-bold mb-4 text-red-600 flex items-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6-4h12V7a2 2 0 00-2-2H8a2 2 0 00-2 2v6zm10 0v2m-4 0v-2m-2 0v2m-2 0v-2" /></svg>
+        Security Settings
+      </h2>
+      <div class="space-y-4">
+        
+        <div class="flex items-center justify-between border-b pb-4">
+          <span class="text-lg text-gray-700">Password</span>
+          <button class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition font-medium shadow-md">
+            Change Password
+          </button>
+        </div>
+        
+        <div class="flex items-center justify-between border-b pb-4">
+          <label for="toggle-2fa" class="text-lg text-gray-700 font-medium">Two-Factor Authentication (2FA)</label>
+          <input id="toggle-2fa" type="checkbox" class="h-6 w-11 rounded-full appearance-none bg-gray-300 checked:bg-green-500 transition duration-200 cursor-pointer" />
+        </div>
+        
+        <div class="flex items-center justify-between">
+          <span class="text-lg text-gray-700">Device & Login History</span>
+          <button class="px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition shadow-sm">
+            View History
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="p-6">
+      <h2 class="text-2xl font-bold mb-4 text-purple-600 flex items-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.476 5.257 6.15 6.2 5.06 7.625l-.01.01C4.4 8.4 4 9.4 4 11v3.159c0 .538-.214 1.055-.595 1.405L2 17h5m-2 2a2 2 0 114 0H5zm12 0a2 2 0 114 0h-4z" /></svg>
+        Notifications & Privacy
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-4">
+        
+        <div class="space-y-3">
+          <h3 class="text-lg font-semibold text-gray-800 border-b pb-1">Notifications</h3>
+          <div class="flex items-center justify-between"><span>Email Notifications</span><input type="checkbox" checked class="h-5 w-5 text-purple-600 rounded border-gray-300" /></div>
+          <div class="flex items-center justify-between"><span>SMS Notifications</span><input type="checkbox" class="h-5 w-5 text-purple-600 rounded border-gray-300" /></div>
+          <div class="flex items-center justify-between"><span>Push Notifications</span><input type="checkbox" checked class="h-5 w-5 text-purple-600 rounded border-gray-300" /></div>
+        </div>
+
+        <div class="space-y-3">
+          <h3 class="text-lg font-semibold text-gray-800 border-b pb-1">Privacy</h3>
+          <div class="flex items-center justify-between"><span>Profile Visibility</span><input type="checkbox" checked class="h-5 w-5 text-purple-600 rounded border-gray-300" /></div>
+          <div class="flex items-center justify-between"><span>Share Data for Marketing</span><input type="checkbox" class="h-5 w-5 text-purple-600 rounded border-gray-300" /></div>
+        </div>
+        
+      </div>
+    </div>
+    
+    <div class="p-6 bg-gray-50">
+      <h2 class="text-2xl font-bold mb-4 text-teal-600 flex items-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
+        Linked Accounts & Payments
+      </h2>
+      <div class="space-y-4">
+        <div class="flex items-center justify-between border-b pb-4">
+          <span class="text-lg text-gray-700">Linked Bank: <span class="font-semibold text-gray-900">Bank of Example</span></span>
+          <button class="text-sm px-3 py-1 bg-gray-100 text-teal-600 rounded-lg hover:bg-gray-200 transition">Manage</button>
+        </div>
+        <div class="flex items-center justify-between">
+          <span class="text-lg text-gray-700">Default Payment: <span class="font-semibold text-gray-900">USD Wallet</span></span>
+          <button class="text-sm px-3 py-1 bg-gray-100 text-teal-600 rounded-lg hover:bg-gray-200 transition">Change</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="p-6">
+      <h2 class="text-2xl font-bold mb-4 text-indigo-600 flex items-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.942 3.31.82 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.942 1.543-.82 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.942-3.31-.82-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.942-1.543.82-3.31 2.37-2.37a1.724 1.724 0 002.572-1.065z" /></svg>
+        General Settings
+      </h2>
+      <div class="space-y-4">
+        
+        <div class="flex items-center justify-between border-b pb-4">
+          <label for="toggle-dark" class="text-lg text-gray-700 font-medium">Dark Mode</label>
+          <input id="toggle-dark" type="checkbox" class="h-6 w-11 rounded-full appearance-none bg-gray-300 checked:bg-indigo-500 transition duration-200 cursor-pointer" />
+        </div>
+        
+        <div class="flex items-center justify-between">
+          <span class="text-lg text-gray-700">Default Trading Platform</span>
+          <select class="border border-gray-300 rounded-lg px-3 py-1 text-sm focus:ring-indigo-500 focus:border-indigo-500">
+            <option>Web</option>
+            <option>Mobile</option>
+            <option>API</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    
+    <div class="p-6 bg-gray-50 border-t border-gray-200">
+      <h2 class="text-2xl font-bold mb-4 text-gray-600 flex items-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m-7.071 7.071l-3.536 3.536M7.432 20.568l3.536-3.536m3.536-3.536l3.536-3.536M7.75 12h.01m8.498 0h.01M12 7.75v.01m0 8.498v.01" /></svg>
+        Support & Legal
+      </h2>
+      <div class="flex space-x-4">
+        <button class="flex-1 px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition font-medium shadow-sm">
+          Contact Support
+        </button>
+        <button class="flex-1 px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition font-medium shadow-sm">
+          View Terms & Privacy
+        </button>
+      </div>
+    </div>
+
+  </div>
+</section>

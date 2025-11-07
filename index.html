@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <title>OXO - Fetch Pages Example</title>
+
+    <script>
+      (function () {
+        try {
+          const stored = localStorage.getItem("theme");
+          if (stored === "dark") {
+            document.documentElement.classList.add("dark");
+          } else if (stored === "light") {
+            document.documentElement.classList.remove("dark");
+          } else if (
+            window.matchMedia &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches
+          ) {
+            document.documentElement.classList.add("dark");
+          }
+          window.__OXO_theme = {
+            get: () =>
+              document.documentElement.classList.contains("dark")
+                ? "dark"
+                : "light",
+            set: (t) => {
+              if (t === "dark") document.documentElement.classList.add("dark");
+              else document.documentElement.classList.remove("dark");
+              localStorage.setItem("theme", t);
+            },
+          };
+        } catch (e) {
+          console.warn("theme init failed", e);
+        }
+      })();
+    </script>
+
+    <link rel="stylesheet" href="style.css" />
+    <meta
+      name="description"
+      content="OXO dashboard example with fetch-fragments and dark mode"
+    />
+    <link rel="icon" href="/favicon.ico" />
+    <style>
+      :focus {
+        outline: 3px solid rgba(99, 102, 241, 0.6);
+        outline-offset: 2px;
+      }
+
+      .nav-link {
+        padding: 12px;
+        border-radius: 8px;
+        font-weight: 500;
+        transition: background-color 0.15s, color 0.15s;
+        width: 100%;
+        text-align: left;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+      }
+      .nav-link:hover {
+        background-color: #f3f4f6;
+      }
+      html.dark .nav-link:hover {
+        background-color: #0f172a;
+      }
+      .nav-link.active {
+        background-color: #7c3aed;
+        color: white !important;
+      }
+
+      /* ✅ Fix submenu visibility on mobile + better visibility */
+      @media (max-width: 640px) {
+        .submenu {
+          position: relative;
+          display: none;
+          padding-left: 1.5rem;
+          background-color: #f9fafb; /* light gray background */
+          border-left: 3px solid #7c3aed; /* violet accent */
+          z-index: 50;
+        }
+        .submenu.show {
+          display: flex !important;
+        }
+        .submenu .nav-link {
+          background-color: transparent;
+        }
+        .submenu .nav-link:hover {
+          background-color: #e5e7eb; /* slightly darker on hover */
+        }
+      }
+    </style>
+  </head>
+
+  <body
+    class="bg-white text-slate-800 antialiased transition-colors duration-300"
+  >
+    <a class="sr-only focus:not-sr-only p-2" href="#main">Skip to content</a>
+
+    <div class="flex">
+      <!-- SIDEBAR -->
+      <aside
+        class="fixed left-0 top-0 bottom-0 bg-white border-r border-slate-200 text-slate-800 flex flex-col justify-between sidebar
+         w-16 sm:w-64 md:w-72 transition-width duration-300"
+        aria-labelledby="site-brand"
+        role="navigation"
+      >
+        <div class="px-2 sm:px-4 flex flex-col gap-1">
+          <!-- Brand -->
+          <div
+            id="site-brand"
+            class="py-3 px-2 text-2xl sm:text-4xl font-bold text-slate-800 border-b border-slate-200 flex justify-center sm:justify-start"
+          >
+            <span class="hidden sm:inline">OXO</span>
+            <span class="sm:hidden">O<br />X<br />O</span>
+          </div>
+
+          <!-- Dashboard -->
+          <button
+            type="button"
+            class="nav-link flex items-center gap-3 p-3 rounded-lg bg-violet-600 text-white font-medium w-full text-left"
+            data-page="dashboard"
+            aria-current="true"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide lucide-layout-grid"
+            >
+              <rect width="7" height="7" x="3" y="3" />
+              <rect width="7" height="7" x="14" y="3" />
+              <rect width="7" height="7" x="14" y="14" />
+              <rect width="7" height="7" x="3" y="14" />
+            </svg>
+            <span class="hidden sm:inline">Dashboard</span>
+          </button>
+
+          <!-- Navigation -->
+          <nav
+            class="flex flex-col gap-1 mt-1"
+            id="sidebarNav"
+            aria-label="Main navigation"
+          >
+            <!-- My Account -->
+            <button
+              class="nav-link flex items-center gap-3 text-slate-800"
+              data-page="my-account"
+            >
+              <svg
+                class="w-5 h-5"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                <circle cx="12" cy="7" r="4" />
+              </svg>
+              <span class="hidden sm:inline">My Account</span>
+            </button>
+
+            <!-- Wallet -->
+            <button
+              class="nav-link flex items-center gap-3 text-slate-800"
+              data-page="wallet"
+            >
+              <svg
+                class="w-5 h-5"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h14a2 2 0 0 1 0 4H5a2 2 0 0 0 0 4h14v2a1 1 0 0 0 1 1h2v-2.776A1.98 1.98 0 0 0 22 13V9a1 1 0 0 0-1-1h-2Z"
+                />
+                <path d="M16 7h-2" />
+              </svg>
+              <span class="hidden sm:inline">My Wallet</span>
+            </button>
+
+            <!-- Payment Details -->
+            <button
+              class="nav-link flex items-center gap-3 text-slate-800"
+              data-page="payment-details"
+            >
+              <svg
+                class="w-5 h-5"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <rect width="20" height="14" x="2" y="5" rx="2" />
+                <line x1="2" x2="22" y1="10" y2="10" />
+              </svg>
+              <span class="hidden sm:inline">Payment Details</span>
+            </button>
+
+            <!-- Funds Dropdown -->
+            <button
+              type="button"
+              class="nav-link flex justify-between items-center text-slate-800"
+              data-dropdown
+              aria-expanded="false"
+            >
+              <span class="flex items-center gap-3">
+                <svg
+                  class="w-5 h-5"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <line x1="12" x2="12" y1="2" y2="22" />
+                  <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                </svg>
+                <span class="hidden sm:inline">Funds</span>
+              </span>
+              <img src="./images/dropdown.svg" alt="" class="h-5 sm:h-8" />
+            </button>
+
+            <!-- Submenu -->
+            <div class="submenu pl-8 flex flex-col gap-1 hidden">
+              <button class="nav-link text-slate-600" data-page="deposit">
+                Deposit
+              </button>
+              <button class="nav-link text-slate-600" data-page="withdrawal">
+                Withdrawal
+              </button>
+              <button
+                class="nav-link text-slate-600"
+                data-page="transaction-history"
+              >
+                Transaction History
+              </button>
+            </div>
+
+            <!-- KYC -->
+            <button
+              class="nav-link flex items-center gap-3 text-slate-800"
+              data-page="kyc"
+            >
+              <svg
+                class="w-5 h-5"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"
+                />
+                <path d="M14 2v4a2 2 0 0 0 2 2h4" />
+                <path d="M10 9H8" />
+                <path d="M16 13H8" />
+                <path d="M16 17H8" />
+              </svg>
+              <span class="hidden sm:inline">KYC</span>
+            </button>
+
+            <!-- Settings Dropdown -->
+            <button
+              type="button"
+              class="nav-link flex justify-between items-center text-slate-800"
+              data-dropdown
+              aria-expanded="false"
+            >
+              <span class="flex items-center gap-3">
+                <svg
+                  class="w-5 h-5"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M12.22 2h-.44a2 2 0 0 0-2 2v.22l-.63.63a2 2 0 0 1-2.07.46l-.27-.08a2 2 0 0 0-2.82 2.82l.08.27c.47.8.27 1.77-.46 2.07l-.63.63V12.22a2 2 0 0 0-2 2v.44a2 2 0 0 0 2 2h.22l.63.63c.47.8.27 1.77-.46 2.07l-.27.08a2 2 0 0 0 2.82 2.82l.27-.08c.8-.47 1.77-.27 2.07.46l.63.63h.44a2 2 0 0 0 2-2v-.22l.63-.63c.8-.47 1.77-.27 2.07.46l.27.08a2 2 0 0 0 2.82-2.82l-.08-.27c-.47-.8-.27-1.77.46-2.07l.63-.63V12.22a2 2 0 0 0 2-2v-.44a2 2 0 0 0-2-2h-.22l-.63-.63c-.8-.47-1.77-.27-2.07-.46l-.27-.08a2 2 0 0 0-2.82-2.82l-.08.27c-.47.8-.27 1.77.46 2.07l.63.63V2.22a2 2 0 0 0-2-2Z"
+                  />
+                  <circle cx="12" cy="12" r="3" />
+                </svg>
+                <span class="hidden sm:inline">Settings</span>
+              </span>
+              <img
+                src="./images/dropdown.svg"
+                alt=""
+                class="h-5 sm:h-8 transition-transform duration-200 dropdown-arrow"
+              />
+            </button>
+
+            <!-- Submenu -->
+            <div class="submenu pl-8 flex flex-col gap-1 hidden">
+              <button class="nav-link text-slate-600" data-page="profile">
+                Profile
+              </button>
+            </div>
+          </nav>
+        </div>
+
+        <!-- Bottom -->
+        <div class="border-t border-slate-200 mx-2 sm:mx-6"></div>
+        <div class="p-2 sm:p-4 flex flex-col gap-2">
+          <button
+            class="nav-link flex items-center gap-3 text-slate-800"
+            data-page="logout"
+          >
+            <svg
+              class="w-5 h-5"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+              <polyline points="16 17 21 12 16 7" />
+              <line x1="21" x2="9" y1="12" y2="12" />
+            </svg>
+            <span class="hidden sm:inline">Logout</span>
+          </button>
+        </div>
+      </aside>
+
+      <!-- MAIN -->
+      <div
+        class="flex-1 min-h-screen ml-16 sm:ml-64 md:ml-72 transition-all duration-300"
+      >
+        <header
+          class="fixed left-16 sm:left-64 md:left-72 right-0 top-0 bg-white border-b border-slate-200 h-16 flex items-center px-4 z-20 justify-between transition-all duration-300"
+        >
+          <div class="text-lg font-semibold">OXO Trading</div>
+          <button
+            id="themeToggle"
+            class="p-3 w-12 h-12 rounded-lg flex items-center justify-center text-slate-700 transition"
+          >
+            <svg
+              id="themeIcon"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide lucide-moon"
+            >
+              <path
+                d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"
+              />
+            </svg>
+          </button>
+        </header>
+
+        <main id="main" class="p-4 md:p-6 pt-1" tabindex="-1">
+          <div
+            id="pageContent"
+            tabindex="-1"
+            class="min-h-[300px]"
+            aria-live="polite"
+            aria-busy="false"
+          >
+            <div class="text-slate-500">Content goes here...</div>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <script>
+      window.tailwind = window.tailwind || {};
+      window.tailwind.config = window.tailwind.config || { darkMode: "class" };
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script type="module" src="main.js"></script>
+
+    <!-- ✅ Mobile submenu toggle fix -->
+    <script>
+      document.querySelectorAll("[data-dropdown]").forEach((dropdown) => {
+        dropdown.addEventListener("click", () => {
+          const submenu = dropdown.nextElementSibling;
+          const expanded = dropdown.getAttribute("aria-expanded") === "true";
+          dropdown.setAttribute("aria-expanded", !expanded);
+          submenu.classList.toggle("show", !expanded);
+        });
+      });
+    </script>
+  </body>
+</html>
