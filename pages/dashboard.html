@@ -3,15 +3,22 @@
 
   <div class="dashboard-grid grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
 
-    <div class="dashboard-quick-trade md:col-span-1 bg-green-600 p-6 rounded-xl shadow-lg flex flex-col justify-between hover:bg-green-700 transition duration-300">
-      <div class="quick-trade-content text-white">
-        <h2 class="quick-trade-title text-2xl font-bold mb-1">Quick Trade</h2>
-        <p class="quick-trade-desc text-sm opacity-90">Execute market orders instantly.</p>
-      </div>
-      <div class="quick-trade-buttons flex space-x-3 mt-4">
-        <button class="quick-trade-buy flex-1 px-4 py-2 bg-white text-green-700 font-semibold rounded-lg hover:bg-gray-100 transition shadow-md">Buy</button>
-        <button class="quick-trade-sell flex-1 px-4 py-2 bg-red-500 text-white font-semibold rounded-lg hover:bg-red-600 transition shadow-md">Sell</button>
-      </div>
+    <div class="dashboard-total-deposit bg-white p-6 rounded-xl shadow-lg border-l-4 border-emerald-500">
+      <p class="deposit-label text-sm font-medium text-gray-500">Total Deposits</p>
+      <p class="deposit-amount text-3xl font-extrabold text-emerald-600 mt-1">$25,000</p>
+      <p class="deposit-info text-sm text-gray-500 mt-2">
+        Last deposit: <span class="last-deposit font-bold text-gray-900">$1,000</span>
+        <span class="text-xs text-gray-400 ml-2">2 days ago</span>
+      </p>
+    </div>
+
+    <div class="dashboard-total-withdrawal bg-white p-6 rounded-xl shadow-lg border-l-4 border-purple-500">
+      <p class="withdrawal-label text-sm font-medium text-gray-500">Total Withdrawals</p>
+      <p class="withdrawal-amount text-3xl font-extrabold text-purple-600 mt-1">$8,500</p>
+      <p class="withdrawal-info text-sm text-gray-500 mt-2">
+        Last withdrawal: <span class="last-withdrawal font-bold text-gray-900">$500</span>
+        <span class="text-xs text-gray-400 ml-2">5 days ago</span>
+      </p>
     </div>
 
     <div class="dashboard-balance-card bg-white p-6 rounded-xl shadow-lg border-l-4 border-blue-500">
@@ -42,9 +49,9 @@
   <div class="dashboard-main-grid grid grid-cols-1 lg:grid-cols-3 gap-6">
 
     <div class="dashboard-positions-section lg:col-span-2 bg-white p-6 rounded-xl shadow-lg border">
-      <div class="positions-header flex justify-between items-center mb-4 border-b pb-3">
-        <h2 class="positions-title text-2xl font-bold text-indigo-600">Open Positions</h2>
-        <button class="positions-view-btn px-4 py-2 bg-indigo-100 text-indigo-600 text-sm font-medium rounded-lg hover:bg-indigo-200 transition">View Full Portfolio</button>
+      <div class="positions-header flex justify-between items-center mb-4 border-b pb-3 ">
+        <h2 class="positions-title text-sm sm:text-2xl font-bold text-indigo-600 mr-2">Open Positions</h2>
+        <button class="positions-view-btn px-4 py-2 bg-indigo-100 text-indigo-600 text-sm font-medium rounded-lg hover:bg-indigo-200 transition">Portfolio</button>
       </div>
 
       <div class="positions-table-container overflow-x-auto">

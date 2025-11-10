@@ -1,179 +1,272 @@
-<section class="mt-16 mx-auto p-4 md:p-6 lg:p-8">
-  <!-- Header -->
-  <header class="mb-6 flex items-start justify-between gap-4">
-    <div>
-      <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900">KYC Verification</h1>
-      <p class="mt-1 text-sm text-gray-500">Complete the steps below to verify your account. Documents are encrypted and securely stored.</p>
-    </div>
+<section class="kyc-main mt-16 mx-auto py-2 md:p-6 lg:p-8 w-[295px] sm:w-[460px] lg:w-[800px] xl:w-full">
+   <!-- Header -->
+   <header class="kyc-header mb-6 flex items-start justify-between gap-4 p-4 rounded-xl flex-wrap">
+     <div class="kyc-header-content">
+       <h1 class="kyc-title text-3xl md:text-4xl font-extrabold text-gray-900">
+         <span class="kyc-title-text">KYC Verification</span>
+       </h1>
+       <p class="kyc-subtitle mt-1 text-sm text-gray-500">
+         <span class="kyc-subtitle-text">Complete the steps below to verify your account. Documents are encrypted and securely stored.</span>
+       </p>
+     </div>
 
-    <div class="text-right">
-      <div class="text-sm text-gray-500">Status</div>
-      <div class="mt-1 inline-flex items-center gap-2">
-        <span class="inline-flex items-center gap-2 rounded-full bg-yellow-50 text-yellow-700 px-3 py-1 text-sm font-semibold">● Pending</span>
-        <span class="text-xs text-gray-400">50% complete</span>
-      </div>
-    </div>
-  </header>
+     <div class="kyc-status-section text-right">
+       <!-- <div class="kyc-status-label text-sm">
+         <span class="kyc-status-label-text">Status</span>
+       </div> -->
+       <div class="kyc-status-display mt-1 inline-flex items-center gap-2">
+         <span class="kyc-status-badge inline-flex items-center gap-2 rounded-full px-3 py-1 text-sm font-semibold ">
+           <span class="kyc-status-dot">Status>>></span> <span class="kyc-status-text">Pending</span>
+         </span>
+         <!-- <span class="kyc-progress-text text-xs">
+           <span class="kyc-progress-text-content">50% complete</span>
+         </span> -->
+       </div>
+     </div>
+   </header>
 
   <!-- Progress card -->
-  <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 mb-6">
-    <div class="flex items-center justify-between mb-4 gap-4">
-      <div>
-        <h2 class="text-lg font-semibold text-gray-800">Verification progress</h2>
-        <p class="text-sm text-gray-500 mt-1">Finish all sections to complete verification and unlock higher limits.</p>
+  <div class="kyc-progress-card bg-white rounded-2xl border border-gray-100 shadow-sm p-6 mb-6">
+    <div class="kyc-progress-header flex items-center justify-between mb-4 gap-4">
+      <div class="kyc-progress-info">
+        <h2 class="kyc-progress-title text-lg font-semibold text-gray-800">
+          <span class="kyc-progress-title-text">Verification progress</span>
+        </h2>
+        <p class="kyc-progress-description text-sm text-gray-500 mt-1">
+          <span class="kyc-progress-description-text">Finish all sections to complete verification and unlock higher limits.</span>
+        </p>
       </div>
-      <div class="text-sm text-gray-500 text-right">
-        <div class="font-medium text-gray-700">50%</div>
-        <div class="text-xs text-gray-400">Halfway there</div>
+      <div class="kyc-progress-percentage text-sm text-gray-500 text-right">
+        <div class="kyc-percentage-value font-medium text-gray-700">
+          <span class="kyc-percentage-value-text">50%</span>
+        </div>
+        <div class="kyc-percentage-label text-xs text-gray-400">
+          <span class="kyc-percentage-label-text">Halfway there</span>
+        </div>
       </div>
     </div>
 
-    <div class="w-full bg-gray-100 rounded-full h-3 overflow-hidden">
-      <div class="h-3 bg-gradient-to-r from-emerald-400 to-emerald-600" style="width:50%"></div>
+    <div class="kyc-progress-bar w-full bg-gray-100 rounded-full h-3 overflow-hidden">
+      <div class="kyc-progress-fill h-3 bg-gradient-to-r from-emerald-400 to-emerald-600" style="width:50%"></div>
     </div>
 
-    <div class="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-3 text-sm">
-      <div class="flex items-center gap-3">
-        <div class="w-3 h-3 rounded-full bg-emerald-400"></div>
-        <div class="text-gray-700">Personal info</div>
+    <div class="kyc-progress-steps mt-4 grid grid-cols-1 sm:grid-cols-3 gap-3 text-sm">
+      <div class="kyc-step-item flex items-center gap-3">
+        <div class="kyc-step-dot w-3 h-3 rounded-full bg-emerald-400"></div>
+        <div class="kyc-step-label text-gray-700">
+          <span class="kyc-step-label-text">Personal info</span>
+        </div>
       </div>
-      <div class="flex items-center gap-3">
-        <div class="w-3 h-3 rounded-full bg-yellow-400"></div>
-        <div class="text-gray-700">ID documents</div>
+      <div class="kyc-step-item flex items-center gap-3">
+        <div class="kyc-step-dot w-3 h-3 rounded-full bg-yellow-400"></div>
+        <div class="kyc-step-label text-gray-700">
+          <span class="kyc-step-label-text">ID documents</span>
+        </div>
       </div>
-      <div class="flex items-center gap-3">
-        <div class="w-3 h-3 rounded-full bg-gray-200"></div>
-        <div class="text-gray-500">Selfie verification</div>
+      <div class="kyc-step-item flex items-center gap-3">
+        <div class="kyc-step-dot w-3 h-3 rounded-full bg-gray-200"></div>
+        <div class="kyc-step-label text-gray-500">
+          <span class="kyc-step-label-text">Selfie verification</span>
+        </div>
       </div>
     </div>
   </div>
 
   <!-- Personal Information -->
-  <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 mb-6">
-    <div class="flex items-center justify-between mb-4">
-      <h2 class="text-lg font-semibold text-gray-800">Personal Information</h2>
-      <span class="text-xs text-gray-400">All fields required</span>
+  <div class="kyc-personal-section bg-white rounded-2xl border border-gray-100 shadow-sm p-6 mb-6">
+    <div class="kyc-personal-header flex items-center justify-between mb-4">
+      <h2 class="kyc-personal-title text-lg font-semibold text-gray-800">
+        <span class="kyc-personal-title-text">Personal Information</span>
+      </h2>
+      <span class="kyc-personal-required text-xs text-gray-400">
+        <span class="kyc-personal-required-text">All fields required</span>
+      </span>
     </div>
 
-    <form class="grid grid-cols-1 md:grid-cols-2 gap-4" autocomplete="on" novalidate>
-      <div>
-        <label class="block text-sm font-medium text-gray-700 mb-1" for="fullName">Full name</label>
-        <input id="fullName" name="fullName" type="text" placeholder="John Doe" class="w-full border border-gray-200 px-3 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+    <form class="kyc-personal-form grid grid-cols-1 md:grid-cols-2 gap-4" autocomplete="on" novalidate>
+      <div class="kyc-form-field">
+        <label class="kyc-form-label block text-sm font-medium text-gray-700 mb-1" for="fullName">
+          <span class="kyc-form-label-text">Full name</span>
+        </label>
+        <input id="fullName" name="fullName" type="text" placeholder="John Doe" class="kyc-form-input w-full border border-gray-200 px-3 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" />
       </div>
 
-      <div>
-        <label class="block text-sm font-medium text-gray-700 mb-1" for="dob">Date of birth</label>
-        <input id="dob" name="dob" type="date" class="w-full border border-gray-200 px-3 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+      <div class="kyc-form-field">
+        <label class="kyc-form-label block text-sm font-medium text-gray-700 mb-1" for="dob">
+          <span class="kyc-form-label-text">Date of birth</span>
+        </label>
+        <input id="dob" name="dob" type="date" class="kyc-form-input w-full border border-gray-200 px-3 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" />
       </div>
 
-      <div>
-        <label class="block text-sm font-medium text-gray-700 mb-1" for="nationality">Nationality</label>
-        <input id="nationality" name="nationality" type="text" placeholder="Country" class="w-full border border-gray-200 px-3 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+      <div class="kyc-form-field">
+        <label class="kyc-form-label block text-sm font-medium text-gray-700 mb-1" for="nationality">
+          <span class="kyc-form-label-text">Nationality</span>
+        </label>
+        <input id="nationality" name="nationality" type="text" placeholder="Country" class="kyc-form-input w-full border border-gray-200 px-3 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" />
       </div>
 
-      <div>
-        <label class="block text-sm font-medium text-gray-700 mb-1" for="phone">Phone number</label>
-        <input id="phone" name="phone" type="tel" placeholder="+1 (555) 000-0000" class="w-full border border-gray-200 px-3 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+      <div class="kyc-form-field">
+        <label class="kyc-form-label block text-sm font-medium text-gray-700 mb-1" for="phone">
+          <span class="kyc-form-label-text">Phone number</span>
+        </label>
+        <input id="phone" name="phone" type="tel" placeholder="+1 (555) 000-0000" class="kyc-form-input w-full border border-gray-200 px-3 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" />
       </div>
 
       <!-- Address (full width) -->
-      <div class="md:col-span-2">
-        <label class="block text-sm font-medium text-gray-700 mb-2">Address</label>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-          <input type="text" placeholder="Street address" class="border border-gray-200 px-3 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" />
-          <input type="text" placeholder="City" class="border border-gray-200 px-3 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" />
-          <input type="text" placeholder="State / Province" class="border border-gray-200 px-3 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+      <div class="kyc-address-section md:col-span-2">
+        <label class="kyc-address-label block text-sm font-medium text-gray-700 mb-2">
+          <span class="kyc-address-label-text">Address</span>
+        </label>
+        <div class="kyc-address-street grid grid-cols-1 md:grid-cols-3 gap-3">
+          <input type="text" placeholder="Street address" class="kyc-address-input border border-gray-200 px-3 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+          <input type="text" placeholder="City" class="kyc-address-input border border-gray-200 px-3 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+          <input type="text" placeholder="State / Province" class="kyc-address-input border border-gray-200 px-3 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" />
         </div>
 
-        <div class="mt-3 grid grid-cols-1 md:grid-cols-2 gap-3">
-          <input type="text" placeholder="Postal code" class="border border-gray-200 px-3 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" />
-          <input type="text" placeholder="Country" class="border border-gray-200 px-3 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+        <div class="kyc-address-postal mt-3 grid grid-cols-1 md:grid-cols-2 gap-3">
+          <input type="text" placeholder="Postal code" class="kyc-address-input border border-gray-200 px-3 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+          <input type="text" placeholder="Country" class="kyc-address-input border border-gray-200 px-3 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" />
         </div>
       </div>
     </form>
   </div>
 
   <!-- Documents upload -->
-  <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 mb-6">
-    <div class="flex items-center justify-between mb-4">
-      <h2 class="text-lg font-semibold text-gray-800">Identity Document</h2>
-      <span class="text-sm text-gray-500">Accepted: JPG, PNG, PDF</span>
+  <div class="kyc-documents-section bg-white rounded-2xl border border-gray-100 shadow-sm p-6 mb-6">
+    <div class="kyc-documents-header flex items-center justify-between mb-4">
+      <h2 class="kyc-documents-title text-lg font-semibold text-gray-800">
+        <span class="kyc-documents-title-text">Identity Document</span>
+      </h2>
+      <span class="kyc-documents-accepted text-sm text-gray-500">
+        <span class="kyc-documents-accepted-text">Accepted: JPG, PNG, PDF</span>
+      </span>
     </div>
 
-    <p class="text-sm text-gray-500 mb-4">Upload a clear copy of your ID document. If your document has two sides, upload both.</p>
+    <p class="kyc-documents-description text-sm text-gray-500 mb-4">
+      <span class="kyc-documents-description-text">Upload a clear copy of your ID document. If your document has two sides, upload both.</span>
+    </p>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <label class="flex flex-col items-start gap-2 p-4 border border-dashed border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer">
-        <div class="flex items-center gap-3">
-          <svg class="w-6 h-6 text-gray-400" viewBox="0 0 24 24" fill="none"><path d="M12 3v12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M5 12h14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-          <div>
-            <div class="text-sm font-medium text-gray-700">Front side</div>
-            <div class="text-xs text-gray-400">Passport / ID front</div>
+    <div class="kyc-documents-grid grid grid-cols-1 md:grid-cols-2 gap-4">
+      <label class="kyc-upload-front flex flex-col items-start gap-2 p-4 border border-dashed border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer">
+        <div class="kyc-upload-front-content flex items-center gap-3">
+          <svg class="kyc-upload-icon w-6 h-6 text-gray-400" viewBox="0 0 24 24" fill="none">
+            <path d="M12 3v12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M5 12h14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+          <div class="kyc-upload-front-info">
+            <div class="kyc-upload-front-title text-sm font-medium text-gray-700">
+              <span class="kyc-upload-front-title-text">Front side</span>
+            </div>
+            <div class="kyc-upload-front-subtitle text-xs text-gray-400">
+              <span class="kyc-upload-front-subtitle-text">Passport / ID front</span>
+            </div>
           </div>
         </div>
-        <input aria-label="Upload front side of identity document" type="file" accept=".png,.jpg,.jpeg,.pdf" class="sr-only" />
-        <small class="text-xs text-gray-400 mt-1">Max 10MB</small>
+        <input aria-label="Upload front side of identity document" type="file" accept=".png,.jpg,.jpeg,.pdf" class="kyc-upload-input sr-only" />
+        <small class="kyc-upload-front-size text-xs text-gray-400 mt-1">
+          <span class="kyc-upload-front-size-text">Max 10MB</span>
+        </small>
       </label>
 
-      <label class="flex flex-col items-start gap-2 p-4 border border-dashed border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer">
-        <div class="flex items-center gap-3">
-          <svg class="w-6 h-6 text-gray-400" viewBox="0 0 24 24" fill="none"><path d="M12 3v12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M5 12h14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-          <div>
-            <div class="text-sm font-medium text-gray-700">Back side</div>
-            <div class="text-xs text-gray-400">If applicable</div>
+      <label class="kyc-upload-back flex flex-col items-start gap-2 p-4 border border-dashed border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer">
+        <div class="kyc-upload-back-content flex items-center gap-3">
+          <svg class="kyc-upload-icon w-6 h-6 text-gray-400" viewBox="0 0 24 24" fill="none">
+            <path d="M12 3v12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M5 12h14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+          <div class="kyc-upload-back-info">
+            <div class="kyc-upload-back-title text-sm font-medium text-gray-700">
+              <span class="kyc-upload-back-title-text">Back side</span>
+            </div>
+            <div class="kyc-upload-back-subtitle text-xs text-gray-400">
+              <span class="kyc-upload-back-subtitle-text">If applicable</span>
+            </div>
           </div>
         </div>
-        <input aria-label="Upload back side of identity document" type="file" accept=".png,.jpg,.jpeg,.pdf" class="sr-only" />
-        <small class="text-xs text-gray-400 mt-1">Optional for passports</small>
+        <input aria-label="Upload back side of identity document" type="file" accept=".png,.jpg,.jpeg,.pdf" class="kyc-upload-input sr-only" />
+        <small class="kyc-upload-back-size text-xs text-gray-400 mt-1">
+          <span class="kyc-upload-back-size-text">Optional for passports</span>
+        </small>
       </label>
     </div>
   </div>
 
   <!-- Proof of address -->
-  <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 mb-6">
-    <div class="flex items-center justify-between mb-4">
-      <h2 class="text-lg font-semibold text-gray-800">Proof of Address</h2>
-      <span class="text-sm text-gray-500">Within last 3 months</span>
+  <div class="kyc-address-proof-section bg-white rounded-2xl border border-gray-100 shadow-sm p-6 mb-6">
+    <div class="kyc-address-proof-header flex items-center justify-between mb-4">
+      <h2 class="kyc-address-proof-title text-lg font-semibold text-gray-800">
+        <span class="kyc-address-proof-title-text">Proof of Address</span>
+      </h2>
+      <span class="kyc-address-proof-requirement text-sm text-gray-500">
+        <span class="kyc-address-proof-requirement-text">Within last 3 months</span>
+      </span>
     </div>
 
-    <p class="text-sm text-gray-500 mb-4">Upload a utility bill, bank statement or government-issued letter showing your name and address.</p>
+    <p class="kyc-address-proof-description text-sm text-gray-500 mb-4">
+      <span class="kyc-address-proof-description-text">Upload a utility bill, bank statement or government-issued letter showing your name and address.</span>
+    </p>
 
-    <label class="flex flex-col gap-2 p-4 border border-dashed border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer">
-      <div class="flex items-center gap-3">
-        <svg class="w-6 h-6 text-gray-400" viewBox="0 0 24 24" fill="none"><path d="M21 15V8a2 2 0 0 0-2-2h-3M3 9v6a2 2 0 0 0 2 2h3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-        <div class="text-sm font-medium text-gray-700">Upload proof of address</div>
+    <label class="kyc-upload-address flex flex-col gap-2 p-4 border border-dashed border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer">
+      <div class="kyc-upload-address-content flex items-center gap-3">
+        <svg class="kyc-upload-address-icon w-6 h-6 text-gray-400" viewBox="0 0 24 24" fill="none">
+          <path d="M21 15V8a2 2 0 0 0-2-2h-3M3 9v6a2 2 0 0 0 2 2h3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        <div class="kyc-upload-address-title text-sm font-medium text-gray-700">
+          <span class="kyc-upload-address-title-text">Upload proof of address</span>
+        </div>
       </div>
-      <input aria-label="Upload proof of address" type="file" accept=".png,.jpg,.jpeg,.pdf" class="sr-only" />
-      <small class="text-xs text-gray-400 mt-1">Accepted formats: JPG, PNG, PDF — Max 10MB</small>
+      <input aria-label="Upload proof of address" type="file" accept=".png,.jpg,.jpeg,.pdf" class="kyc-upload-address-input sr-only" />
+      <small class="kyc-upload-address-size text-xs text-gray-400 mt-1">
+        <span class="kyc-upload-address-size-text">Accepted formats: JPG, PNG, PDF — Max 10MB</span>
+      </small>
     </label>
   </div>
 
   <!-- Selfie / Face verification -->
-  <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 mb-6">
-    <div class="flex items-center justify-between mb-4">
-      <h2 class="text-lg font-semibold text-gray-800">Selfie Verification</h2>
-      <span class="text-sm text-gray-500">Hold ID next to face</span>
+  <div class="kyc-selfie-section bg-white rounded-2xl border border-gray-100 shadow-sm p-6 mb-6">
+    <div class="kyc-selfie-header flex items-center justify-between mb-4">
+      <h2 class="kyc-selfie-title text-lg font-semibold text-gray-800">
+        <span class="kyc-selfie-title-text">Selfie Verification</span>
+      </h2>
+      <span class="kyc-selfie-instruction text-sm text-gray-500">
+        <span class="kyc-selfie-instruction-text">Hold ID next to face</span>
+      </span>
     </div>
 
-    <p class="text-sm text-gray-500 mb-4">Upload a selfie holding your ID clearly so we can match your face with the document.</p>
+    <p class="kyc-selfie-description text-sm text-gray-500 mb-4">
+      <span class="kyc-selfie-description-text">Upload a selfie holding your ID clearly so we can match your face with the document.</span>
+    </p>
 
-    <label class="flex flex-col gap-3 p-4 border border-dashed border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer items-start">
-      <div class="flex items-center gap-3">
-        <svg class="w-6 h-6 text-gray-400" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="3" stroke="currentColor" stroke-width="1.5"/><path d="M5 21v-1a4 4 0 0 1 4-4h6a4 4 0 0 1 4 4v1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-        <div class="text-sm font-medium text-gray-700">Upload selfie with ID</div>
+    <label class="kyc-upload-selfie flex flex-col gap-3 p-4 border border-dashed border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer items-start">
+      <div class="kyc-upload-selfie-content flex items-center gap-3">
+        <svg class="kyc-upload-selfie-icon w-6 h-6 text-gray-400" viewBox="0 0 24 24" fill="none">
+          <circle cx="12" cy="8" r="3" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M5 21v-1a4 4 0 0 1 4-4h6a4 4 0 0 1 4 4v1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        <div class="kyc-upload-selfie-title text-sm font-medium text-gray-700">
+          <span class="kyc-upload-selfie-title-text">Upload selfie with ID</span>
+        </div>
       </div>
-      <input aria-label="Upload selfie with ID" type="file" accept=".png,.jpg,.jpeg" class="sr-only" />
-      <small class="text-xs text-gray-400 mt-1">Tip: ensure good lighting and that all text on the ID is legible.</small>
+      <input aria-label="Upload selfie with ID" type="file" accept=".png,.jpg,.jpeg" class="kyc-upload-selfie-input sr-only" />
+      <small class="kyc-upload-selfie-tip text-xs text-gray-400 mt-1">
+        <span class="kyc-upload-selfie-tip-text">Tip: ensure good lighting and that all text on the ID is legible.</span>
+      </small>
     </label>
   </div>
 
   <!-- Actions -->
-  <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
-    <div class="text-sm text-gray-500">Submitting will start automated verification. You will receive an email when complete.</div>
+  <div class="kyc-actions flex flex-col sm:flex-row items-center justify-between gap-4">
+    <div class="kyc-actions-info text-sm text-gray-500">
+      <span class="kyc-actions-info-text">Submitting will start automated verification. You will receive an email when complete.</span>
+    </div>
 
-    <div class="flex items-center gap-3">
-      <button class="px-4 py-2 bg-white border border-gray-200 rounded-lg text-sm text-gray-700 hover:shadow-sm">Save draft</button>
-      <button class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm font-semibold">Submit KYC</button>
+    <div class="kyc-actions-buttons flex items-center gap-3">
+      <button class="kyc-save-draft-btn px-4 py-2 bg-white border border-gray-200 rounded-lg text-sm text-gray-700 hover:shadow-sm">
+        <span class="kyc-save-draft-btn-text">Save draft</span>
+      </button>
+      <button class="kyc-submit-btn px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm font-semibold">
+        <span class="kyc-submit-btn-text">Submit KYC</span>
+      </button>
     </div>
   </div>
 </section>

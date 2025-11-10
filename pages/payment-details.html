@@ -1,131 +1,308 @@
-<section class="payment-main mt-16 mx-auto p-4 sm:p-6 lg:p-8">
-  <h1 class="payment-title text-4xl font-extrabold text-gray-900 mb-8 tracking-tight">💳 Payment & Billing Details</h1>
-
-  <div class="payment-section bg-white p-6 sm:p-8 rounded-xl border border-gray-200 shadow-lg mb-8">
-    <h2 class="payment-section-title text-2xl font-bold text-gray-800 mb-6 flex items-center">
-      Saved Payment Methods
+<section class="payment-main mt-16 mx-auto p-4 sm:p-6 lg:p-8 w-[295px] sm:w-[450px] lg:w-[800px] xl:w-full">
+  <h1
+    class="payment-title text-4xl font-extrabold text-gray-900 mb-8 tracking-tight"
+  >
+    <span class="payment-title-emoji">💳</span> <span class="payment-title-text">Payment & Billing Details</span>
+  </h1>
+  <div
+    class="payment-saved-methods-section payment-section bg-white p-6 sm:p-8 rounded-xl border border-gray-200 shadow-lg mb-8"
+  >
+    <h2
+      class="payment-section-title text-2xl font-bold text-gray-800 mb-6 flex items-center"
+    >
+      <span class="payment-section-title-icon">💳</span> <span class="payment-section-title-text">Saved Payment Methods</span>
     </h2>
-    <div class="grid grid-cols-1 gap-6">
-      <div class="payment-method-card p-5 border border-blue-500 bg-blue-50 rounded-xl flex flex-col sm:flex-row justify-between items-start sm:items-center transition duration-300 hover:shadow-md relative">
-        <div class="flex items-center space-x-4">
-          <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path></svg>
-          <div>
-            <p class="font-bold text-lg text-gray-900">Visa ending **1234**</p>
-            <p class="text-sm text-gray-600">Expires 12/25</p>
+    <div class="payment-methods-grid grid grid-cols-1 gap-6">
+      <div
+        class="payment-method-card-primary payment-method-card p-5 border border-blue-500 bg-blue-50 rounded-xl flex flex-col sm:flex-row justify-between items-start sm:items-center transition duration-300 hover:shadow-md"
+      >
+        <div class="payment-method-card-info flex items-center space-x-4">
+          <svg
+            class="payment-method-card-icon w-8 h-8 text-blue-600"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"
+            ></path>
+          </svg>
+          <div class="payment-method-card-details">
+            <p class="payment-method-card-name font-bold text-lg text-gray-900">
+              <span class="payment-method-card-name-text">Visa ending **1234**</span>
+            </p>
+            <p class="payment-method-card-expiry text-sm text-gray-600">
+              <span class="payment-method-card-expiry-label">Expires</span> <span class="payment-method-card-expiry-date">12/25</span>
+            </p>
           </div>
         </div>
-        <div class="flex items-center space-x-3 mt-4 sm:mt-0">
-          <span class="bg-green-600 text-white text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider">Default</span>
-          <button class="text-blue-700 hover:text-blue-900 font-medium text-sm transition">Edit</button>
-          <button class="text-red-600 hover:text-red-800 font-medium text-sm transition">Remove</button>
+        <div
+          class="payment-method-card-actions flex items-center space-x-3 mt-4 sm:mt-0"
+        >
+          <span
+            class="payment-method-card-badge-default bg-green-600 text-white text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider"
+            >Default</span
+          >
+          <button
+            class="payment-method-card-edit-btn text-blue-700 hover:text-blue-900 font-medium text-sm transition"
+          >
+            Edit
+          </button>
+          <button
+            class="payment-method-card-remove-btn text-red-600 hover:text-red-800 font-medium text-sm transition"
+          >
+            Remove
+          </button>
         </div>
       </div>
-
-      <div class="payment-method-card-secondary p-5 border border-gray-200 bg-white rounded-xl flex flex-col sm:flex-row justify-between items-start sm:items-center transition duration-300 hover:shadow-md">
-        <div class="flex items-center space-x-4">
-          <svg class="w-8 h-8 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-1h3v1m-3 0h3"></path></svg>
-          <div>
-            <p class="font-medium text-lg text-gray-900">Bank of America ending **5678**</p>
-            <p class="text-sm text-gray-600">Checking Account</p>
+      <div
+        class="payment-method-card-secondary payment-method-card-secondary p-5 border border-gray-200 bg-white rounded-xl flex flex-col sm:flex-row justify-between items-start sm:items-center transition duration-300 hover:shadow-md"
+      >
+        <div class="payment-method-card-info flex items-center space-x-4">
+          <svg
+            class="payment-method-card-icon w-8 h-8 text-gray-600"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-1h3v1m-3 0h3"
+            ></path>
+          </svg>
+          <div class="payment-method-card-details">
+            <p
+              class="payment-method-card-name font-medium text-lg text-gray-900"
+            >
+              <span class="payment-method-card-name-text">Bank of America ending **5678**</span>
+            </p>
+            <p class="payment-method-card-expiry text-sm text-gray-600">
+              <span class="payment-method-card-expiry-type">Checking Account</span>
+            </p>
           </div>
         </div>
-        <div class="flex items-center space-x-3 mt-4 sm:mt-0">
-          <button class="text-blue-700 hover:text-blue-900 font-medium text-sm transition">Edit</button>
-          <button class="text-red-600 hover:text-red-800 font-medium text-sm transition">Remove</button>
+        <div
+          class="payment-method-card-actions flex items-center space-x-3 mt-4 sm:mt-0"
+        >
+          <button
+            class="payment-method-card-edit-btn text-blue-700 hover:text-blue-900 font-medium text-sm transition"
+          >
+            Edit
+          </button>
+          <button
+            class="payment-method-card-remove-btn text-red-600 hover:text-red-800 font-medium text-sm transition"
+          >
+            Remove
+          </button>
         </div>
       </div>
-
-      <div class="payment-add-card p-6 border-2 border-dashed border-gray-300 hover:border-blue-500 bg-gray-50 rounded-xl flex justify-center items-center col-span-1">
-        <button class="payment-add-btn px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition duration-150 transform hover:scale-[1.02]">
-          + Add New Payment Method
+      <div
+        class="payment-add-card-section payment-add-card p-6 border-2 border-dashed border-gray-300 hover:border-blue-500 bg-gray-50 rounded-xl flex justify-center items-center col-span-1"
+      >
+        <button
+          class="payment-add-btn px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition duration-150 transform hover:scale-[1.02]"
+        >
+          <span class="payment-add-btn-icon">+</span> <span class="payment-add-btn-text">Add New Payment Method</span>
         </button>
       </div>
     </div>
   </div>
-
   ---
-
-  <div class="payment-section bg-white p-6 sm:p-8 rounded-xl border border-gray-200 shadow-lg mb-8">
-    <h2 class="payment-section-title text-2xl font-bold text-gray-800 mb-6 flex items-center">
-      Billing Information
+  <div
+    class="payment-billing-section payment-section bg-white p-6 sm:p-8 rounded-xl border border-gray-200 shadow-lg mb-8"
+  >
+    <h2
+      class="payment-section-title text-2xl font-bold text-gray-800 mb-6 flex items-center"
+    >
+      <span class="payment-section-title-icon">📋</span> <span class="payment-section-title-text">Billing Information</span>
     </h2>
-    <dl class="payment-billing-list grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 text-sm">
-      <div class="pb-2 border-b">
-        <dt class="font-semibold text-gray-600">Full Name</dt>
-        <dd class="mt-1 text-gray-900">John Doe</dd>
+    <dl
+      class="payment-billing-list grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 text-sm"
+    >
+      <div class="payment-billing-item pb-2 border-b">
+        <dt class="payment-billing-label font-semibold text-gray-600">
+          <span class="payment-billing-label-text">Full Name</span>
+        </dt>
+        <dd class="payment-billing-value mt-1 text-gray-900"><span class="payment-billing-value-text">John Doe</span></dd>
       </div>
-      <div class="pb-2 border-b">
-        <dt class="font-semibold text-gray-600">Email</dt>
-        <dd class="mt-1 text-gray-900">john@example.com</dd>
+      <div class="payment-billing-item pb-2 border-b">
+        <dt class="payment-billing-label font-semibold text-gray-600"><span class="payment-billing-label-text">Email</span></dt>
+        <dd class="payment-billing-value mt-1 text-gray-900">
+          <span class="payment-billing-value-text">john@example.com</span>
+        </dd>
       </div>
-      <div class="pb-2 border-b md:col-span-2">
-        <dt class="font-semibold text-gray-600">Address</dt>
-        <dd class="mt-1 text-gray-900">123 Main St, Cityville, CA 90001</dd>
+      <div class="payment-billing-item pb-2 border-b md:col-span-2">
+        <dt class="payment-billing-label font-semibold text-gray-600">
+          <span class="payment-billing-label-text">Address</span>
+        </dt>
+        <dd class="payment-billing-value mt-1 text-gray-900">
+          <span class="payment-billing-value-text">123 Main St, Cityville, CA 90001</span>
+        </dd>
       </div>
-      <div class="pb-2 border-b">
-        <dt class="font-semibold text-gray-600">Phone</dt>
-        <dd class="mt-1 text-gray-900">+1 234-567-8901</dd>
+      <div class="payment-billing-item pb-2 border-b">
+        <dt class="payment-billing-label font-semibold text-gray-600"><span class="payment-billing-label-text">Phone</span></dt>
+        <dd class="payment-billing-value mt-1 text-gray-900">
+          <span class="payment-billing-value-text">+1 234-567-8901</span>
+        </dd>
       </div>
-      <div class="pb-2 border-b">
-        <dt class="font-semibold text-gray-600">Tax / VAT ID</dt>
-        <dd class="mt-1 text-gray-900">123456789</dd>
+      <div class="payment-billing-item pb-2 border-b">
+        <dt class="payment-billing-label font-semibold text-gray-600">
+          <span class="payment-billing-label-text">Tax / VAT ID</span>
+        </dt>
+        <dd class="payment-billing-value mt-1 text-gray-900"><span class="payment-billing-value-text">123456789</span></dd>
       </div>
     </dl>
-    <div class="mt-6 pt-4 border-t border-gray-100 flex justify-end">
-      <button class="payment-edit-btn px-5 py-2 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition">
-        Edit Billing Info
+    <div
+      class="payment-billing-actions mt-6 pt-4 border-t border-gray-100 flex justify-end"
+    >
+      <button
+        class="payment-edit-btn px-5 py-2 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition"
+      >
+        <span class="payment-edit-btn-text">Edit Billing Info</span>
       </button>
     </div>
   </div>
-
   ---
-
-  <div class="payment-section bg-white p-6 sm:p-8 rounded-xl border border-gray-200 shadow-lg">
-    <h2 class="payment-section-title text-2xl font-bold text-gray-800 mb-6 flex items-center">
-      Payment History
+  <div
+    class="payment-history-section payment-section bg-white p-6 sm:p-8 rounded-xl border border-gray-200 shadow-lg"
+  >
+    <h2
+      class="payment-section-title text-2xl font-bold text-gray-800 mb-6 flex items-center"
+    >
+      <span class="payment-section-title-icon">📊</span> <span class="payment-section-title-text">Payment History</span>
     </h2>
-    <div class="overflow-x-auto">
+    <div class="payment-history-table-wrapper overflow-x-auto">
       <table class="payment-history-table min-w-full divide-y divide-gray-200">
-        <thead class="bg-gray-50">
-          <tr>
-            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider rounded-tl-lg">Date</th>
-            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
-            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Amount</th>
-            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Method</th>
-            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider rounded-tr-lg">Status</th>
+        <thead class="payment-history-table-header bg-gray-50">
+          <tr class="payment-history-table-header-row">
+            <th
+              scope="col"
+              class="payment-history-th-date px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider rounded-tl-lg"
+            >
+              <span class="payment-history-th-text">Date</span>
+            </th>
+            <th
+              scope="col"
+              class="payment-history-th-type px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+            >
+              <span class="payment-history-th-text">Type</span>
+            </th>
+            <th
+              scope="col"
+              class="payment-history-th-amount px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+            >
+              <span class="payment-history-th-text">Amount</span>
+            </th>
+            <th
+              scope="col"
+              class="payment-history-th-method px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+            >
+              <span class="payment-history-th-text">Method</span>
+            </th>
+            <th
+              scope="col"
+              class="payment-history-th-status px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider rounded-tr-lg"
+            >
+              <span class="payment-history-th-text">Status</span>
+            </th>
           </tr>
         </thead>
-        <tbody class="bg-white divide-y divide-gray-200">
-          <tr>
-            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">2025-11-01</td>
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Deposit</td>
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 font-semibold">$500</td>
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Visa ending 1234</td>
-            <td class="px-6 py-4 whitespace-nowrap">
-              <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Completed</span>
+        <tbody
+          class="payment-history-table-body bg-white divide-y divide-gray-200"
+        >
+          <tr class="payment-history-table-row">
+            <td
+              class="payment-history-td-date px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"
+            >
+              <span class="payment-history-td-text">2025-11-01</span>
+            </td>
+            <td
+              class="payment-history-td-type px-6 py-4 whitespace-nowrap text-sm text-gray-500"
+            >
+              <span class="payment-history-td-text">Deposit</span>
+            </td>
+            <td
+              class="payment-history-td-amount px-6 py-4 whitespace-nowrap text-sm text-gray-500 font-semibold"
+            >
+              <span class="payment-history-td-text">$500</span>
+            </td>
+            <td
+              class="payment-history-td-method px-6 py-4 whitespace-nowrap text-sm text-gray-500"
+            >
+              <span class="payment-history-td-text">Visa ending 1234</span>
+            </td>
+            <td class="payment-history-td-status px-6 py-4 whitespace-nowrap">
+              <span
+                class="payment-history-status-completed px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"
+                ><span class="payment-history-status-text">Completed</span></span
+              >
             </td>
           </tr>
-          <tr>
-            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">2025-11-03</td>
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Subscription</td>
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 font-semibold">$49</td>
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Bank of America ****5678</td>
-            <td class="px-6 py-4 whitespace-nowrap">
-              <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Completed</span>
+          <tr class="payment-history-table-row">
+            <td
+              class="payment-history-td-date px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"
+            >
+              <span class="payment-history-td-text">2025-11-03</span>
+            </td>
+            <td
+              class="payment-history-td-type px-6 py-4 whitespace-nowrap text-sm text-gray-500"
+            >
+              <span class="payment-history-td-text">Subscription</span>
+            </td>
+            <td
+              class="payment-history-td-amount px-6 py-4 whitespace-nowrap text-sm text-gray-500 font-semibold"
+            >
+              <span class="payment-history-td-text">$49</span>
+            </td>
+            <td
+              class="payment-history-td-method px-6 py-4 whitespace-nowrap text-sm text-gray-500"
+            >
+              <span class="payment-history-td-text">Bank of America ****5678</span>
+            </td>
+            <td class="payment-history-td-status px-6 py-4 whitespace-nowrap">
+              <span
+                class="payment-history-status-completed px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"
+                ><span class="payment-history-status-text">Completed</span></span
+              >
             </td>
           </tr>
-          <tr>
-            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">2025-11-05</td>
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Deposit</td>
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 font-semibold">$200</td>
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Visa ending 1234</td>
-            <td class="px-6 py-4 whitespace-nowrap">
-              <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">Pending</span>
+          <tr class="payment-history-table-row">
+            <td
+              class="payment-history-td-date px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"
+            >
+              <span class="payment-history-td-text">2025-11-05</span>
+            </td>
+            <td
+              class="payment-history-td-type px-6 py-4 whitespace-nowrap text-sm text-gray-500"
+            >
+              <span class="payment-history-td-text">Deposit</span>
+            </td>
+            <td
+              class="payment-history-td-amount px-6 py-4 whitespace-nowrap text-sm text-gray-500 font-semibold"
+            >
+              <span class="payment-history-td-text">$200</span>
+            </td>
+            <td
+              class="payment-history-td-method px-6 py-4 whitespace-nowrap text-sm text-gray-500"
+            >
+              <span class="payment-history-td-text">Visa ending 1234</span>
+            </td>
+            <td class="payment-history-td-status px-6 py-4 whitespace-nowrap">
+              <span
+                class="payment-history-status-pending px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800"
+                ><span class="payment-history-status-text">Pending</span></span
+              >
             </td>
           </tr>
         </tbody>
       </table>
     </div>
   </div>
-
 </section>

@@ -92,6 +92,23 @@
           background-color: #e5e7eb; /* slightly darker on hover */
         }
       }
+
+      /* Remove focus outline for main content area */
+      #main:focus,
+      #pageContent:focus {
+        outline: none !important;
+        box-shadow: none !important;
+      }
+      
+      /* Keep focus styles for interactive elements */
+      button:focus,
+      a:focus,
+      input:focus,
+      select:focus,
+      textarea:focus {
+        outline: 3px solid rgba(99, 102, 241, 0.6);
+        outline-offset: 2px;
+      }
     </style>
   </head>
 
@@ -114,8 +131,8 @@
             id="site-brand"
             class="py-3 px-2 text-2xl sm:text-4xl font-bold text-slate-800 border-b border-slate-200 flex justify-center sm:justify-start"
           >
-            <span class="hidden sm:inline">OXO</span>
-            <span class="sm:hidden">O<br />X<br />O</span>
+            <span class="hidden sm:inline">MLM</span>
+            <span class="sm:hidden">M<br />L<br />M</span>
           </div>
 
           <!-- Dashboard -->
@@ -338,7 +355,7 @@
         <header
           class="fixed left-16 sm:left-64 md:left-72 right-0 top-0 bg-white border-b border-slate-200 h-16 flex items-center px-4 z-20 justify-between transition-all duration-300"
         >
-          <div class="text-lg font-semibold">OXO Trading</div>
+          <div class="text-lg font-semibold">MLM Trading</div>
           <button
             id="themeToggle"
             class="p-3 w-12 h-12 rounded-lg flex items-center justify-center text-slate-700 transition"
@@ -367,11 +384,12 @@
           <div
             id="pageContent"
             tabindex="-1"
-            class="min-h-[300px]"
+            class=""
             aria-live="polite"
+            
             aria-busy="false"
           >
-            <div class="text-slate-500">Content goes here...</div>
+            
           </div>
         </main>
       </div>

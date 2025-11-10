@@ -1,112 +1,288 @@
-<section class="deposit-main mt-16 mx-auto p-4 md:p-6 lg:p-8">
-  <header class="deposit-header mb-6 flex items-start justify-between gap-4">
+<section
+  class="deposit-main mt-16 mx-2 py-4 md:p-6 lg:p-8 w-[280px] sm:w-[460px] lg:w-[800px] xl:w-full"
+>
+  <header
+    class="deposit-header mb-6 ms:flex-row flex-col items-start justify-between gap-4 p-4 rounded-xl"
+  >
     <div class="deposit-header-content">
-      <h1 class="deposit-title text-3xl md:text-4xl font-extrabold text-gray-900">Deposit Funds</h1>
-      <p class="deposit-subtitle mt-1 text-sm text-gray-500">Add money to your wallet using bank transfer, card, or crypto.</p>
+      <h1
+        class="deposit-title text-3xl md:text-4xl font-extrabold text-gray-900"
+      >
+        Deposit Funds
+      </h1>
+      <p class="deposit-subtitle mt-1 text-sm text-gray-500">
+        Add money to your wallet using bank transfer, card, or crypto.
+      </p>
     </div>
 
-    <div class="deposit-header-actions flex items-center gap-3">
-      <button class="deposit-export-btn inline-flex items-center gap-2 px-3 py-2 bg-white border border-gray-200 rounded-md shadow-sm text-sm text-gray-700 hover:shadow-md">
+    <div class="deposit-header-actions mt-4 flex items-center flex-wrap gap-3">
+      <button
+        class="deposit-export-btn inline-flex items-center gap-2 px-3 py-2 bg-white border border-gray-200 rounded-md shadow-sm text-sm text-gray-700 hover:shadow-md"
+      >
         <!-- Download icon -->
-        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" aria-hidden><path d="M12 3v12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 11l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" aria-hidden>
+          <path
+            d="M12 3v12"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M8 11l4 4 4-4"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
         Export
       </button>
-      <button class="deposit-quick-btn inline-flex items-center gap-2 px-3 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-md text-sm" aria-label="Add funds">
-        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" aria-hidden><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <button
+        class="deposit-quick-btn inline-flex items-center gap-2 px-3 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-md text-sm"
+        aria-label="Add funds"
+      >
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" aria-hidden>
+          <path
+            d="M12 5v14M5 12h14"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
         Quick deposit
+      </button>
+      <button
+        class="withdrawal-quick-btn inline-flex items-center gap-2 px-3 py-2 bg-red-600 hover:bg-red-700 text-white rounded-md text-sm"
+        aria-label="Withdraw funds"
+      >
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" aria-hidden>
+          <path
+            d="M5 12h14"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+        Quick withdrawal
       </button>
     </div>
   </header>
 
   <!-- Current Balance -->
-  <div class="deposit-balance-card bg-white p-6 rounded-2xl border border-gray-100 shadow-sm mb-6 text-center">
-    <h2 class="deposit-balance-title text-lg font-semibold text-gray-700 mb-2">Current Balance</h2>
-    <p class="deposit-balance-amount text-3xl md:text-4xl font-extrabold text-gray-900">$8,200</p>
-    <p class="deposit-balance-desc text-xs text-gray-400 mt-2">Available to use</p>
+  <div
+    class="deposit-balance-card bg-white p-6 rounded-2xl border border-gray-100 shadow-sm mb-6 text-center"
+  >
+    <h2 class="deposit-balance-title text-lg font-semibold text-gray-700 mb-2">
+      Current Balance
+    </h2>
+    <p
+      class="deposit-balance-amount text-3xl md:text-4xl font-extrabold text-gray-900"
+    >
+      $8,200
+    </p>
+    <p class="deposit-balance-desc text-xs text-gray-400 mt-2">
+      Available to use
+    </p>
     <div class="deposit-balance-badges mt-4 flex justify-center gap-2">
-      <span class="deposit-badge-growth inline-flex items-center text-xs px-3 py-1 rounded-full bg-green-50 text-green-700">▲ +1.8% (7d)</span>
-      <span class="deposit-badge-updated inline-flex items-center text-xs px-3 py-1 rounded-full bg-gray-50 text-gray-600">Updated just now</span>
+      <span
+        class="deposit-badge-growth inline-flex items-center text-xs px-3 py-1 rounded-full bg-green-50 text-green-700"
+        >▲ +1.8% (7d)</span
+      >
+      <span
+        class="deposit-badge-updated inline-flex items-center text-xs px-3 py-1 rounded-full bg-gray-50 text-gray-600"
+        >Updated just now</span
+      >
     </div>
   </div>
 
   <!-- Deposit Methods -->
-  <div class="deposit-methods-grid grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+  <div class="deposit-methods-grid grid grid-cols-1 md:grid-cols-1 gap-6 mb-6">
     <!-- Bank Transfer -->
-    <article class="deposit-method-card bg-white p-5 rounded-2xl border border-gray-100 shadow-sm flex flex-col justify-between">
+    <article
+      class="deposit-method-card bg-white p-5 rounded-2xl border border-gray-100 shadow-sm flex flex-col justify-between"
+    >
       <div class="deposit-method-content">
-        <div class="deposit-method-header flex items-center justify-between mb-3">
-          <h3 class="deposit-method-title text-lg font-semibold text-gray-800">Bank Transfer</h3>
-          <span class="deposit-method-badge text-xs rounded-full bg-indigo-50 text-indigo-700 px-2 py-1">1-3 days</span>
+        <div
+          class="deposit-method-header flex items-center justify-between mb-3"
+        >
+          <h3 class="deposit-method-title text-lg font-semibold text-gray-800">
+            Bank Transfer
+          </h3>
+          <span
+            class="deposit-method-badge text-xs rounded-full bg-indigo-50 text-indigo-700 px-2 py-1"
+            >1-3 days</span
+          >
         </div>
-        <p class="deposit-method-desc text-sm text-gray-500">Secure bank transfers with reference number for reconciliation.</p>
+        <p class="deposit-method-desc text-sm text-gray-500">
+          Secure bank transfers with reference number for reconciliation.
+        </p>
       </div>
-      <div class="deposit-method-actions mt-4 flex items-center justify-between gap-3">
-        <button class="deposit-method-btn-secondary flex-1 inline-flex items-center justify-center gap-2 px-4 py-2 bg-white border border-gray-200 rounded-lg text-sm text-gray-700 hover:shadow-md">
+      <div
+        class="deposit-method-actions mt-4 flex items-center justify-between gap-3"
+      >
+        <button
+          class="deposit-method-btn-secondary flex-1 inline-flex items-center justify-center gap-2 px-4 py-2 bg-white border border-gray-200 rounded-lg text-sm text-gray-700 hover:shadow-md"
+        >
           <!-- bank icon -->
-          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" aria-hidden><path d="M3 10.5h18" stroke="currentColor" stroke-width="1.5"/><path d="M12 3v18" stroke="currentColor" stroke-width="1.5"/></svg>
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" aria-hidden>
+            <path d="M3 10.5h18" stroke="currentColor" stroke-width="1.5" />
+            <path d="M12 3v18" stroke="currentColor" stroke-width="1.5" />
+          </svg>
           View instructions
         </button>
-        <button class="deposit-method-btn-primary px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm">Select</button>
+        <button
+          class="deposit-method-btn-primary px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm"
+        >
+          Select
+        </button>
       </div>
     </article>
 
     <!-- Credit/Debit Card -->
-    <article class="deposit-method-card bg-white p-5 rounded-2xl border border-gray-100 shadow-sm flex flex-col justify-between">
+    <article
+      class="deposit-method-card bg-white p-5 rounded-2xl border border-gray-100 shadow-sm flex flex-col justify-between"
+    >
       <div class="deposit-method-content">
-        <div class="deposit-method-header flex items-center justify-between mb-3">
-          <h3 class="deposit-method-title text-lg font-semibold text-gray-800">Credit / Debit Card</h3>
-          <span class="deposit-method-badge text-xs rounded-full bg-green-50 text-green-700 px-2 py-1">Instant</span>
+        <div
+          class="deposit-method-header flex items-center justify-between mb-3"
+        >
+          <h3 class="deposit-method-title text-lg font-semibold text-gray-800">
+            Credit / Debit Card
+          </h3>
+          <span
+            class="deposit-method-badge text-xs rounded-full bg-green-50 text-green-700 px-2 py-1"
+            >Instant</span
+          >
         </div>
-        <p class="deposit-method-desc text-sm text-gray-500">Fast and convenient — supports most major cards.</p>
+        <p class="deposit-method-desc text-sm text-gray-500">
+          Fast and convenient — supports most major cards.
+        </p>
       </div>
-      <div class="deposit-method-actions mt-4 flex items-center justify-between gap-3">
-        <button class="deposit-method-btn-secondary flex-1 inline-flex items-center justify-center gap-2 px-4 py-2 bg-white border border-gray-200 rounded-lg text-sm text-gray-700 hover:shadow-md">View fees</button>
-        <button class="deposit-method-btn-primary px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg text-sm">Select</button>
+      <div
+        class="deposit-method-actions mt-4 flex items-center justify-between gap-3"
+      >
+        <button
+          class="deposit-method-btn-secondary flex-1 inline-flex items-center justify-center gap-2 px-4 py-2 bg-white border border-gray-200 rounded-lg text-sm text-gray-700 hover:shadow-md"
+        >
+          View fees
+        </button>
+        <button
+          class="deposit-method-btn-primary px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg text-sm"
+        >
+          Select
+        </button>
       </div>
     </article>
 
     <!-- Cryptocurrency -->
-    <article class="deposit-method-card bg-white p-5 rounded-2xl border border-gray-100 shadow-sm flex flex-col justify-between">
+    <article
+      class="deposit-method-card bg-white p-5 rounded-2xl border border-gray-100 shadow-sm flex flex-col justify-between"
+    >
       <div class="deposit-method-content">
-        <div class="deposit-method-header flex items-center justify-between mb-3">
-          <h3 class="deposit-method-title text-lg font-semibold text-gray-800">Cryptocurrency</h3>
-          <span class="deposit-method-badge text-xs rounded-full bg-amber-50 text-amber-700 px-2 py-1">1–2 confirmations</span>
+        <div
+          class="deposit-method-header flex items-center justify-between flex-wrap mb-3 gap-y-2"
+        >
+          <h3 class="deposit-method-title text-lg font-semibold text-gray-800">
+            Cryptocurrency
+          </h3>
+          <span
+            class="deposit-method-badge text-xs rounded-full bg-amber-50 text-amber-700 px-2 py-1"
+            >1–2 confirmations</span
+          >
         </div>
-        <p class="deposit-method-desc text-sm text-gray-500">Send supported tokens to the wallet address provided below.</p>
+        <p class="deposit-method-desc text-sm text-gray-500">
+          Send supported tokens to the wallet address provided below.
+        </p>
       </div>
-      <div class="deposit-method-actions mt-4 flex items-center justify-between gap-3">
-        <button class="deposit-method-btn-secondary flex-1 inline-flex items-center justify-center gap-2 px-4 py-2 bg-white border border-gray-200 rounded-lg text-sm text-gray-700 hover:shadow-md">View wallet</button>
-        <button class="deposit-method-btn-primary px-4 py-2 bg-yellow-600 hover:bg-yellow-700 text-white rounded-lg text-sm">Select</button>
+      <div
+        class="deposit-method-actions mt-4 flex items-center justify-between gap-3"
+      >
+        <button
+          class="deposit-method-btn-secondary flex-1 inline-flex items-center justify-center gap-2 px-4 py-2 bg-white border border-gray-200 rounded-lg text-sm text-gray-700 hover:shadow-md"
+        >
+          View wallet
+        </button>
+        <button
+          class="deposit-method-btn-primary px-4 py-2 bg-yellow-600 hover:bg-yellow-700 text-white rounded-lg text-sm"
+        >
+          Select
+        </button>
       </div>
     </article>
   </div>
 
   <!-- Deposit Instructions -->
-  <section class="deposit-instructions-section bg-white p-6 rounded-2xl border border-gray-100 shadow-sm mb-6">
-    <div class="deposit-instructions-content flex flex-col md:flex-row md:items-start md:justify-between gap-6">
+  <section
+    class="deposit-instructions-section bg-white p-6 rounded-2xl border border-gray-100 shadow-sm mb-6"
+  >
+    <div
+      class="deposit-instructions-content flex flex-col md:flex-row md:items-start md:justify-between flex-wrap gap-6"
+    >
       <div class="deposit-instructions-text flex-1">
-        <h2 class="deposit-instructions-title text-xl font-semibold text-gray-800 mb-3">Deposit Instructions</h2>
+        <h2
+          class="deposit-instructions-title text-xl font-semibold text-gray-800 mb-3"
+        >
+          Deposit Instructions
+        </h2>
         <div class="deposit-instructions-list space-y-3 text-gray-700">
-          <p class="deposit-instruction-item"><span class="deposit-instruction-label font-medium">Bank Transfer:</span> Use reference <span class="deposit-instruction-ref font-semibold">#12345</span> when making the transfer.</p>
-          <p class="deposit-instruction-item"><span class="deposit-instruction-label font-medium">Credit/Debit Card:</span> Enter your card details and confirm the payment on the next screen.</p>
-          <p class="deposit-instruction-item"><span class="deposit-instruction-label font-medium">Cryptocurrency:</span> Send funds to the wallet address or scan the QR code.</p>
+          <p class="deposit-instruction-item">
+            <span class="deposit-instruction-label font-medium"
+              >Bank Transfer:</span
+            >
+            Use reference
+            <span class="deposit-instruction-ref font-semibold">#12345</span>
+            when making the transfer.
+          </p>
+          <p class="deposit-instruction-item">
+            <span class="deposit-instruction-label font-medium"
+              >Credit/Debit Card:</span
+            >
+            Enter your card details and confirm the payment on the next screen.
+          </p>
+          <p class="deposit-instruction-item">
+            <span class="deposit-instruction-label font-medium"
+              >Cryptocurrency:</span
+            >
+            Send funds to the wallet address or scan the QR code.
+          </p>
         </div>
       </div>
 
       <div class="deposit-wallet-section w-full md:w-64">
         <label class="sr-only" for="deposit-address">Deposit address</label>
-        <div class="deposit-address-input flex items-center gap-2">
-          <input id="deposit-address" type="text" readonly value="1A2b3C4d5E6f7G8H9I0J" class="deposit-address-field flex-1 px-3 py-2 border border-gray-200 rounded-lg text-sm text-gray-700 bg-gray-50" />
-          <button class="deposit-copy-btn px-3 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-sm">Copy</button>
+        <div class="deposit-address-input flex items-center flex-wrap gap-2">
+          <input
+            id="deposit-address"
+            type="text"
+            readonly
+            value="1A2b3C4d5E6f7G8H9I0J"
+            class="deposit-address-field flex-1 px-3 py-2 border border-gray-200 rounded-lg text-sm text-gray-700 bg-gray-50"
+          />
+          <button
+            class="deposit-copy-btn px-3 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-sm"
+          >
+            Copy
+          </button>
         </div>
 
         <div class="deposit-qr-section mt-4 flex items-center gap-4">
-          <div class="deposit-qr-code w-28 h-28 bg-gray-100 rounded-md flex items-center justify-center overflow-hidden">
+          <div
+            class="deposit-qr-code w-28 h-28 bg-gray-100 rounded-md flex items-center justify-center overflow-hidden"
+          >
             <!-- placeholder QR -->
-            <img src="https://via.placeholder.com/120" alt="QR Code" class="w-full h-full object-cover" />
+            <img
+              src="https://via.placeholder.com/120"
+              alt="QR Code"
+              class="w-full h-full object-cover"
+            />
           </div>
           <div class="deposit-qr-text text-sm text-gray-500">
-            <p class="deposit-qr-title font-medium text-gray-800">Scan to pay</p>
+            <p class="deposit-qr-title font-medium text-gray-800">
+              Scan to pay
+            </p>
             <p class="deposit-qr-desc mt-1">Or copy the address above.</p>
           </div>
         </div>
@@ -115,12 +291,25 @@
   </section>
 
   <!-- Recent Deposit History -->
-  <section class="deposit-history-section bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
-    <div class="deposit-history-header flex items-center justify-between mb-4">
-      <h2 class="deposit-history-title text-xl font-semibold text-gray-800">Recent Deposits</h2>
-      <div class="deposit-history-filters flex items-center gap-2">
-        <input aria-label="Search deposits" type="search" placeholder="Search…" class="deposit-search-input px-3 py-2 border border-gray-200 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" />
-        <select class="deposit-filter-select px-3 py-2 border border-gray-200 rounded-md text-sm">
+  <section
+    class="h deposit-history-section bg-white p-6 rounded-2xl border border-gray-100 shadow-sm"
+  >
+    <div
+      class="deposit-history-header flex items-center justify-between mb-4 flex-wrap"
+    >
+      <h2 class="deposit-history-title text-xl font-semibold text-gray-800">
+        Recent Deposits
+      </h2>
+      <div class="deposit-history-filters flex items-center flex-wrap gap-2">
+        <input
+          aria-label="Search deposits"
+          type="search"
+          placeholder="Search…"
+          class="deposit-search-input px-3 py-2 border border-gray-200 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+        />
+        <select
+          class="deposit-filter-select px-3 py-2 border border-gray-200 rounded-md text-sm"
+        >
           <option>All</option>
           <option>Completed</option>
           <option>Pending</option>
@@ -129,8 +318,8 @@
     </div>
 
     <div class="deposit-table-container overflow-x-auto">
-      <table class="deposit-history-table w-full min-w-[640px] table-auto">
-        <thead class="deposit-table-header bg-gray-50 sticky top-0">
+      <table class="deposit-history-table w-full table-auto">
+        <thead class="deposit-table-header bg-gray-50">
           <tr class="deposit-table-row text-left text-sm text-gray-500">
             <th class="deposit-table-header-cell px-4 py-2">Date</th>
             <th class="deposit-table-header-cell px-4 py-2">Amount</th>
@@ -142,38 +331,194 @@
 
         <tbody class="deposit-table-body divide-y divide-gray-100">
           <tr class="deposit-table-row-data bg-white">
-            <td class="deposit-table-cell px-4 py-3 text-sm text-gray-700">2025-11-01</td>
-            <td class="deposit-table-cell px-4 py-3 text-sm font-medium text-gray-900">$500</td>
-            <td class="deposit-table-cell px-4 py-3 text-sm text-gray-700">Bank Transfer</td>
-            <td class="deposit-table-cell px-4 py-3">
-              <span class="deposit-status-badge deposit-status-completed inline-flex items-center gap-2 px-3 py-1 rounded-full bg-green-50 text-green-700 text-xs font-semibold">● Completed</span>
+            <td class="deposit-table-cell px-4 py-2 text-sm text-gray-700">
+              2025-11-08
             </td>
-            <td class="deposit-table-cell px-4 py-3 text-sm text-gray-500">#12345</td>
+            <td
+              class="deposit-table-cell px-4 py-2 text-sm font-medium text-gray-900"
+            >
+              $2,500
+            </td>
+            <td class="deposit-table-cell px-4 py-2 text-sm text-gray-700">
+              Bank Transfer
+            </td>
+            <td class="deposit-table-cell px-4 py-2">
+              <span
+                class="deposit-status-badge deposit-status-completed inline-flex items-center gap-2 px-3 py-1 rounded-full bg-green-50 text-green-700 text-xs font-semibold"
+                >● Completed</span
+              >
+            </td>
+            <td class="deposit-table-cell px-4 py-2 text-sm text-gray-500">
+              #TXN-2025-001
+            </td>
           </tr>
 
           <tr class="deposit-table-row-data bg-white">
-            <td class="deposit-table-cell px-4 py-3 text-sm text-gray-700">2025-11-03</td>
-            <td class="deposit-table-cell px-4 py-3 text-sm font-medium text-gray-900">$200</td>
-            <td class="deposit-table-cell px-4 py-3 text-sm text-gray-700">Credit Card</td>
-            <td class="deposit-table-cell px-4 py-3">
-              <span class="deposit-status-badge deposit-status-pending inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-50 text-amber-700 text-xs font-semibold">● Pending</span>
+            <td class="deposit-table-cell px-4 py-2 text-sm text-gray-700">
+              2025-11-07
             </td>
-            <td class="deposit-table-cell px-4 py-3 text-sm text-gray-500">#23456</td>
+            <td
+              class="deposit-table-cell px-4 py-2 text-sm font-medium text-gray-900"
+            >
+              $1,200
+            </td>
+            <td class="deposit-table-cell px-4 py-2 text-sm text-gray-700">
+              Credit Card
+            </td>
+            <td class="deposit-table-cell px-4 py-2">
+              <span
+                class="deposit-status-badge deposit-status-completed inline-flex items-center gap-2 px-3 py-1 rounded-full bg-green-50 text-green-700 text-xs font-semibold"
+                >● Completed</span
+              >
+            </td>
+            <td class="deposit-table-cell px-4 py-2 text-sm text-gray-500">
+              #TXN-2025-002
+            </td>
           </tr>
 
           <tr class="deposit-table-row-data bg-white">
-            <td class="deposit-table-cell px-4 py-3 text-sm text-gray-700">2025-11-05</td>
-            <td class="deposit-table-cell px-4 py-3 text-sm font-medium text-gray-900">$300</td>
-            <td class="deposit-table-cell px-4 py-3 text-sm text-gray-700">Cryptocurrency</td>
-            <td class="deposit-table-cell px-4 py-3">
-              <span class="deposit-status-badge deposit-status-completed inline-flex items-center gap-2 px-3 py-1 rounded-full bg-green-50 text-green-700 text-xs font-semibold">● Completed</span>
+            <td class="deposit-table-cell px-4 py-2 text-sm text-gray-700">
+              2025-11-06
             </td>
-            <td class="deposit-table-cell px-4 py-3 text-sm text-gray-500">#34567</td>
+            <td
+              class="deposit-table-cell px-4 py-2 text-sm font-medium text-gray-900"
+            >
+              $750
+            </td>
+            <td class="deposit-table-cell px-4 py-2 text-sm text-gray-700">
+              Cryptocurrency
+            </td>
+            <td class="deposit-table-cell px-4 py-2">
+              <span
+                class="deposit-status-badge deposit-status-pending inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-50 text-amber-700 text-xs font-semibold"
+                >● Pending</span
+              >
+            </td>
+            <td class="deposit-table-cell px-4 py-2 text-sm text-gray-500">
+              #TXN-2025-003
+            </td>
+          </tr>
+
+          <tr class="deposit-table-row-data bg-white">
+            <td class="deposit-table-cell px-4 py-2 text-sm text-gray-700">
+              2025-11-05
+            </td>
+            <td
+              class="deposit-table-cell px-4 py-2 text-sm font-medium text-gray-900"
+            >
+              $3,000
+            </td>
+            <td class="deposit-table-cell px-4 py-2 text-sm text-gray-700">
+              Bank Transfer
+            </td>
+            <td class="deposit-table-cell px-4 py-2">
+              <span
+                class="deposit-status-badge deposit-status-completed inline-flex items-center gap-2 px-3 py-1 rounded-full bg-green-50 text-green-700 text-xs font-semibold"
+                >● Completed</span
+              >
+            </td>
+            <td class="deposit-table-cell px-4 py-2 text-sm text-gray-500">
+              #TXN-2025-004
+            </td>
+          </tr>
+
+          <tr class="deposit-table-row-data bg-white">
+            <td class="deposit-table-cell px-4 py-2 text-sm text-gray-700">
+              2025-11-04
+            </td>
+            <td
+              class="deposit-table-cell px-4 py-2 text-sm font-medium text-gray-900"
+            >
+              $500
+            </td>
+            <td class="deposit-table-cell px-4 py-2 text-sm text-gray-700">
+              Credit Card
+            </td>
+            <td class="deposit-table-cell px-4 py-2">
+              <span
+                class="deposit-status-badge deposit-status-completed inline-flex items-center gap-2 px-3 py-1 rounded-full bg-green-50 text-green-700 text-xs font-semibold"
+                >● Completed</span
+              >
+            </td>
+            <td class="deposit-table-cell px-4 py-2 text-sm text-gray-500">
+              #TXN-2025-005
+            </td>
+          </tr>
+
+          <tr class="deposit-table-row-data bg-white">
+            <td class="deposit-table-cell px-4 py-2 text-sm text-gray-700">
+              2025-11-03
+            </td>
+            <td
+              class="deposit-table-cell px-4 py-2 text-sm font-medium text-gray-900"
+            >
+              $1,800
+            </td>
+            <td class="deposit-table-cell px-4 py-2 text-sm text-gray-700">
+              Cryptocurrency
+            </td>
+            <td class="deposit-table-cell px-4 py-2">
+              <span
+                class="deposit-status-badge deposit-status-completed inline-flex items-center gap-2 px-3 py-1 rounded-full bg-green-50 text-green-700 text-xs font-semibold"
+                >● Completed</span
+              >
+            </td>
+            <td class="deposit-table-cell px-4 py-2 text-sm text-gray-500">
+              #TXN-2025-006
+            </td>
+          </tr>
+
+          <tr class="deposit-table-row-data bg-white">
+            <td class="deposit-table-cell px-4 py-2 text-sm text-gray-700">
+              2025-11-02
+            </td>
+            <td
+              class="deposit-table-cell px-4 py-2 text-sm font-medium text-gray-900"
+            >
+              $950
+            </td>
+            <td class="deposit-table-cell px-4 py-2 text-sm text-gray-700">
+              Bank Transfer
+            </td>
+            <td class="deposit-table-cell px-4 py-2">
+              <span
+                class="deposit-status-badge deposit-status-pending inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-50 text-amber-700 text-xs font-semibold"
+                >● Pending</span
+              >
+            </td>
+            <td class="deposit-table-cell px-4 py-2 text-sm text-gray-500">
+              #TXN-2025-007
+            </td>
+          </tr>
+
+          <tr class="deposit-table-row-data bg-white">
+            <td class="deposit-table-cell px-4 py-2 text-sm text-gray-700">
+              2025-11-01
+            </td>
+            <td
+              class="deposit-table-cell px-4 py-2 text-sm font-medium text-gray-900"
+            >
+              $400
+            </td>
+            <td class="deposit-table-cell px-4 py-2 text-sm text-gray-700">
+              Credit Card
+            </td>
+            <td class="deposit-table-cell px-4 py-2">
+              <span
+                class="deposit-status-badge deposit-status-completed inline-flex items-center gap-2 px-3 py-1 rounded-full bg-green-50 text-green-700 text-xs font-semibold"
+                >● Completed</span
+              >
+            </td>
+            <td class="deposit-table-cell px-4 py-2 text-sm text-gray-500">
+              #TXN-2025-008
+            </td>
           </tr>
         </tbody>
       </table>
     </div>
 
-    <div class="deposit-table-footer mt-4 text-sm text-gray-500">Showing 3 transactions • Last updated 2025-11-05</div>
+    <div class="deposit-table-footer mt-4 text-sm text-gray-500">
+      Showing 8 transactions • Last updated 2025-11-08
+    </div>
   </section>
 </section>

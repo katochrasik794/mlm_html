@@ -1,191 +1,191 @@
-<section class="wallet-main mt-16 mx-auto p-4 md:p-6 lg:p-8">
-  <header class="wallet-header mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-    <div>
-      <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight text-gray-900">Wallet</h1>
-      <p class="text-sm text-gray-500 mt-1">Manage balances, deposits, withdrawals and view transaction history.</p>
-    </div>
+<section class="wallet-main mt-16 mx-auto p-2 md:p-6 lg:p-8">
+   <header class="wallet-header mb-6 flex p-4 rounded-xl flex-col lg:flex-row sm:items-center sm:justify-between gap-4">
+     <div class="wallet-header-content">
+       <h1 class="wallet-title text-3xl md:text-4xl font-extrabold tracking-tight text-gray-900">Wallet</h1>
+       <p class="wallet-subtitle text-sm text-gray-500 mt-1">Manage balances, deposits, withdrawals and view transaction history.</p>
+     </div>
 
-    <div class="flex items-center gap-3">
-      <button class="inline-flex items-center gap-2 bg-white border border-gray-200 shadow-sm hover:shadow-md px-3 py-2 rounded-md text-sm text-gray-700">
-        <!-- Download icon -->
-        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" aria-hidden>
-          <path d="M12 3v12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M8 11l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M21 21H3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        Export
-      </button>
-      <button class="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-2 rounded-md text-sm" aria-label="Add funds">
-        <!-- Plus icon -->
-        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" aria-hidden>
-          <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        Add funds
-      </button>
-    </div>
-  </header>
+     <div class="wallet-header-actions flex items-start gap-3">
+       <button class="wallet-export-btn inline-flex items-center gap-2 bg-white border border-gray-200 shadow-sm hover:shadow-md px-3 py-2 rounded-md text-sm text-gray-700">
+         <!-- Download icon -->
+         <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" aria-hidden>
+           <path d="M12 3v12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+           <path d="M8 11l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+           <path d="M21 21H3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+         </svg>
+         Export
+       </button>
+       <button class="wallet-add-funds-btn inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-2 rounded-md text-sm" aria-label="Add funds">
+         <!-- Plus icon -->
+         <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" aria-hidden>
+           <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+         </svg>
+         Add funds
+       </button>
+     </div>
+   </header>
 
   <!-- Wallet Overview / Balances -->
-  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-6">
+  <div class="wallet-balances-grid grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
     <!-- Total Balance -->
-    <div class="wallet-card bg-white p-5 rounded-2xl border border-gray-100 shadow-sm">
-      <div class="flex items-start justify-between">
-        <div>
-          <h2 class="text-sm font-medium text-gray-500">Total Balance</h2>
-          <p class="text-2xl md:text-3xl font-extrabold text-gray-900 mt-2">$12,500</p>
-          <p class="text-xs text-gray-400 mt-1">Total funds across wallets</p>
+    <div class="wallet-total-balance-card wallet-card bg-white p-5 rounded-2xl border border-gray-100 shadow-sm">
+      <div class="wallet-card-content flex items-start justify-between">
+        <div class="wallet-card-info">
+          <h2 class="wallet-card-label text-sm font-medium text-gray-500">Total Balance</h2>
+          <p class="wallet-balance-amount text-2xl md:text-3xl font-extrabold text-gray-900 mt-2">$12,500</p>
+          <p class="wallet-balance-desc text-xs text-gray-400 mt-1">Total funds across wallets</p>
         </div>
         <!-- mini sparkline -->
-        <svg class="w-24 h-12" viewBox="0 0 60 24" fill="none" aria-hidden>
+        <svg class="wallet-sparkline w-24 h-12" viewBox="0 0 60 24" fill="none" aria-hidden>
           <polyline points="1,18 10,12 20,15 30,8 40,10 50,6 59,8" stroke="#6366F1" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.95"/>
         </svg>
       </div>
 
-      <div class="mt-4 flex gap-2">
-        <span class="inline-flex items-center px-3 py-1 rounded-full bg-green-50 text-green-700 text-xs font-semibold">+2.3% 7d</span>
-        <span class="inline-flex items-center px-3 py-1 rounded-full bg-gray-50 text-gray-600 text-xs">Updated just now</span>
+      <div class="wallet-card-badges mt-4 flex gap-2">
+        <span class="wallet-badge-growth inline-flex items-center px-3 py-1 rounded-full bg-green-50 text-green-700 text-xs font-semibold">+2.3% 7d</span>
+        <span class="wallet-badge-updated inline-flex items-center px-3 py-1 rounded-full bg-gray-50 text-gray-600 text-xs">Updated just now</span>
       </div>
     </div>
 
     <!-- Available Balance -->
-    <div class="wallet-card bg-white p-5 rounded-2xl border border-gray-100 shadow-sm">
-      <div class="flex items-start justify-between">
-        <div>
-          <h2 class="text-sm font-medium text-gray-500">Available Balance</h2>
-          <p class="text-2xl md:text-3xl font-extrabold text-gray-900 mt-2">$8,200</p>
-          <p class="text-xs text-gray-400 mt-1">Ready to use</p>
+    <div class="wallet-available-balance-card wallet-card bg-white p-5 rounded-2xl border border-gray-100 shadow-sm">
+      <div class="wallet-card-content flex items-start justify-between">
+        <div class="wallet-card-info">
+          <h2 class="wallet-card-label text-sm font-medium text-gray-500">Available Balance</h2>
+          <p class="wallet-balance-amount text-2xl md:text-3xl font-extrabold text-gray-900 mt-2">$8,200</p>
+          <p class="wallet-balance-desc text-xs text-gray-400 mt-1">Ready to use</p>
         </div>
-        <svg class="w-24 h-12" viewBox="0 0 60 24" fill="none" aria-hidden>
+        <svg class="wallet-sparkline w-24 h-12" viewBox="0 0 60 24" fill="none" aria-hidden>
           <polyline points="1,12 10,10 20,11 30,9 40,12 50,9 59,10" stroke="#10B981" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </div>
 
-      <div class="mt-4 flex gap-2">
-        <span class="inline-flex items-center px-3 py-1 rounded-full bg-indigo-50 text-indigo-700 text-xs font-semibold">Verified</span>
-        <span class="inline-flex items-center px-3 py-1 rounded-full bg-gray-50 text-gray-600 text-xs">Bank linked</span>
+      <div class="wallet-card-badges mt-4 flex gap-2">
+        <span class="wallet-badge-verified inline-flex items-center px-3 py-1 rounded-full bg-indigo-50 text-indigo-700 text-xs font-semibold">Verified</span>
+        <span class="wallet-badge-bank-linked inline-flex items-center px-3 py-1 rounded-full bg-gray-50 text-gray-600 text-xs">Bank linked</span>
       </div>
     </div>
 
     <!-- Pending / Locked -->
-    <div class="wallet-card bg-white p-5 rounded-2xl border border-gray-100 shadow-sm">
-      <div class="flex items-start justify-between">
-        <div>
-          <h2 class="text-sm font-medium text-gray-500">Pending / Locked</h2>
-          <p class="text-2xl md:text-3xl font-extrabold text-gray-900 mt-2">$4,300</p>
-          <p class="text-xs text-gray-400 mt-1">Funds under review</p>
+    <div class="wallet-pending-balance-card wallet-card bg-white p-5 rounded-2xl border border-gray-100 shadow-sm">
+      <div class="wallet-card-content flex items-start justify-between">
+        <div class="wallet-card-info">
+          <h2 class="wallet-card-label text-sm font-medium text-gray-500">Pending / Locked</h2>
+          <p class="wallet-balance-amount text-2xl md:text-3xl font-extrabold text-gray-900 mt-2">$4,300</p>
+          <p class="wallet-balance-desc text-xs text-gray-400 mt-1">Funds under review</p>
         </div>
-        <svg class="w-24 h-12" viewBox="0 0 60 24" fill="none" aria-hidden>
+        <svg class="wallet-sparkline w-24 h-12" viewBox="0 0 60 24" fill="none" aria-hidden>
           <polyline points="1,6 10,8 20,6 30,10 40,7 50,12 59,9" stroke="#F59E0B" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </div>
 
-      <div class="mt-4 flex gap-2">
-        <span class="inline-flex items-center px-3 py-1 rounded-full bg-amber-50 text-amber-700 text-xs font-semibold">2 items</span>
-        <span class="inline-flex items-center px-3 py-1 rounded-full bg-gray-50 text-gray-600 text-xs">Review in progress</span>
+      <div class="wallet-card-badges mt-4 flex gap-2">
+        <span class="wallet-badge-pending-items inline-flex items-center px-3 py-1 rounded-full bg-amber-50 text-amber-700 text-xs font-semibold">2 items</span>
+        <span class="wallet-badge-review-progress inline-flex items-center px-3 py-1 rounded-full bg-gray-50 text-gray-600 text-xs">Review in progress</span>
       </div>
     </div>
   </div>
 
   <!-- Deposit & Withdraw Section -->
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+  <div class="wallet-actions-grid grid grid-cols-1 gap-6 mb-6">
     <!-- Deposit Funds -->
-    <section class="wallet-section bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
-      <div class="flex items-center justify-between mb-3">
-        <h2 class="text-lg font-semibold text-gray-800">Deposit Funds</h2>
-        <span class="text-sm text-gray-500">Quick actions</span>
+    <section class="wallet-deposit-section wallet-section bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
+      <div class="wallet-section-header flex items-center justify-between mb-3">
+        <h2 class="wallet-section-title text-lg font-semibold text-gray-800">Deposit Funds</h2>
+        <span class="wallet-section-subtitle text-sm text-gray-500">Quick actions</span>
       </div>
 
-      <p class="text-sm text-gray-600 mb-4">Choose a method to add funds:</p>
+      <p class="wallet-section-desc text-sm text-gray-600 mb-4">Choose a method to add funds:</p>
 
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
-        <button class="flex items-center justify-center gap-2 px-3 py-2 bg-white border border-gray-200 hover:shadow-md rounded-lg text-sm text-gray-700">
+      <div class="wallet-deposit-methods grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
+        <button class="wallet-deposit-bank-btn wallet-deposit-method-btn flex items-center justify-center gap-2 px-3 py-2 bg-white border border-gray-200 hover:shadow-md rounded-lg text-sm text-gray-700">
           <!-- bank icon -->
           <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" aria-hidden><path d="M3 10.5h18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M12 3v18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
           Bank Transfer
         </button>
 
-        <button class="flex items-center justify-center gap-2 px-3 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg text-sm">
+        <button class="wallet-deposit-card-btn wallet-deposit-method-btn flex items-center justify-center gap-2 px-3 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg text-sm">
           <!-- card icon -->
           <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" aria-hidden><rect x="2" y="5" width="20" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M7 11h6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
           Credit / Debit
         </button>
 
-        <button class="flex items-center justify-center gap-2 px-3 py-2 bg-yellow-600 hover:bg-yellow-700 text-white rounded-lg text-sm">
+        <button class="wallet-deposit-crypto-btn wallet-deposit-method-btn flex items-center justify-center gap-2 px-3 py-2 bg-yellow-600 hover:bg-yellow-700 text-white rounded-lg text-sm">
           <!-- crypto icon -->
           <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" aria-hidden><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.5"/><path d="M8 12h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
           Cryptocurrency
         </button>
       </div>
 
-      <div class="mt-2 text-sm text-gray-500">Recent Deposits</div>
-      <ul class="mt-3 space-y-2 text-gray-700">
-        <li class="flex items-center justify-between">
-          <div class="flex items-center gap-3">
-            <span class="text-sm font-medium">$500</span>
-            <span class="text-xs text-gray-500">Bank Transfer</span>
+      <div class="wallet-recent-deposits-title mt-2 text-sm text-gray-500">Recent Deposits</div>
+      <ul class="wallet-recent-deposits-list mt-3 space-y-2 text-gray-700">
+        <li class="wallet-recent-deposit-item flex items-center justify-between">
+          <div class="wallet-deposit-item-info flex items-center gap-3">
+            <span class="wallet-deposit-amount text-sm font-medium">$500</span>
+            <span class="wallet-deposit-method text-xs text-gray-500">Bank Transfer</span>
           </div>
-          <span class="text-xs px-2 py-1 rounded-full bg-green-50 text-green-700">Completed</span>
+          <span class="wallet-deposit-status text-xs px-2 py-1 rounded-full bg-green-50 text-green-700">Completed</span>
         </li>
-        <li class="flex items-center justify-between">
-          <div class="flex items-center gap-3">
-            <span class="text-sm font-medium">$200</span>
-            <span class="text-xs text-gray-500">Credit Card</span>
+        <li class="wallet-recent-deposit-item flex items-center justify-between">
+          <div class="wallet-deposit-item-info flex items-center gap-3">
+            <span class="wallet-deposit-amount text-sm font-medium">$200</span>
+            <span class="wallet-deposit-method text-xs text-gray-500">Credit Card</span>
           </div>
-          <span class="text-xs px-2 py-1 rounded-full bg-amber-50 text-amber-700">Pending</span>
+          <span class="wallet-deposit-status text-xs px-2 py-1 rounded-full bg-amber-50 text-amber-700">Pending</span>
         </li>
       </ul>
     </section>
 
     <!-- Withdraw Funds -->
-    <section class="wallet-section bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
-      <div class="flex items-center justify-between mb-3">
-        <h2 class="text-lg font-semibold text-gray-800">Withdraw Funds</h2>
-        <span class="text-sm text-gray-500">Fast withdrawal</span>
+    <section class="wallet-withdraw-section wallet-section bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
+      <div class="wallet-section-header flex items-center justify-between mb-3">
+        <h2 class="wallet-section-title text-lg font-semibold text-gray-800">Withdraw Funds</h2>
+        <span class="wallet-section-subtitle text-sm text-gray-500">Fast withdrawal</span>
       </div>
 
-      <p class="text-sm text-gray-600 mb-4">Choose a method to withdraw:</p>
+      <p class="wallet-section-desc text-sm text-gray-600 mb-4">Choose a method to withdraw:</p>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
-        <button class="flex items-center justify-center gap-2 px-3 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg text-sm">
+      <div class="wallet-withdraw-methods grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
+        <button class="wallet-withdraw-bank-btn wallet-withdraw-method-btn flex items-center justify-center gap-2 px-3 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg text-sm">
           <!-- bank icon -->
           <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" aria-hidden><path d="M3 10.5h18" stroke="currentColor" stroke-width="1.5"/></svg>
           Bank Transfer
         </button>
 
-        <button class="flex items-center justify-center gap-2 px-3 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg text-sm">
+        <button class="wallet-withdraw-crypto-btn wallet-withdraw-method-btn flex items-center justify-center gap-2 px-3 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg text-sm">
           <!-- wallet icon -->
           <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" aria-hidden><rect x="2" y="7" width="20" height="12" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M16 11v2" stroke="currentColor" stroke-width="1.5"/></svg>
           Crypto Wallet
         </button>
       </div>
 
-      <div class="mt-2 text-sm text-gray-500">Recent Withdrawals</div>
-      <ul class="mt-3 space-y-2 text-gray-700">
-        <li class="flex items-center justify-between">
-          <div class="flex items-center gap-3">
-            <span class="text-sm font-medium">$300</span>
-            <span class="text-xs text-gray-500">Bank Transfer</span>
+      <div class="wallet-recent-withdrawals-title mt-2 text-sm text-gray-500">Recent Withdrawals</div>
+      <ul class="wallet-recent-withdrawals-list mt-3 space-y-2 text-gray-700">
+        <li class="wallet-recent-withdrawal-item flex items-center justify-between">
+          <div class="wallet-withdrawal-item-info flex items-center gap-3">
+            <span class="wallet-withdrawal-amount text-sm font-medium">$300</span>
+            <span class="wallet-withdrawal-method text-xs text-gray-500">Bank Transfer</span>
           </div>
-          <span class="text-xs px-2 py-1 rounded-full bg-green-50 text-green-700">Completed</span>
+          <span class="wallet-withdrawal-status text-xs px-2 py-1 rounded-full bg-green-50 text-green-700">Completed</span>
         </li>
-        <li class="flex items-center justify-between">
-          <div class="flex items-center gap-3">
-            <span class="text-sm font-medium">$150</span>
-            <span class="text-xs text-gray-500">Crypto Wallet</span>
+        <li class="wallet-recent-withdrawal-item flex items-center justify-between">
+          <div class="wallet-withdrawal-item-info flex items-center gap-3">
+            <span class="wallet-withdrawal-amount text-sm font-medium">$150</span>
+            <span class="wallet-withdrawal-method text-xs text-gray-500">Crypto Wallet</span>
           </div>
-          <span class="text-xs px-2 py-1 rounded-full bg-amber-50 text-amber-700">Pending</span>
+          <span class="wallet-withdrawal-status text-xs px-2 py-1 rounded-full bg-amber-50 text-amber-700">Pending</span>
         </li>
       </ul>
     </section>
   </div>
 
   <!-- Transaction History -->
-  <div class="wallet-table-container bg-white p-6 rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
-    <div class="flex items-center justify-between mb-4">
-      <h2 class="text-xl font-semibold">Transaction History</h2>
-      <div class="flex items-center gap-2">
-        <input aria-label="Search transactions" type="search" placeholder="Search…" class="px-3 py-2 border border-gray-200 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" />
-        <select class="px-3 py-2 border border-gray-200 rounded-md text-sm">
+  <div class="wallet-transaction-history wallet-table-container bg-white p-6 rounded-2xl border border-gray-100 shadow-sm overflow-hidden w-full">
+    <div class="wallet-history-header flex items-center justify-between mb-4">
+      <h2 class="wallet-history-title text-xl font-semibold">Transaction History</h2>
+      <div class="wallet-history-filters flex items-center gap-2">
+        <input aria-label="Search transactions" type="search" placeholder="Search…" class="wallet-history-search-input px-3 py-2 border border-gray-200 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+        <select class="wallet-history-filter-select px-3 py-2 border border-gray-200 rounded-md text-sm">
           <option>All</option>
           <option>Deposits</option>
           <option>Withdrawals</option>
@@ -193,53 +193,53 @@
       </div>
     </div>
 
-    <div class="overflow-x-auto">
+    <div class="wallet-table-wrapper overflow-x-auto">
       <table class="wallet-table w-full min-w-[720px] table-auto">
-        <thead class="bg-gray-50 sticky top-0">
-          <tr class="text-left text-sm text-gray-500">
-            <th class="px-3 py-2">Date</th>
-            <th class="px-3 py-2">Type</th>
-            <th class="px-3 py-2">Amount</th>
-            <th class="px-3 py-2">Method</th>
-            <th class="px-3 py-2">Status</th>
+        <thead class="wallet-table-header bg-gray-50 sticky top-0">
+          <tr class="wallet-table-header-row text-left text-sm text-gray-500">
+            <th class="wallet-table-th-date px-3 py-2">Date</th>
+            <th class="wallet-table-th-type px-3 py-2">Type</th>
+            <th class="wallet-table-th-amount px-3 py-2">Amount</th>
+            <th class="wallet-table-th-method px-3 py-2">Method</th>
+            <th class="wallet-table-th-status px-3 py-2">Status</th>
           </tr>
         </thead>
 
-        <tbody class="divide-y divide-gray-100">
-          <tr class="bg-white">
-            <td class="px-3 py-3 text-sm text-gray-700">2025-11-01</td>
-            <td class="px-3 py-3 text-sm text-gray-700">Deposit</td>
-            <td class="px-3 py-3 text-sm font-medium text-gray-900">$500</td>
-            <td class="px-3 py-3 text-sm text-gray-700">Bank Transfer</td>
-            <td class="px-3 py-3">
-              <span class="inline-flex items-center px-2 py-1 rounded-full bg-green-50 text-green-700 text-xs font-semibold">● Completed</span>
+        <tbody class="wallet-table-body divide-y divide-gray-100">
+          <tr class="wallet-table-row-deposit bg-gray-50">
+            <td class="wallet-table-td-date px-3 py-3 text-sm text-gray-700">2025-11-01</td>
+            <td class="wallet-table-td-type px-3 py-3 text-sm text-gray-700">Deposit</td>
+            <td class="wallet-table-td-amount px-3 py-3 text-sm font-medium text-gray-900">$500</td>
+            <td class="wallet-table-td-method px-3 py-3 text-sm text-gray-700">Bank Transfer</td>
+            <td class="wallet-table-td-status px-3 py-3">
+              <span class="wallet-status-completed inline-flex items-center px-2 py-1 rounded-full bg-green-50 text-green-700 text-xs font-semibold">● Completed</span>
             </td>
           </tr>
 
-          <tr class="bg-white">
-            <td class="px-3 py-3 text-sm text-gray-700">2025-11-03</td>
-            <td class="px-3 py-3 text-sm text-gray-700">Withdrawal</td>
-            <td class="px-3 py-3 text-sm font-medium text-gray-900">$150</td>
-            <td class="px-3 py-3 text-sm text-gray-700">Crypto Wallet</td>
-            <td class="px-3 py-3">
-              <span class="inline-flex items-center px-2 py-1 rounded-full bg-amber-50 text-amber-700 text-xs font-semibold">● Pending</span>
+          <tr class="wallet-table-row-withdrawal bg-white">
+            <td class="wallet-table-td-date px-3 py-3 text-sm text-gray-700">2025-11-03</td>
+            <td class="wallet-table-td-type px-3 py-3 text-sm text-gray-700">Withdrawal</td>
+            <td class="wallet-table-td-amount px-3 py-3 text-sm font-medium text-gray-900">$150</td>
+            <td class="wallet-table-td-method px-3 py-3 text-sm text-gray-700">Crypto Wallet</td>
+            <td class="wallet-table-td-status px-3 py-3">
+              <span class="wallet-status-pending inline-flex items-center px-2 py-1 rounded-full bg-amber-50 text-amber-700 text-xs font-semibold">● Pending</span>
             </td>
           </tr>
 
-          <tr class="bg-white">
-            <td class="px-3 py-3 text-sm text-gray-700">2025-11-05</td>
-            <td class="px-3 py-3 text-sm text-gray-700">Deposit</td>
-            <td class="px-3 py-3 text-sm font-medium text-gray-900">$200</td>
-            <td class="px-3 py-3 text-sm text-gray-700">Credit Card</td>
-            <td class="px-3 py-3">
-              <span class="inline-flex items-center px-2 py-1 rounded-full bg-green-50 text-green-700 text-xs font-semibold">● Completed</span>
+          <tr class="wallet-table-row-deposit bg-white">
+            <td class="wallet-table-td-date px-3 py-3 text-sm text-gray-700">2025-11-05</td>
+            <td class="wallet-table-td-type px-3 py-3 text-sm text-gray-700">Deposit</td>
+            <td class="wallet-table-td-amount px-3 py-3 text-sm font-medium text-gray-900">$200</td>
+            <td class="wallet-table-td-method px-3 py-3 text-sm text-gray-700">Credit Card</td>
+            <td class="wallet-table-td-status px-3 py-3">
+              <span class="wallet-status-completed inline-flex items-center px-2 py-1 rounded-full bg-green-50 text-green-700 text-xs font-semibold">● Completed</span>
             </td>
           </tr>
         </tbody>
       </table>
     </div>
 
-    <div class="mt-4 text-sm text-gray-500">Showing 3 transactions • Last updated 2025-11-05</div>
+    <div class="wallet-table-footer mt-4 text-sm text-gray-500">Showing 3 transactions • Last updated 2025-11-05</div>
   </div>
 </section>
 

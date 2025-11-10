@@ -837,6 +837,558 @@ html.dark .chart-placeholder {
   color: #64748b;
 }
 
+/* Deposit and Withdrawal cards - light mode */
+.dashboard-total-deposit {
+  background-color: #ffffff;
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  border-left: 4px solid #10b981;
+}
+
+.deposit-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #6b7280;
+}
+
+.deposit-amount {
+  font-size: 1.875rem;
+  font-weight: 800;
+  color: #059669;
+  margin-top: 0.25rem;
+}
+
+.deposit-info {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin-top: 0.5rem;
+}
+
+.last-deposit {
+  font-weight: 700;
+  color: #111827;
+}
+
+.dashboard-total-withdrawal {
+  background-color: #ffffff;
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  border-left: 4px solid #8b5cf6;
+}
+
+.withdrawal-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #6b7280;
+}
+
+.withdrawal-amount {
+  font-size: 1.875rem;
+  font-weight: 800;
+  color: #7c3aed;
+  margin-top: 0.25rem;
+}
+
+.withdrawal-info {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin-top: 0.5rem;
+}
+
+.last-withdrawal {
+  font-weight: 700;
+  color: #111827;
+}
+
+.text-xs {
+  font-size: 0.75rem;
+}
+
+.text-gray-400 {
+  color: #9ca3af;
+}
+
+.ml-2 {
+  margin-left: 0.5rem;
+}
+
+/* Deposit and Withdrawal cards - dark mode */
+html.dark .dashboard-total-deposit {
+  background-color: #1e293b;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
+}
+
+html.dark .deposit-label {
+  color: #94a3b8;
+}
+
+html.dark .deposit-amount {
+  color: #34d399;
+}
+
+html.dark .deposit-info {
+  color: #94a3b8;
+}
+
+html.dark .last-deposit {
+  color: #f9fafb;
+}
+
+html.dark .dashboard-total-withdrawal {
+  background-color: #1e293b;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
+}
+
+html.dark .withdrawal-label {
+  color: #94a3b8;
+}
+
+html.dark .withdrawal-amount {
+  color: #a78bfa;
+}
+
+html.dark .withdrawal-info {
+  color: #94a3b8;
+}
+
+html.dark .last-withdrawal {
+  color: #f9fafb;
+}
+
+html.dark .text-gray-400 {
+  color: #64748b;
+}
+
+/* Payment details page specific styles - light and dark mode support */
+
+/* Main container */
+.payment-main {
+  /* Inherits from parent */
+}
+
+/* Page title - light mode */
+.payment-title {
+  color: #1e293b;
+}
+
+.payment-title-emoji {
+  /* Inherits from parent */
+}
+
+.payment-title-text {
+  /* Inherits from parent */
+}
+
+/* Page title - dark mode */
+html.dark .payment-title {
+  color: #f1f5f9;
+}
+
+/* Section containers - light mode */
+.payment-section {
+  background-color: #ffffff;
+  border-color: #e5e7eb;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* Section containers - dark mode */
+html.dark .payment-section {
+  background-color: #1e293b;
+  border-color: #374151;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
+}
+
+/* Section titles - light mode */
+.payment-section-title {
+  color: #1e293b;
+}
+
+.payment-section-title-icon {
+  /* Inherits from parent */
+}
+
+.payment-section-title-text {
+  /* Inherits from parent */
+}
+
+/* Section titles - dark mode */
+html.dark .payment-section-title {
+  color: #f1f5f9;
+}
+
+/* Saved methods section */
+.payment-saved-methods-section {
+  /* Inherits from parent */
+}
+
+/* Methods grid */
+.payment-methods-grid {
+  /* Inherits from parent */
+}
+
+/* Payment method cards - light mode */
+.payment-method-card {
+  /* Inherits from parent */
+}
+
+.payment-method-card-primary {
+  background-color: #eff6ff;
+  border-color: #3b82f6;
+}
+
+.payment-method-card-secondary {
+  background-color: #ffffff;
+  border-color: #e5e7eb;
+}
+
+/* Payment method cards - dark mode */
+html.dark .payment-method-card-primary {
+  background-color: #1e3a8a;
+  border-color: #3b82f6;
+}
+
+html.dark .payment-method-card-secondary {
+  background-color: #374151;
+  border-color: #4b5563;
+}
+
+/* Payment method card info */
+.payment-method-card-info {
+  /* Inherits from parent */
+}
+
+/* Payment method card icon - light mode */
+.payment-method-card-icon {
+  /* Inherits from parent */
+}
+
+/* Payment method card icon - dark mode */
+html.dark .payment-method-card-icon {
+  /* Inherits from parent */
+}
+
+/* Payment method card details */
+.payment-method-card-details {
+  /* Inherits from parent */
+}
+
+/* Payment method card name - light mode */
+.payment-method-card-name {
+  color: #1e293b;
+}
+
+.payment-method-card-name-text {
+  /* Inherits from parent */
+}
+
+/* Payment method card name - dark mode */
+html.dark .payment-method-card-name {
+  color: #f1f5f9;
+}
+
+/* Payment method card expiry - light mode */
+.payment-method-card-expiry {
+  color: #6b7280;
+}
+
+.payment-method-card-expiry-label {
+  /* Inherits from parent */
+}
+
+.payment-method-card-expiry-date {
+  /* Inherits from parent */
+}
+
+/* Payment method card expiry - dark mode */
+html.dark .payment-method-card-expiry {
+  color: #94a3b8;
+}
+
+/* Payment method card actions */
+.payment-method-card-actions {
+  /* Inherits from parent */
+}
+
+/* Payment method card badge - light mode */
+.payment-method-card-badge-default {
+  background-color: #10b981;
+  color: #ffffff;
+}
+
+/* Payment method card badge - dark mode */
+html.dark .payment-method-card-badge-default {
+  background-color: #059669;
+}
+
+/* Payment method card buttons - light mode */
+.payment-method-card-edit-btn {
+  color: #2563eb;
+}
+
+.payment-method-card-edit-btn:hover {
+  color: #1d4ed8;
+}
+
+/* Payment method card buttons - dark mode */
+html.dark .payment-method-card-edit-btn {
+  color: #60a5fa;
+}
+
+html.dark .payment-method-card-edit-btn:hover {
+  color: #3b82f6;
+}
+
+.payment-method-card-remove-btn {
+  color: #dc2626;
+}
+
+.payment-method-card-remove-btn:hover {
+  color: #b91c1c;
+}
+
+/* Add card section - light mode */
+.payment-add-card-section {
+  border-color: #d1d5db;
+  background-color: #f9fafb;
+}
+
+.payment-add-card-section:hover {
+  border-color: #3b82f6;
+}
+
+/* Add card section - dark mode */
+html.dark .payment-add-card-section {
+  border-color: #6b7280;
+  background-color: #374151;
+}
+
+html.dark .payment-add-card-section:hover {
+  border-color: #3b82f6;
+}
+
+/* Add button - light mode */
+.payment-add-btn {
+  background-color: #3b82f6;
+  color: #ffffff;
+}
+
+.payment-add-btn:hover {
+  background-color: #2563eb;
+}
+
+.payment-add-btn-icon {
+  /* Inherits from parent */
+}
+
+.payment-add-btn-text {
+  /* Inherits from parent */
+}
+
+/* Add button - dark mode */
+html.dark .payment-add-btn {
+  background-color: #1e40af;
+}
+
+html.dark .payment-add-btn:hover {
+  background-color: #1e3a8a;
+}
+
+/* Billing section */
+.payment-billing-section {
+  /* Inherits from parent */
+}
+
+/* Billing list */
+.payment-billing-list {
+  /* Inherits from parent */
+}
+
+/* Billing items */
+.payment-billing-item {
+  border-color: #e5e7eb;
+}
+
+/* Billing labels - light mode */
+.payment-billing-label {
+  color: #6b7280;
+}
+
+.payment-billing-label-text {
+  /* Inherits from parent */
+}
+
+/* Billing labels - dark mode */
+html.dark .payment-billing-label {
+  color: #94a3b8;
+}
+
+/* Billing values - light mode */
+.payment-billing-value {
+  color: #1e293b;
+}
+
+.payment-billing-value-text {
+  /* Inherits from parent */
+}
+
+/* Billing values - dark mode */
+html.dark .payment-billing-value {
+  color: #f1f5f9;
+}
+
+/* Billing actions */
+.payment-billing-actions {
+  border-color: #e5e7eb;
+}
+
+/* Edit billing button - light mode */
+.payment-edit-btn {
+  background-color: #3b82f6;
+  color: #ffffff;
+}
+
+.payment-edit-btn:hover {
+  background-color: #2563eb;
+}
+
+.payment-edit-btn-text {
+  /* Inherits from parent */
+}
+
+/* Edit billing button - dark mode */
+html.dark .payment-edit-btn {
+  background-color: #1e40af;
+}
+
+html.dark .payment-edit-btn:hover {
+  background-color: #1e3a8a;
+}
+
+/* Payment history section */
+.payment-history-section {
+  /* Inherits from parent */
+}
+
+/* Payment history table wrapper */
+.payment-history-table-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Payment history table */
+.payment-history-table {
+  /* Inherits from parent */
+}
+
+/* Payment history table header */
+.payment-history-table-header {
+  background-color: #f9fafb;
+}
+
+/* Payment history table header row */
+.payment-history-table-header-row {
+  /* Inherits from parent */
+}
+
+/* Payment history table header cells - light mode */
+.payment-history-th-date,
+.payment-history-th-type,
+.payment-history-th-amount,
+.payment-history-th-method,
+.payment-history-th-status {
+  color: #6b7280;
+}
+
+.payment-history-th-text {
+  /* Inherits from parent */
+}
+
+/* Payment history table header cells - dark mode */
+html.dark .payment-history-th-date,
+html.dark .payment-history-th-type,
+html.dark .payment-history-th-amount,
+html.dark .payment-history-th-method,
+html.dark .payment-history-th-status {
+  color: #94a3b8;
+}
+
+/* Payment history table body - light mode */
+.payment-history-table-body {
+  background-color: #ffffff;
+  border-color: #e5e7eb;
+}
+
+/* Payment history table body - dark mode */
+html.dark .payment-history-table-body {
+  background-color: #1e293b;
+  border-color: #4b5563;
+}
+
+/* Payment history table rows */
+.payment-history-table-row {
+  /* Inherits from parent */
+}
+
+/* Payment history table cells - light mode */
+.payment-history-td-date {
+  color: #1e293b;
+}
+
+.payment-history-td-type,
+.payment-history-td-method {
+  color: #6b7280;
+}
+
+.payment-history-td-amount {
+  color: #1e293b;
+}
+
+.payment-history-td-text {
+  /* Inherits from parent */
+}
+
+/* Payment history table cells - dark mode */
+html.dark .payment-history-td-date {
+  color: #f1f5f9;
+}
+
+html.dark .payment-history-td-type,
+html.dark .payment-history-td-method {
+  color: #94a3b8;
+}
+
+html.dark .payment-history-td-amount {
+  color: #f1f5f9;
+}
+
+/* Payment history status badges - light mode */
+.payment-history-status-completed {
+  background-color: #dcfce7;
+  color: #166534;
+}
+
+.payment-history-status-pending {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+.payment-history-status-text {
+  /* Inherits from parent */
+}
+
+/* Payment history status badges - dark mode */
+html.dark .payment-history-status-completed {
+  background-color: #14532d;
+  color: #bbf7d0;
+}
+
+html.dark .payment-history-status-pending {
+  background-color: #451a03;
+  color: #fed7aa;
+}
+
 /* Wallet specific styles - light and dark mode support */
 
 /* Wallet header - light mode */
@@ -936,11 +1488,1510 @@ html.dark .status-pending {
   color: #fed7aa;
 }
 
+/* Wallet page specific styles - light and dark mode support */
+
+/* Main container */
+.wallet-main {
+  max-width: 1200px;
+  width: 100%;
+}
+
+/* Header styles - light mode */
+.wallet-header {
+  background-color: #ffffff;
+  border-color: #e5e7eb;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+.wallet-title {
+  color: #1e293b;
+  font-size: 2.25rem; /* text-4xl */
+}
+
+@media (max-width: 640px) {
+  .wallet-title {
+    font-size: 1.875rem; /* text-3xl on small screens */
+  }
+}
+
+.wallet-subtitle {
+  color: #64748b;
+}
+
+/* Header actions - light mode */
+.wallet-export-btn {
+  background-color: #ffffff;
+  border-color: #e5e7eb;
+  color: #374151;
+}
+
+.wallet-export-btn:hover {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.05);
+}
+
+.wallet-add-funds-btn {
+  background-color: #4f46e5;
+  color: #ffffff;
+}
+
+.wallet-add-funds-btn:hover {
+  background-color: #4338ca;
+}
+
+/* Header styles - dark mode */
+html.dark .wallet-header {
+  background-color: #1e293b;
+  border-color: #374151;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3), 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+}
+
+html.dark .wallet-title {
+  color: #f1f5f9;
+}
+
+html.dark .wallet-subtitle {
+  color: #94a3b8;
+}
+
+/* Header actions - dark mode */
+html.dark .wallet-export-btn {
+  background-color: #374151;
+  border-color: #4b5563;
+  color: #d1d5db;
+}
+
+html.dark .wallet-export-btn:hover {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+}
+
+html.dark .wallet-add-funds-btn {
+  background-color: #6366f1;
+}
+
+html.dark .wallet-add-funds-btn:hover {
+  background-color: #4f46e5;
+}
+
+/* Balance cards - light mode */
+.wallet-card {
+  background-color: #ffffff;
+  border-color: #e5e7eb;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+.wallet-card-label {
+  color: #64748b;
+}
+
+.wallet-balance-amount {
+  color: #1e293b;
+}
+
+.wallet-balance-desc {
+  color: #9ca3af;
+}
+
+/* Balance badges - light mode */
+.wallet-badge-growth {
+  background-color: #dcfce7;
+  color: #166534;
+}
+
+.wallet-badge-updated {
+  background-color: #f9fafb;
+  color: #374151;
+}
+
+.wallet-badge-verified {
+  background-color: #eef2ff;
+  color: #3730a3;
+}
+
+.wallet-badge-bank-linked {
+  background-color: #f9fafb;
+  color: #374151;
+}
+
+.wallet-badge-pending-items {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+.wallet-badge-review-progress {
+  background-color: #f9fafb;
+  color: #374151;
+}
+
+/* Balance cards - dark mode */
+html.dark .wallet-card {
+  background-color: #1e293b;
+  border-color: #374151;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3), 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+}
+
+html.dark .wallet-card-label {
+  color: #94a3b8;
+}
+
+html.dark .wallet-balance-amount {
+  color: #f1f5f9;
+}
+
+html.dark .wallet-balance-desc {
+  color: #64748b;
+}
+
+/* Balance badges - dark mode */
+html.dark .wallet-badge-growth {
+  background-color: #14532d;
+  color: #bbf7d0;
+}
+
+html.dark .wallet-badge-updated {
+  background-color: #374151;
+  color: #d1d5db;
+}
+
+html.dark .wallet-badge-verified {
+  background-color: #1e1b4b;
+  color: #c4b5fd;
+}
+
+html.dark .wallet-badge-bank-linked {
+  background-color: #374151;
+  color: #d1d5db;
+}
+
+html.dark .wallet-badge-pending-items {
+  background-color: #451a03;
+  color: #fed7aa;
+}
+
+html.dark .wallet-badge-review-progress {
+  background-color: #374151;
+  color: #d1d5db;
+}
+
+/* Action sections - light mode */
+.wallet-section {
+  background-color: #ffffff;
+  border-color: #e5e7eb;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+.wallet-section-title {
+  color: #1e293b;
+}
+
+.wallet-section-subtitle {
+  color: #64748b;
+}
+
+.wallet-section-desc {
+  color: #4b5563;
+}
+
+/* Deposit methods - light mode */
+.wallet-deposit-bank-btn {
+  background-color: #ffffff;
+  border-color: #d1d5db;
+  color: #374151;
+}
+
+.wallet-deposit-bank-btn:hover {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.05);
+}
+
+.wallet-deposit-card-btn {
+  background-color: #16a34a;
+  color: #ffffff;
+}
+
+.wallet-deposit-card-btn:hover {
+  background-color: #15803d;
+}
+
+.wallet-deposit-crypto-btn {
+  background-color: #ca8a04;
+  color: #ffffff;
+}
+
+.wallet-deposit-crypto-btn:hover {
+  background-color: #a16207;
+}
+
+/* Withdraw methods - light mode */
+.wallet-withdraw-bank-btn {
+  background-color: #dc2626;
+  color: #ffffff;
+}
+
+.wallet-withdraw-bank-btn:hover {
+  background-color: #b91c1c;
+}
+
+.wallet-withdraw-crypto-btn {
+  background-color: #7c3aed;
+  color: #ffffff;
+}
+
+.wallet-withdraw-crypto-btn:hover {
+  background-color: #6d28d9;
+}
+
+/* Recent lists - light mode */
+.wallet-recent-deposits-title,
+.wallet-recent-withdrawals-title {
+  color: #64748b;
+}
+
+.wallet-recent-deposits-list,
+.wallet-recent-withdrawals-list {
+  color: #374151;
+}
+
+.wallet-deposit-amount,
+.wallet-withdrawal-amount {
+  color: #1e293b;
+}
+
+.wallet-deposit-method,
+.wallet-withdrawal-method {
+  color: #64748b;
+}
+
+.wallet-deposit-status,
+.wallet-withdrawal-status {
+  /* Colors handled by content */
+}
+
+/* Action sections - dark mode */
+html.dark .wallet-section {
+  background-color: #1e293b;
+  border-color: #374151;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3), 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+}
+
+html.dark .wallet-section-title {
+  color: #f1f5f9;
+}
+
+html.dark .wallet-section-subtitle {
+  color: #94a3b8;
+}
+
+html.dark .wallet-section-desc {
+  color: #9ca3b8;
+}
+
+/* Deposit methods - dark mode */
+html.dark .wallet-deposit-bank-btn {
+  background-color: #374151;
+  border-color: #4b5563;
+  color: #d1d5db;
+}
+
+html.dark .wallet-deposit-bank-btn:hover {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+}
+
+html.dark .wallet-deposit-card-btn {
+  background-color: #166534;
+}
+
+html.dark .wallet-deposit-card-btn:hover {
+  background-color: #14532d;
+}
+
+html.dark .wallet-deposit-crypto-btn {
+  background-color: #92400e;
+}
+
+html.dark .wallet-deposit-crypto-btn:hover {
+  background-color: #78350f;
+}
+
+/* Withdraw methods - dark mode */
+html.dark .wallet-withdraw-bank-btn {
+  background-color: #b91c1c;
+}
+
+html.dark .wallet-withdraw-bank-btn:hover {
+  background-color: #991b1b;
+}
+
+html.dark .wallet-withdraw-crypto-btn {
+  background-color: #6d28d9;
+}
+
+html.dark .wallet-withdraw-crypto-btn:hover {
+  background-color: #5b21b6;
+}
+
+/* Recent lists - dark mode */
+html.dark .wallet-recent-deposits-title,
+html.dark .wallet-recent-withdrawals-title {
+  color: #94a3b8;
+}
+
+html.dark .wallet-recent-deposits-list,
+html.dark .wallet-recent-withdrawals-list {
+  color: #d1d5db;
+}
+
+html.dark .wallet-deposit-amount,
+html.dark .wallet-withdrawal-amount {
+  color: #f1f5f9;
+}
+
+html.dark .wallet-deposit-method,
+html.dark .wallet-withdrawal-method {
+  color: #94a3b8;
+}
+
+/* Transaction history - light mode */
+.wallet-table-container {
+  background-color: #ffffff;
+  border-color: #e5e7eb;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+.wallet-history-title {
+  color: #1e293b;
+}
+
+.wallet-history-search-input {
+  background-color: #ffffff;
+  border-color: #d1d5db;
+  color: #374151;
+}
+
+.wallet-history-search-input:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.wallet-history-filter-select {
+  background-color: #ffffff;
+  border-color: #d1d5db;
+  color: #374151;
+}
+
+.wallet-table-header {
+  background-color: #f9fafb;
+}
+
+.wallet-table-th-date,
+.wallet-table-th-type,
+.wallet-table-th-amount,
+.wallet-table-th-method,
+.wallet-table-th-status {
+  color: #64748b;
+}
+
+.wallet-table-body {
+  border-color: #e5e7eb;
+}
+
+.wallet-table-td-date,
+.wallet-table-td-type,
+.wallet-table-td-method {
+  color: #374151;
+}
+
+.wallet-table-td-amount {
+  color: #1e293b;
+}
+
+.wallet-table-footer {
+  color: #64748b;
+}
+
+/* Status badges - light mode */
+.wallet-status-completed {
+  background-color: #dcfce7;
+  color: #166534;
+}
+
+.wallet-status-pending {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+/* Transaction history - dark mode */
+html.dark .wallet-table-container {
+  background-color: #1e293b;
+  border-color: #374151;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3), 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+}
+
+html.dark .wallet-history-title {
+  color: #f1f5f9;
+}
+
+html.dark .wallet-history-search-input {
+  background-color: #374151;
+  border-color: #4b5563;
+  color: #d1d5db;
+}
+
+html.dark .wallet-history-search-input:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.3);
+}
+
+html.dark .wallet-history-filter-select {
+  background-color: #374151;
+  border-color: #4b5563;
+  color: #d1d5db;
+}
+
+html.dark .wallet-table-header {
+  background-color: #374151;
+}
+
+html.dark .wallet-table-th-date,
+html.dark .wallet-table-th-type,
+html.dark .wallet-table-th-amount,
+html.dark .wallet-table-th-method,
+html.dark .wallet-table-th-status {
+  color: #94a3b8;
+}
+
+html.dark .wallet-table-body {
+  border-color: #4b5563;
+}
+
+html.dark .wallet-table-td-date,
+html.dark .wallet-table-td-type,
+html.dark .wallet-table-td-method {
+  color: #d1d5db;
+}
+
+html.dark .wallet-table-td-amount {
+  color: #f1f5f9;
+}
+
+html.dark .wallet-table-footer {
+  color: #94a3b8;
+}
+
+/* Status badges - dark mode */
+html.dark .wallet-status-completed {
+  background-color: #14532d;
+  color: #bbf7d0;
+}
+
+html.dark .wallet-status-pending {
+  background-color: #451a03;
+  color: #fed7aa;
+}
+
+/* Wallet responsive styles */
+@media (max-width: 768px) {
+  .wallet-main {
+    padding: 1rem;
+  }
+
+  .wallet-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+
+  .wallet-header-actions {
+    justify-content: stretch;
+  }
+
+  .wallet-balances-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .wallet-actions-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .wallet-deposit-methods,
+  .wallet-withdraw-methods {
+    grid-template-columns: 1fr;
+  }
+
+  .wallet-history-filters {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .wallet-table {
+    font-size: 0.875rem;
+  }
+
+  .wallet-table th,
+  .wallet-table td {
+    padding: 0.5rem 0.25rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .wallet-section {
+    padding: 1rem;
+  }
+
+  .wallet-table-container {
+    padding: 1rem;
+  }
+}
+
+/* Profile page specific styles - light and dark mode support */
+
+/* Main container */
+.profile-main {
+  max-width: 1200px;
+  width: 100%;
+}
+
+/* Main title */
+.profile-title {
+  color: #1e293b;
+  font-size: 2.25rem; /* text-4xl */
+}
+
+@media (max-width: 640px) {
+  .profile-title {
+    font-size: 1.875rem; /* text-3xl on small screens */
+  }
+}
+
+html.dark .profile-title {
+  color: #f1f5f9;
+}
+
+/* Profile cards grid */
+.profile-cards-grid {
+  /* Inherits from parent */
+}
+
+/* Profile cards - light mode */
+.profile-personal-card,
+.profile-account-card,
+.profile-security-card,
+.profile-financial-card,
+.profile-kyc-card,
+.profile-trading-card,
+.profile-statements-card,
+.profile-support-card {
+  background-color: #ffffff;
+  border-color: #e5e7eb;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+/* Profile card headers */
+.profile-card-header {
+  border-color: #e5e7eb;
+}
+
+/* Profile card titles */
+.profile-card-title {
+  /* Colors handled by individual classes */
+}
+
+/* Profile card icons */
+.profile-card-icon {
+  /* Colors handled by individual classes */
+}
+
+/* Profile card content */
+.profile-card-content {
+  /* Inherits from parent */
+}
+
+/* Profile labels */
+.profile-label {
+  color: #64748b;
+}
+
+/* Profile values */
+.profile-value {
+  color: #1e293b;
+}
+
+/* Specific value colors */
+.profile-balance-amount {
+  color: #1e293b;
+}
+
+.profile-available-amount {
+  color: #16a34a;
+}
+
+.profile-security-value {
+  color: #16a34a;
+}
+
+.profile-risk-value {
+  color: #f59e0b;
+}
+
+/* Profile status row */
+.profile-status-row {
+  /* Inherits from parent */
+}
+
+/* Profile status badge */
+.profile-status-badge {
+  /* Colors handled by content */
+}
+
+/* Profile status icon */
+.profile-status-icon {
+  /* Inherits from parent */
+}
+
+/* Profile KYC row */
+.profile-kyc-row {
+  /* Inherits from parent */
+}
+
+/* Profile KYC badge */
+.profile-kyc-badge {
+  /* Colors handled by content */
+}
+
+/* Profile statements row */
+.profile-statements-row {
+  /* Inherits from parent */
+}
+
+/* Profile statements link */
+.profile-statements-link {
+  color: #2563eb;
+}
+
+.profile-statements-link:hover {
+  color: #1d4ed8;
+}
+
+/* Profile change password button */
+.profile-change-password-btn {
+  background-color: #dc2626;
+  color: #ffffff;
+}
+
+.profile-change-password-btn:hover {
+  background-color: #b91c1c;
+}
+
+/* Profile logout button */
+.profile-logout-btn {
+  background-color: #f3f4f6;
+  color: #374151;
+}
+
+.profile-logout-btn:hover {
+  background-color: #e5e7eb;
+}
+
+/* Profile cards - dark mode */
+html.dark .profile-personal-card,
+html.dark .profile-account-card,
+html.dark .profile-security-card,
+html.dark .profile-financial-card,
+html.dark .profile-kyc-card,
+html.dark .profile-trading-card,
+html.dark .profile-statements-card,
+html.dark .profile-support-card {
+  background-color: #1e293b;
+  border-color: #374151;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3), 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+}
+
+html.dark .profile-card-header {
+  border-color: #4b5563;
+}
+
+html.dark .profile-label {
+  color: #94a3b8;
+}
+
+html.dark .profile-value {
+  color: #f1f5f9;
+}
+
+html.dark .profile-balance-amount {
+  color: #f1f5f9;
+}
+
+html.dark .profile-available-amount {
+  color: #4ade80;
+}
+
+html.dark .profile-security-value {
+  color: #4ade80;
+}
+
+html.dark .profile-risk-value {
+  color: #f59e0b;
+}
+
+html.dark .profile-statements-link {
+  color: #60a5fa;
+}
+
+html.dark .profile-statements-link:hover {
+  color: #3b82f6;
+}
+
+html.dark .profile-change-password-btn {
+  background-color: #b91c1c;
+}
+
+html.dark .profile-change-password-btn:hover {
+  background-color: #991b1b;
+}
+
+html.dark .profile-logout-btn {
+  background-color: #374151;
+  color: #d1d5db;
+}
+
+html.dark .profile-logout-btn:hover {
+  background-color: #4b5563;
+}
+
+/* Profile settings title */
+.profile-settings-title {
+  color: #1e293b;
+  font-size: 2.25rem; /* text-4xl */
+}
+
+@media (max-width: 640px) {
+  .profile-settings-title {
+    font-size: 1.875rem; /* text-3xl on small screens */
+  }
+}
+
+/* Profile settings container */
+.profile-settings-container {
+  background-color: #ffffff;
+  border-color: #e5e7eb;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* Profile settings sections */
+.profile-settings-section,
+.profile-security-section,
+.profile-notifications-section,
+.profile-payments-section,
+.profile-general-section,
+.profile-support-section {
+  /* Inherits from parent */
+}
+
+/* Profile settings section titles */
+.profile-settings-section-title {
+  /* Colors handled by individual classes */
+}
+
+/* Profile settings content */
+.profile-settings-content {
+  /* Inherits from parent */
+}
+
+/* Profile settings rows */
+.profile-settings-row {
+  /* Inherits from parent */
+}
+
+/* Profile settings labels */
+.profile-settings-label {
+  color: #374151;
+}
+
+/* Profile settings values */
+.profile-settings-value {
+  color: #1e293b;
+}
+
+/* Profile settings edit buttons */
+.profile-settings-edit-btn {
+  background-color: #f3f4f6;
+  color: #2563eb;
+}
+
+.profile-settings-edit-btn:hover {
+  background-color: #e5e7eb;
+}
+
+/* Profile settings change button */
+.profile-settings-change-btn {
+  background-color: #dc2626;
+  color: #ffffff;
+}
+
+.profile-settings-change-btn:hover {
+  background-color: #b91c1c;
+}
+
+/* Profile settings toggle */
+.profile-settings-toggle {
+  background-color: #d1d5db;
+}
+
+.profile-settings-toggle:checked {
+  background-color: #6366f1;
+}
+
+/* Profile settings view button */
+.profile-settings-view-btn {
+  background-color: #f3f4f6;
+  color: #374151;
+}
+
+.profile-settings-view-btn:hover {
+  background-color: #e5e7eb;
+}
+
+/* Profile settings select */
+.profile-settings-select {
+  background-color: #ffffff;
+  border-color: #d1d5db;
+  color: #374151;
+}
+
+.profile-settings-select:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+/* Profile settings manage buttons */
+.profile-settings-manage-btn {
+  background-color: #f3f4f6;
+  color: #14b8a6;
+}
+
+.profile-settings-manage-btn:hover {
+  background-color: #e5e7eb;
+}
+
+/* Profile notifications grid */
+.profile-notifications-grid {
+  /* Inherits from parent */
+}
+
+/* Profile notifications group */
+.profile-notifications-group {
+  /* Inherits from parent */
+}
+
+/* Profile notifications subtitle */
+.profile-notifications-subtitle {
+  color: #1e293b;
+  border-color: #e5e7eb;
+}
+
+/* Profile notifications rows */
+.profile-notifications-row {
+  /* Inherits from parent */
+}
+
+/* Profile notifications labels */
+.profile-notifications-label {
+  color: #374151;
+}
+
+/* Profile notifications checkboxes */
+.profile-notifications-checkbox {
+  /* Colors handled by Tailwind */
+}
+
+/* Profile privacy group */
+.profile-privacy-group {
+  /* Inherits from parent */
+}
+
+/* Profile privacy subtitle */
+.profile-privacy-subtitle {
+  color: #1e293b;
+  border-color: #e5e7eb;
+}
+
+/* Profile privacy rows */
+.profile-privacy-row {
+  /* Inherits from parent */
+}
+
+/* Profile privacy labels */
+.profile-privacy-label {
+  color: #374151;
+}
+
+/* Profile privacy checkboxes */
+.profile-privacy-checkbox {
+  /* Colors handled by Tailwind */
+}
+
+/* Profile support buttons */
+.profile-support-buttons {
+  /* Inherits from parent */
+}
+
+/* Profile support buttons */
+.profile-support-btn {
+  background-color: #f3f4f6;
+  color: #374151;
+}
+
+.profile-support-btn:hover {
+  background-color: #e5e7eb;
+}
+
+/* Profile settings - dark mode */
+html.dark .profile-settings-title {
+  color: #f1f5f9;
+}
+
+html.dark .profile-settings-container {
+  background-color: #1e293b;
+  border-color: #374151;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
+}
+
+html.dark .profile-settings-label {
+  color: #d1d5db;
+}
+
+html.dark .profile-settings-value {
+  color: #f1f5f9;
+}
+
+html.dark .profile-settings-edit-btn {
+  background-color: #374151;
+  color: #60a5fa;
+}
+
+html.dark .profile-settings-edit-btn:hover {
+  background-color: #4b5563;
+}
+
+html.dark .profile-settings-change-btn {
+  background-color: #b91c1c;
+}
+
+html.dark .profile-settings-change-btn:hover {
+  background-color: #991b1b;
+}
+
+html.dark .profile-settings-toggle {
+  background-color: #4b5563;
+}
+
+html.dark .profile-settings-toggle:checked {
+  background-color: #6366f1;
+}
+
+html.dark .profile-settings-view-btn {
+  background-color: #374151;
+  color: #d1d5db;
+}
+
+html.dark .profile-settings-view-btn:hover {
+  background-color: #4b5563;
+}
+
+html.dark .profile-settings-select {
+  background-color: #374151;
+  border-color: #4b5563;
+  color: #d1d5db;
+}
+
+html.dark .profile-settings-select:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.3);
+}
+
+html.dark .profile-settings-manage-btn {
+  background-color: #374151;
+  color: #5eead4;
+}
+
+html.dark .profile-settings-manage-btn:hover {
+  background-color: #4b5563;
+}
+
+html.dark .profile-notifications-subtitle,
+html.dark .profile-privacy-subtitle {
+  color: #f1f5f9;
+  border-color: #4b5563;
+}
+
+html.dark .profile-notifications-label,
+html.dark .profile-privacy-label {
+  color: #d1d5db;
+}
+
+html.dark .profile-support-btn {
+  background-color: #374151;
+  color: #d1d5db;
+}
+
+html.dark .profile-support-btn:hover {
+  background-color: #4b5563;
+}
+
+/* Profile responsive styles */
+@media (max-width: 1024px) {
+  .profile-cards-grid {
+    grid-template-columns: 1fr 1fr; /* 2 columns on large screens */
+  }
+}
+
+@media (max-width: 768px) {
+  .profile-cards-grid {
+    grid-template-columns: 1fr; /* 1 column on medium screens */
+  }
+
+  .profile-cards-grid .profile-personal-card,
+  .profile-cards-grid .profile-account-card,
+  .profile-cards-grid .profile-security-card,
+  .profile-cards-grid .profile-financial-card,
+  .profile-cards-grid .profile-kyc-card,
+  .profile-cards-grid .profile-trading-card,
+  .profile-cards-grid .profile-statements-card,
+  .profile-cards-grid .profile-support-card {
+    margin-bottom: 1.5rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .profile-main {
+    padding: 1rem;
+  }
+
+  .profile-cards-grid .profile-personal-card,
+  .profile-cards-grid .profile-account-card,
+  .profile-cards-grid .profile-security-card,
+  .profile-cards-grid .profile-financial-card,
+  .profile-cards-grid .profile-kyc-card,
+  .profile-cards-grid .profile-trading-card,
+  .profile-cards-grid .profile-statements-card,
+  .profile-cards-grid .profile-support-card {
+    padding: 1rem;
+  }
+
+  .profile-settings-container {
+    margin: 1rem;
+  }
+
+  .profile-settings-section,
+  .profile-security-section,
+  .profile-notifications-section,
+  .profile-payments-section,
+  .profile-general-section,
+  .profile-support-section {
+    padding: 1rem;
+  }
+
+  .profile-support-buttons {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
+
+/* Transaction history page specific styles - light and dark mode support */
+
+/* Main container */
+.transaction-history-main {
+  max-width: 1200px;
+  width: 100%;
+}
+
+/* Header styles - light mode */
+.transaction-history-header {
+  /* Inherits from parent */
+}
+
+.transaction-history-title {
+  color: #1e293b;
+  font-size: 2.25rem; /* text-4xl */
+}
+
+@media (max-width: 640px) {
+  .transaction-history-title {
+    font-size: 1.875rem; /* text-3xl on small screens */
+  }
+}
+
+.transaction-history-subtitle {
+  color: #64748b;
+}
+
+/* Header actions - light mode */
+.transaction-history-search {
+  background-color: #ffffff;
+  border-color: #e5e7eb;
+}
+
+.transaction-history-search-input {
+  color: #374151;
+}
+
+.transaction-history-search-input::placeholder {
+  color: #9ca3af;
+}
+
+.transaction-history-search-btn {
+  color: #6b7280;
+}
+
+.transaction-history-search-btn:hover {
+  color: #374151;
+}
+
+.transaction-history-export-btn {
+  background-color: #ffffff;
+  border-color: #e5e7eb;
+  color: #374151;
+}
+
+.transaction-history-export-btn:hover {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.05);
+}
+
+/* Header styles - dark mode */
+html.dark .transaction-history-title {
+  color: #f1f5f9;
+}
+
+html.dark .transaction-history-subtitle {
+  color: #94a3b8;
+}
+
+/* Header actions - dark mode */
+html.dark .transaction-history-search {
+  background-color: #374151;
+  border-color: #4b5563;
+}
+
+html.dark .transaction-history-search-input {
+  background-color: #374151;
+  color: #d1d5db;
+}
+
+html.dark .transaction-history-search-input::placeholder {
+  color: #64748b;
+}
+
+html.dark .transaction-history-search-btn {
+  color: #94a3b8;
+}
+
+html.dark .transaction-history-search-btn:hover {
+  color: #d1d5db;
+}
+
+html.dark .transaction-history-export-btn {
+  background-color: #374151;
+  border-color: #4b5563;
+  color: #d1d5db;
+}
+
+html.dark .transaction-history-export-btn:hover {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+}
+
+/* Header actions responsive styles */
+@media (max-width: 768px) {
+  .transaction-history-actions {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .transaction-history-search {
+    width: 100%;
+  }
+}
+
+/* Summary cards - light mode */
+.transaction-history-summary-card-deposits,
+.transaction-history-summary-card-withdrawals,
+.transaction-history-summary-card-net-change,
+.transaction-history-summary-card-fees {
+  background-color: #ffffff;
+  border-color: #e5e7eb;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+.summary-card-label {
+  color: #64748b;
+}
+
+.summary-card-amount {
+  /* Colors handled by individual classes */
+}
+
+.summary-card-desc {
+  color: #9ca3af;
+}
+
+/* Summary cards - dark mode */
+html.dark .transaction-history-summary-card-deposits,
+html.dark .transaction-history-summary-card-withdrawals,
+html.dark .transaction-history-summary-card-net-change,
+html.dark .transaction-history-summary-card-fees {
+  background-color: #1e293b;
+  border-color: #374151;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3), 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+}
+
+html.dark .summary-card-label {
+  color: #94a3b8;
+}
+
+html.dark .summary-card-desc {
+  color: #64748b;
+}
+
+/* Summary cards responsive styles */
+@media (max-width: 640px) {
+  .transaction-history-summary-grid {
+    grid-template-columns: 1fr; /* single column on small screens */
+  }
+}
+
+/* Filters section - light mode */
+.transaction-history-filters {
+  background-color: #ffffff;
+  border-color: #e5e7eb;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+.transaction-history-filters-title {
+  color: #1e293b;
+}
+
+.transaction-history-filter-label {
+  color: #4b5563;
+}
+
+.transaction-history-filter-input,
+.transaction-history-filter-select {
+  background-color: #ffffff;
+  border-color: #d1d5db;
+  color: #374151;
+}
+
+.transaction-history-filter-input:focus,
+.transaction-history-filter-select:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.transaction-history-reset-btn {
+  background-color: #ffffff;
+  border-color: #d1d5db;
+  color: #374151;
+}
+
+.transaction-history-reset-btn:hover {
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+.transaction-history-apply-btn {
+  background-color: #4f46e5;
+  color: #ffffff;
+}
+
+.transaction-history-apply-btn:hover {
+  background-color: #4338ca;
+}
+
+/* Filters section - dark mode */
+html.dark .transaction-history-filters {
+  background-color: #1e293b;
+  border-color: #374151;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3), 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+}
+
+html.dark .transaction-history-filters-title {
+  color: #f1f5f9;
+}
+
+html.dark .transaction-history-filter-label {
+  color: #9ca3b8;
+}
+
+html.dark .transaction-history-filter-input,
+html.dark .transaction-history-filter-select {
+  background-color: #374151;
+  border-color: #4b5563;
+  color: #d1d5db;
+}
+
+html.dark .transaction-history-filter-input:focus,
+html.dark .transaction-history-filter-select:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.3);
+}
+
+html.dark .transaction-history-reset-btn {
+  background-color: #374151;
+  border-color: #4b5563;
+  color: #d1d5db;
+}
+
+html.dark .transaction-history-reset-btn:hover {
+  box-shadow: 0 1px 3px -1px rgba(0, 0, 0, 0.3), 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+}
+
+html.dark .transaction-history-apply-btn {
+  background-color: #6366f1;
+}
+
+html.dark .transaction-history-apply-btn:hover {
+  background-color: #4f46e5;
+}
+
+/* Filters section responsive styles */
+@media (max-width: 768px) {
+  .transaction-history-filters-form {
+    grid-template-columns: 1fr; /* single column on medium screens */
+  }
+
+  .transaction-history-filter-buttons {
+    justify-content: stretch;
+  }
+}
+
+/* Table container - light mode */
+.transaction-history-table-container {
+  background-color: #ffffff;
+  border-color: #e5e7eb;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+.transaction-history-table-header {
+  background-color: #f9fafb;
+}
+
+.transaction-history-th-date,
+.transaction-history-th-type,
+.transaction-history-th-amount,
+.transaction-history-th-currency,
+.transaction-history-th-status,
+.transaction-history-th-reference {
+  color: #64748b;
+}
+
+.transaction-history-table-body {
+  border-color: #e5e7eb;
+}
+
+.transaction-history-td-date,
+.transaction-history-td-type,
+.transaction-history-td-currency,
+.transaction-history-td-reference {
+  color: #374151;
+}
+
+.transaction-history-td-amount {
+  /* Color handled by content (green/red/blue) */
+}
+
+.transaction-history-table-footer {
+  color: #64748b;
+}
+
+/* Status badges - light mode */
+.transaction-history-status-completed {
+  background-color: #dcfce7;
+  color: #166534;
+}
+
+.transaction-history-status-pending {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+/* Table container - dark mode */
+html.dark .transaction-history-table-container {
+  background-color: #1e293b;
+  border-color: #374151;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3), 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+}
+
+html.dark .transaction-history-table-header {
+  background-color: #374151;
+}
+
+html.dark .transaction-history-th-date,
+html.dark .transaction-history-th-type,
+html.dark .transaction-history-th-amount,
+html.dark .transaction-history-th-currency,
+html.dark .transaction-history-th-status,
+html.dark .transaction-history-th-reference {
+  color: #94a3b8;
+}
+
+html.dark .transaction-history-table-body {
+  border-color: #4b5563;
+}
+
+html.dark .transaction-history-td-date,
+html.dark .transaction-history-td-type,
+html.dark .transaction-history-td-currency,
+html.dark .transaction-history-td-reference {
+  color: #d1d5db;
+}
+
+html.dark .transaction-history-table-footer {
+  color: #94a3b8;
+}
+
+/* Status badges - dark mode */
+html.dark .transaction-history-status-completed {
+  background-color: #14532d;
+  color: #bbf7d0;
+}
+
+html.dark .transaction-history-status-pending {
+  background-color: #451a03;
+  color: #fed7aa;
+}
+
+/* Table container responsive styles */
+@media (max-width: 768px) {
+  .transaction-history-table-container {
+    padding: 1rem; /* reduce padding on small screens */
+  }
+
+  .transaction-history-table {
+    font-size: 0.875rem; /* smaller font on mobile */
+  }
+
+  .transaction-history-th,
+  .transaction-history-td {
+    padding: 0.5rem 0.25rem; /* reduce padding */
+  }
+
+  /* Hide less important columns on small screens */
+  .transaction-history-th-currency,
+  .transaction-history-td-currency {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .transaction-history-th-type,
+  .transaction-history-td-type {
+    display: none;
+  }
+}
+
 /* Withdrawal page specific styles - light and dark mode support */
 
 /* Main container */
 .withdrawal-main {
-  /* No specific styles needed */
+  max-width: 1200px;
+  width: 100%;
 }
 
 /* Header styles - light mode */
@@ -950,6 +3001,13 @@ html.dark .status-pending {
 
 .withdrawal-title {
   color: #1e293b;
+  font-size: 2.25rem; /* text-4xl */
+}
+
+@media (max-width: 640px) {
+  .withdrawal-title {
+    font-size: 1.875rem; /* text-3xl on small screens */
+  }
 }
 
 .withdrawal-subtitle {
@@ -1077,6 +3135,22 @@ html.dark .withdrawal-badge-updated {
   color: #64748b;
 }
 
+/* Withdrawal method cards responsive styles */
+@media (max-width: 640px) {
+  .withdrawal-method-card {
+    padding: 1rem; /* reduce padding on small screens */
+  }
+
+  .withdrawal-method-actions {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .withdrawal-method-actions button {
+    width: 100%;
+  }
+}
+
 .withdrawal-method-badge {
   /* Individual badge colors handled by their specific classes */
 }
@@ -1113,7 +3187,7 @@ html.dark .withdrawal-method-desc {
 html.dark .withdrawal-method-btn-secondary {
   background-color: #374151;
   border-color: #4b5563;
-  color: #d1d5db;
+   color: #d1d5db;
 }
 
 html.dark .withdrawal-method-btn-secondary:hover {
@@ -1133,6 +3207,22 @@ html.dark .withdrawal-method-btn-secondary:hover {
 
 .withdrawal-form-label {
   color: #374151;
+}
+
+/* Withdrawal form section responsive styles */
+@media (max-width: 640px) {
+  .withdrawal-form-section {
+    padding: 1rem; /* reduce padding on small screens */
+  }
+
+  .withdrawal-form-actions {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .withdrawal-form-actions button {
+    width: 100%;
+  }
 }
 
 .withdrawal-amount-field {
@@ -1300,6 +3390,26 @@ html.dark .withdrawal-draft-btn:hover {
   color: #374151;
 }
 
+/* Withdrawal history section responsive styles */
+@media (max-width: 768px) {
+  .withdrawal-history-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+
+  .withdrawal-history-filters {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .withdrawal-history-section {
+    padding: 1rem; /* reduce padding on small screens */
+  }
+}
+
 .withdrawal-table-header {
   background-color: #f9fafb;
 }
@@ -1318,6 +3428,31 @@ html.dark .withdrawal-draft-btn:hover {
 
 .withdrawal-table-footer {
   color: #64748b;
+}
+
+/* Withdrawal table responsive styles */
+@media (max-width: 768px) {
+  .withdrawal-history-table {
+    font-size: 0.875rem; /* smaller font on mobile */
+  }
+
+  .withdrawal-table-header-cell,
+  .withdrawal-table-cell {
+    padding: 0.5rem 0.25rem; /* reduce padding */
+  }
+
+  /* Hide less important columns on small screens */
+  .withdrawal-table-header-cell:nth-child(5),
+  .withdrawal-table-cell:nth-child(5) {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .withdrawal-table-header-cell:nth-child(2),
+  .withdrawal-table-cell:nth-child(2) {
+    display: none;
+  }
 }
 
 /* Withdrawal history section - dark mode */
@@ -1362,6 +3497,7 @@ html.dark .withdrawal-table-body {
 
 html.dark .withdrawal-table-cell {
   color: #d1d5db;
+  background-color: #1e293b;
 }
 
 html.dark .withdrawal-table-footer {
@@ -1394,7 +3530,8 @@ html.dark .withdrawal-status-pending {
 
 /* Main container */
 .deposit-main {
-  /* No specific styles needed */
+  max-width: 1200px;
+  width: 100%;
 }
 
 /* Header styles - light mode */
@@ -1404,6 +3541,13 @@ html.dark .withdrawal-status-pending {
 
 .deposit-title {
   color: #1e293b;
+  font-size: 2.25rem; /* text-4xl */
+}
+
+@media (max-width: 640px) {
+  .deposit-title {
+    font-size: 1.875rem; /* text-3xl on small screens */
+  }
 }
 
 .deposit-subtitle {
@@ -1531,8 +3675,1148 @@ html.dark .deposit-badge-updated {
   color: #64748b;
 }
 
+/* Deposit method cards responsive styles */
+@media (max-width: 640px) {
+  .deposit-method-card {
+    padding: 1rem; /* reduce padding on small screens */
+  }
+
+  .deposit-method-actions {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .deposit-method-actions button {
+    width: 100%;
+  }
+}
+
+/* Deposit method cards - dark mode */
+html.dark .deposit-method-card {
+  background-color: #1e293b;
+  border-color: #374151;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3), 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+}
+
+html.dark .deposit-method-title {
+  color: #f1f5f9;
+}
+
+html.dark .deposit-method-desc {
+  color: #94a3b8;
+}
+
+/* Add payment card - light mode */
+.payment-add-card {
+  background-color: #f9fafb;
+  border-color: #d1d5db;
+}
+
+.payment-add-card:hover {
+  border-color: #3b82f6;
+}
+
+/* Add payment card - dark mode */
+html.dark .payment-add-card {
+  background-color: #374151;
+  border-color: #6b7280;
+}
+
+html.dark .payment-add-card:hover {
+  border-color: #3b82f6;
+}
+
+/* Add payment button - light mode */
+.payment-add-btn {
+  background-color: #2563eb;
+  color: #ffffff;
+}
+
+.payment-add-btn:hover {
+  background-color: #1d4ed8;
+}
+
+/* Add payment button - dark mode */
+html.dark .payment-add-btn {
+  background-color: #1e40af;
+  color: #ffffff;
+}
+
+html.dark .payment-add-btn:hover {
+  background-color: #1e3a8a;
+}
+
+/* Billing list - light mode */
+.payment-billing-list dt {
+  color: #64748b;
+}
+
+.payment-billing-list dd {
+  color: #1e293b;
+}
+
+/* Billing list responsive styles */
+@media (max-width: 640px) {
+  .payment-billing-list.grid.grid-cols-1.md\\:grid-cols-2 {
+    grid-template-columns: 1fr; /* single column on small screens */
+  }
+
+  .payment-billing-list .pb-2.border-b.md\\:col-span-2 {
+    grid-column: span 1; /* span full width on small screens */
+  }
+}
+
+/* Billing list - dark mode */
+html.dark .payment-billing-list dt {
+  color: #94a3b8;
+}
+
+html.dark .payment-billing-list dd {
+  color: #f1f5f9;
+}
+
+/* Edit billing button - light mode */
+.payment-edit-btn {
+  background-color: #2563eb;
+  color: #ffffff;
+}
+
+.payment-edit-btn:hover {
+  background-color: #1d4ed8;
+}
+
+/* Edit billing button - dark mode */
+html.dark .payment-edit-btn {
+  background-color: #1e40af;
+  color: #ffffff;
+}
+
+html.dark .payment-edit-btn:hover {
+  background-color: #1e3a8a;
+}
+
+/* Payment history table - light mode */
+.payment-history-table thead {
+  background-color: #f9fafb;
+}
+
+.payment-history-table th {
+  color: #64748b;
+}
+
+.payment-history-table tbody tr {
+  border-color: #e5e7eb;
+}
+
+.payment-history-table td {
+  color: #374151;
+}
+
+/* Payment history table responsive styles */
+@media (max-width: 768px) {
+  .payment-history-table {
+    font-size: 0.875rem; /* smaller font on mobile */
+  }
+
+  .payment-history-table th,
+  .payment-history-table td {
+    padding: 0.5rem 0.25rem; /* reduce padding */
+  }
+
+  /* Hide less important columns on small screens */
+  .payment-history-table th:nth-child(4),
+  .payment-history-table td:nth-child(4) {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .payment-history-table th:nth-child(2),
+  .payment-history-table td:nth-child(2) {
+    display: none;
+  }
+}
+
+/* Payment history table - dark mode */
+html.dark .payment-history-table thead {
+  background-color: #374151;
+}
+
+html.dark .payment-history-table th {
+  color: #94a3b8;
+}
+
+html.dark .payment-history-table tbody tr {
+  border-color: #4b5563;
+}
+
+html.dark .payment-history-table td {
+  color: #d1d5db;
+}
+
+/* Status badges - light mode */
+.status-completed {
+  background-color: #dcfce7;
+  color: #166534;
+}
+
+.status-pending {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+/* Status badges - dark mode */
+html.dark .status-completed {
+  background-color: #14532d;
+  color: #bbf7d0;
+}
+
+html.dark .status-pending {
+  background-color: #451a03;
+  color: #fed7aa;
+}
+
+/* KYC page specific styles - light and dark mode support */
+
+/* Main container */
+.kyc-main {
+  /* Inherits from parent */
+}
+
+/* Header */
+.kyc-header {
+  /* Inherits from parent */
+}
+
+.kyc-header-content {
+  /* Inherits from parent */
+}
+
+.kyc-title {
+  color: #1e293b;
+}
+
+.kyc-title-text {
+  /* Inherits from parent */
+}
+
+.kyc-subtitle {
+  color: #64748b;
+}
+
+.kyc-subtitle-text {
+  /* Inherits from parent */
+}
+
+.kyc-status-section {
+  /* Inherits from parent */
+}
+
+.kyc-status-label {
+  color: #64748b;
+}
+
+.kyc-status-label-text {
+  /* Inherits from parent */
+}
+
+.kyc-status-display {
+  /* Inherits from parent */
+}
+
+.kyc-status-badge {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+.kyc-status-dot {
+  /* Inherits from parent */
+}
+
+.kyc-status-text {
+  /* Inherits from parent */
+}
+
+.kyc-progress-text {
+  color: #64748b;
+}
+
+.kyc-progress-text-content {
+  /* Inherits from parent */
+}
+
+/* Progress card */
+.kyc-progress-card {
+  background-color: #ffffff;
+  border-color: #e5e7eb;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+.kyc-progress-header {
+  /* Inherits from parent */
+}
+
+.kyc-progress-info {
+  /* Inherits from parent */
+}
+
+.kyc-progress-title {
+  color: #1e293b;
+}
+
+.kyc-progress-title-text {
+  /* Inherits from parent */
+}
+
+.kyc-progress-description {
+  color: #64748b;
+}
+
+.kyc-progress-description-text {
+  /* Inherits from parent */
+}
+
+.kyc-progress-percentage {
+  /* Inherits from parent */
+}
+
+.kyc-percentage-value {
+  color: #1e293b;
+}
+
+.kyc-percentage-value-text {
+  /* Inherits from parent */
+}
+
+.kyc-percentage-label {
+  color: #64748b;
+}
+
+.kyc-percentage-label-text {
+  /* Inherits from parent */
+}
+
+.kyc-progress-bar {
+  background-color: #f3f4f6;
+}
+
+.kyc-progress-fill {
+  /* Inherits from parent */
+}
+
+.kyc-progress-steps {
+  /* Inherits from parent */
+}
+
+.kyc-step-item {
+  /* Inherits from parent */
+}
+
+.kyc-step-dot {
+  /* Inherits from parent */
+}
+
+.kyc-step-label {
+  color: #64748b;
+}
+
+.kyc-step-label-text {
+  /* Inherits from parent */
+}
+
+/* Personal information section */
+.kyc-personal-section {
+  background-color: #ffffff;
+  border-color: #e5e7eb;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+.kyc-personal-header {
+  /* Inherits from parent */
+}
+
+.kyc-personal-title {
+  color: #1e293b;
+}
+
+.kyc-personal-title-text {
+  /* Inherits from parent */
+}
+
+.kyc-personal-required {
+  color: #64748b;
+}
+
+.kyc-personal-required-text {
+  /* Inherits from parent */
+}
+
+.kyc-personal-form {
+  /* Inherits from parent */
+}
+
+.kyc-form-field {
+  /* Inherits from parent */
+}
+
+.kyc-form-label {
+  color: #374151;
+}
+
+.kyc-form-label-text {
+  /* Inherits from parent */
+}
+
+.kyc-form-input {
+  background-color: #ffffff;
+  border-color: #d1d5db;
+  color: #374151;
+}
+
+.kyc-form-input:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.kyc-address-section {
+  /* Inherits from parent */
+}
+
+.kyc-address-label {
+  color: #374151;
+}
+
+.kyc-address-label-text {
+  /* Inherits from parent */
+}
+
+.kyc-address-street {
+  /* Inherits from parent */
+}
+
+.kyc-address-input {
+  background-color: #ffffff;
+  border-color: #d1d5db;
+  color: #374151;
+}
+
+.kyc-address-input:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.kyc-address-postal {
+  /* Inherits from parent */
+}
+
+/* Documents section */
+.kyc-documents-section {
+  background-color: #ffffff;
+  border-color: #e5e7eb;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+.kyc-documents-header {
+  /* Inherits from parent */
+}
+
+.kyc-documents-title {
+  color: #1e293b;
+}
+
+.kyc-documents-title-text {
+  /* Inherits from parent */
+}
+
+.kyc-documents-accepted {
+  color: #64748b;
+}
+
+.kyc-documents-accepted-text {
+  /* Inherits from parent */
+}
+
+.kyc-documents-description {
+  color: #64748b;
+}
+
+.kyc-documents-description-text {
+  /* Inherits from parent */
+}
+
+.kyc-documents-grid {
+  /* Inherits from parent */
+}
+
+.kyc-upload-front {
+  background-color: #ffffff;
+  border-color: #d1d5db;
+  color: #374151;
+}
+
+.kyc-upload-front:hover {
+  background-color: #f9fafb;
+}
+
+.kyc-upload-front-content {
+  /* Inherits from parent */
+}
+
+.kyc-upload-icon {
+  color: #64748b;
+}
+
+.kyc-upload-front-info {
+  /* Inherits from parent */
+}
+
+.kyc-upload-front-title {
+  color: #1e293b;
+}
+
+.kyc-upload-front-title-text {
+  /* Inherits from parent */
+}
+
+.kyc-upload-front-subtitle {
+  color: #64748b;
+}
+
+.kyc-upload-front-subtitle-text {
+  /* Inherits from parent */
+}
+
+.kyc-upload-input {
+  /* Inherits from parent */
+}
+
+.kyc-upload-front-size {
+  color: #64748b;
+}
+
+.kyc-upload-front-size-text {
+  /* Inherits from parent */
+}
+
+.kyc-upload-back {
+  background-color: #ffffff;
+  border-color: #d1d5db;
+  color: #374151;
+}
+
+.kyc-upload-back:hover {
+  background-color: #f9fafb;
+}
+
+.kyc-upload-back-content {
+  /* Inherits from parent */
+}
+
+.kyc-upload-back-info {
+  /* Inherits from parent */
+}
+
+.kyc-upload-back-title {
+  color: #1e293b;
+}
+
+.kyc-upload-back-title-text {
+  /* Inherits from parent */
+}
+
+.kyc-upload-back-subtitle {
+  color: #64748b;
+}
+
+.kyc-upload-back-subtitle-text {
+  /* Inherits from parent */
+}
+
+.kyc-upload-back-size {
+  color: #64748b;
+}
+
+.kyc-upload-back-size-text {
+  /* Inherits from parent */
+}
+
+/* Address proof section */
+.kyc-address-proof-section {
+  background-color: #ffffff;
+  border-color: #e5e7eb;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+.kyc-address-proof-header {
+  /* Inherits from parent */
+}
+
+.kyc-address-proof-title {
+  color: #1e293b;
+}
+
+.kyc-address-proof-title-text {
+  /* Inherits from parent */
+}
+
+.kyc-address-proof-requirement {
+  color: #64748b;
+}
+
+.kyc-address-proof-requirement-text {
+  /* Inherits from parent */
+}
+
+.kyc-address-proof-description {
+  color: #64748b;
+}
+
+.kyc-address-proof-description-text {
+  /* Inherits from parent */
+}
+
+.kyc-upload-address {
+  background-color: #ffffff;
+  border-color: #d1d5db;
+  color: #374151;
+}
+
+.kyc-upload-address:hover {
+  background-color: #f9fafb;
+}
+
+.kyc-upload-address-content {
+  /* Inherits from parent */
+}
+
+.kyc-upload-address-icon {
+  color: #64748b;
+}
+
+.kyc-upload-address-title {
+  color: #1e293b;
+}
+
+.kyc-upload-address-title-text {
+  /* Inherits from parent */
+}
+
+.kyc-upload-address-input {
+  /* Inherits from parent */
+}
+
+.kyc-upload-address-size {
+  color: #64748b;
+}
+
+.kyc-upload-address-size-text {
+  /* Inherits from parent */
+}
+
+/* Selfie section */
+.kyc-selfie-section {
+  background-color: #ffffff;
+  border-color: #e5e7eb;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+.kyc-selfie-header {
+  /* Inherits from parent */
+}
+
+.kyc-selfie-title {
+  color: #1e293b;
+}
+
+.kyc-selfie-title-text {
+  /* Inherits from parent */
+}
+
+.kyc-selfie-instruction {
+  color: #64748b;
+}
+
+.kyc-selfie-instruction-text {
+  /* Inherits from parent */
+}
+
+.kyc-selfie-description {
+  color: #64748b;
+}
+
+.kyc-selfie-description-text {
+  /* Inherits from parent */
+}
+
+.kyc-upload-selfie {
+  background-color: #ffffff;
+  border-color: #d1d5db;
+  color: #374151;
+}
+
+.kyc-upload-selfie:hover {
+  background-color: #f9fafb;
+}
+
+.kyc-upload-selfie-content {
+  /* Inherits from parent */
+}
+
+.kyc-upload-selfie-icon {
+  color: #64748b;
+}
+
+.kyc-upload-selfie-title {
+  color: #1e293b;
+}
+
+.kyc-upload-selfie-title-text {
+  /* Inherits from parent */
+}
+
+.kyc-upload-selfie-input {
+  /* Inherits from parent */
+}
+
+.kyc-upload-selfie-tip {
+  color: #64748b;
+}
+
+.kyc-upload-selfie-tip-text {
+  /* Inherits from parent */
+}
+
+/* Actions */
+.kyc-actions {
+  /* Inherits from parent */
+}
+
+.kyc-actions-info {
+  color: #64748b;
+}
+
+.kyc-actions-info-text {
+  /* Inherits from parent */
+}
+
+.kyc-actions-buttons {
+  /* Inherits from parent */
+}
+
+.kyc-save-draft-btn {
+  background-color: #ffffff;
+  border-color: #d1d5db;
+  color: #374151;
+}
+
+.kyc-save-draft-btn:hover {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.05);
+}
+
+.kyc-save-draft-btn-text {
+  /* Inherits from parent */
+}
+
+.kyc-submit-btn {
+  background-color: #2563eb;
+  color: #ffffff;
+}
+
+.kyc-submit-btn:hover {
+  background-color: #1d4ed8;
+}
+
+.kyc-submit-btn-text {
+  /* Inherits from parent */
+}
+
+/* Dark mode styles for KYC */
+html.dark .kyc-title {
+  color: #f1f5f9;
+}
+
+html.dark .kyc-subtitle {
+  color: #94a3b8;
+}
+
+html.dark .kyc-status-label {
+  color: #94a3b8;
+}
+
+html.dark .kyc-status-badge {
+  background-color: #451a03;
+  color: #fed7aa;
+}
+
+html.dark .kyc-progress-text {
+  color: #94a3b8;
+}
+
+html.dark .kyc-progress-card {
+  background-color: #1e293b;
+  border-color: #374151;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3), 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+}
+
+html.dark .kyc-progress-title {
+  color: #f1f5f9;
+}
+
+html.dark .kyc-progress-description {
+  color: #94a3b8;
+}
+
+html.dark .kyc-percentage-value {
+  color: #f1f5f9;
+}
+
+html.dark .kyc-percentage-label {
+  color: #94a3b8;
+}
+
+html.dark .kyc-progress-bar {
+  background-color: #374151;
+}
+
+html.dark .kyc-step-label {
+  color: #94a3b8;
+}
+
+html.dark .kyc-personal-section {
+  background-color: #1e293b;
+  border-color: #374151;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3), 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+}
+
+html.dark .kyc-personal-title {
+  color: #f1f5f9;
+}
+
+html.dark .kyc-personal-required {
+  color: #94a3b8;
+}
+
+html.dark .kyc-form-label {
+  color: #d1d5db;
+}
+
+html.dark .kyc-form-input {
+  background-color: #374151;
+  border-color: #4b5563;
+  color: #d1d5db;
+}
+
+html.dark .kyc-form-input:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.3);
+}
+
+html.dark .kyc-address-label {
+  color: #d1d5db;
+}
+
+html.dark .kyc-address-input {
+  background-color: #374151;
+  border-color: #4b5563;
+  color: #d1d5db;
+}
+
+html.dark .kyc-address-input:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.3);
+}
+
+html.dark .kyc-documents-section {
+  background-color: #1e293b;
+  border-color: #374151;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3), 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+}
+
+html.dark .kyc-documents-title {
+  color: #f1f5f9;
+}
+
+html.dark .kyc-documents-accepted {
+  color: #94a3b8;
+}
+
+html.dark .kyc-documents-description {
+  color: #94a3b8;
+}
+
+html.dark .kyc-upload-front {
+  background-color: #374151;
+  border-color: #4b5563;
+  color: #d1d5db;
+}
+
+html.dark .kyc-upload-front:hover {
+  background-color: #4b5563;
+}
+
+html.dark .kyc-upload-icon {
+  color: #94a3b8;
+}
+
+html.dark .kyc-upload-front-title {
+  color: #f1f5f9;
+}
+
+html.dark .kyc-upload-front-subtitle {
+  color: #94a3b8;
+}
+
+html.dark .kyc-upload-front-size {
+  color: #94a3b8;
+}
+
+html.dark .kyc-upload-back {
+  background-color: #374151;
+  border-color: #4b5563;
+  color: #d1d5db;
+}
+
+html.dark .kyc-upload-back:hover {
+  background-color: #4b5563;
+}
+
+html.dark .kyc-upload-back-title {
+  color: #f1f5f9;
+}
+
+html.dark .kyc-upload-back-subtitle {
+  color: #94a3b8;
+}
+
+html.dark .kyc-upload-back-size {
+  color: #94a3b8;
+}
+
+html.dark .kyc-address-proof-section {
+  background-color: #1e293b;
+  border-color: #374151;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3), 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+}
+
+html.dark .kyc-address-proof-title {
+  color: #f1f5f9;
+}
+
+html.dark .kyc-address-proof-requirement {
+  color: #94a3b8;
+}
+
+html.dark .kyc-address-proof-description {
+  color: #94a3b8;
+}
+
+html.dark .kyc-upload-address {
+  background-color: #374151;
+  border-color: #4b5563;
+  color: #d1d5db;
+}
+
+html.dark .kyc-upload-address:hover {
+  background-color: #4b5563;
+}
+
+html.dark .kyc-upload-address-icon {
+  color: #94a3b8;
+}
+
+html.dark .kyc-upload-address-title {
+  color: #f1f5f9;
+}
+
+html.dark .kyc-upload-address-size {
+  color: #94a3b8;
+}
+
+html.dark .kyc-selfie-section {
+  background-color: #1e293b;
+  border-color: #374151;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3), 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+}
+
+html.dark .kyc-selfie-title {
+  color: #f1f5f9;
+}
+
+html.dark .kyc-selfie-instruction {
+  color: #94a3b8;
+}
+
+html.dark .kyc-selfie-description {
+  color: #94a3b8;
+}
+
+html.dark .kyc-upload-selfie {
+  background-color: #374151;
+  border-color: #4b5563;
+  color: #d1d5db;
+}
+
+html.dark .kyc-upload-selfie:hover {
+  background-color: #4b5563;
+}
+
+html.dark .kyc-upload-selfie-icon {
+  color: #94a3b8;
+}
+
+html.dark .kyc-upload-selfie-title {
+  color: #f1f5f9;
+}
+
+html.dark .kyc-upload-selfie-tip {
+  color: #94a3b8;
+}
+
+html.dark .kyc-actions-info {
+  color: #94a3b8;
+}
+
+html.dark .kyc-save-draft-btn {
+  background-color: #374151;
+  border-color: #4b5563;
+  color: #d1d5db;
+}
+
+html.dark .kyc-save-draft-btn:hover {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+}
+
+html.dark .kyc-submit-btn {
+  background-color: #1e40af;
+}
+
+html.dark .kyc-submit-btn:hover {
+  background-color: #1e3a8a;
+}
+
+/* Deposit page specific styles - light and dark mode support */
+
+/* Main container */
+.deposit-main {
+  /* Inherits from parent */
+}
+
+/* Header */
+.deposit-header {
+  /* Inherits from parent */
+}
+
+.deposit-header-content {
+  /* Inherits from parent */
+}
+
+.deposit-title {
+  color: #1e293b;
+}
+
+.deposit-subtitle {
+  color: #64748b;
+}
+
+.deposit-header-actions {
+  /* Inherits from parent */
+}
+
+.deposit-export-btn {
+  background-color: #ffffff;
+  border-color: #d1d5db;
+  color: #374151;
+}
+
+.deposit-export-btn:hover {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.05);
+}
+
+.deposit-quick-btn {
+  background-color: #4f46e5;
+  color: #ffffff;
+}
+
+.deposit-quick-btn:hover {
+  background-color: #4338ca;
+}
+
+.withdrawal-quick-btn {
+  background-color: #dc2626;
+  color: #ffffff;
+}
+
+.withdrawal-quick-btn:hover {
+  background-color: #b91c1c;
+}
+
+/* Balance card */
+.deposit-balance-card {
+  background-color: #ffffff;
+  border-color: #e5e7eb;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+.deposit-balance-title {
+  color: #374151;
+}
+
+.deposit-balance-amount {
+  color: #1e293b;
+}
+
+.deposit-balance-desc {
+  color: #9ca3af;
+}
+
+.deposit-balance-badges {
+  /* Inherits from parent */
+}
+
+.deposit-badge-growth {
+  background-color: #dcfce7;
+  color: #166534;
+}
+
+.deposit-badge-updated {
+  background-color: #f9fafb;
+  color: #374151;
+}
+
+/* Methods grid */
+.deposit-methods-grid {
+  /* Inherits from parent */
+}
+
+/* Method cards */
+.deposit-method-card {
+  background-color: #ffffff;
+  border-color: #e5e7eb;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+.deposit-method-content {
+  /* Inherits from parent */
+}
+
+.deposit-method-header {
+  /* Inherits from parent */
+}
+
+.deposit-method-title {
+  color: #1e293b;
+}
+
 .deposit-method-badge {
-  /* Individual badge colors handled by their specific classes */
+  /* Colors handled by content */
+}
+
+.deposit-method-desc {
+  color: #64748b;
+}
+
+.deposit-method-actions {
+  /* Inherits from parent */
 }
 
 .deposit-method-btn-secondary {
@@ -1546,10 +4830,241 @@ html.dark .deposit-badge-updated {
 }
 
 .deposit-method-btn-primary {
-  /* Individual button colors handled by their specific classes */
+  /* Colors handled by content */
 }
 
-/* Deposit method cards - dark mode */
+/* Instructions section */
+.deposit-instructions-section {
+  background-color: #ffffff;
+  border-color: #e5e7eb;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+.deposit-instructions-content {
+  /* Inherits from parent */
+}
+
+.deposit-instructions-text {
+  /* Inherits from parent */
+}
+
+.deposit-instructions-title {
+  color: #1e293b;
+}
+
+.deposit-instructions-list {
+  color: #374151;
+}
+
+.deposit-instruction-item {
+  /* Inherits from parent */
+}
+
+.deposit-instruction-label {
+  /* Inherits from parent */
+}
+
+.deposit-instruction-ref {
+  /* Inherits from parent */
+}
+
+.deposit-wallet-section {
+  /* Inherits from parent */
+}
+
+.deposit-address-input {
+  /* Inherits from parent */
+}
+
+.deposit-address-field {
+  background-color: #f9fafb;
+  border-color: #d1d5db;
+  color: #374151;
+}
+
+.deposit-copy-btn {
+  background-color: #4f46e5;
+  color: #ffffff;
+}
+
+.deposit-copy-btn:hover {
+  background-color: #4338ca;
+}
+
+.deposit-qr-section {
+  /* Inherits from parent */
+}
+
+.deposit-qr-code {
+  background-color: #f3f4f6;
+}
+
+.deposit-qr-text {
+  color: #64748b;
+}
+
+.deposit-qr-title {
+  color: #1e293b;
+}
+
+.deposit-qr-desc {
+  /* Inherits from parent */
+}
+
+/* History section */
+.deposit-history-section {
+  background-color: #ffffff;
+  border-color: #e5e7eb;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+.deposit-history-header {
+  /* Inherits from parent */
+}
+
+.deposit-history-title {
+  color: #1e293b;
+}
+
+.deposit-history-filters {
+  /* Inherits from parent */
+}
+
+.deposit-search-input {
+  background-color: #ffffff;
+  border-color: #d1d5db;
+  color: #374151;
+}
+
+.deposit-search-input:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.deposit-filter-select {
+  background-color: #ffffff;
+  border-color: #d1d5db;
+  color: #374151;
+}
+
+.deposit-filter-select:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.deposit-table-container {
+  /* Inherits from parent */
+}
+
+.deposit-history-table {
+  /* Inherits from parent */
+}
+
+.deposit-table-header {
+  background-color: #f9fafb;
+}
+
+.deposit-table-row {
+  /* Inherits from parent */
+}
+
+.deposit-table-header-cell {
+  color: #64748b;
+}
+
+.deposit-table-body {
+  /* Inherits from parent */
+}
+
+.deposit-table-row-data {
+  background-color: #ffffff;
+}
+
+.deposit-table-cell {
+  color: #374151;
+}
+
+.deposit-table-footer {
+  color: #64748b;
+}
+
+.deposit-status-badge {
+  /* Colors handled by content */
+}
+
+.deposit-status-completed {
+  background-color: #dcfce7;
+  color: #166534;
+}
+
+.deposit-status-pending {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+/* Dark mode styles for Deposit */
+html.dark .deposit-title {
+  color: #f1f5f9;
+}
+
+html.dark .deposit-subtitle {
+  color: #94a3b8;
+}
+
+html.dark .deposit-export-btn {
+  background-color: #374151;
+  border-color: #4b5563;
+  color: #d1d5db;
+}
+
+html.dark .deposit-export-btn:hover {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+}
+
+html.dark .deposit-quick-btn {
+  background-color: #6366f1;
+}
+
+html.dark .deposit-quick-btn:hover {
+  background-color: #4f46e5;
+}
+
+html.dark .withdrawal-quick-btn {
+  background-color: #b91c1c;
+}
+
+html.dark .withdrawal-quick-btn:hover {
+  background-color: #991b1b;
+}
+
+html.dark .deposit-balance-card {
+  background-color: #1e293b;
+  border-color: #374151;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3), 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+}
+
+html.dark .deposit-balance-title {
+  color: #d1d5db;
+}
+
+html.dark .deposit-balance-amount {
+  color: #f1f5f9;
+}
+
+html.dark .deposit-balance-desc {
+  color: #64748b;
+}
+
+html.dark .deposit-badge-growth {
+  background-color: #14532d;
+  color: #bbf7d0;
+}
+
+html.dark .deposit-badge-updated {
+  background-color: #374151;
+  color: #d1d5db;
+}
+
 html.dark .deposit-method-card {
   background-color: #1e293b;
   border-color: #374151;
@@ -1574,57 +5089,6 @@ html.dark .deposit-method-btn-secondary:hover {
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
 }
 
-/* Instructions section - light mode */
-.deposit-instructions-section {
-  background-color: #ffffff;
-  border-color: #e5e7eb;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-}
-
-.deposit-instructions-title {
-  color: #1e293b;
-}
-
-.deposit-instruction-item {
-  color: #374151;
-}
-
-.deposit-instruction-label {
-  color: #374151;
-}
-
-.deposit-instruction-ref {
-  color: #1e293b;
-}
-
-.deposit-address-field {
-  background-color: #f9fafb;
-  border-color: #d1d5db;
-  color: #374151;
-}
-
-.deposit-copy-btn {
-  background-color: #4f46e5;
-  color: #ffffff;
-}
-
-.deposit-copy-btn:hover {
-  background-color: #4338ca;
-}
-
-.deposit-qr-code {
-  background-color: #f9fafb;
-}
-
-.deposit-qr-title {
-  color: #1e293b;
-}
-
-.deposit-qr-desc {
-  color: #64748b;
-}
-
-/* Instructions section - dark mode */
 html.dark .deposit-instructions-section {
   background-color: #1e293b;
   border-color: #374151;
@@ -1635,16 +5099,8 @@ html.dark .deposit-instructions-title {
   color: #f1f5f9;
 }
 
-html.dark .deposit-instruction-item {
+html.dark .deposit-instructions-list {
   color: #d1d5db;
-}
-
-html.dark .deposit-instruction-label {
-  color: #d1d5db;
-}
-
-html.dark .deposit-instruction-ref {
-  color: #f1f5f9;
 }
 
 html.dark .deposit-address-field {
@@ -1665,61 +5121,14 @@ html.dark .deposit-qr-code {
   background-color: #374151;
 }
 
+html.dark .deposit-qr-text {
+  color: #94a3b8;
+}
+
 html.dark .deposit-qr-title {
   color: #f1f5f9;
 }
 
-html.dark .deposit-qr-desc {
-  color: #94a3b8;
-}
-
-/* History section - light mode */
-.deposit-history-section {
-  background-color: #ffffff;
-  border-color: #e5e7eb;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-}
-
-.deposit-history-title {
-  color: #1e293b;
-}
-
-.deposit-search-input {
-  border-color: #d1d5db;
-  color: #374151;
-}
-
-.deposit-search-input:focus {
-  border-color: #6366f1;
-  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
-}
-
-.deposit-filter-select {
-  border-color: #d1d5db;
-  color: #374151;
-}
-
-.deposit-table-header {
-  background-color: #f9fafb;
-}
-
-.deposit-table-header-cell {
-  color: #64748b;
-}
-
-.deposit-table-body {
-  border-color: #e5e7eb;
-}
-
-.deposit-table-cell {
-  color: #374151;
-}
-
-.deposit-table-footer {
-  color: #64748b;
-}
-
-/* History section - dark mode */
 html.dark .deposit-history-section {
   background-color: #1e293b;
   border-color: #374151;
@@ -1747,6 +5156,11 @@ html.dark .deposit-filter-select {
   color: #d1d5db;
 }
 
+html.dark .deposit-filter-select:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.3);
+}
+
 html.dark .deposit-table-header {
   background-color: #374151;
 }
@@ -1755,8 +5169,8 @@ html.dark .deposit-table-header-cell {
   color: #94a3b8;
 }
 
-html.dark .deposit-table-body {
-  border-color: #4b5563;
+html.dark .deposit-table-row-data {
+  background-color: #1e293b;
 }
 
 html.dark .deposit-table-cell {
@@ -1767,18 +5181,6 @@ html.dark .deposit-table-footer {
   color: #94a3b8;
 }
 
-/* Status badges - light mode */
-.deposit-status-completed {
-  background-color: #dcfce7;
-  color: #166534;
-}
-
-.deposit-status-pending {
-  background-color: #fef3c7;
-  color: #92400e;
-}
-
-/* Status badges - dark mode */
 html.dark .deposit-status-completed {
   background-color: #14532d;
   color: #bbf7d0;
@@ -1789,548 +5191,88 @@ html.dark .deposit-status-pending {
   color: #fed7aa;
 }
 
-html.dark .status-verified {
-  background-color: #1e1b4b;
-  color: #c4b5fd;
+/* Mobile card styles for deposit history */
+.deposit-mobile-cards {
+  /* Inherits from parent */
 }
 
-/* Transaction table container - light mode */
-.wallet-table-container {
+.deposit-mobile-card {
   background-color: #ffffff;
   border-color: #e5e7eb;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
 }
 
-/* Transaction table container - dark mode */
-html.dark .wallet-table-container {
+.deposit-mobile-header {
+  /* Inherits from parent */
+}
+
+.deposit-mobile-amount {
+  color: #1e293b;
+}
+
+.deposit-mobile-details {
+  /* Inherits from parent */
+}
+
+.deposit-mobile-row {
+  /* Inherits from parent */
+}
+
+.deposit-mobile-label {
+  color: #64748b;
+}
+
+.deposit-mobile-value {
+  color: #374151;
+}
+
+/* Dark mode mobile card styles */
+html.dark .deposit-mobile-card {
   background-color: #1e293b;
   border-color: #374151;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3), 0 1px 2px 0 rgba(0, 0, 0, 0.2);
 }
 
-/* Transaction table - light mode */
-.wallet-table thead {
-  background-color: #f9fafb;
+html.dark .deposit-mobile-amount {
+  color: #f1f5f9;
 }
 
-.wallet-table th {
-  color: #64748b;
-}
-
-.wallet-table tbody tr {
-  border-color: #e5e7eb;
-}
-
-.wallet-table td {
-  color: #374151;
-}
-
-/* Transaction table - dark mode */
-html.dark .wallet-table thead {
-  background-color: #374151;
-}
-
-html.dark .wallet-table th {
+html.dark .deposit-mobile-label {
   color: #94a3b8;
 }
 
-html.dark .wallet-table tbody tr {
-  border-color: #4b5563;
-}
-
-html.dark .wallet-table td {
+html.dark .deposit-mobile-value {
   color: #d1d5db;
 }
 
-/* Buttons - light mode */
-.wallet-btn-primary {
-  background-color: #4f46e5;
-  color: #ffffff;
-}
-
-.wallet-btn-primary:hover {
-  background-color: #4338ca;
-}
-
-.wallet-btn-secondary {
-  background-color: #ffffff;
-  border-color: #d1d5db;
-  color: #374151;
-}
-
-.wallet-btn-secondary:hover {
-  background-color: #f9fafb;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.05);
-}
-
-.wallet-btn-success {
-  background-color: #10b981;
-  color: #ffffff;
-}
-
-.wallet-btn-success:hover {
-  background-color: #059669;
-}
-
-.wallet-btn-danger {
-  background-color: #ef4444;
-  color: #ffffff;
-}
-
-.wallet-btn-danger:hover {
-  background-color: #dc2626;
-}
-
-.wallet-btn-warning {
-  background-color: #f59e0b;
-  color: #ffffff;
-}
-
-.wallet-btn-warning:hover {
-  background-color: #d97706;
-}
-
-.wallet-btn-purple {
-  background-color: #8b5cf6;
-  color: #ffffff;
-}
-
-.wallet-btn-purple:hover {
-  background-color: #7c3aed;
-}
-
-/* Buttons - dark mode */
-html.dark .wallet-btn-primary {
-  background-color: #6366f1;
-}
-
-html.dark .wallet-btn-primary:hover {
-  background-color: #4f46e5;
-}
-
-html.dark .wallet-btn-secondary {
-  background-color: #374151;
-  border-color: #4b5563;
-  color: #d1d5db;
-}
-
-html.dark .wallet-btn-secondary:hover {
-  background-color: #4b5563;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
-}
-
-html.dark .wallet-btn-success {
-  background-color: #059669;
-}
-
-html.dark .wallet-btn-success:hover {
-  background-color: #047857;
-}
-
-html.dark .wallet-btn-danger {
-  background-color: #dc2626;
-}
-
-html.dark .wallet-btn-danger:hover {
-  background-color: #b91c1c;
-}
-
-html.dark .wallet-btn-warning {
-  background-color: #d97706;
-}
-
-html.dark .wallet-btn-warning:hover {
-  background-color: #b45309;
-}
-
-html.dark .wallet-btn-purple {
-  background-color: #7c3aed;
-}
-
-html.dark .wallet-btn-purple:hover {
-  background-color: #6d28d9;
-}
-
-/* Payment details specific styles - light and dark mode support */
-
-/* Main title - light mode */
-.payment-title {
-  color: #1e293b;
-}
-
-/* Main title - dark mode */
-html.dark .payment-title {
-  color: #f1f5f9;
-}
-
-/* Section containers - light mode */
-.payment-section {
-  background-color: #ffffff;
-  border-color: #e5e7eb;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-}
-
-/* Section containers - dark mode */
-html.dark .payment-section {
-  background-color: #1e293b;
-  border-color: #374151;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3), 0 1px 2px 0 rgba(0, 0, 0, 0.2);
-}
-
-/* Section titles - light mode */
-.payment-section-title {
-  color: #1e293b;
-}
-
-/* Section titles - dark mode */
-html.dark .payment-section-title {
-  color: #f1f5f9;
-}
-
-/* Payment method cards - light mode */
-.payment-method-card {
-  background-color: #eff6ff;
-  border-color: #3b82f6;
-}
-
-.payment-method-card-secondary {
-  background-color: #ffffff;
-  border-color: #e5e7eb;
-}
-
-/* Payment method cards - dark mode */
-html.dark .payment-method-card {
-  background-color: #1e3a8a;
-  border-color: #3b82f6;
-}
-
-html.dark .payment-method-card-secondary {
-  background-color: #374151;
-  border-color: #4b5563;
-}
-
-/* Add payment card - light mode */
-.payment-add-card {
-  background-color: #f9fafb;
-  border-color: #d1d5db;
-}
-
-.payment-add-card:hover {
-  border-color: #3b82f6;
-}
-
-/* Add payment card - dark mode */
-html.dark .payment-add-card {
-  background-color: #374151;
-  border-color: #6b7280;
-}
-
-html.dark .payment-add-card:hover {
-  border-color: #3b82f6;
-}
-
-/* Add payment button - light mode */
-.payment-add-btn {
-  background-color: #2563eb;
-  color: #ffffff;
-}
-
-.payment-add-btn:hover {
-  background-color: #1d4ed8;
-}
-
-/* Add payment button - dark mode */
-html.dark .payment-add-btn {
-  background-color: #1e40af;
-  color: #ffffff;
-}
-
-html.dark .payment-add-btn:hover {
-  background-color: #1e3a8a;
-}
-
-/* Billing list - light mode */
-.payment-billing-list dt {
-  color: #64748b;
-}
-
-.payment-billing-list dd {
-  color: #1e293b;
-}
-
-/* Billing list - dark mode */
-html.dark .payment-billing-list dt {
-  color: #94a3b8;
-}
-
-html.dark .payment-billing-list dd {
-  color: #f1f5f9;
-}
-
-/* Edit billing button - light mode */
-.payment-edit-btn {
-  background-color: #2563eb;
-  color: #ffffff;
-}
-
-.payment-edit-btn:hover {
-  background-color: #1d4ed8;
-}
-
-/* Edit billing button - dark mode */
-html.dark .payment-edit-btn {
-  background-color: #1e40af;
-  color: #ffffff;
-}
-
-html.dark .payment-edit-btn:hover {
-  background-color: #1e3a8a;
-}
-
-/* Payment history table - light mode */
-.payment-history-table thead {
-  background-color: #f9fafb;
-}
-
-.payment-history-table th {
-  color: #64748b;
-}
-
-.payment-history-table tbody tr {
-  border-color: #e5e7eb;
-}
-
-.payment-history-table td {
-  color: #374151;
-}
-
-/* Payment history table - dark mode */
-html.dark .payment-history-table thead {
-  background-color: #374151;
-}
-
-html.dark .payment-history-table th {
-  color: #94a3b8;
-}
-
-html.dark .payment-history-table tbody tr {
-  border-color: #4b5563;
-}
-
-html.dark .payment-history-table td {
-  color: #d1d5db;
-}
-
-/* Status badges - light mode */
-.status-completed {
-  background-color: #dcfce7;
-  color: #166534;
-}
-
-.status-pending {
-  background-color: #fef3c7;
-  color: #92400e;
-}
-
-/* Status badges - dark mode */
-html.dark .status-completed {
-  background-color: #14532d;
-  color: #bbf7d0;
-}
-
-html.dark .status-pending {
-  background-color: #451a03;
-  color: #fed7aa;
-}
-
-/* Payment details specific styles - light and dark mode support */
-
-/* Main title - light mode */
-.payment-title {
-  color: #1e293b;
-}
-
-/* Main title - dark mode */
-html.dark .payment-title {
-  color: #f1f5f9;
-}
-
-/* Section containers - light mode */
-.payment-section {
-  background-color: #ffffff;
-  border-color: #e5e7eb;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-}
-
-/* Section containers - dark mode */
-html.dark .payment-section {
-  background-color: #1e293b;
-  border-color: #374151;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3), 0 1px 2px 0 rgba(0, 0, 0, 0.2);
-}
-
-/* Section titles - light mode */
-.payment-section-title {
-  color: #1e293b;
-}
-
-/* Section titles - dark mode */
-html.dark .payment-section-title {
-  color: #f1f5f9;
-}
-
-/* Payment method cards - light mode */
-.payment-method-card {
-  background-color: #eff6ff;
-  border-color: #3b82f6;
-}
-
-.payment-method-card-secondary {
-  background-color: #ffffff;
-  border-color: #e5e7eb;
-}
-
-/* Payment method cards - dark mode */
-html.dark .payment-method-card {
-  background-color: #1e3a8a;
-  border-color: #3b82f6;
-}
-
-html.dark .payment-method-card-secondary {
-  background-color: #374151;
-  border-color: #4b5563;
-}
-
-/* Add payment card - light mode */
-.payment-add-card {
-  background-color: #f9fafb;
-  border-color: #d1d5db;
-}
-
-.payment-add-card:hover {
-  border-color: #3b82f6;
-}
-
-/* Add payment card - dark mode */
-html.dark .payment-add-card {
-  background-color: #374151;
-  border-color: #6b7280;
-}
-
-html.dark .payment-add-card:hover {
-  border-color: #3b82f6;
-}
-
-/* Add payment button - light mode */
-.payment-add-btn {
-  background-color: #2563eb;
-  color: #ffffff;
-}
-
-.payment-add-btn:hover {
-  background-color: #1d4ed8;
-}
-
-/* Add payment button - dark mode */
-html.dark .payment-add-btn {
-  background-color: #1e40af;
-  color: #ffffff;
-}
-
-html.dark .payment-add-btn:hover {
-  background-color: #1e3a8a;
-}
-
-/* Billing list - light mode */
-.payment-billing-list dt {
-  color: #64748b;
-}
-
-.payment-billing-list dd {
-  color: #1e293b;
-}
-
-/* Billing list - dark mode */
-html.dark .payment-billing-list dt {
-  color: #94a3b8;
-}
-
-html.dark .payment-billing-list dd {
-  color: #f1f5f9;
-}
-
-/* Edit billing button - light mode */
-.payment-edit-btn {
-  background-color: #2563eb;
-  color: #ffffff;
-}
-
-.payment-edit-btn:hover {
-  background-color: #1d4ed8;
-}
-
-/* Edit billing button - dark mode */
-html.dark .payment-edit-btn {
-  background-color: #1e40af;
-  color: #ffffff;
-}
-
-html.dark .payment-edit-btn:hover {
-  background-color: #1e3a8a;
-}
-
-/* Payment history table - light mode */
-.payment-history-table thead {
-  background-color: #f9fafb;
-}
-
-.payment-history-table th {
-  color: #64748b;
-}
-
-.payment-history-table tbody tr {
-  border-color: #e5e7eb;
-}
-
-.payment-history-table td {
-  color: #374151;
-}
-
-/* Payment history table - dark mode */
-html.dark .payment-history-table thead {
-  background-color: #374151;
-}
-
-html.dark .payment-history-table th {
-  color: #94a3b8;
-}
-
-html.dark .payment-history-table tbody tr {
-  border-color: #4b5563;
-}
-
-html.dark .payment-history-table td {
-  color: #d1d5db;
-}
-
-/* Status badges - light mode */
-.status-completed {
-  background-color: #dcfce7;
-  color: #166534;
-}
-
-.status-pending {
-  background-color: #fef3c7;
-  color: #92400e;
-}
-
-/* Status badges - dark mode */
-html.dark .status-completed {
-  background-color: #14532d;
-  color: #bbf7d0;
-}
-
-html.dark .status-pending {
-  background-color: #451a03;
-  color: #fed7aa;
-}
+/* Hide focus ring for mouse/touch interactions but keep for keyboard navigation */
+button:focus:not(:focus-visible),
+a[role="button"]:focus:not(:focus-visible),
+input[type="button"]:focus:not(:focus-visible),
+input[type="submit"]:focus:not(:focus-visible),
+button.btn:focus:not(:focus-visible),
+a.btn:focus:not(:focus-visible) {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Visible focus ring for keyboard users */
+button:focus-visible,
+a[role="button"]:focus-visible,
+input[type="button"]:focus-visible,
+input[type="submit"]:focus-visible,
+button.btn:focus-visible,
+a.btn:focus-visible {
+  outline: 3px solid rgba(99, 102, 241, 0.6);
+  outline-offset: 2px;
+  box-shadow: none;
+}
+
+/* Fallback: if you still see outlines in old browsers, add this (not recommended for accessibility):
+button:focus,
+a[role="button"]:focus,
+input[type="button"]:focus,
+input[type="submit"]:focus {
+  outline: none;
+}
+*/
