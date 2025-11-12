@@ -14,39 +14,39 @@
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #0f172a; /* Dark background to match image */
-            color: #e2e8f0; /* Light text */
+            background-color: var(--bg-body);
+            color: var(--text-body);
         }
         .input-card {
-            background-color: #1a202c; /* Slightly lighter dark card background for input area */
+            background-color: var(--bg-card);
             border-radius: 1rem; /* rounded-xl */
             padding: 1.5rem;
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 4px 6px -2px rgba(0, 0, 0, 0.1);
         }
         .method-card {
-            background-color: #2d3748; /* Darker card for default state */
+            background-color: var(--bg-button);
             border: 1px solid transparent;
             transition: all 0.2s ease-in-out;
             cursor: pointer;
         }
         .method-card:hover {
-            border-color: #4a5568; /* gray-600 */
+            border-color: var(--border-card);
         }
         .method-card.selected {
             border-color: #4f46e5; /* indigo-600 border for selected */
-            background-color: #1a202c; /* The selected card has the main container background */
+            background-color: var(--bg-card);
         }
         input[type="text"], select {
-            background-color: #2d3748; /* Darker input background */
-            border: 1px solid #4a5568; /* Darker border for inputs */
-            color: #e2e8f0;
+            background-color: var(--bg-button);
+            border: 1px solid var(--border-card);
+            color: var(--text-button);
             padding: 0.75rem 1rem;
             border-radius: 0.5rem; /* rounded-lg */
             width: 100%;
             transition: all 0.15s ease-in-out;
         }
         input[type="text"]::placeholder {
-            color: #a0aec0; /* Light gray placeholder */
+            color: var(--text-secondary);
         }
         select:focus, input:focus {
             outline: none;
@@ -56,6 +56,7 @@
     </style>
 
  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+ <link rel="stylesheet" href="style.css">
 </head>
 <body class="bg-gray-900 text-slate-900 antialiased">
 
@@ -199,7 +200,7 @@
                     <!-- Select Currency -->
                     <div>
                         <label for="currency-select" class="block text-sm font-medium text-gray-300 mb-2">Select Currency</label>
-                        <select id="currency-select" class="py-2 text-gray-400">
+                        <select id="currency-select" class="py-3 px-2 text-gray-400">
                             <option value="" disabled selected>Select Currency</option>
                             <option value="USD">USD - United States Dollar</option>
                             <option value="EUR">EUR - Euro</option>
@@ -214,7 +215,7 @@
                     </div>
 
                     <!-- Payout Button -->
-                    <button class="w-full px-6 py-3 bg-purple-700 text-gray-300 font-semibold rounded-lg hover:bg-purple-800 transition duration-150 ease-in-out">
+                    <button class="w-full px-6 py-3 bg-purple-700 text-gray-600 font-semibold rounded-lg hover:bg-purple-800 transition duration-150 ease-in-out">
                         Withdraw Now
                     </button>
                 </div>

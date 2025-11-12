@@ -14,12 +14,11 @@
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #0f172a; /* Dark background to match image */
-            color: #e2e8f0; /* Light text */
+            background-color: var(--bg-body);
+            color: var(--text-body);
         }
         .table-container {
-            /* Slightly lighter card background */
-            background-color: #1a202c; 
+            background-color: var(--bg-table);
             border-radius: 12px;
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 4px 6px -2px rgba(0, 0, 0, 0.1);
         }
@@ -28,9 +27,9 @@
         @media (max-width: 767px) {
             .mobile-card {
                 padding: 1rem;
-                background-color: #1f2937; /* Darker card for visual separation */
+                background-color: var(--bg-card);
                 border-radius: 0.75rem;
-                border: 1px solid #374151;
+                border: 1px solid var(--border-card);
             }
             .mobile-row-item {
                 display: flex;
@@ -40,7 +39,7 @@
             }
             .mobile-row-item .label {
                 font-weight: 500;
-                color: #9ca3af;
+                color: var(--text-secondary);
                 font-size: 0.875rem;
             }
             .mobile-row-item .value {
@@ -64,6 +63,7 @@
     </style>
 
  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+ <link rel="stylesheet" href="style.css">
 </head>
 <body class="bg-gray-900 text-slate-900 antialiased">
 
@@ -143,11 +143,11 @@
                 <table class="min-w-full divide-y divide-gray-700">
                     <thead class="bg-gray-800">
                         <tr>
-                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider w-1/12">SL</th>
-                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider w-3/12">Plan</th>
-                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider w-3/12">Return Interest</th>
-                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider w-3/12">Received Amount</th>
-                            <th class="px-4 py-3 text-right text-xs font-medium text-gray-400 uppercase tracking-wider w-2/12">Upcoming Payment</th>
+                            <th class="px-4 py-4 text-left text-xs font-medium text-gray-400 uppercase tracking-wider w-1/12">SL</th>
+                            <th class="px-4 py-4 text-left text-xs font-medium text-gray-400 uppercase tracking-wider w-3/12">Plan</th>
+                            <th class="px-4 py-4 text-left text-xs font-medium text-gray-400 uppercase tracking-wider w-3/12">Return Interest</th>
+                            <th class="px-4 py-4 text-left text-xs font-medium text-gray-400 uppercase tracking-wider w-3/12">Received Amount</th>
+                            <th class="px-4 py-4 text-right text-xs font-medium text-gray-400 uppercase tracking-wider w-2/12">Upcoming Payment</th>
                         </tr>
                     </thead>
                     <tbody id="desktop-table-body" class="divide-y divide-gray-700">
@@ -295,7 +295,7 @@
 
         for (let i = 1; i <= DISPLAY_PAGE_LIMIT; i++) {
             const btn = document.createElement('button');
-            btn.className = 'page-btn px-4 py-2 text-sm font-medium rounded-lg text-gray-400 hover:bg-gray-700/50 transition';
+            btn.className = 'page-btn px-4 py-2 text-sm font-medium rounded-lg text-gray-200  transition';
             btn.textContent = i;
             btn.onclick = () => goToPage(i);
             buttonContainer.appendChild(btn);
@@ -308,10 +308,10 @@
         // Update active button styling
         document.querySelectorAll('.page-btn').forEach(btn => {
             btn.classList.remove('pagination-active', 'text-gray-400');
-            btn.classList.add('text-gray-400', 'hover:bg-gray-700/50');
+            btn.classList.add('text-gray-400');
             if (parseInt(btn.textContent) === currentPage) {
                 btn.classList.add('pagination-active');
-                btn.classList.remove('text-gray-400', 'hover:bg-gray-700/50');
+                btn.classList.remove('text-gray-400');
             }
         });
 

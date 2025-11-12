@@ -12,14 +12,14 @@
   </style>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #111827; /* Very dark background to match image */
-            color: #f3f4f6; /* Light text */
+            background-color: var(--bg-body);
+            color: var(--text-body);
         }
         .table-container {
-            /* Mimics the slightly lighter card background in the image */
-            background-color: #1f2937; 
+            background-color: var(--bg-table);
             border-radius: 12px;
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 4px 6px -2px rgba(0, 0, 0, 0.1);
         }
@@ -40,11 +40,12 @@
                 padding-bottom: 0;
             }
         }
- </style>
+  </style>
 
  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+ <link rel="stylesheet" href="style.css">
 </head>
-<body class="bg-gray-900 text-slate-900 antialiased">
+<body class="bg-gray-900 text-gray-800 antialiased">
 
   <div class="flex">
 
@@ -141,7 +142,7 @@
                             <i class="fas fa-check-circle text-green-500"></i>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-center">
-                            <button class="open-modal-btn px-4 py-2 bg-purple-700 text-gray-200 rounded-lg text-sm font-semibold hover:bg-purple-800 transition duration-150 shadow-lg shadow-purple-900/50 flex items-center justify-center mx-auto"
+                            <button class="open-modal-btn px-4 py-2 bg-purple-700 text-gray-600 rounded-lg text-sm font-semibold hover:bg-purple-800 transition duration-150 shadow-lg shadow-purple-900/50 flex items-center justify-center mx-auto"
                                     data-plan-name="Business Plan" 
                                     data-invest-range="$69 - $999" 
                                     data-interest="6.00 %">
@@ -159,7 +160,7 @@
                             <i class="fas fa-check-circle text-green-500"></i>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-center">
-                            <button class="open-modal-btn px-4 py-2 bg-purple-700 text-gray-200 rounded-lg text-sm font-semibold hover:bg-purple-800 transition duration-150 shadow-lg shadow-purple-900/50 flex items-center justify-center mx-auto"
+                            <button class="open-modal-btn px-4 py-2 bg-purple-700 text-gray-600 rounded-lg text-sm font-semibold hover:bg-purple-800 transition duration-150 shadow-lg shadow-purple-900/50 flex items-center justify-center mx-auto"
                                     data-plan-name="Business Plan" 
                                     data-invest-range="$69 - $999" 
                                     data-interest="6.00 %">
@@ -177,7 +178,7 @@
                             <i class="fas fa-times-circle text-red-500"></i>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-center">
-                            <button class="open-modal-btn px-4 py-2 bg-purple-700 text-gray-200 rounded-lg text-sm font-semibold hover:bg-purple-800 transition duration-150 shadow-lg shadow-purple-900/50 flex items-center justify-center mx-auto"
+                            <button class="open-modal-btn px-4 py-2 bg-purple-700 text-gray-600 rounded-lg text-sm font-semibold hover:bg-purple-800 transition duration-150 shadow-lg shadow-purple-900/50 flex items-center justify-center mx-auto"
                                     data-plan-name="Business Plan" 
                                     data-invest-range="$69 - $999" 
                                     data-interest="6.00 %">
@@ -194,7 +195,7 @@
                             <i class="fas fa-check-circle text-green-500"></i>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-center">
-                            <button class="open-modal-btn px-4 py-2 bg-purple-700 text-gray-200 rounded-lg text-sm font-semibold hover:bg-purple-800 transition duration-150 shadow-lg shadow-purple-900/50 flex items-center justify-center mx-auto"
+                            <button class="open-modal-btn px-4 py-2 bg-purple-700 text-gray-600 rounded-lg text-sm font-semibold hover:bg-purple-800 transition duration-150 shadow-lg shadow-purple-900/50 flex items-center justify-center mx-auto"
                                     data-plan-name="Business Plan" 
                                     data-invest-range="$69 - $999" 
                                     data-interest="6.00 %">
@@ -211,7 +212,7 @@
                             <i class="fas fa-check-circle text-green-500"></i>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-center">
-                            <button class="open-modal-btn px-4 py-2 bg-purple-700 text-gray-200 rounded-lg text-sm font-semibold hover:bg-purple-800 transition duration-150 shadow-lg shadow-purple-900/50 flex items-center justify-center mx-auto"
+                            <button class="open-modal-btn px-4 py-2 bg-purple-700 text-gray-600 rounded-lg text-sm font-semibold hover:bg-purple-800 transition duration-150 shadow-lg shadow-purple-900/50 flex items-center justify-center mx-auto"
                                     data-plan-name="Business Plan" 
                                     data-invest-range="$69 - $999" 
                                     data-interest="6.00 %">
@@ -228,7 +229,7 @@
                             <i class="fas fa-check-circle text-green-500"></i>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-center">
-                            <button class="open-modal-btn px-4 py-2 bg-purple-700 text-gray-200 rounded-lg text-sm font-semibold hover:bg-purple-800 transition duration-150 shadow-lg shadow-purple-900/50 flex items-center justify-center mx-auto"
+                            <button class="open-modal-btn px-4 py-2 bg-purple-700 text-gray-600 rounded-lg text-sm font-semibold hover:bg-purple-800 transition duration-150 shadow-lg shadow-purple-900/50 flex items-center justify-center mx-auto"
                                     data-plan-name="Business Plan" 
                                     data-invest-range="$69 - $999" 
                                     data-interest="6.00 %">
@@ -261,7 +262,7 @@
                     </span>
                 </div>
                 <div class="mt-2 pt-3 border-t border-gray-700/50">
-                    <button class="open-modal-btn w-full px-4 py-3 bg-green-600 text-white rounded-lg text-base font-semibold hover:bg-green-700 transition duration-150 shadow-lg shadow-green-900/50 flex items-center justify-center"
+                    <button class="open-modal-btn w-full px-4 py-3 bg-green-600 text-gray-600 rounded-lg text-base font-semibold hover:bg-green-700 transition duration-150 shadow-lg shadow-green-900/50 flex items-center justify-center"
                             data-plan-name="Business Plan" 
                             data-invest-range="$69 - $999" 
                             data-interest="6.00 %">
@@ -280,7 +281,7 @@
     <div class="bg-gray-900 rounded-lg shadow-2xl p-6 w-11/12 max-w-sm border-2 border-gray-700 transform scale-100 transition-transform duration-300">
         
         <div class="flex justify-between items-center mb-4">
-            <h2 id="modal-title" class="text-xl md:text-2xl font-bold text-white">Invest Now</h2>
+            <h2 id="modal-title" class="text-xl md:text-2xl font-bold text-gray-200">Invest Now</h2>
             <button id="close-modal-btn" class="text-gray-400 hover:text-white transition">
                 <i class="fas fa-times text-xl"></i>
             </button>
@@ -315,16 +316,16 @@
         <div class="mb-6">
             <label for="invest-amount" class="sr-only">Enter amount</label>
             <div class="relative flex rounded-lg shadow-sm">
-                <input type="number" id="invest-amount" placeholder="Enter amount" 
-                       class="flex-1 min-w-0 block w-full px-4 py-3 bg-gray-700 text-white border-none rounded-l-lg focus:ring-2 focus:ring-green-500 focus:outline-none placeholder-gray-400" 
+                <input type="number" id="invest-amount" placeholder="Enter amount"
+                       class="flex-1 min-w-0 block w-full px-4 py-3 bg-gray-700 text-white border border-gray-600 rounded-l-lg focus:ring-2 focus:ring-green-500 focus:outline-none placeholder-gray-400 unique153"
                        min="1">
-                <span class="inline-flex items-center px-4 py-3 text-sm text-gray-300 bg-purple-700 rounded-r-lg font-semibold">
+                <span class="inline-flex items-center px-4 py-3 text-sm text-gray-600 bg-purple-700 rounded-r-lg font-semibold unique154">
                     USD
                 </span>
             </div>
         </div>
         
-        <button class="w-full py-3 bg-purple-700 text-gray-300 rounded-lg text-lg font-bold hover:bg-purple-800 transition duration-150 shadow-lg shadow-purple-900/50">
+        <button class="w-full py-3 bg-purple-700 text-gray-600 rounded-lg text-lg font-bold hover:bg-purple-800 transition duration-150 shadow-lg shadow-purple-900/50 unique155">
             Invest Now
         </button>
     </div>
@@ -337,9 +338,9 @@
   </div>
 
   <!-- load includes and UI script -->
-  <script src="js/include.js"></script>
-  <script src="js/main.js"></script>
-  <script>
+  <script src="js/include.js" class="unique156"></script>
+  <script src="js/main.js" class="unique157"></script>
+  <script class="unique158">
     // Get references to elements
     const modal = document.getElementById('invest-modal');
     const closeModalBtn = document.getElementById('close-modal-btn');

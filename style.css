@@ -1,0 +1,412 @@
+/* CSS Variables for Light and Dark Mode */
+:root {
+  --bg-body: #f8fafc;
+  --text-body: #1f2937;
+  --bg-header: #ffffff;
+  --text-header: #1f2937;
+  --bg-main: #f8fafc;
+  --text-main: #1f2937;
+  --bg-card: #ffffff;
+  --text-card: #1f2937;
+  --bg-table: #ffffff;
+  --border-card: #e2e8f0;
+  --bg-notification: #fef3c7;
+  --text-notification: #92400e;
+  --bg-button: #ffffff;
+  --text-button: #1f2937;
+  --bg-hover: #f3f4f6;
+  --text-secondary: #6b7280;
+}
+
+.dark {
+  --bg-body: #1f2937;
+  --text-body: #f9fafb;
+  --bg-header: #374151;
+  --text-header: #f9fafb;
+  --bg-main: #1f2937;
+  --text-main: #f9fafb;
+  --bg-card: #374151;
+  --text-card: #f9fafb;
+  --bg-table: #374151;
+  --border-card: #4b5563;
+  --bg-notification: #451a03;
+  --text-notification: #fbbf24;
+  --bg-button: #374151;
+  --text-button: #f9fafb;
+  --bg-hover: #4b5563;
+  --text-secondary: #9ca3af;
+}
+
+/* Apply variables to elements */
+body {
+  background-color: var(--bg-body);
+  color: var(--text-body);
+}
+
+header {
+  background-color: var(--bg-header);
+  color: var(--text-header);
+}
+
+main {
+  background-color: var(--bg-main);
+  color: var(--text-main);
+}
+
+.card {
+  background-color: var(--bg-card);
+  color: var(--text-card);
+  border-color: var(--border-card);
+}
+
+#notification-banner {
+  background-color: var(--bg-notification);
+  color: var(--text-notification);
+}
+
+button {
+  background-color: var(--bg-button);
+  color: var(--text-button);
+}
+
+button:hover {
+  background-color: var(--bg-hover);
+}
+
+/* Additional styles for specific elements */
+.text-white {
+  color: var(--text-body);
+}
+
+.bg-gray-800 {
+  background-color: var(--bg-body);
+}
+
+.text-gray-800 {
+  color: var(--text-card);
+}
+
+.bg-gray-200 {
+  background-color: var(--bg-hover);
+}
+
+.text-gray-200 {
+  color: var(--text-main);
+}
+
+/* Ensure proper contrast and theming */
+
+/* Override Tailwind classes for light and dark mode */
+html:not(.dark) .bg-gray-800 {
+  background-color: #f8fafc !important;
+}
+
+html.dark .bg-gray-800 {
+  background-color: #1f2937 !important;
+}
+
+html:not(.dark) .text-white {
+  color: #1f2937 !important;
+}
+
+html.dark .text-white {
+  color: #f9fafb !important;
+}
+
+html:not(.dark) .text-gray-800 {
+  color: #1f2937 !important;
+}
+
+html.dark .text-gray-800 {
+  color: #f9fafb !important;
+}
+
+html:not(.dark) .text-gray-200 {
+  color: #374151 !important;
+}
+
+html.dark .text-gray-200 {
+  color: #d1d5db !important;
+}
+
+html:not(.dark) .bg-yellow-50 {
+  background-color: #fef3c7 !important;
+  color: #92400e !important;
+}
+
+html.dark .bg-yellow-50 {
+  background-color: #451a03 !important;
+  color: #fbbf24 !important;
+}
+
+html:not(.dark) .text-yellow-800 {
+  color: #92400e !important;
+}
+
+html.dark .text-yellow-800 {
+  color: #fbbf24 !important;
+}
+
+html:not(.dark) .bg-purple-700 {
+  background-color: #7c3aed !important;
+  color: #ffffff !important;
+}
+
+html.dark .bg-purple-700 {
+  background-color: #6d28d9 !important;
+  color: #f9fafb !important;
+}
+
+html:not(.dark) .hover\:bg-purple-800:hover {
+  background-color: #6d28d9 !important;
+}
+
+html.dark .hover\:bg-purple-800:hover {
+  background-color: #5b21b6 !important;
+}
+
+html:not(.dark) .text-slate-700 {
+  color: #374151 !important;
+}
+
+html.dark .text-slate-700 {
+  color: #d1d5db !important;
+}
+
+html:not(.dark) .bg-indigo-600 {
+  background-color: #4f46e5 !important;
+  color: #ffffff !important;
+}
+
+html.dark .bg-indigo-600 {
+  background-color: #4338ca !important;
+  color: #f9fafb !important;
+}
+
+html:not(.dark) .hover\:bg-indigo-700:hover {
+  background-color: #4338ca !important;
+}
+
+html.dark .hover\:bg-indigo-700:hover {
+  background-color: #3730a3 !important;
+}
+
+html:not(.dark) .bg-green-600 {
+  background-color: #059669 !important;
+  color: #ffffff !important;
+}
+
+html.dark .bg-green-600 {
+  background-color: #047857 !important;
+  color: #f9fafb !important;
+}
+
+html:not(.dark) .hover\:bg-green-700:hover {
+  background-color: #047857 !important;
+}
+
+html.dark .hover\:bg-green-700:hover {
+  background-color: #065f46 !important;
+}
+
+html:not(.dark) .bg-red-600 {
+  background-color: #dc2626 !important;
+  color: #ffffff !important;
+}
+
+html.dark .bg-red-600 {
+  background-color: #b91c1c !important;
+  color: #f9fafb !important;
+}
+
+html:not(.dark) .hover\:bg-red-700:hover {
+  background-color: #b91c1c !important;
+}
+
+html.dark .hover\:bg-red-700:hover {
+  background-color: #991b1b !important;
+}
+
+html:not(.dark) .bg-gray-600 {
+  background-color: #f3f4f6 !important;
+}
+
+html.dark .bg-gray-600 {
+  background-color: #4b5563 !important;
+}
+
+html:not(.dark) .hover\:bg-gray-600:hover {
+  background-color: #e5e7eb !important;
+}
+
+html.dark .hover\:bg-gray-600:hover {
+  background-color: #374151 !important;
+}
+
+html:not(.dark) .border-gray-300 {
+  border-color: #d1d5db !important;
+}
+
+html.dark .border-gray-300 {
+  border-color: #4b5563 !important;
+}
+
+html:not(.dark) .bg-gray-800 {
+  background-color: #f9fafb !important;
+}
+
+html.dark .bg-gray-800 {
+  background-color: #1f2937 !important;
+}
+
+html:not(.dark) .text-gray-200 {
+  color: #374151 !important;
+}
+
+html.dark .text-gray-200 {
+  color: #d1d5db !important;
+}
+
+html:not(.dark) .border-dashed {
+  border-color: #d1d5db !important;
+}
+
+html.dark .border-dashed {
+  border-color: #4b5563 !important;
+}
+
+html:not(.dark) .text-gray-300 {
+  color: #6b7280 !important;
+}
+
+html.dark .text-gray-300 {
+  color: #9ca3af !important;
+}
+
+html:not(.dark) .text-blue-500 {
+  color: #3b82f6 !important;
+}
+
+html.dark .text-blue-500 {
+  color: #60a5fa !important;
+}
+
+html:not(.dark) .text-green-500 {
+  color: #10b981 !important;
+}
+
+html.dark .text-green-500 {
+  color: #34d399 !important;
+}
+
+html:not(.dark) .bg-indigo-50 {
+  background-color: #eef2ff !important;
+  color: #312e81 !important;
+}
+
+html.dark .bg-indigo-50 {
+  background-color: #1e1b4b !important;
+  color: #a5b4fc !important;
+}
+
+html:not(.dark) .text-indigo-700 {
+  color: #312e81 !important;
+}
+
+html.dark .text-indigo-700 {
+  color: #a5b4fc !important;
+}
+
+html:not(.dark) .bg-green-50 {
+  background-color: #ecfdf5 !important;
+  color: #064e3b !important;
+}
+
+html.dark .bg-green-50 {
+  background-color: #064e3b !important;
+  color: #6ee7b7 !important;
+}
+
+html:not(.dark) .text-green-700 {
+  color: #064e3b !important;
+}
+
+html.dark .text-green-700 {
+  color: #6ee7b7 !important;
+}
+
+html:not(.dark) .bg-orange-50 {
+  background-color: #fff7ed !important;
+  color: #9a3412 !important;
+}
+
+html.dark .bg-orange-50 {
+  background-color: #9a3412 !important;
+  color: #fed7aa !important;
+}
+
+html:not(.dark) .text-orange-700 {
+  color: #9a3412 !important;
+}
+
+html.dark .text-orange-700 {
+  color: #fed7aa !important;
+}
+
+/* Additional overrides for plan.html */
+html:not(.dark) .bg-gray-900 {
+  background-color: #f8fafc !important;
+}
+
+html.dark .bg-gray-900 {
+  background-color: #111827 !important;
+}
+
+html:not(.dark) .bg-gray-700 {
+  background-color: #f9fafb !important;
+}
+
+html.dark .bg-gray-700 {
+  background-color: #374151 !important;
+}
+
+html:not(.dark) .text-gray-400 {
+  color: #6b7280 !important;
+}
+
+html.dark .text-gray-400 {
+  color: #9ca3af !important;
+}
+
+html:not(.dark) .text-green-400 {
+  color: #16a34a !important;
+}
+
+html.dark .text-green-400 {
+  color: #4ade80 !important;
+}
+
+html:not(.dark) .text-red-500 {
+  color: #dc2626 !important;
+}
+
+html.dark .text-red-500 {
+  color: #ef4444 !important;
+}
+
+html:not(.dark) .text-slate-900 {
+  color: #0f172a !important;
+}
+
+html.dark .text-slate-900 {
+  color: #f1f5f9 !important;
+}
+
+html:not(.dark) .text-lime-400 {
+  color: #65a30d !important;
+}
+
+html.dark .text-lime-400 {
+  color: #a3e635 !important;
+}
+
