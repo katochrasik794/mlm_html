@@ -79,9 +79,9 @@ html.dark .submenu {
   color: #64748b;
 }
 
-.submenu .nav-link:hover {
+/* .submenu .nav-link:hover {
   background-color: #e2e8f0;
-}
+} */
 
 /* Submenu links dark mode */
 html.dark .submenu .nav-link {

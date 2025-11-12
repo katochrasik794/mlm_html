@@ -1,5 +1,5 @@
 <section class="transaction-history-main mt-16 mx-auto p-4 md:p-6 lg:p-8 w-[280px] sm:w-[460px] lg:w-[800px] xl:w-full">
-  <header class="transaction-history-header mb-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4 p-4 rounded-xl">
+  <header class="transaction-history-header mb-6 flex flex-col flex-wrap md:flex-row md:items-center md:justify-between gap-4 p-4 rounded-xl">
     <div class="transaction-history-header-content">
       <h1 class="transaction-history-title text-3xl md:text-4xl font-extrabold text-gray-900">Transaction History</h1>
       <p class="transaction-history-subtitle mt-1 text-sm text-gray-500">View deposits, withdrawals and trades — filter, search or export your transactions.</p>
@@ -23,7 +23,7 @@
   </header>
 
   <!-- Summary Cards -->
-  <div class="transaction-history-summary-grid grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+  <div class="transaction-history-summary-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
     <div class="transaction-history-summary-card-deposits bg-white p-4 rounded-2xl border border-gray-100 shadow-sm flex flex-col items-start">
       <div class="summary-card-label text-sm text-gray-500">Total Deposits</div>
       <div class="summary-card-amount mt-2 text-xl font-extrabold text-green-600">$12,500</div>
@@ -53,7 +53,7 @@
   <div class="transaction-history-filters bg-white p-6 rounded-2xl border border-gray-100 shadow-sm mb-6">
     <h2 class="transaction-history-filters-title text-lg font-semibold text-gray-800 mb-4">Filter Transactions</h2>
 
-    <form class="transaction-history-filters-form grid grid-cols-1 md:grid-cols-4 gap-4">
+    <form class="transaction-history-filters-form grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
       <div class="transaction-history-filter-from">
         <label class="transaction-history-filter-label text-xs text-gray-600 mb-1 block">From</label>
         <input type="date" class="transaction-history-filter-input w-full border border-gray-200 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" />

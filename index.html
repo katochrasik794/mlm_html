@@ -88,9 +88,9 @@
         .submenu .nav-link {
           background-color: transparent;
         }
-        .submenu .nav-link:hover {
-          background-color: #e5e7eb; /* slightly darker on hover */
-        }
+        /* .submenu .nav-link:hover {
+          background-color: #7c3aed !important;
+        } */
       }
 
       /* Remove focus outline for main content area */
@@ -120,13 +120,13 @@
     <div class="flex">
       <!-- SIDEBAR -->
       <aside
-        class="fixed left-0 top-0 bottom-0 bg-white border-r border-slate-200 text-slate-800 flex flex-col justify-between sidebar
+        class="fixed left-0 top-0 bottom-0 bg-blue-50 border-r border-slate-200 text-slate-800 flex flex-col justify-between sidebar
          w-16 sm:w-64 md:w-72 transition-width duration-300"
         aria-labelledby="site-brand"
         role="navigation"
       >
         <div class="px-2 sm:px-4 flex flex-col gap-1">
-          <!-- Brand -->
+
           <div
             id="site-brand"
             class="py-3 px-2 text-2xl sm:text-4xl font-bold text-slate-800 border-b border-slate-200 flex justify-center sm:justify-start"
@@ -135,7 +135,7 @@
             <span class="sm:hidden">M<br />L<br />M</span>
           </div>
 
-          <!-- Dashboard -->
+
           <button
             type="button"
             class="nav-link flex items-center gap-3 p-3 rounded-lg bg-violet-600 text-white font-medium w-full text-left"
@@ -161,13 +161,13 @@
             <span class="hidden sm:inline">Dashboard</span>
           </button>
 
-          <!-- Navigation -->
+
           <nav
             class="flex flex-col gap-1 mt-1"
             id="sidebarNav"
             aria-label="Main navigation"
           >
-            <!-- My Account -->
+
             <button
               class="nav-link flex items-center gap-3 text-slate-800"
               data-page="my-account"
@@ -185,7 +185,7 @@
               <span class="hidden sm:inline">My Account</span>
             </button>
 
-            <!-- Wallet -->
+
             <button
               class="nav-link flex items-center gap-3 text-slate-800"
               data-page="wallet"
@@ -205,7 +205,7 @@
               <span class="hidden sm:inline">My Wallet</span>
             </button>
 
-            <!-- Payment Details -->
+
             <button
               class="nav-link flex items-center gap-3 text-slate-800"
               data-page="payment-details"
@@ -223,7 +223,7 @@
               <span class="hidden sm:inline">Payment Details</span>
             </button>
 
-            <!-- Funds Dropdown -->
+
             <button
               type="button"
               class="nav-link flex justify-between items-center text-slate-800"
@@ -246,7 +246,7 @@
               <img src="./images/dropdown.svg" alt="" class="h-5 sm:h-8" />
             </button>
 
-            <!-- Submenu -->
+
             <div class="submenu pl-8 flex flex-col gap-1 hidden">
               <button class="nav-link text-slate-600" data-page="deposit">
                 Deposit
@@ -262,7 +262,7 @@
               </button>
             </div>
 
-            <!-- KYC -->
+
             <button
               class="nav-link flex items-center gap-3 text-slate-800"
               data-page="kyc"
@@ -285,7 +285,7 @@
               <span class="hidden sm:inline">KYC</span>
             </button>
 
-            <!-- Settings Dropdown -->
+
             <button
               type="button"
               class="nav-link flex justify-between items-center text-slate-800"
@@ -316,7 +316,7 @@
               />
             </button>
 
-            <!-- Submenu -->
+
             <div class="submenu pl-8 flex flex-col gap-1 hidden">
               <button class="nav-link text-slate-600" data-page="profile">
                 Profile
@@ -325,7 +325,7 @@
           </nav>
         </div>
 
-        <!-- Bottom -->
+
         <div class="border-t border-slate-200 mx-2 sm:mx-6"></div>
         <div class="p-2 sm:p-4 flex flex-col gap-2">
           <button
@@ -353,7 +353,7 @@
         class="flex-1 min-h-screen ml-16 sm:ml-64 md:ml-72 transition-all duration-300"
       >
         <header
-          class="fixed left-16 sm:left-64 md:left-72 right-0 top-0 bg-white border-b border-slate-200 h-16 flex items-center px-4 z-20 justify-between transition-all duration-300"
+          class="fixed left-16 sm:left-64 md:left-72 right-0 top-0 bg-blue-50 border-b border-slate-200 h-16 flex items-center px-4 z-20 justify-between transition-all duration-300"
         >
           <div class="text-lg font-semibold">MLM Trading</div>
           <button
