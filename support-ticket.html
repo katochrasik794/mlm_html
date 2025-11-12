@@ -1,0 +1,400 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Leads - CRM</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .min-vh-100 { min-height: 100vh; }
+    .card-transition { transition: box-shadow .12s ease, transform .12s ease; }
+    .card-transition:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(2,6,23,0.08); }
+  </style>
+  <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a; /* Dark background to match image */
+            color: #e2e8f0; /* Light text */
+        }
+        .table-container {
+            /* Slightly lighter card background */
+            background-color: #1a202c; 
+            border-radius: 12px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 4px 6px -2px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Custom mobile row styling */
+        @media (max-width: 767px) {
+            .mobile-card {
+                padding: 1rem;
+                background-color: #1f2937; /* Darker card for visual separation */
+                border-radius: 0.75rem;
+                border: 1px solid #374151;
+            }
+            .mobile-row-item {
+                display: flex;
+                justify-content: space-between;
+                padding-top: 0.4rem;
+                padding-bottom: 0.4rem;
+            }
+            .mobile-row-item .label {
+                font-weight: 500;
+                color: #9ca3af;
+                font-size: 0.875rem;
+            }
+            .mobile-row-item .value {
+                font-weight: 600;
+                font-size: 0.875rem;
+                text-align: right;
+            }
+            .mobile-row-item .action {
+                text-align: center;
+                width: 100%;
+                margin-top: 0.5rem;
+            }
+        }
+        .pagination-active {
+            background-color: #10b981; /* green-500 for active state */
+            color: white;
+            font-weight: bold;
+        }
+        .status-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+    </style>
+
+
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body class="bg-gray-900 text-slate-900 antialiased">
+
+  <div class="flex">
+
+    <div data-include="components/sidebar.html"></div>
+
+    <!-- main column: topbar + page content + footer -->
+    <div class="flex-1 flex flex-col min-h-screen">
+      <!-- topbar -->
+      <header class="w-full border-b p-4 sticky text-white bg-gray-800 top-0 z-30">
+        <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
+          <div class="flex items-center gap-3">
+            <!-- Mobile menu button -->
+            <button id="mobileToggle" class="md:hidden p-2 rounded-md">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+              </svg>
+            </button>
+          </div>
+
+          <div class="flex items-center gap-4">
+            <button
+            id="themeToggle"
+            class="p-3 w-12 h-12 rounded-lg flex items-center justify-center text-slate-700 transition"
+          >
+            <svg
+              id="themeIcon"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide lucide-moon"
+            >
+              <path
+                d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"
+              />
+            </svg>
+          </button>
+            <div class="relative">
+              <button id="profileBtn" class="flex items-center gap-2 p-1 rounded-md hover:bg-gray-600">
+                <img src="https://i.pravatar.cc/40" alt="avatar" class="w-8 h-8 rounded-full" />
+                <span class="hidden sm:block text-sm">Raghav</span>
+                <svg class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd"
+                        d="M5.23 7.21a.75.75 0 011.06.02L10 11.17l3.71-3.94a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01.02-1.06z"
+                        clip-rule="evenodd"/>
+                </svg>
+              </button>
+
+              <!-- Profile dropdown -->
+              <div id="profileDropdown"
+                   class="hidden absolute right-0 mt-2 w-44 bg-gray-800 border rounded-md shadow-sm py-1">
+                <a href="#" class="block px-3 py-2 text-sm hover:bg-gray-600">Profile</a>
+                <a href="#" class="block px-3 py-2 text-sm hover:bg-gray-600">Settings</a>
+                <a href="#" class="block px-3 py-2 text-sm hover:bg-gray-600">Sign out</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- page-specific content -->
+      <main class="flex-1 p-6 max-w-7xl mx-auto w-full">
+        <div class="max-w-7xl mx-auto">
+
+        <!-- Header and Title -->
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="text-3xl font-extrabold text-white">Support Ticket</h2>
+            <button id="openTicketModal"
+  class="flex items-center justify-center px-4 py-2 bg-purple-700 text-gray-300 font-semibold rounded-lg hover:bg-purple-800 transition duration-150 ease-in-out whitespace-nowrap text-sm sm:text-base">
+  <i class="fas fa-plus mr-2"></i> Create Ticket
+</button>
+
+        </div>
+        <!-- Ticket Popup Modal -->
+<div id="ticketModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+  <div class="bg-gray-900 text-white p-6 rounded-lg w-[90%] max-w-md shadow-lg relative">
+    <h2 class="text-xl font-bold mb-4">New Ticket</h2>
+
+    <form id="ticketForm" class="space-y-4">
+      <input type="text" placeholder="Enter Subject" class="w-full p-3 rounded bg-gray-800 border border-gray-700 focus:border-purple-700 focus:ring-1 focus:ring-purple-700 outline-none" required>
+
+      <textarea placeholder="Enter Message" rows="5" class="w-full p-3 rounded bg-gray-800 border border-gray-700 focus:border-purple-700 focus:ring-1 focus:ring-purple-700 outline-none" required></textarea>
+
+      <div>
+        <label class="flex items-center gap-2 bg-purple-700 text-gray-300 font-semibold px-3 py-2 rounded cursor-pointer hover:bg-purple-800 transition">
+          <i class="fas fa-paperclip"></i> 
+          <span>Attach File</span>
+          <input type="file" class="hidden">
+        </label>
+      </div>
+
+      <button type="submit" class="w-full bg-purple-700 text-gray-300 font-semibold rounded-lg py-3 hover:bg-purple-800 transition">
+        💬 Create
+      </button>
+    </form>
+
+    <!-- Close Button -->
+    <button id="closeTicketModal" class="absolute top-2 right-3 text-gray-400 hover:text-white text-2xl leading-none">&times;</button>
+  </div>
+</div>
+
+
+        <!-- Table Container -->
+        <div class="table-container p-2 md:p-6 overflow-x-auto">
+            
+            <!-- Standard Table for Desktop/Tablet (md and up) -->
+            <div class="hidden md:block">
+                <table class="min-w-full divide-y divide-gray-700">
+                    <thead class="bg-gray-800">
+                        <tr>
+                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider w-5/12">Subject</th>
+                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider w-2/12">Status</th>
+                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider w-3/12">Last Reply</th>
+                            <th class="px-4 py-3 text-center text-xs font-medium text-gray-400 uppercase tracking-wider w-2/12">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="desktop-table-body" class="divide-y divide-gray-700">
+                        <!-- Table rows will be inserted here by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Card List for Mobile (less than md) -->
+            <div id="mobile-card-list" class="md:hidden space-y-4">
+                <!-- Mobile cards will be inserted here by JavaScript -->
+            </div>
+
+            <!-- Pagination Bar -->
+            <div class="mt-8 flex justify-center">
+                <nav class="flex items-center space-x-1" aria-label="Pagination">
+                    <button id="prev-btn" onclick="goToPage(currentPage - 1)" 
+                            class="px-3 py-2 text-sm font-medium rounded-lg text-gray-400 hover:bg-gray-700/50 transition disabled:opacity-50 disabled:cursor-not-allowed">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    
+                    <!-- Page Buttons (1-3 functional) -->
+                    <button class="page-btn px-4 py-2 text-sm font-medium rounded-lg text-gray-400 hover:bg-gray-700/50 transition" onclick="goToPage(1)">1</button>
+                    <button class="page-btn px-4 py-2 text-sm font-medium rounded-lg text-gray-400 hover:bg-gray-700/50 transition" onclick="goToPage(2)">2</button>
+                    <button class="page-btn px-4 py-2 text-sm font-medium rounded-lg text-gray-400 hover:bg-gray-700/50 transition" onclick="goToPage(3)">3</button>
+                    
+                    <!-- Inactive/Placeholder Buttons -->
+                    <span class="text-gray-400 px-2 hidden sm:inline">...</span>
+                    <button class="px-4 py-2 text-sm font-medium rounded-lg text-gray-400 transition hidden sm:inline" disabled>3</button>
+
+                    <button id="next-btn" onclick="goToPage(currentPage + 1)" 
+                            class="px-3 py-2 text-sm font-medium rounded-lg text-gray-400 hover:bg-gray-700/50 transition disabled:opacity-50 disabled:cursor-not-allowed">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </nav>
+            </div>
+
+        </div>
+
+    </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- load includes and UI script -->
+  <script src="js/include.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+
+    // === Ticket Modal Logic ===
+document.addEventListener('DOMContentLoaded', () => {
+  const openBtn = document.getElementById('openTicketModal');
+  const closeBtn = document.getElementById('closeTicketModal');
+  const modal = document.getElementById('ticketModal');
+
+  // Open popup
+  openBtn?.addEventListener('click', (e) => {
+    e.preventDefault(); // prevent any navigation
+    modal.classList.remove('hidden');
+  });
+
+  // Close popup
+  closeBtn?.addEventListener('click', () => {
+    modal.classList.add('hidden');
+  });
+
+  // Optional: close when clicking outside modal box
+  modal?.addEventListener('click', (e) => {
+    if (e.target === modal) modal.classList.add('hidden');
+  });
+});
+
+
+    // Mock data for 3 pages (5 entries per page for brevity)
+    const data = [
+        // Page 1
+        { subject: "[Ticket#358035] Testing", status: "Closed", lastReply: "3 Weeks Ago" },
+        { subject: "[Ticket#358034] Refund ARJUN VERMA", status: "Replied", lastReply: "1 Month Ago" },
+        { subject: "[Ticket#358033] No Me Pagan", status: "Replied", lastReply: "1 Month Ago" },
+        { subject: "[Ticket#358032] Probando El Sistema 17/10/2024", status: "Replied", lastReply: "2 Months Ago" },
+        { subject: "[Ticket#358031] Test 45", status: "Replied", lastReply: "3 Months Ago" },
+        // Page 2
+        { subject: "[Ticket#358030] How Can I With Withdraw !!!!", status: "Replied", lastReply: "3 Months Ago" },
+        { subject: "[Ticket#358029] ASKING ABOUT HOW I CAN INVEST", status: "Closed", lastReply: "7 Months Ago" },
+        { subject: "[Ticket#358028] Testing", status: "Replied", lastReply: "7 Months Ago" },
+        { subject: "[Ticket#358027] Asking About Inquire", status: "Closed", lastReply: "8 Months Ago" },
+        { subject: "[Ticket#358026] Hello", status: "Closed", lastReply: "9 Months Ago" },
+        // Page 3
+        { subject: "[Ticket#358025] New Issue with Deposit", status: "Replied", lastReply: "10 Months Ago" },
+        { subject: "[Ticket#358024] Account Verification Problem", status: "Closed", lastReply: "1 Year Ago" },
+        { subject: "[Ticket#358023] Login Issues", status: "Replied", lastReply: "1 Year Ago" },
+        { subject: "[Ticket#358022] General Question", status: "Closed", lastReply: "1 Year Ago" },
+        { subject: "[Ticket#358021] Fee Inquiry", status: "Replied", lastReply: "1 Year Ago" },
+    ];
+
+    let currentPage = 1;
+    const ENTRIES_PER_PAGE = 5;
+    const MAX_PAGES = 3; // Enforcing max 3 functional pages
+
+    function getStatusBadge(status) {
+        let dotColor = '';
+        let textColor = '';
+        if (status === 'Closed') {
+            dotColor = 'bg-red-500';
+            textColor = 'text-red-400';
+        } else if (status === 'Replied') {
+            dotColor = 'bg-yellow-500';
+            textColor = 'text-yellow-400';
+        } else {
+             dotColor = 'bg-gray-400';
+            textColor = 'text-gray-400';
+        }
+        return `
+            <span class="flex items-center ${textColor} text-sm font-medium">
+                <span class="status-dot ${dotColor}"></span>
+                ${status}
+            </span>
+        `;
+    }
+
+    function renderTable(page) {
+        const start = (page - 1) * ENTRIES_PER_PAGE;
+        const end = start + ENTRIES_PER_PAGE;
+        const pageData = data.slice(start, end);
+
+        const desktopBody = document.getElementById('desktop-table-body');
+        const mobileList = document.getElementById('mobile-card-list');
+
+        desktopBody.innerHTML = '';
+        mobileList.innerHTML = '';
+
+        pageData.forEach(item => {
+            const statusHtml = getStatusBadge(item.status);
+
+            // --- Desktop Row (TR) ---
+            const desktopRow = `
+                <tr class="hover:bg-gray-700/30 transition duration-150">
+                    <td class="px-4 py-3 whitespace-normal text-sm text-white font-medium">${item.subject}</td>
+                    <td class="px-4 py-3 whitespace-nowrap text-sm">${statusHtml}</td>
+                    <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-300">${item.lastReply}</td>
+                    <td class="px-4 py-3 whitespace-nowrap text-center">
+                        <button class="px-3 py-1 bg-green-500 text-gray-900 rounded-full hover:bg-green-600 transition">
+                            <i class="fas fa-arrow-right-to-bracket text-gray-100"></i>
+                        </button>
+                    </td>
+                </tr>
+            `;
+            desktopBody.insertAdjacentHTML('beforeend', desktopRow);
+
+            // --- Mobile Card (DIV) ---
+            const mobileCard = `
+                <div class="mobile-card space-y-1">
+                    <div class="flex justify-between items-start pb-2 border-b border-gray-700/50 mb-1">
+                        <span class="text-sm font-bold text-white pr-2">${item.subject}</span>
+                        <div class="text-right text-sm whitespace-nowrap">${statusHtml}</div>
+                    </div>
+                    <div class="mobile-row-item"><span class="label">Last Reply:</span> <span class="value text-gray-300">${item.lastReply}</span></div>
+                    <div class="mobile-row-item action">
+                        <button class="w-full px-4 py-2 bg-lime-500 text-gray-900 font-semibold rounded-lg hover:bg-lime-600 transition">
+                            View Ticket
+                        </button>
+                    </div>
+                </div>
+            `;
+            mobileList.insertAdjacentHTML('beforeend', mobileCard);
+        });
+    }
+
+    function updatePaginationControls() {
+        // Update active button styling
+        document.querySelectorAll('.page-btn').forEach(btn => {
+            btn.classList.remove('pagination-active');
+            btn.classList.add('text-gray-400', 'hover:bg-gray-700/50');
+            if (parseInt(btn.textContent) === currentPage) {
+                btn.classList.add('pagination-active');
+                btn.classList.remove('text-gray-400', 'hover:bg-gray-700/50');
+            }
+        });
+
+        // Update Prev/Next button disabled state
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+
+        // Disable 'Previous' if on page 1
+        prevBtn.disabled = currentPage === 1;
+
+        // Disable 'Next' if on the last functional page (MAX_PAGES = 3)
+        nextBtn.disabled = currentPage === MAX_PAGES;
+    }
+
+    function goToPage(page) {
+        // Boundary check to ensure the page is within the functional limits
+        if (page < 1 || page > MAX_PAGES) {
+            return;
+        }
+        currentPage = page;
+        renderTable(currentPage);
+        updatePaginationControls();
+    }
+
+    // Initialize the dashboard on load
+    window.onload = () => {
+        goToPage(1);
+    };
+</script>
+</body>
+</html>

@@ -1,0 +1,384 @@
+<div
+  id="sidebar"
+  class="w-76 h-[100%] bg-gray-800 text-white border-r border-gray-200 p-4 hidden md:flex md:flex-col shadow-lg"
+>
+  <div
+    class="sidebar-top flex items-center justify-between p-4 border-b border-gray-200"
+  >
+    <span class="text-2xl font-bold">MLM</span>
+    <div class="mobile-user-area lg:hidden flex items-center gap-3">
+      <div class="thumb">
+        <img
+          class="img-fluid user-img w-10 h-10 rounded-full"
+          src="https://hyip-pro.bugfinder.app/assets/upload/userProfile/fM0b31DW9uNNfvY7TU3eXMGFxMk1cQ.webp"
+          alt="..."
+        />
+      </div>
+    </div>
+    <button
+      class="sidebar-toggler lg:hidden p-2 rounded-md hover:bg-gray-100"
+      onclick="toggleSideMenu()"
+    >
+      <i class="fal fa-times" aria-hidden="true"></i>
+    </button>
+  </div>
+
+  <div class="level-box p-4 text-white rounded-lg relative">
+    <div
+      class="w-36 h-36 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 flex flex-col items-center justify-center mx-auto mb-4"
+    >
+      <h4 class="text-lg font-bold">Level 4</h4>
+      <p class="mb-0 text-sm">Raghu</p>
+    </div>
+    <img
+      src="https://hyip-pro.bugfinder.app/assets/upload/rank/h5LkFn8gq0xybBInwUXBcvt3C2vBZk.webp"
+      alt="level image"
+      class="level-badge w-12 h-12 rounded-full absolute bottom-6 right-14"
+    />
+  </div>
+
+  <!-- Improved Wallet Card -->
+  <div
+    class="wallet-wrapper m-4 p-6 bg-blue-50 shadow-xl rounded-xl border border-gray-100 max-w-sm mx-auto sm:max-w-md"
+  >
+    <div
+      class="header-section mb-4 pb-4 border-b border-gray-200 flex justify-between"
+    >
+      <h4 class="text-md font-extrabold text-gray-800">Account Overview</h4>
+      <span
+        class="tag inline-block px-3 py-1 bg-yellow-100 text-yellow-800 text-sm font-semibold rounded-full"
+        >USD</span
+      >
+    </div>
+
+    <div class="balances-grid grid gap-4 mb-5">
+      <div
+        class="interest-balance-box bg-blue-50 rounded-lg shadow-sm flex justify-between"
+      >
+        <h5 class="text-lg font-medium text-gray-600 mb-1">Main Balance</h5>
+        <p class="text-xl font-bold text-blue-700">$1.08</p>
+      </div>
+
+      <div
+        class="interest-balance-box bg-blue-50 rounded-lg shadow-sm flex justify-between"
+      >
+        <h5 class="text-lg font-medium text-gray-600 mb-1">Interest Balance</h5>
+        <p class="text-xl font-bold text-blue-700">$1.08</p>
+      </div>
+    </div>
+
+    <div class="action-buttons flex flex-col sm:flex-row justify-between gap-3">
+      <a
+        class="btn btn-deposit flex-1 w-full text-center bg-indigo-600 text-white px-4 py-3 rounded-lg hover:bg-indigo-700 transition duration-150 ease-in-out font-semibold text-base shadow-md shadow-indigo-200"
+        href="add-funds.html"
+      >
+        Deposit
+      </a>
+
+      <a
+        class="btn btn-invest flex-1 w-full text-center bg-green-600 text-white px-4 py-3 rounded-lg hover:bg-green-700 transition duration-150 ease-in-out font-semibold text-base shadow-md shadow-green-200"
+        href="plan.html"
+      >
+        Invest
+      </a>
+    </div>
+  </div>
+
+  <ul class="main mt-2 flex-1 space-y-2">
+    <li>
+      <a
+        href="index.html"
+        class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-600 text-white"
+      >
+        Dashboard
+      </a>
+    </li>
+    <li>
+      <a
+        href="plan.html"
+        class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-600"
+      >
+        Plan
+      </a>
+    </li>
+
+    <li>
+      <a
+        href="invest-history.html"
+        class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-600"
+      >
+        invest history
+      </a>
+    </li>
+
+    <li>
+      <a
+        href="add-funds.html"
+        class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-600"
+      >
+        Add Fund
+      </a>
+    </li>
+    <li>
+      <a
+        href="fund-history.html"
+        class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-600"
+      >
+        Fund History
+      </a>
+    </li>
+    <li>
+      <a
+        href="transfer.html"
+        class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-600"
+      >
+        transfer
+      </a>
+    </li>
+    <li>
+      <a
+        href="transactions.html"
+        class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-600"
+      >
+        transaction
+      </a>
+    </li>
+    <li>
+      <a
+        href="payout.html"
+        class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-600"
+      >
+        payout
+      </a>
+    </li>
+    <li>
+      <a
+        href="payout-history.html"
+        class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-600"
+      >
+        payout history
+      </a>
+    </li>
+    <li>
+      <a
+        href="my-referral.html"
+        class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-600"
+      >
+        my referral
+      </a>
+    </li>
+    <li>
+      <a
+        href="referral-bonus.html"
+        class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-600"
+      >
+        referral bonus
+      </a>
+    </li>
+    <li>
+      <a
+        href="badges.html"
+        class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-600"
+      >
+        Badges
+      </a>
+    </li>
+    <li>
+      <a
+        href="support-ticket.html"
+        class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-600"
+      >
+        support ticket
+      </a>
+    </li>
+    <li>
+      <a
+        href="profile.html"
+        class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-600"
+      >
+        profile settings
+      </a>
+    </li>
+
+    <li class="lg:hidden">
+      <a
+        href="two-factor.html"
+        class="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-600"
+      >
+        2FA Security
+      </a>
+    </li>
+  </ul>
+</div>
+
+<!-- Mobile Sidebar Backdrop -->
+<div
+  id="mobileSidebarBackdrop"
+  class="fixed inset-0 bg-black/30 z-40 hidden md:hidden"
+></div>
+
+<!-- Mobile Sidebar -->
+<aside
+  id="mobileSidebar"
+  class="fixed inset-y-0 left-0 w-64 bg-gray-800 text-white p-4 z-50 transform -translate-x-full transition-transform md:hidden"
+>
+  <div class="flex items-center justify-between mb-4">
+    <div class="flex items-center gap-3">
+      <div
+        class="w-14 h-8 bg-indigo-600 rounded-md flex items-center justify-center text-white font-bold"
+      >
+        MLM
+      </div>
+    </div>
+    <button id="mobileSidebarClose" class="p-2 rounded-md hover:bg-gray-600">
+      ✕
+    </button>
+  </div>
+
+  <!-- make only nav scrollable -->
+  <nav class="overflow-y-auto max-h-[calc(100vh-4rem)]">
+    <ul class="space-y-2">
+      <li>
+        <a
+          href="index.html"
+          class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-600 text-white"
+        >
+          Dashboard
+        </a>
+      </li>
+      <li>
+        <a
+          href="plan.html"
+          class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-600"
+        >
+          Plan
+        </a>
+      </li>
+
+      <li>
+        <a
+          href="invest-history.html"
+          class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-600"
+        >
+          invest history
+        </a>
+      </li>
+
+      <li>
+        <a
+          href="add-funds.html"
+          class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-600"
+        >
+          Add Fund
+        </a>
+      </li>
+      <li>
+        <a
+          href="fund-history.html"
+          class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-600"
+        >
+          Fund History
+        </a>
+      </li>
+      <li>
+        <a
+          href="transfer.html"
+          class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-600"
+        >
+          transfer
+        </a>
+      </li>
+      <li>
+        <a
+          href="transactions.html"
+          class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-600"
+        >
+          transaction
+        </a>
+      </li>
+      <li>
+        <a
+          href="payout.html"
+          class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-600"
+        >
+          payout
+        </a>
+      </li>
+      <li>
+        <a
+          href="payout-history.html"
+          class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-600"
+        >
+          payout history
+        </a>
+      </li>
+      <li>
+        <a
+          href="my-referral.html"
+          class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-600"
+        >
+          my referral
+        </a>
+      </li>
+      <li>
+        <a
+          href="referral-bonus.html"
+          class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-600"
+        >
+          referral bonus
+        </a>
+      </li>
+      <li>
+        <a
+          href="badges.html"
+          class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-600"
+        >
+          Badges
+        </a>
+      </li>
+      <li>
+        <a
+          href="support-ticket.html"
+          class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-600"
+        >
+          support ticket
+        </a>
+      </li>
+      <li>
+        <a
+          href="profile.html"
+          class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-600"
+        >
+          profile settings
+        </a>
+      </li>
+
+      <li class="lg:hidden">
+        <a
+          href="two-factor.html"
+          class="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-600"
+        >
+          2FA Security
+        </a>
+      </li>
+    </ul>
+  </nav>
+</aside>
+
+<style>
+  /* Only make the UL (menu list) scrollable */
+  #sidebar ul {
+    max-height: 500px; /* fits around 6 items — adjust if needed */
+    overflow-y: auto;
+    scrollbar-width: 2px;
+  }
+
+  /* Optional: prettier scrollbar for Chrome/Safari */
+  #sidebar ul.main::-webkit-scrollbar {
+    width: 5px;
+  }
+  #sidebar ul.main::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 3px;
+  }
+</style>

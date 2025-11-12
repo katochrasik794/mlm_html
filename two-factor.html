@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Leads - CRM</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .min-vh-100 { min-height: 100vh; }
+    .card-transition { transition: box-shadow .12s ease, transform .12s ease; }
+    .card-transition:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(2,6,23,0.08); }
+  </style>
+  <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a; /* Dark background to match image */
+            color: #e2e8f0; /* Light text */
+        }
+        .security-card {
+            background-color: #1a202c; 
+            border-radius: 12px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 4px 6px -2px rgba(0, 0, 0, 0.1);
+            padding: 2.5rem;
+            height: 100%;
+        }
+        .qr-code-box {
+            background-color: white;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            display: inline-block;
+        }
+    </style>
+
+
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body class="bg-gray-900 text-slate-900 antialiased">
+
+  <div class="flex">
+
+    <div data-include="components/sidebar.html"></div>
+
+    <!-- main column: topbar + page content + footer -->
+    <div class="flex-1 flex flex-col min-h-screen">
+      <!-- topbar -->
+      <header class="w-full border-b p-4 sticky text-white bg-gray-800 top-0 z-30">
+        <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
+          <div class="flex items-center gap-3">
+            <!-- Mobile menu button -->
+            <button id="mobileToggle" class="md:hidden p-2 rounded-md">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+              </svg>
+            </button>
+          </div>
+
+          <div class="flex items-center gap-4">
+            <button
+            id="themeToggle"
+            class="p-3 w-12 h-12 rounded-lg flex items-center justify-center text-slate-700 transition"
+          >
+            <svg
+              id="themeIcon"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide lucide-moon"
+            >
+              <path
+                d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"
+              />
+            </svg>
+          </button>
+            <div class="relative">
+              <button id="profileBtn" class="flex items-center gap-2 p-1 rounded-md hover:bg-gray-600">
+                <img src="https://i.pravatar.cc/40" alt="avatar" class="w-8 h-8 rounded-full" />
+                <span class="hidden sm:block text-sm">Raghav</span>
+                <svg class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd"
+                        d="M5.23 7.21a.75.75 0 011.06.02L10 11.17l3.71-3.94a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01.02-1.06z"
+                        clip-rule="evenodd"/>
+                </svg>
+              </button>
+
+              <!-- Profile dropdown -->
+              <div id="profileDropdown"
+                   class="hidden absolute right-0 mt-2 w-44 bg-gray-800 border rounded-md shadow-sm py-1">
+                <a href="#" class="block px-3 py-2 text-sm hover:bg-gray-600">Profile</a>
+                <a href="#" class="block px-3 py-2 text-sm hover:bg-gray-600">Settings</a>
+                <a href="#" class="block px-3 py-2 text-sm hover:bg-gray-600">Sign out</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- page-specific content -->
+      <main class="flex-1 p-6 max-w-7xl mx-auto w-full">
+        <div class="max-w-7xl mx-auto">
+
+        <!-- Title -->
+        <h2 class="text-3xl font-extrabold mb-6 text-white">2 Step Security</h2>
+
+        <!-- Main Content Grid (2 Columns on Desktop, Stacked on Mobile) -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            
+            <!-- Left Column: Two Factor Authenticator Setup -->
+            <div class="security-card">
+                <h3 class="text-xl font-bold text-white mb-6">Two Factor Authenticator</h3>
+                
+                <!-- Regenerate Button -->
+                <div class="flex justify-end mb-4">
+                    <button id="regenerate-btn" onclick="regenerateKey()" class="px-4 py-2 bg-lime-500 text-gray-900 font-semibold rounded-lg hover:bg-lime-600 transition duration-150 ease-in-out text-sm">
+                        Regenerate
+                    </button>
+                </div>
+
+                <!-- Secret Key -->
+                <div class="flex items-center space-x-4 mb-8">
+                    <span id="secret-key" class="text-xl sm:text-2xl font-mono bg-gray-700/50 p-3 rounded-lg flex-grow break-all select-all">
+                        DNIZAM3EIFWAGT6
+                    </span>
+                    <button onclick="copyToClipboard('DNIZAM3EIFWAGT6')" class="px-4 py-2 bg-lime-500 text-gray-900 font-semibold rounded-lg hover:bg-lime-600 transition duration-150 ease-in-out text-sm whitespace-nowrap">
+                        Copy Key
+                    </button>
+                </div>
+
+                <!-- QR Code Box -->
+                <div class="flex justify-center mb-8">
+                    <div class="qr-code-box">
+                        <!-- Placeholder for QR Code (Replace with actual QR generation in a real app) -->
+                        <img src="https://placehold.co/200x200/000000/FFFFFF?text=QR+Code+Placeholder" alt="QR Code" class="w-48 h-48 sm:w-60 sm:h-60">
+                    </div>
+                </div>
+
+                <!-- Enable Button (Action) -->
+                <div class="flex justify-center">
+                    <button class="w-full sm:w-auto px-6 py-3 bg-lime-500 text-gray-900 font-semibold rounded-lg hover:bg-lime-600 transition duration-150 ease-in-out">
+                        Enable Two Factor Authenticator
+                    </button>
+                </div>
+            </div>
+
+            <!-- Right Column: Google Authenticator Information -->
+            <div class="security-card flex flex-col justify-between">
+                <div>
+                    <h3 class="text-2xl font-extrabold text-white mb-4 leading-tight">Google Authenticator</h3>
+                    
+                    <p class="text-lg text-gray-400 mb-6">
+                        USE GOOGLE AUTHENTICATOR TO SCAN THE QR CODE OR USE THE CODE
+                    </p>
+
+                    <p class="text-sm text-gray-500 leading-relaxed">
+                        Google Authenticator is a multifactor app for mobile devices. 
+                        It generates timed codes used during the 2-step verification 
+                        process. To use Google Authenticator, install the Google 
+                        Authenticator application on your mobile device.
+                    </p>
+                </div>
+
+                <!-- Download App Button -->
+                <div class="mt-8 flex justify-center lg:justify-start">
+                    <a href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2" target="_blank" class="w-full sm:w-auto text-center px-6 py-3 bg-lime-500 text-gray-900 font-semibold rounded-lg hover:bg-lime-600 transition duration-150 ease-in-out">
+                        DOWNLOAD APP
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+      </main>
+    </div>
+    </div>
+  </div>
+
+  <!-- load includes and UI script -->
+  <script src="js/include.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    // Mock function for copying to clipboard (safer than navigator.clipboard in some environments)
+    function copyToClipboard(text) {
+        const tempInput = document.createElement('textarea');
+        tempInput.value = text;
+        document.body.appendChild(tempInput);
+        tempInput.select();
+        try {
+            document.execCommand('copy');
+            // Show a simple success message
+            showNotification("Key copied to clipboard!");
+        } catch (err) {
+            showNotification("Failed to copy key.", 'error');
+            console.error('Copy failed:', err);
+        }
+        document.body.removeChild(tempInput);
+    }
+
+    // Mock function to simulate key regeneration
+    function regenerateKey() {
+        // Generate a new mock key (e.g., 16 random uppercase letters/numbers)
+        const newKey = Math.random().toString(36).substring(2, 18).toUpperCase();
+        document.getElementById('secret-key').textContent = newKey;
+        // In a real app, this would trigger server-side key generation and QR code update
+        showNotification("New secret key regenerated.");
+    }
+
+    // Custom notification function instead of alert()
+    function showNotification(message, type = 'success') {
+        const container = document.body;
+        let color = type === 'success' ? 'bg-lime-500' : 'bg-red-500';
+        let textColor = 'text-gray-900';
+
+        const notification = document.createElement('div');
+        notification.className = `fixed top-5 right-5 z-50 px-4 py-3 rounded-lg shadow-xl ${color} ${textColor} text-sm font-semibold transition-all duration-300 transform opacity-0 translate-y-full`;
+        notification.textContent = message;
+
+        container.appendChild(notification);
+
+        // Show animation
+        setTimeout(() => {
+            notification.classList.remove('opacity-0', 'translate-y-full');
+            notification.classList.add('opacity-100', 'translate-y-0');
+        }, 10);
+
+        // Hide animation
+        setTimeout(() => {
+            notification.classList.remove('opacity-100', 'translate-y-0');
+            notification.classList.add('opacity-0', 'translate-y-full');
+            // Remove element after transition
+            notification.addEventListener('transitionend', () => notification.remove());
+        }, 3000);
+    }
+</script>
+</body>
+</html>

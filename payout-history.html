@@ -1,0 +1,414 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Leads - CRM</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .min-vh-100 { min-height: 100vh; }
+    .card-transition { transition: box-shadow .12s ease, transform .12s ease; }
+    .card-transition:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(2,6,23,0.08); }
+  </style>
+<style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a; /* Dark background to match image */
+            color: #e2e8f0; /* Light text */
+        }
+        .table-container {
+            /* Slightly lighter card background */
+            background-color: #1a202c; 
+            border-radius: 12px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 4px 6px -2px rgba(0, 0, 0, 0.1);
+        }
+        input[type="text"], select {
+            background-color: #2d3748;
+            border: 1px solid #4a5568;
+            color: #e2e8f0;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            transition: all 0.15s ease-in-out;
+        }
+        select:focus, input:focus {
+            outline: none;
+            border-color: #6366f1;
+        }
+
+        /* Custom mobile row styling */
+        @media (max-width: 767px) {
+            .mobile-card {
+                padding: 1rem;
+                background-color: #1f2937; /* Darker card for visual separation */
+                border-radius: 0.75rem;
+                border: 1px solid #374151;
+            }
+            .mobile-row-item {
+                display: flex;
+                justify-content: space-between;
+                padding-top: 0.4rem;
+                padding-bottom: 0.4rem;
+            }
+            .mobile-row-item .label {
+                font-weight: 500;
+                color: #9ca3af;
+                font-size: 0.875rem;
+            }
+            .mobile-row-item .value {
+                font-weight: 600;
+                font-size: 0.875rem;
+                text-align: right;
+            }
+            .mobile-action-btn {
+                margin-top: 0.75rem;
+            }
+        }
+        .pagination-active {
+            background-color: #10b981; /* green-500 for active state */
+            color: white;
+            font-weight: bold;
+        }
+    </style>
+
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body class="bg-gray-900 text-slate-900 antialiased">
+
+  <div class="flex">
+
+    <div data-include="components/sidebar.html"></div>
+
+    <!-- main column: topbar + page content + footer -->
+    <div class="flex-1 flex flex-col min-h-screen">
+      <!-- topbar -->
+      <header class="w-full border-b p-4 sticky text-white bg-gray-800 top-0 z-30">
+        <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
+          <div class="flex items-center gap-3">
+            <!-- Mobile menu button -->
+            <button id="mobileToggle" class="md:hidden p-2 rounded-md">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+              </svg>
+            </button>
+          </div>
+
+          <div class="flex items-center gap-4">
+            <button
+            id="themeToggle"
+            class="p-3 w-12 h-12 rounded-lg flex items-center justify-center text-slate-700 transition"
+          >
+            <svg
+              id="themeIcon"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide lucide-moon"
+            >
+              <path
+                d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"
+              />
+            </svg>
+          </button>
+            <div class="relative">
+              <button id="profileBtn" class="flex items-center gap-2 p-1 rounded-md hover:bg-gray-600">
+                <img src="https://i.pravatar.cc/40" alt="avatar" class="w-8 h-8 rounded-full" />
+                <span class="hidden sm:block text-sm">Raghav</span>
+                <svg class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd"
+                        d="M5.23 7.21a.75.75 0 011.06.02L10 11.17l3.71-3.94a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01.02-1.06z"
+                        clip-rule="evenodd"/>
+                </svg>
+              </button>
+
+              <!-- Profile dropdown -->
+              <div id="profileDropdown"
+                   class="hidden absolute right-0 mt-2 w-44 bg-gray-800 border rounded-md shadow-sm py-1">
+                <a href="#" class="block px-3 py-2 text-sm hover:bg-gray-600">Profile</a>
+                <a href="#" class="block px-3 py-2 text-sm hover:bg-gray-600">Settings</a>
+                <a href="#" class="block px-3 py-2 text-sm hover:bg-gray-600">Sign out</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- page-specific content -->
+      <main class="flex-1 p-6 max-w-7xl mx-auto w-full">
+        <div class="max-w-7xl mx-auto">
+
+        <!-- Title -->
+        <h2 class="text-3xl font-extrabold mb-6 text-white">Payout Log</h2>
+
+        <!-- Search and Filter Bar (Responsive) -->
+        <div class="mb-6 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            <input type="text" placeholder="Transaction ID" class="w-full">
+            <select class="w-full py-2 text-white px-2">
+                <option value="">All Payment</option>
+                <option value="bank">Bank Transfer</option>
+                <option value="flutterwave">Flutterwave</option>
+                <option value="coinbase">Coinbase</option>
+            </select>
+            <input type="text" placeholder="Select a date" class="w-full" onfocus="(this.type='date')" onblur="(this.type='text')">
+            <button class="flex items-center justify-center px-6 py-3 bg-purple-700 text-gray-300 font-semibold rounded-lg hover:bg-purple-800 transition duration-150 ease-in-out w-full">
+                <i class="fas fa-search mr-2"></i> Search
+            </button>
+        </div>
+
+        <!-- Table Container -->
+        <div class="table-container p-2 md:p-6 overflow-x-auto">
+            
+            <!-- Standard Table for Desktop/Tablet (md and up) -->
+            <div class="hidden md:block">
+                <table class="min-w-full divide-y divide-gray-700">
+                    <thead class="bg-gray-800">
+                        <tr>
+                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider w-2/12">Transaction ID</th>
+                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider w-1/12">Gateway</th>
+                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider w-2/12">Amount</th>
+                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider w-1/12">Charge</th>
+                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider w-1/12">Status</th>
+                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider w-2/12">Time</th>
+                            <th class="px-4 py-3 text-center text-xs font-medium text-gray-400 uppercase tracking-wider w-2/12">Detail</th>
+                        </tr>
+                    </thead>
+                    <tbody id="desktop-table-body" class="divide-y divide-gray-700">
+                        <!-- Table rows will be inserted here by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Card List for Mobile (less than md) -->
+            <div id="mobile-card-list" class="md:hidden space-y-4">
+                <!-- Mobile cards will be inserted here by JavaScript -->
+            </div>
+
+            <!-- Pagination Bar -->
+            <div class="mt-8 flex justify-center">
+                <nav class="flex items-center space-x-1" aria-label="Pagination">
+                    <button id="prev-btn" onclick="goToPage(currentPage - 1)" 
+                            class="px-3 py-2 text-sm font-medium rounded-lg text-gray-400 hover:bg-gray-700/50 transition disabled:opacity-50 disabled:cursor-not-allowed">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    
+                    <!-- Page Buttons (1-3 functional) -->
+                    <button class="page-btn px-4 py-2 text-sm font-medium rounded-lg text-gray-400 hover:bg-gray-700/50 transition" onclick="goToPage(1)">1</button>
+                    <button class="page-btn px-4 py-2 text-sm font-medium rounded-lg text-gray-400 hover:bg-gray-700/50 transition" onclick="goToPage(2)">2</button>
+                    <button class="page-btn px-4 py-2 text-sm font-medium rounded-lg text-gray-400 hover:bg-gray-700/50 transition" onclick="goToPage(3)">3</button>
+                    
+                    <!-- Inactive/Placeholder Buttons -->
+                    <span class="text-gray-400 px-2 hidden sm:inline">...</span>
+                    <button class="px-4 py-2 text-sm font-medium rounded-lg text-gray-400 transition hidden sm:inline" disabled>40</button>
+
+                    <button id="next-btn" onclick="goToPage(currentPage + 1)" 
+                            class="px-3 py-2 text-sm font-medium rounded-lg text-gray-400 hover:bg-gray-700/50 transition disabled:opacity-50 disabled:cursor-not-allowed">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </nav>
+            </div>
+
+        </div>
+
+    </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- load includes and UI script -->
+  <script src="js/include.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    // Mock data for 3 pages (5 entries per page for brevity)
+    const data = [
+        // Page 1
+        { id: "P807964037254", gateway: "Flutterwave", amount: "70 USD", charge: "0.5 USD", status: "Pending", time: "02 Nov 2025 09:17 AM" },
+        { id: "P807964037253", gateway: "Bank Transfer", amount: "20 EUR", charge: "0.5 EUR", status: "Pending", time: "26 Oct 2025 10:56 PM" },
+        { id: "P807964037252", gateway: "Bank Transfer", amount: "10 EUR", charge: "0.5 EUR", status: "Pending", time: "25 Oct 2025 12:33 PM" },
+        { id: "P807964037251", gateway: "Bank Transfer", amount: "5 EUR", charge: "0.5 EUR", status: "Pending", time: "18 Oct 2025 10:13 PM" },
+        { id: "P807964037250", gateway: "Bank Transfer", amount: "1 EUR", charge: "0.5 EUR", status: "Pending", time: "12 Oct 2025 12:26 PM" },
+        // Page 2
+        { id: "P807964037249", gateway: "Bank Transfer", amount: "10 EUR", charge: "0.5 EUR", status: "Pending", time: "08 Oct 2025 11:13 PM" },
+        { id: "P807964037248", gateway: "Flutterwave", amount: "100 USD", charge: "0.5 USD", status: "Pending", time: "08 Oct 2025 07:28 AM" },
+        { id: "P807964037247", gateway: "Bank Transfer", amount: "1000 EUR", charge: "0.5 EUR", status: "Pending", time: "01 Oct 2025 07:47 PM" },
+        { id: "P807964037246", gateway: "Coinbase", amount: "1000 BNB", charge: "5.5 BNB", status: "Generated", time: "01 Oct 2025 04:42 PM" },
+        { id: "P807964037245", gateway: "Flutterwave", amount: "100 USD", charge: "0.5 USD", status: "Pending", time: "01 Oct 2025 06:17 AM" },
+        // Page 3
+        { id: "P807964037244", gateway: "Bank Transfer", amount: "50 EUR", charge: "0.5 EUR", status: "Confirmed", time: "29 Sep 2025 09:00 PM" },
+        { id: "P807964037243", gateway: "Flutterwave", amount: "200 USD", charge: "1.0 USD", status: "Confirmed", time: "25 Sep 2025 04:30 PM" },
+        { id: "P807964037242", gateway: "Coinbase", amount: "50 ETH", charge: "0.1 ETH", status: "Rejected", time: "20 Sep 2025 11:00 AM" },
+        { id: "P807964037241", gateway: "Bank Transfer", amount: "500 EUR", charge: "0.5 EUR", status: "Confirmed", time: "15 Sep 2025 09:00 AM" },
+        { id: "P807964037240", gateway: "Flutterwave", amount: "10 USD", charge: "0.5 USD", status: "Pending", time: "10 Sep 2025 05:00 PM" },
+    ];
+
+    let currentPage = 1;
+    const ENTRIES_PER_PAGE = 5;
+    const MAX_PAGES = 3; // Enforcing max 3 functional pages
+
+    function getStatusBadge(status) {
+        let colorClass = '';
+        let iconClass = '';
+        switch (status) {
+            case 'Pending':
+                colorClass = 'text-yellow-500';
+                iconClass = 'bg-yellow-500';
+                break;
+            case 'Generated':
+                colorClass = 'text-blue-500';
+                iconClass = 'bg-blue-500';
+                break;
+            case 'Confirmed':
+                colorClass = 'text-green-500';
+                iconClass = 'bg-green-500';
+                break;
+            case 'Rejected':
+                colorClass = 'text-red-500';
+                iconClass = 'bg-red-500';
+                break;
+            default:
+                colorClass = 'text-gray-400';
+                iconClass = 'bg-gray-400';
+        }
+        return `
+            <span class="flex items-center">
+                <span class="w-2 h-2 rounded-full mr-2 ${iconClass}"></span>
+                <span class="${colorClass} font-medium">${status}</span>
+            </span>
+        `;
+    }
+
+    // Custom modal function instead of alert()
+    function showActionModal(id, action) {
+        const modalId = 'payout-modal';
+        let modal = document.getElementById(modalId);
+        if (!modal) {
+            modal = document.createElement('div');
+            modal.id = modalId;
+            modal.classList.add('fixed', 'inset-0', 'bg-gray-900', 'bg-opacity-75', 'flex', 'items-center', 'justify-center', 'p-4', 'z-50', 'hidden');
+            document.body.appendChild(modal);
+        }
+
+        const message = `Payout ${action} initiated for Transaction ID: ${id}.`;
+
+        modal.innerHTML = `
+            <div class="bg-gray-800 p-6 rounded-xl shadow-2xl max-w-sm w-full text-center">
+                <p class="text-white text-lg font-medium mb-4">${message}</p>
+                <button onclick="document.getElementById('${modalId}').classList.add('hidden')" 
+                        class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition">
+                    OK
+                </button>
+            </div>
+        `;
+        modal.classList.remove('hidden');
+    }
+
+    function renderDetailButton(id, status) {
+        let btnClass = 'bg-purple-700 text-gray-300 hover:bg-purple-800';
+        let btnText = 'Confirm';
+        let action = 'Confirmation';
+
+        if (status !== 'Pending') {
+            btnClass = 'bg-gray-700 text-gray-300 cursor-not-allowed';
+            btnText = status === 'Confirmed' ? 'View' : 'Detail';
+            action = 'Detail View (Not implemented)';
+        }
+
+        return `
+            <button onclick="${status === 'Pending' ? `showActionModal('${id}', 'Confirmation')` : `showActionModal('${id}', 'Detail View (Not implemented)')`}"
+                    class="w-full px-3 py-2 text-sm font-semibold rounded-lg text-gray-300 transition duration-150 ease-in-out ${btnClass}">
+                ${btnText}
+            </button>
+        `;
+    }
+
+    function renderTable(page) {
+        const start = (page - 1) * ENTRIES_PER_PAGE;
+        const end = start + ENTRIES_PER_PAGE;
+        const pageData = data.slice(start, end);
+
+        const desktopBody = document.getElementById('desktop-table-body');
+        const mobileList = document.getElementById('mobile-card-list');
+
+        desktopBody.innerHTML = '';
+        mobileList.innerHTML = '';
+
+        pageData.forEach(item => {
+            const statusHtml = getStatusBadge(item.status);
+            const detailButtonHtml = renderDetailButton(item.id, item.status);
+
+            // --- Desktop Row (TR) ---
+            const desktopRow = `
+                <tr class="hover:bg-gray-700/30 transition duration-150">
+                    <td class="px-4 py-3 whitespace-nowrap text-sm text-white font-medium">${item.id}</td>
+                    <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-300">${item.gateway}</td>
+                    <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-300">${item.amount}</td>
+                    <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-300">${item.charge}</td>
+                    <td class="px-4 py-3 whitespace-nowrap text-sm">${statusHtml}</td>
+                    <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-300">${item.time}</td>
+                    <td class="px-4 py-3 text-center w-28">${detailButtonHtml}</td>
+                </tr>
+            `;
+            desktopBody.insertAdjacentHTML('beforeend', desktopRow);
+
+            // --- Mobile Card (DIV) ---
+            const mobileCard = `
+                <div class="mobile-card space-y-1">
+                    <div class="flex justify-between items-start pb-2 border-b border-gray-700/50 mb-1">
+                        <span class="text-sm font-bold text-white">${item.id}</span>
+                        <div class="text-right">${statusHtml}</div>
+                    </div>
+                    <div class="mobile-row-item"><span class="label">Gateway:</span> <span class="value text-gray-300">${item.gateway}</span></div>
+                    <div class="mobile-row-item"><span class="label">Amount:</span> <span class="value text-gray-300">${item.amount}</span></div>
+                    <div class="mobile-row-item"><span class="label">Charge:</span> <span class="value text-gray-300">${item.charge}</span></div>
+                    <div class="mobile-row-item"><span class="label">Time:</span> <span class="value text-gray-300">${item.time}</span></div>
+                    <div class="mobile-action-btn">${detailButtonHtml}</div>
+                </div>
+            `;
+            mobileList.insertAdjacentHTML('beforeend', mobileCard);
+        });
+    }
+
+    function updatePaginationControls() {
+        // Update active button styling
+        document.querySelectorAll('.page-btn').forEach(btn => {
+            btn.classList.remove('pagination-active');
+            btn.classList.add('text-gray-400', 'hover:bg-gray-700/50');
+            if (parseInt(btn.textContent) === currentPage) {
+                btn.classList.add('pagination-active');
+                btn.classList.remove('text-gray-400', 'hover:bg-gray-700/50');
+            }
+        });
+
+        // Update Prev/Next button disabled state
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+
+        // Disable 'Previous' if on page 1
+        prevBtn.disabled = currentPage === 1;
+
+        // Disable 'Next' if on the last functional page (MAX_PAGES = 3)
+        nextBtn.disabled = currentPage === MAX_PAGES;
+    }
+
+    function goToPage(page) {
+        // Boundary check to ensure the page is within the functional limits
+        if (page < 1 || page > MAX_PAGES) {
+            return;
+        }
+        currentPage = page;
+        renderTable(currentPage);
+        updatePaginationControls();
+    }
+
+    // Initialize the dashboard on load
+    window.onload = () => {
+        goToPage(1);
+    };
+</script>
+</body>
+</html>

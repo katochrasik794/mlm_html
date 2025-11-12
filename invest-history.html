@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Leads - CRM</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .min-vh-100 { min-height: 100vh; }
+    .card-transition { transition: box-shadow .12s ease, transform .12s ease; }
+    .card-transition:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(2,6,23,0.08); }
+  </style>
+<style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a; /* Dark background to match image */
+            color: #e2e8f0; /* Light text */
+        }
+        .table-container {
+            /* Slightly lighter card background */
+            background-color: #1a202c; 
+            border-radius: 12px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 4px 6px -2px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Custom mobile row styling */
+        @media (max-width: 767px) {
+            .mobile-card {
+                padding: 1rem;
+                background-color: #1f2937; /* Darker card for visual separation */
+                border-radius: 0.75rem;
+                border: 1px solid #374151;
+            }
+            .mobile-row-item {
+                display: flex;
+                justify-content: space-between;
+                padding-top: 0.4rem;
+                padding-bottom: 0.4rem;
+            }
+            .mobile-row-item .label {
+                font-weight: 500;
+                color: #9ca3af;
+                font-size: 0.875rem;
+            }
+            .mobile-row-item .value {
+                font-weight: 600;
+                font-size: 0.875rem;
+                text-align: right;
+            }
+        }
+        .pagination-active {
+            background-color: #10b981; /* green-500 for active state */
+            color: white;
+            font-weight: bold;
+        }
+        .status-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-right: 6px;
+        }
+    </style>
+
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body class="bg-gray-900 text-slate-900 antialiased">
+
+  <div class="flex">
+
+    <div data-include="components/sidebar.html"></div>
+
+    <!-- main column: topbar + page content + footer -->
+    <div class="flex-1 flex flex-col min-h-screen">
+      <!-- topbar -->
+      <header class="w-full border-b p-4 sticky text-white bg-gray-800 top-0 z-30">
+        <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
+          <div class="flex items-center gap-3">
+            <!-- Mobile menu button -->
+            <button id="mobileToggle" class="md:hidden p-2 rounded-md">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+              </svg>
+            </button>
+          </div>
+
+          <div class="flex items-center gap-4">
+            <button
+            id="themeToggle"
+            class="p-3 w-12 h-12 rounded-lg flex items-center justify-center text-slate-700 transition"
+          >
+            <svg
+              id="themeIcon"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide lucide-moon"
+            >
+              <path
+                d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"
+              />
+            </svg>
+          </button>
+            <div class="relative">
+              <button id="profileBtn" class="flex items-center gap-2 p-1 rounded-md hover:bg-gray-600">
+                <img src="https://i.pravatar.cc/40" alt="avatar" class="w-8 h-8 rounded-full" />
+                <span class="hidden sm:block text-sm">Raghav</span>
+                <svg class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd"
+                        d="M5.23 7.21a.75.75 0 011.06.02L10 11.17l3.71-3.94a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01.02-1.06z"
+                        clip-rule="evenodd"/>
+                </svg>
+              </button>
+
+              <!-- Profile dropdown -->
+              <div id="profileDropdown"
+                   class="hidden absolute right-0 mt-2 w-44 bg-gray-800 border rounded-md shadow-sm py-1">
+                <a href="#" class="block px-3 py-2 text-sm hover:bg-gray-600">Profile</a>
+                <a href="#" class="block px-3 py-2 text-sm hover:bg-gray-600">Settings</a>
+                <a href="#" class="block px-3 py-2 text-sm hover:bg-gray-600">Sign out</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- page-specific content -->
+      <main class="flex-1 p-6 max-w-7xl mx-auto w-full">
+        <div class="max-w-7xl mx-auto">
+
+        <h2 class="text-3xl font-extrabold mb-6 text-white">Invest History</h2>
+
+        <div class="table-container p-2 md:p-6 overflow-x-auto">
+            
+            <div class="hidden md:block">
+                <table class="min-w-full divide-y divide-gray-700">
+                    <thead class="bg-gray-800">
+                        <tr>
+                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider w-1/12">SL</th>
+                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider w-3/12">Plan</th>
+                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider w-3/12">Return Interest</th>
+                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider w-3/12">Received Amount</th>
+                            <th class="px-4 py-3 text-right text-xs font-medium text-gray-400 uppercase tracking-wider w-2/12">Upcoming Payment</th>
+                        </tr>
+                    </thead>
+                    <tbody id="desktop-table-body" class="divide-y divide-gray-700">
+                        </tbody>
+                </table>
+            </div>
+
+            <div id="mobile-card-list" class="md:hidden space-y-4">
+                </div>
+
+            <div class="mt-8 flex justify-center">
+                <nav class="flex items-center space-x-1" aria-label="Pagination">
+                    <button id="prev-btn" onclick="goToPage(currentPage - 1)" 
+                            class="px-3 py-2 text-sm font-medium rounded-lg text-gray-400 hover:bg-gray-700/50 transition disabled:opacity-50 disabled:cursor-not-allowed">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    
+                    <div id="page-buttons" class="flex space-x-1">
+                        </div>
+
+                    <span id="ellipsis" class="text-gray-400 px-2">...</span>
+                    <button class="px-4 py-2 text-sm font-medium rounded-lg text-gray-400 transition" disabled>10</button>
+
+                    <button id="next-btn" onclick="goToPage(currentPage + 1)" 
+                            class="px-3 py-2 text-sm font-medium rounded-lg text-gray-400 hover:bg-gray-700/50 transition disabled:opacity-50 disabled:cursor-not-allowed">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </nav>
+            </div>
+
+        </div>
+
+    </div>
+        
+      </main>
+    </div>
+  </div>
+
+  <!-- load includes and UI script -->
+  <script src="js/include.js"></script>
+  <script src="js/main.js"></script>
+
+  <script>
+    // Mock data (20 entries to ensure at least 4 working pages at 5 entries/page)
+    const mockData = [
+        // Page 1 (1-5)
+        { plan: "Hatchling Plan", price: "$120.00", interest: "$7.20 Per Day", received: "31 X 7.20 = $223.2", status: "Terminated" },
+        { plan: "Baby Plan", price: "$100.00", interest: "$6.00 Per Day", received: "32 X 6.00 = $192", status: "Time Has Passed" },
+        { plan: "Baby Plan", price: "$100.00", interest: "$6.00 Per Day", received: "720 X 6.00 = $4320", status: "Completed" },
+        { plan: "Secondary Pack", price: "$100.00", interest: "$6.00 Per Day", received: "32 X 6.00 = $192", status: "Time Has Passed" },
+        { plan: "Primary Pack", price: "$500.00", interest: "$6.00 Per Day", received: "34 X 6.00 = $204", status: "Time Has Passed" },
+        // Page 2 (6-10)
+        { plan: "Hatchling Plan", price: "$100.00", interest: "$6.00 Per Day", received: "720 X 6.00 = $4320", status: "Completed" },
+        { plan: "Starter Pack", price: "$500.00", interest: "$6.00 Per Day", received: "34 X 6.00 = $204", status: "Time Has Passed" },
+        { plan: "Hatchling Plan", price: "$120.00", interest: "$7.20 Per Day", received: "32 X 7.20 = $230.4", status: "Time Has Passed" },
+        { plan: "Starter Pack", price: "$500.00", interest: "$6.00 Per Day", received: "34 X 6.00 = $204", status: "Time Has Passed" },
+        { plan: "Baby Plan", price: "$120.00", interest: "$6.00 Per Day", received: "1 X 6.00 = $6", status: "Completed" },
+        // Page 3 (11-15)
+        { plan: "Mega Plan", price: "$200.00", interest: "$10.00 Per Day", received: "50 X 10.00 = $500", status: "Completed" },
+        { plan: "Mini Pack", price: "$50.00", interest: "$3.00 Per Day", received: "10 X 3.00 = $30", status: "Terminated" },
+        { plan: "Business Plan", price: "$1000.00", interest: "$60.00 Per Day", received: "1 X 60.00 = $60", status: "Time Has Passed" },
+        { plan: "Hatchling Plan", price: "$120.00", interest: "$7.20 Per Day", received: "10 X 7.20 = $72", status: "Time Has Passed" },
+        { plan: "Starter Pack", price: "$400.00", interest: "$4.00 Per Day", received: "5 X 4.00 = $20", status: "Completed" },
+        // Page 4 (16-20)
+        { plan: "Secondary Pack", price: "$100.00", interest: "$6.00 Per Day", received: "10 X 6.00 = $60", status: "Time Has Passed" },
+        { plan: "Primary Pack", price: "$500.00", interest: "$6.00 Per Day", received: "10 X 6.00 = $60", status: "Time Has Passed" },
+        { plan: "Hatchling Plan", price: "$120.00", interest: "$7.20 Per Day", received: "5 X 7.20 = $36", status: "Terminated" },
+        { plan: "Mega Plan", price: "$200.00", interest: "$10.00 Per Day", received: "1 X 10.00 = $10", status: "Completed" },
+        { plan: "Mini Pack", price: "$50.00", interest: "$3.00 Per Day", received: "20 X 3.00 = $60", status: "Time Has Passed" },
+    ];
+
+
+    let currentPage = 1;
+    const ENTRIES_PER_PAGE = 5; // MODIFIED to 5 as requested
+    const TOTAL_ENTRIES = mockData.length;
+    const MAX_PAGES = Math.ceil(TOTAL_ENTRIES / ENTRIES_PER_PAGE);
+    const DISPLAY_PAGE_LIMIT = Math.min(10, MAX_PAGES); // Display up to 10 buttons or MAX_PAGES
+
+    function getStatusBadge(status) {
+        let dotColor = '';
+        let textColor = '';
+        if (status === 'Terminated') {
+            dotColor = 'bg-red-500';
+            textColor = 'text-red-400';
+        } else if (status === 'Completed') {
+            dotColor = 'bg-green-500';
+            textColor = 'text-green-400';
+        } else {
+             dotColor = 'bg-gray-400';
+            textColor = 'text-gray-400';
+        }
+        return `
+            <span class="flex items-center justify-end text-sm ${textColor} font-medium whitespace-nowrap">
+                <span class="status-dot ${dotColor}"></span>
+                ${status}
+            </span>
+        `;
+    }
+
+    function renderTable(page) {
+        const start = (page - 1) * ENTRIES_PER_PAGE;
+        const end = start + ENTRIES_PER_PAGE;
+        const pageData = mockData.slice(start, end);
+
+        const desktopBody = document.getElementById('desktop-table-body');
+        const mobileList = document.getElementById('mobile-card-list');
+
+        desktopBody.innerHTML = '';
+        mobileList.innerHTML = '';
+
+        pageData.forEach((item, index) => {
+            const serialNumber = start + index + 1;
+            const statusHtml = getStatusBadge(item.status);
+
+            // --- Desktop Row (TR) ---
+            const desktopRow = `
+                <tr class="hover:bg-gray-700/30 transition duration-150">
+                    <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-400">${serialNumber}</td>
+                    <td class="px-4 py-3 whitespace-normal text-sm text-white font-medium">${item.plan}<span class="text-xs text-gray-500 block">${item.price}</span></td>
+                    <td class="px-4 py-3 whitespace-nowrap text-sm text-green-500 font-mono">${item.interest}</td>
+                    <td class="px-4 py-3 whitespace-nowrap text-sm text-white font-medium">${item.received}</td>
+                    <td class="px-4 py-3 whitespace-nowrap text-sm text-right">${statusHtml}</td>
+                </tr>
+            `;
+            desktopBody.insertAdjacentHTML('beforeend', desktopRow);
+
+            // --- Mobile Card (DIV) ---
+            const mobileCard = `
+                <div class="mobile-card space-y-1">
+                    <div class="flex justify-between items-start pb-2 border-b border-gray-700/50 mb-1">
+                        <span class="text-sm font-bold text-white pr-2">${serialNumber}. ${item.plan} <span class="text-gray-400 font-normal">(${item.price})</span></span>
+                        <div class="text-right text-sm whitespace-nowrap">${getStatusBadge(item.status)}</div>
+                    </div>
+                    <div class="mobile-row-item"><span class="label">Return Interest:</span> <span class="value text-lime-400 font-mono">${item.interest}</span></div>
+                    <div class="mobile-row-item"><span class="label">Received Amount:</span> <span class="value text-white">${item.received}</span></div>
+                </div>
+            `;
+            mobileList.insertAdjacentHTML('beforeend', mobileCard);
+        });
+    }
+
+    function renderPageButtons() {
+        const buttonContainer = document.getElementById('page-buttons');
+        buttonContainer.innerHTML = '';
+
+        for (let i = 1; i <= DISPLAY_PAGE_LIMIT; i++) {
+            const btn = document.createElement('button');
+            btn.className = 'page-btn px-4 py-2 text-sm font-medium rounded-lg text-gray-400 hover:bg-gray-700/50 transition';
+            btn.textContent = i;
+            btn.onclick = () => goToPage(i);
+            buttonContainer.appendChild(btn);
+        }
+        // Only show ellipsis if we have more pages than we explicitly display (e.g., more than 10 pages)
+        document.getElementById('ellipsis').classList.toggle('hidden', MAX_PAGES <= DISPLAY_PAGE_LIMIT);
+    }
+
+    function updatePaginationControls() {
+        // Update active button styling
+        document.querySelectorAll('.page-btn').forEach(btn => {
+            btn.classList.remove('pagination-active', 'text-gray-400');
+            btn.classList.add('text-gray-400', 'hover:bg-gray-700/50');
+            if (parseInt(btn.textContent) === currentPage) {
+                btn.classList.add('pagination-active');
+                btn.classList.remove('text-gray-400', 'hover:bg-gray-700/50');
+            }
+        });
+
+        // Update Prev/Next button disabled state
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+
+        // Note: MAX_PAGES is the true maximum based on mock data length
+        prevBtn.disabled = currentPage <= 1;
+        nextBtn.disabled = currentPage >= MAX_PAGES; 
+    }
+
+    function goToPage(page) {
+        if (page < 1 || page > MAX_PAGES) {
+            return;
+        }
+        currentPage = page;
+        renderTable(currentPage);
+        updatePaginationControls();
+    }
+
+    // Initialize the dashboard on load
+    window.onload = () => {
+        renderPageButtons(); 
+        goToPage(1); // Load the first page
+    };
+</script>
+</body>
+</html>
