@@ -10,8 +10,9 @@
   --text-card: #1f2937;
   --bg-table: #ffffff;
   --border-card: #e2e8f0;
-  --bg-notification: #fef3c7;
-  --text-notification: #92400e;
+  --bg-notification: #ffffff;
+  --text-notification: #020202;
+  --border-notification: #6d28d9;
   --bg-button: #ffffff;
   --text-button: #1f2937;
   --bg-hover: #f3f4f6;
@@ -19,7 +20,7 @@
 }
 
 .dark {
-  --bg-body: #1f2937;
+  --bg-body: #000204;
   --text-body: #f9fafb;
   --bg-header: #374151;
   --text-header: #f9fafb;
@@ -29,8 +30,9 @@
   --text-card: #f9fafb;
   --bg-table: #374151;
   --border-card: #4b5563;
-  --bg-notification: #451a03;
-  --text-notification: #fbbf24;
+  --bg-notification: #050c20;
+  --text-notification: #6e7176;
+  --border-notification: #6d28d9;
   --bg-button: #374151;
   --text-button: #f9fafb;
   --bg-hover: #4b5563;
@@ -56,7 +58,7 @@ main {
 }
 
 .card {
-  background-color: var(--bg-card);
+  background-color: var(--bg-body);
   color: var(--text-card);
   border-color: var(--border-card);
 }
@@ -97,6 +99,50 @@ button:hover {
 }
 
 /* Ensure proper contrast and theming */
+
+/* Sidebar default (light mode) */
+#sidebar {
+  background-color: var(--bg-card);
+}
+
+/* Sidebar dark mode */
+.dark #sidebar {
+  background-color: var(--bg-body); /* uses dark mode background */
+  color: var(--text-card);          /* text color */
+}
+
+.dark .topbar {
+  background-color: var(--bg-body);         /* dark mode text color */
+}
+
+/* Light mode (default) */
+.main-dashboard {
+  background-color: var(--bg-main);
+  color: var(--text-main);
+}
+
+/* Dark mode */
+.dark .main-dashboard {
+  background-color: var(--bg-body);
+  color: var(--text-main);
+}
+
+/* Light mode (default) */
+#notification-banner {
+  background-color: var(--bg-notification);
+  color: var(--text-notification);
+  border-left: var(--border-notification);
+}
+
+/* Dark mode */
+.dark #notification-banner {
+  background-color: var(--bg-notification);
+  color: var(--text-notification);
+  border-left: var(--border-notification);
+}
+
+
+
 
 /* Override Tailwind classes for light and dark mode */
 html:not(.dark) .bg-gray-800 {

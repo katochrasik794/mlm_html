@@ -36,10 +36,10 @@
 
       .card {
         border-radius: 12px;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05),
-          0 2px 4px -2px rgba(0, 0, 0, 0.05);
+        /* box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05),
+          0 2px 4px -2px rgba(0, 0, 0, 0.05); */
         transition: transform 0.2s;
-        border: 1px solid #e2e8f0;
+        /* border: 1px solid #e2e8f0; */
       }
       .card:hover {
         transform: translateY(-2px);
@@ -76,13 +76,13 @@
       .min-vh-100 {
         min-height: 100vh;
       }
-      .card-transition {
+      /* .card-transition {
         transition: box-shadow 0.12s ease, transform 0.12s ease;
       }
       .card-transition:hover {
         transform: translateY(-4px);
         box-shadow: 0 12px 24px rgba(2, 6, 23, 0.08);
-      }
+      } */
       #sidebar {
         position: fixed;
         top: 0;
@@ -107,13 +107,13 @@
     <!-- Project styles (light + dark variables and component overrides) -->
     <link rel="stylesheet" href="style.css" class="" />
   </head>
-  <body class="bg-gray-800 text-slate-900 antialiased">
+  <body class="bg-[#000204] text-slate-900 antialiased">
     <!-- SIDEBAR (included dynamically) -->
      <div data-include="components/sidebar.html"></div>
 
     <!-- TOPBAR -->
     <header
-      class="fixed top-0 left-0 lg:left-[19rem] right-0 border-b p-4 text-white bg-gray-800 z-1"
+      class="topbar fixed top-0 left-0 lg:left-[19rem] right-0 border-b border-gray-700 p-4 text-white  z-1"
     >
           <div
             class="max-w-7xl mx-auto flex items-center justify-between gap-4"
@@ -212,13 +212,13 @@
         <!-- MAIN (content) -->
         <div class="ml-0 lg:ml-[19rem] pt-16 flex flex-col h-screen overflow-y-auto">
           <main
-            class="flex-1 p-6 max-w-7xl mx-auto w-full bg-gray-800 text-white"
+            class="main-dashboard flex-1 p-6 max-w-7xl mx-auto w-full text-white"
           >
           <div class="p-4 sm:p-6 lg:p-8">
             <!-- 1. Dismissible Notification Banner -->
             <div
               id="notification-banner"
-              class="flex items-center justify-between flex-wrap gap-y-2 p-3 mb-6 rounded-lg bg-yellow-50 text-yellow-800 shadow-md transition duration-300"
+              class="flex items-center justify-between flex-wrap gap-y-2 p-3 mb-6 rounded-lg shadow-md transition duration-300"
               role="alert"
             >
               <p class="text-sm font-medium">
@@ -426,7 +426,7 @@
                   </h3>
                   <!-- Placeholder for the Bar/Line Chart -->
                   <div
-                    class="w-full h-80 bg-gray-800 border border-dashed border-gray-300 flex items-center justify-center rounded-lg"
+                    class="w-full h-80  border border-dashed border-gray-300 flex items-center justify-center rounded-lg"
                   >
                     <p class="text-gray-200">
                       Placeholder for Responsive Bar/Line Chart (Requires
