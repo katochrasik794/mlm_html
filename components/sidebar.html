@@ -215,7 +215,7 @@
 <!-- Mobile Sidebar -->
 <aside
   id="mobileSidebar"
-  class="fixed inset-y-0 left-0 w-64 bg-gray-800 text-white p-4 z-50 transform -translate-x-full transition-transform lg:hidden"
+  class="fixed inset-y-0 left-0 w-64 bg-gray-800 text-white p-4 z-50 transform -translate-x-full transition-transform hidden lg:hidden"
 >
   <div class="flex items-center justify-between mb-4 ">
     <div class="flex items-center gap-3">
@@ -357,6 +357,18 @@
   #sidebar ul.main::-webkit-scrollbar-thumb {
     background-color: rgba(0, 0, 0, 0.3);
     border-radius: 3px;
+  }
+
+  /* Scrollbar for mobile sidebar nav */
+  #mobileSidebar nav::-webkit-scrollbar {
+    width: 4px;
+  }
+  #mobileSidebar nav::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  #mobileSidebar nav::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 2px;
   }
 </style>
 

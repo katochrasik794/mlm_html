@@ -9,14 +9,29 @@
     />
     <title class="">CRM - Layout (Sidebar + Topbar + Content + Footer)</title>
 
-    <style class="">
+    <style>
       @import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap");
 
-      body {
+      html, body {
         font-family: "Ubuntu", sans-serif;
         background-color: #f8fafc; /* Light background for the whole page */
         height: 100vh;
         overflow: hidden;
+      }
+
+      /* Scrollbar styling */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: rgba(0, 0, 0, 0.2);
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: rgba(0, 0, 0, 0.4);
       }
 
       .card {
@@ -57,7 +72,7 @@
 
     <script src="https://cdn.tailwindcss.com" class=""></script>
 
-    <style class="">
+    <style>
       .min-vh-100 {
         min-height: 100vh;
       }
@@ -68,17 +83,37 @@
         transform: translateY(-4px);
         box-shadow: 0 12px 24px rgba(2, 6, 23, 0.08);
       }
+      #sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        overflow-y: auto;
+        width: 19rem;
+      }
+
+      .main-container {
+        margin-left: 19rem;
+        height: 100vh;
+        overflow-y: auto;
+      }
+
+      @media (max-width: 1023px) {
+        .main-container {
+          margin-left: 0;
+        }
+      }
     </style>
     <!-- Project styles (light + dark variables and component overrides) -->
     <link rel="stylesheet" href="style.css" class="" />
   </head>
   <body class="bg-gray-800 text-slate-900 antialiased">
     <!-- SIDEBAR (included dynamically) -->
-    <div data-include="components/sidebar.html" class="fixed left-0 top-0 h-screen w-76 overflow-y-auto bg-gray-800"></div>
+     <div data-include="components/sidebar.html"></div>
 
     <!-- TOPBAR -->
     <header
-      class="fixed top-0 left-0 lg:left-[19rem] right-0 border-b p-4 text-white bg-gray-800 z-30"
+      class="fixed top-0 left-0 lg:left-[19rem] right-0 border-b p-4 text-white bg-gray-800 z-1"
     >
           <div
             class="max-w-7xl mx-auto flex items-center justify-between gap-4"

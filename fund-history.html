@@ -64,6 +64,36 @@
             font-weight: bold;
         }
 
+        /* Scrollbar styling for main container */
+        .main-container::-webkit-scrollbar {
+          width: 6px;
+        }
+        .main-container::-webkit-scrollbar-track {
+          background: transparent;
+        }
+        .main-container::-webkit-scrollbar-thumb {
+          background: rgba(0, 0, 0, 0.2);
+          border-radius: 4px;
+        }
+        .main-container::-webkit-scrollbar-thumb:hover {
+          background: rgba(0, 0, 0, 0.4);
+        }
+
+        /* Scrollbar styling for table */
+        .table-container::-webkit-scrollbar {
+          height: 4px;
+        }
+        .table-container::-webkit-scrollbar-track {
+          background: transparent;
+        }
+        .table-container::-webkit-scrollbar-thumb {
+          background: rgba(0, 0, 0, 0.2);
+          border-radius: 2px;
+        }
+        .table-container::-webkit-scrollbar-thumb:hover {
+          background: rgba(0, 0, 0, 0.4);
+        }
+
         html, body {
             height: 100vh;
             overflow: hidden;

@@ -54,11 +54,26 @@
             font-weight: bold;
         }
         .status-dot {
-            display: inline-block;
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            margin-right: 6px;
+          display: inline-block;
+          width: 8px;
+          height: 8px;
+          border-radius: 50%;
+          margin-right: 6px;
+        }
+
+        /* Scrollbar styling for main container */
+        .main-container::-webkit-scrollbar {
+          width: 6px;
+        }
+        .main-container::-webkit-scrollbar-track {
+          background: transparent;
+        }
+        .main-container::-webkit-scrollbar-thumb {
+          background: rgba(0, 0, 0, 0.2);
+          border-radius: 4px;
+        }
+        .main-container::-webkit-scrollbar-thumb:hover {
+          background: rgba(0, 0, 0, 0.4);
         }
 
         html, body {
@@ -207,8 +222,6 @@
         </div>
 
     </div>
-    
-        
       </main>
     </div>
   </div>

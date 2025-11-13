@@ -75,6 +75,36 @@
           margin-left: 0;
         }
       }
+
+      /* Scrollbar styling for main container */
+      .main-container::-webkit-scrollbar {
+        width: 6px;
+      }
+      .main-container::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      /* .main-container::-webkit-scrollbar-thumb {
+        background: rgba(0, 0, 0, 0.2);
+        border-radius: 4px;
+      }
+      .main-container::-webkit-scrollbar-thumb:hover {
+        background: rgba(0, 0, 0, 0.4);
+      } */
+
+      /* Scrollbar styling for table */
+      .table-container::-webkit-scrollbar {
+        height: 4px;
+      }
+      .table-container::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      .table-container::-webkit-scrollbar-thumb {
+        background: rgba(0, 0, 0, 0.2);
+        border-radius: 2px;
+      }
+      .table-container::-webkit-scrollbar-thumb:hover {
+        background: rgba(0, 0, 0, 0.4);
+      }
     </style>
 
     <link
@@ -177,7 +207,7 @@
         </header>
 
         <!-- page-specific content -->
-        <main class="flex-1 py-6 max-w-7xl mx-auto w-full">
+        <main class="flex-1 py-6 max-w-7xl mx-1 w-full">
           <div class="max-w-7xl mx-auto p-4 md:p-8">
             <h2 class="text-3xl font-extrabold mb-6 text-white text-center">
               Investment Plans

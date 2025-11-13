@@ -90,9 +90,39 @@
         }
 
         @media (max-width: 1023px) {
-            .main-container {
-                margin-left: 0;
-            }
+          .main-container {
+            margin-left: 0;
+          }
+        }
+  
+        /* Scrollbar styling for main container */
+        .main-container::-webkit-scrollbar {
+          width: 6px;
+        }
+        .main-container::-webkit-scrollbar-track {
+          background: transparent;
+        }
+        .main-container::-webkit-scrollbar-thumb {
+          background: rgba(0, 0, 0, 0.2);
+          border-radius: 4px;
+        }
+        .main-container::-webkit-scrollbar-thumb:hover {
+          background: rgba(0, 0, 0, 0.4);
+        }
+  
+        /* Scrollbar styling for table */
+        .table-container::-webkit-scrollbar {
+          height: 4px;
+        }
+        .table-container::-webkit-scrollbar-track {
+          background: transparent;
+        }
+        .table-container::-webkit-scrollbar-thumb {
+          background: rgba(0, 0, 0, 0.2);
+          border-radius: 2px;
+        }
+        .table-container::-webkit-scrollbar-thumb:hover {
+          background: rgba(0, 0, 0, 0.4);
         }
     </style>
 
@@ -316,7 +346,7 @@
         if (!modal) {
             modal = document.createElement('div');
             modal.id = modalId;
-            modal.classList.add('fixed', 'inset-0', 'bg-gray-900', 'bg-opacity-75', 'flex', 'items-center', 'justify-center', 'p-4', 'z-50', 'hidden');
+            modal.classList.add('fixed', 'inset-0', 'backdrop-blur', 'flex', 'items-center', 'justify-center', 'p-4', 'z-50', 'hidden');
             document.body.appendChild(modal);
         }
 

@@ -7,11 +7,13 @@ function setupUI() {
 
   // === Mobile Sidebar Open / Close ===
   function openMobileSidebar() {
+    mobileSidebar?.classList.remove('hidden');
     mobileSidebar?.classList.remove('-translate-x-full');
     mobileBackdrop?.classList.remove('hidden');
   }
 
   function closeMobileSidebar() {
+    mobileSidebar?.classList.add('hidden');
     mobileSidebar?.classList.add('-translate-x-full');
     mobileBackdrop?.classList.add('hidden');
   }
