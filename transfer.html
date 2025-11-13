@@ -1,215 +1,329 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Leads - CRM</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    .min-vh-100 { min-height: 100vh; }
-    .card-transition { transition: box-shadow .12s ease, transform .12s ease; }
-    .card-transition:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(2,6,23,0.08); }
-  </style>
-<style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-body);
-            color: var(--text-body);
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Leads - CRM</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      .min-vh-100 {
+        min-height: 100vh;
+      }
+      .card-transition {
+        transition: box-shadow 0.12s ease, transform 0.12s ease;
+      }
+      .card-transition:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 24px rgba(2, 6, 23, 0.08);
+      }
+    </style>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
+      body {
+        font-family: "Inter", sans-serif;
+        background-color: var(--bg-body);
+        color: var(--text-body);
+      }
+      .form-container {
+        background-color: var(--bg-card);
+        border-radius: 1rem; /* rounded-xl */
+        padding: 2rem;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2),
+          0 4px 6px -2px rgba(0, 0, 0, 0.1);
+      }
+      input[type="text"],
+      input[type="password"],
+      select {
+        background-color: var(--bg-button);
+        border: 1px solid var(--border-card);
+        color: var(--text-button);
+        padding: 0.75rem 1rem;
+        border-radius: 0.5rem; /* rounded-lg */
+        width: 100%;
+        transition: all 0.15s ease-in-out;
+      }
+      input[type="text"]::placeholder,
+      input[type="password"]::placeholder {
+        color: var(--text-secondary);
+      }
+      select:focus,
+      input:focus {
+        outline: none;
+        border-color: #6366f1; /* Indigo-500 focus ring */
+        box-shadow: 0 0 0 1px #6366f1;
+      }
+      .input-group {
+        margin-bottom: 1.5rem; /* space-y-6 equivalent in margin */
+      }
+
+      html,
+      body {
+        height: 100vh;
+        overflow: hidden;
+      }
+
+      #sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        overflow-y: auto;
+        width: 19rem;
+      }
+
+      .main-container {
+        margin-left: 19rem;
+        height: 100vh;
+        overflow-y: auto;
+      }
+
+      @media (max-width: 767px) {
+        .main-container {
+          margin-left: 0;
         }
-        .form-container {
-            background-color: var(--bg-card);
-            border-radius: 1rem; /* rounded-xl */
-            padding: 2rem;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 4px 6px -2px rgba(0, 0, 0, 0.1);
-        }
-        input[type="text"], input[type="password"], select {
-            background-color: var(--bg-button);
-            border: 1px solid var(--border-card);
-            color: var(--text-button);
-            padding: 0.75rem 1rem;
-            border-radius: 0.5rem; /* rounded-lg */
-            width: 100%;
-            transition: all 0.15s ease-in-out;
-        }
-        input[type="text"]::placeholder, input[type="password"]::placeholder {
-            color: var(--text-secondary);
-        }
-        select:focus, input:focus {
-            outline: none;
-            border-color: #6366f1; /* Indigo-500 focus ring */
-            box-shadow: 0 0 0 1px #6366f1;
-        }
-        .input-group {
-            margin-bottom: 1.5rem; /* space-y-6 equivalent in margin */
-        }
+      }
     </style>
 
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
- <link rel="stylesheet" href="style.css">
-</head>
-<body class="bg-gray-900 text-slate-900 antialiased">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body class="bg-gray-900 text-slate-900 antialiased">
+    <div class="">
+      <div data-include="components/sidebar.html"></div>
 
-  <div class="flex">
-
-    <div data-include="components/sidebar.html"></div>
-
-    <!-- main column: topbar + page content + footer -->
-    <div class="flex-1 flex flex-col min-h-screen">
-      <!-- topbar -->
-      <header class="w-full border-b p-4 sticky text-white bg-gray-800 top-0 z-30">
-        <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
-          <div class="flex items-center gap-3">
-            <!-- Mobile menu button -->
-            <button id="mobileToggle" class="md:hidden p-2 rounded-md">
-              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-              </svg>
-            </button>
-          </div>
-
-          <div class="flex items-center gap-4">
-            <button
-            id="themeToggle"
-            class="p-3 w-12 h-12 rounded-lg flex items-center justify-center text-slate-700 transition"
+      <!-- main column: topbar + page content + footer -->
+      <div class="main-container flex flex-col">
+        <!-- topbar -->
+        <header
+          class="w-full border-b p-4 sticky text-white bg-gray-800 top-0 z-30"
+        >
+          <div
+            class="max-w-7xl mx-auto flex items-center justify-between gap-4"
           >
-            <svg
-              id="themeIcon"
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="lucide lucide-moon"
-            >
-              <path
-                d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"
-              />
-            </svg>
-          </button>
-            <div class="relative">
-              <button id="profileBtn" class="flex items-center gap-2 p-1 rounded-md hover:bg-gray-600">
-                <img src="https://i.pravatar.cc/40" alt="avatar" class="w-8 h-8 rounded-full" />
-                <span class="hidden sm:block text-sm">Raghav</span>
-                <svg class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
-                  <path fill-rule="evenodd"
-                        d="M5.23 7.21a.75.75 0 011.06.02L10 11.17l3.71-3.94a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01.02-1.06z"
-                        clip-rule="evenodd"/>
+            <div class="flex items-center gap-3">
+              <!-- Mobile menu button -->
+              <button id="mobileToggle" class="md:hidden p-2 rounded-md">
+                <svg
+                  class="w-5 h-5"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M4 6h16M4 12h16M4 18h16"
+                  />
                 </svg>
               </button>
+            </div>
 
-              <!-- Profile dropdown -->
-              <div id="profileDropdown"
-                   class="hidden absolute right-0 mt-2 w-44 bg-gray-800 border rounded-md shadow-sm py-1">
-                <a href="#" class="block px-3 py-2 text-sm hover:bg-gray-600">Profile</a>
-                <a href="#" class="block px-3 py-2 text-sm hover:bg-gray-600">Settings</a>
-                <a href="#" class="block px-3 py-2 text-sm hover:bg-gray-600">Sign out</a>
+            <div class="flex items-center gap-4">
+              <button
+                id="themeToggle"
+                class="p-3 w-12 h-12 rounded-lg flex items-center justify-center text-slate-700 transition"
+              >
+                <svg
+                  id="themeIcon"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="lucide lucide-moon"
+                >
+                  <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                </svg>
+              </button>
+              <div class="relative">
+                <button
+                  id="profileBtn"
+                  class="flex items-center gap-2 p-1 rounded-md hover:bg-gray-600"
+                >
+                  <img
+                    src="https://i.pravatar.cc/40"
+                    alt="avatar"
+                    class="w-8 h-8 rounded-full"
+                  />
+                  <span class="hidden sm:block text-sm">Raghav</span>
+                  <svg class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
+                    <path
+                      fill-rule="evenodd"
+                      d="M5.23 7.21a.75.75 0 011.06.02L10 11.17l3.71-3.94a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01.02-1.06z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                </button>
+
+                <!-- Profile dropdown -->
+                <div
+                  id="profileDropdown"
+                  class="hidden absolute right-0 mt-2 w-44 bg-gray-800 border rounded-md shadow-sm py-1"
+                >
+                  <a href="#" class="block px-3 py-2 text-sm hover:bg-gray-600"
+                    >Profile</a
+                  >
+                  <a href="#" class="block px-3 py-2 text-sm hover:bg-gray-600"
+                    >Settings</a
+                  >
+                  <a href="#" class="block px-3 py-2 text-sm hover:bg-gray-600"
+                    >Sign out</a
+                  >
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </header>
+        </header>
 
-      <!-- page-specific content -->
-      <main class="flex-1 p-6 max-w-7xl mx-auto w-full">
-        <div class="max-w-xl mx-auto">
+        <!-- page-specific content -->
+        <main class="flex-1 p-6 max-w-7xl mx-auto w-full">
+          <div class="max-w-xl mx-auto">
+            <!-- Title -->
+            <h2 class="text-3xl font-extrabold mb-8 text-white">
+              Balance Transfer
+            </h2>
 
-        <!-- Title -->
-        <h2 class="text-3xl font-extrabold mb-8 text-white">Balance Transfer</h2>
-
-        <form class="form-container" onsubmit="return handleTransfer(event)">
-            
-            <!-- Receiver Email Address -->
-            <div class="input-group">
-                <label for="receiver-email" class="block text-sm font-semibold mb-2 text-gray-300">Receiver Email Address</label>
+            <form
+              class="form-container"
+              onsubmit="return handleTransfer(event)"
+            >
+              <!-- Receiver Email Address -->
+              <div class="input-group">
+                <label
+                  for="receiver-email"
+                  class="block text-sm font-semibold mb-2 text-gray-300"
+                  >Receiver Email Address</label
+                >
                 <!-- This section replicates the look of the repeated envelope/tempmail icons -->
-                <div class="p-3 bg-gray-800 rounded-lg border border-gray-700 overflow-x-auto whitespace-nowrap">
-                    <i class="fas fa-envelope text-purple-700 mr-2"></i> 
+                <div
+                  class="p-3 bg-gray-800 rounded-lg border border-gray-700 overflow-x-auto whitespace-nowrap"
+                >
+                  <i class="fas fa-envelope text-purple-700 mr-2"></i>
                 </div>
-            </div>
+              </div>
 
-            <!-- Amount -->
-            <div class="input-group">
-                <label for="amount" class="block text-sm font-semibold mb-2 text-gray-300">Amount</label>
-                <input type="text" id="amount" placeholder="Enter Amount" required>
-            </div>
+              <!-- Amount -->
+              <div class="input-group">
+                <label
+                  for="amount"
+                  class="block text-sm font-semibold mb-2 text-gray-300"
+                  >Amount</label
+                >
+                <input
+                  type="text"
+                  id="amount"
+                  placeholder="Enter Amount"
+                  required
+                />
+              </div>
 
-            <!-- Select Wallet -->
-            <div class="input-group">
-                <label for="wallet-select" class="block text-sm font-semibold mb-2 text-gray-300">Select Wallet</label>
+              <!-- Select Wallet -->
+              <div class="input-group">
+                <label
+                  for="wallet-select"
+                  class="block text-sm font-semibold mb-2 text-gray-300"
+                  >Select Wallet</label
+                >
                 <select id="wallet-select" required class="py-2 text-gray-400">
-                    <option value="" disabled selected>Select Wallet</option>
-                    <option value="main">Main Balance ($9.41)</option>
-                    <option value="interest">Interest Balance ($1.08)</option>
-                    <option value="referral">Referral Bonus ($36.388)</option>
+                  <option value="" disabled selected>Select Wallet</option>
+                  <option value="main">Main Balance ($9.41)</option>
+                  <option value="interest">Interest Balance ($1.08)</option>
+                  <option value="referral">Referral Bonus ($36.388)</option>
                 </select>
-            </div>
+              </div>
 
-            <!-- Enter Password -->
-            <div class="input-group">
-                <label for="password" class="block text-sm font-semibold mb-2 text-gray-300">Enter Password</label>
-                <input type="password" id="password" placeholder="Your Password" required>
-            </div>
+              <!-- Enter Password -->
+              <div class="input-group">
+                <label
+                  for="password"
+                  class="block text-sm font-semibold mb-2 text-gray-300"
+                  >Enter Password</label
+                >
+                <input
+                  type="password"
+                  id="password"
+                  placeholder="Your Password"
+                  required
+                />
+              </div>
 
-            <!-- Submit Button -->
-            <button type="submit" 
-                    class="w-full sm:w-auto px-6 py-3 bg-purple-700 text-gray-600 font-semibold rounded-lg hover:bg-purple-800 transition duration-150 ease-in-out mt-4 shadow-lg">
+              <!-- Submit Button -->
+              <button
+                type="submit"
+                class="w-full sm:w-auto px-6 py-3 bg-purple-700 text-gray-600 font-semibold rounded-lg hover:bg-purple-800 transition duration-150 ease-in-out mt-4 shadow-lg"
+              >
                 Submit
-            </button>
+              </button>
 
-            <!-- Custom Modal/Message Box for Alert -->
-            <div id="transfer-message-modal" class="hidden fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center p-4 z-50">
-                <div class="bg-gray-800 p-6 rounded-xl shadow-2xl max-w-sm w-full text-center">
-                    <p id="transfer-message-text" class="text-white text-lg font-medium mb-4">Transfer initiated successfully!</p>
-                    <button onclick="document.getElementById('transfer-message-modal').classList.add('hidden')" 
-                            class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition">
-                        Close
-                    </button>
+              <!-- Custom Modal/Message Box for Alert -->
+              <div
+                id="transfer-message-modal"
+                class="hidden fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center p-4 z-50"
+              >
+                <div
+                  class="bg-gray-800 p-6 rounded-xl shadow-2xl max-w-sm w-full text-center"
+                >
+                  <p
+                    id="transfer-message-text"
+                    class="text-white text-lg font-medium mb-4"
+                  >
+                    Transfer initiated successfully!
+                  </p>
+                  <button
+                    onclick="document.getElementById('transfer-message-modal').classList.add('hidden')"
+                    class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition"
+                  >
+                    Close
+                  </button>
                 </div>
-            </div>
-
-        </form>
-
+              </div>
+            </form>
+          </div>
+        </main>
+      </div>
     </div>
-      </main>
-    </div>
-  </div>
 
-  <!-- load includes and UI script -->
-  <script src="js/include.js"></script>
-  <script src="js/main.js"></script>
-  <script>
-    // Handle form submission and show custom message instead of alert()
-    function handleTransfer(event) {
+    <!-- load includes and UI script -->
+    <script src="js/include.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+      // Handle form submission and show custom message instead of alert()
+      function handleTransfer(event) {
         event.preventDefault(); // Prevent default form submission
 
-        const amount = document.getElementById('amount').value;
-        const wallet = document.getElementById('wallet-select').value;
-        const password = document.getElementById('password').value;
+        const amount = document.getElementById("amount").value;
+        const wallet = document.getElementById("wallet-select").value;
+        const password = document.getElementById("password").value;
 
-        const messageText = document.getElementById('transfer-message-text');
-        
+        const messageText = document.getElementById("transfer-message-text");
+
         // Basic validation and feedback
         if (!amount || !wallet || !password) {
-            messageText.textContent = 'Please fill in all required fields.';
+          messageText.textContent = "Please fill in all required fields.";
         } else {
-            // Simulate successful transfer
-            messageText.textContent = `Transfer of ${amount} from ${wallet} wallet initiated successfully!`;
-            // Clear form (optional)
-            document.getElementById('amount').value = '';
-            document.getElementById('password').value = '';
-            document.getElementById('wallet-select').value = '';
+          // Simulate successful transfer
+          messageText.textContent = `Transfer of ${amount} from ${wallet} wallet initiated successfully!`;
+          // Clear form (optional)
+          document.getElementById("amount").value = "";
+          document.getElementById("password").value = "";
+          document.getElementById("wallet-select").value = "";
         }
-        
+
         // Show the custom modal
-        document.getElementById('transfer-message-modal').classList.remove('hidden');
+        document
+          .getElementById("transfer-message-modal")
+          .classList.remove("hidden");
 
         return false; // Prevent traditional form refresh
-    }
-</script>
-</body>
+      }
+    </script>
+  </body>
 </html>

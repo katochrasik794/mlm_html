@@ -1,261 +1,478 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Leads - CRM</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    .min-vh-100 { min-height: 100vh; }
-    .card-transition { transition: box-shadow .12s ease, transform .12s ease; }
-    .card-transition:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(2,6,23,0.08); }
-  </style>
-<style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-body);
-            color: var(--text-body);
-        }
-        .table-container {
-            background-color: var(--bg-card);
-            border-radius: 12px;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 4px 6px -2px rgba(0, 0, 0, 0.1);
-        }
-        input[type="text"], select {
-            background-color: var(--bg-button);
-            border: 1px solid var(--border-card);
-            color: var(--text-button);
-            padding: 0.75rem 1rem;
-            border-radius: 0.5rem;
-            transition: all 0.15s ease-in-out;
-        }
-        select:focus, input:focus {
-            outline: none;
-            border-color: #6366f1;
-        }
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Leads - CRM</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      .min-vh-100 {
+        min-height: 100vh;
+      }
+      .card-transition {
+        transition: box-shadow 0.12s ease, transform 0.12s ease;
+      }
+      .card-transition:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 24px rgba(2, 6, 23, 0.08);
+      }
+    </style>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
+      body {
+        font-family: "Inter", sans-serif;
+        background-color: var(--bg-body);
+        color: var(--text-body);
+      }
+      .table-container {
+        background-color: var(--bg-card);
+        border-radius: 12px;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2),
+          0 4px 6px -2px rgba(0, 0, 0, 0.1);
+      }
+      input[type="text"],
+      select {
+        background-color: var(--bg-button);
+        border: 1px solid var(--border-card);
+        color: var(--text-button);
+        padding: 0.75rem 1rem;
+        border-radius: 0.5rem;
+        transition: all 0.15s ease-in-out;
+      }
+      select:focus,
+      input:focus {
+        outline: none;
+        border-color: #6366f1;
+      }
 
-        /* Custom mobile row styling */
-        @media (max-width: 767px) {
-            .mobile-card {
-                padding: 1rem;
-                background-color: var(--bg-card);
-                border-radius: 0.75rem;
-                border: 1px solid var(--border-card);
-            }
-            .mobile-row-item {
-                display: flex;
-                justify-content: space-between;
-                padding-top: 0.4rem;
-                padding-bottom: 0.4rem;
-            }
-            .mobile-row-item .label {
-                font-weight: 500;
-                color: var(--text-secondary);
-                font-size: 0.875rem;
-            }
-            .mobile-row-item .value {
-                font-weight: 600;
-                font-size: 0.875rem;
-                text-align: right;
-            }
+      /* Custom mobile row styling */
+      @media (max-width: 767px) {
+        .mobile-card {
+          padding: 1rem;
+          background-color: var(--bg-card);
+          border-radius: 0.75rem;
+          border: 1px solid var(--border-card);
         }
-        .pagination-active {
-            background-color: #10b981; /* green-500 for active state */
-            color: white;
-            font-weight: bold;
+        .mobile-row-item {
+          display: flex;
+          justify-content: space-between;
+          padding-top: 0.4rem;
+          padding-bottom: 0.4rem;
         }
+        .mobile-row-item .label {
+          font-weight: 500;
+          color: var(--text-secondary);
+          font-size: 0.875rem;
+        }
+        .mobile-row-item .value {
+          font-weight: 600;
+          font-size: 0.875rem;
+          text-align: right;
+        }
+      }
+      .pagination-active {
+        background-color: #10b981; /* green-500 for active state */
+        color: white;
+        font-weight: bold;
+      }
+
+      html,
+      body {
+        height: 100vh;
+        overflow: hidden;
+      }
+
+      #sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        overflow-y: auto;
+        width: 19rem;
+      }
+
+      .main-container {
+        margin-left: 19rem;
+        height: 100vh;
+        overflow-y: auto;
+      }
+
+      @media (max-width: 767px) {
+        .main-container {
+          margin-left: 0;
+        }
+      }
     </style>
 
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
- <link rel="stylesheet" href="style.css">
-</head>
-<body class="bg-gray-900 text-slate-900 antialiased">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body class="bg-gray-900 text-slate-900 antialiased">
+    <div>
+      <div data-include="components/sidebar.html"></div>
 
-  <div class="flex">
-
-    <div data-include="components/sidebar.html"></div>
-
-    <!-- main column: topbar + page content + footer -->
-    <div class="flex-1 flex flex-col min-h-screen">
-      <!-- topbar -->
-      <header class="w-full border-b p-4 sticky text-white bg-gray-800 top-0 z-30">
-        <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
-          <div class="flex items-center gap-3">
-            <!-- Mobile menu button -->
-            <button id="mobileToggle" class="md:hidden p-2 rounded-md">
-              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-              </svg>
-            </button>
-          </div>
-
-          <div class="flex items-center gap-4">
-            <button
-            id="themeToggle"
-            class="p-3 w-12 h-12 rounded-lg flex items-center justify-center text-slate-700 transition"
+      <!-- main column: topbar + page content + footer -->
+      <div class="main-container flex flex-col">
+        <!-- topbar -->
+        <header
+          class="w-full border-b p-4 sticky text-white bg-gray-800 top-0 z-30"
+        >
+          <div
+            class="max-w-7xl mx-auto flex items-center justify-between gap-4"
           >
-            <svg
-              id="themeIcon"
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="lucide lucide-moon"
-            >
-              <path
-                d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"
-              />
-            </svg>
-          </button>
-            <div class="relative">
-              <button id="profileBtn" class="flex items-center gap-2 p-1 rounded-md hover:bg-gray-600">
-                <img src="https://i.pravatar.cc/40" alt="avatar" class="w-8 h-8 rounded-full" />
-                <span class="hidden sm:block text-sm">Raghav</span>
-                <svg class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
-                  <path fill-rule="evenodd"
-                        d="M5.23 7.21a.75.75 0 011.06.02L10 11.17l3.71-3.94a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01.02-1.06z"
-                        clip-rule="evenodd"/>
+            <div class="flex items-center gap-3">
+              <!-- Mobile menu button -->
+              <button id="mobileToggle" class="md:hidden p-2 rounded-md">
+                <svg
+                  class="w-5 h-5"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M4 6h16M4 12h16M4 18h16"
+                  />
                 </svg>
               </button>
+            </div>
 
-              <!-- Profile dropdown -->
-              <div id="profileDropdown"
-                   class="hidden absolute right-0 mt-2 w-44 bg-gray-800 border rounded-md shadow-sm py-1">
-                <a href="#" class="block px-3 py-2 text-sm hover:bg-gray-600">Profile</a>
-                <a href="#" class="block px-3 py-2 text-sm hover:bg-gray-600">Settings</a>
-                <a href="#" class="block px-3 py-2 text-sm hover:bg-gray-600">Sign out</a>
+            <div class="flex items-center gap-4">
+              <button
+                id="themeToggle"
+                class="p-3 w-12 h-12 rounded-lg flex items-center justify-center text-slate-700 transition"
+              >
+                <svg
+                  id="themeIcon"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="lucide lucide-moon"
+                >
+                  <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                </svg>
+              </button>
+              <div class="relative">
+                <button
+                  id="profileBtn"
+                  class="flex items-center gap-2 p-1 rounded-md hover:bg-gray-600"
+                >
+                  <img
+                    src="https://i.pravatar.cc/40"
+                    alt="avatar"
+                    class="w-8 h-8 rounded-full"
+                  />
+                  <span class="hidden sm:block text-sm">Raghav</span>
+                  <svg class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
+                    <path
+                      fill-rule="evenodd"
+                      d="M5.23 7.21a.75.75 0 011.06.02L10 11.17l3.71-3.94a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01.02-1.06z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                </button>
+
+                <!-- Profile dropdown -->
+                <div
+                  id="profileDropdown"
+                  class="hidden absolute right-0 mt-2 w-44 bg-gray-800 border rounded-md shadow-sm py-1"
+                >
+                  <a href="#" class="block px-3 py-2 text-sm hover:bg-gray-600"
+                    >Profile</a
+                  >
+                  <a href="#" class="block px-3 py-2 text-sm hover:bg-gray-600"
+                    >Settings</a
+                  >
+                  <a href="#" class="block px-3 py-2 text-sm hover:bg-gray-600"
+                    >Sign out</a
+                  >
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </header>
+        </header>
 
-      <!-- page-specific content -->
-      <main class="flex-1 p-6 max-w-7xl mx-auto w-full">
-        <div class="max-w-7xl mx-auto">
+        <!-- page-specific content -->
+        <main class="flex-1 p-6 max-w-7xl mx-auto w-full">
+          <div class="max-w-7xl mx-auto">
+            <!-- Title -->
+            <h2 class="text-3xl font-extrabold mb-6 text-white">
+              Referral Bonus
+            </h2>
 
-        <!-- Title -->
-        <h2 class="text-3xl font-extrabold mb-6 text-white">Referral Bonus</h2>
-
-        <!-- Search and Filter Bar (Responsive) -->
-        <div class="mb-6 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            <input type="text" placeholder="Search User" class="w-full">
-            <input type="text" placeholder="Select a date" class="w-full" onfocus="(this.type='date')" onblur="(this.type='text')">
-            <button class="flex items-center justify-center px-6 py-3 bg-purple-700 text-gray-600 font-semibold rounded-lg hover:bg-purple-800 transition duration-150 ease-in-out w-full">
+            <!-- Search and Filter Bar (Responsive) -->
+            <div
+              class="mb-6 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3"
+            >
+              <input type="text" placeholder="Search User" class="w-full" />
+              <input
+                type="text"
+                placeholder="Select a date"
+                class="w-full"
+                onfocus="(this.type='date')"
+                onblur="(this.type='text')"
+              />
+              <button
+                class="flex items-center justify-center px-6 py-3 bg-purple-700 text-gray-600 font-semibold rounded-lg hover:bg-purple-800 transition duration-150 ease-in-out w-full"
+              >
                 <i class="fas fa-search mr-2"></i> Search
-            </button>
-        </div>
+              </button>
+            </div>
 
-        <!-- Table Container -->
-        <div class="table-container p-2 md:p-6 overflow-x-auto">
-            
-            <!-- Standard Table for Desktop/Tablet (md and up) -->
-            <div class="hidden md:block">
+            <!-- Table Container -->
+            <div class="table-container p-2 md:p-6 overflow-x-auto">
+              <!-- Standard Table for Desktop/Tablet (md and up) -->
+              <div class="hidden md:block">
                 <table class="min-w-full divide-y divide-gray-700">
-                    <thead class="bg-gray-800">
-                        <tr>
-                            <th class="px-4 py-4 text-left text-xs font-medium text-gray-400 uppercase tracking-wider w-1/12">SL No.</th>
-                            <th class="px-4 py-4 text-left text-xs font-medium text-gray-400 uppercase tracking-wider w-2/12">Bonus From</th>
-                            <th class="px-4 py-4 text-left text-xs font-medium text-gray-400 uppercase tracking-wider w-2/12">Amount</th>
-                            <th class="px-4 py-4 text-left text-xs font-medium text-gray-400 uppercase tracking-wider w-4/12">Remarks</th>
-                            <th class="px-4 py-4 text-left text-xs font-medium text-gray-400 uppercase tracking-wider w-3/12">Time</th>
-                        </tr>
-                    </thead>
-                    <tbody id="desktop-table-body" class="divide-y divide-gray-700">
-                        <!-- Table rows will be inserted here by JavaScript -->
-                    </tbody>
+                  <thead class="bg-gray-800">
+                    <tr>
+                      <th
+                        class="px-4 py-4 text-left text-xs font-medium text-gray-400 uppercase tracking-wider w-1/12"
+                      >
+                        SL No.
+                      </th>
+                      <th
+                        class="px-4 py-4 text-left text-xs font-medium text-gray-400 uppercase tracking-wider w-2/12"
+                      >
+                        Bonus From
+                      </th>
+                      <th
+                        class="px-4 py-4 text-left text-xs font-medium text-gray-400 uppercase tracking-wider w-2/12"
+                      >
+                        Amount
+                      </th>
+                      <th
+                        class="px-4 py-4 text-left text-xs font-medium text-gray-400 uppercase tracking-wider w-4/12"
+                      >
+                        Remarks
+                      </th>
+                      <th
+                        class="px-4 py-4 text-left text-xs font-medium text-gray-400 uppercase tracking-wider w-3/12"
+                      >
+                        Time
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody
+                    id="desktop-table-body"
+                    class="divide-y divide-gray-700"
+                  >
+                    <!-- Table rows will be inserted here by JavaScript -->
+                  </tbody>
                 </table>
-            </div>
+              </div>
 
-            <!-- Card List for Mobile (less than md) -->
-            <div id="mobile-card-list" class="md:hidden space-y-4">
+              <!-- Card List for Mobile (less than md) -->
+              <div id="mobile-card-list" class="md:hidden space-y-4">
                 <!-- Mobile cards will be inserted here by JavaScript -->
-            </div>
+              </div>
 
-            <!-- Pagination Bar -->
-            <div class="mt-8 flex justify-center">
-                <nav class="flex items-center space-x-1" aria-label="Pagination">
-                    <button id="prev-btn" onclick="goToPage(currentPage - 1)" 
-                            class="px-3 py-2 text-sm font-medium rounded-lg text-gray-200 transition disabled:opacity-50 disabled:cursor-not-allowed">
-                        <i class="fas fa-chevron-left"></i>
-                    </button>
-                    
-                    <!-- Page Buttons (1-3 functional) -->
-                    <button class="page-btn px-4 py-2 text-sm font-medium rounded-lg text-gray-200 transition" onclick="goToPage(1)">1</button>
-                    <button class="page-btn px-4 py-2 text-sm font-medium rounded-lg text-gray-200 transition" onclick="goToPage(2)">2</button>
-                    <button class="page-btn px-4 py-2 text-sm font-medium rounded-lg text-gray-200 transition" onclick="goToPage(3)">3</button>
-                    
-                    <!-- Inactive/Placeholder Buttons -->
-                    <span class="text-gray-200 px-2 hidden sm:inline">...</span>
-                    <button class="px-4 py-2 text-sm font-medium rounded-lg text-gray-200 transition hidden sm:inline" disabled>30</button>
+              <!-- Pagination Bar -->
+              <div class="mt-8 flex justify-center">
+                <nav
+                  class="flex items-center space-x-1"
+                  aria-label="Pagination"
+                >
+                  <button
+                    id="prev-btn"
+                    onclick="goToPage(currentPage - 1)"
+                    class="px-3 py-2 text-sm font-medium rounded-lg text-gray-200 transition disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    <i class="fas fa-chevron-left"></i>
+                  </button>
 
-                    <button id="next-btn" onclick="goToPage(currentPage + 1)" 
-                            class="px-3 py-2 text-sm font-medium rounded-lg text-gray-200 transition disabled:opacity-50 disabled:cursor-not-allowed">
-                        <i class="fas fa-chevron-right"></i>
-                    </button>
+                  <!-- Page Buttons (1-3 functional) -->
+                  <button
+                    class="page-btn px-4 py-2 text-sm font-medium rounded-lg text-gray-200 transition"
+                    onclick="goToPage(1)"
+                  >
+                    1
+                  </button>
+                  <button
+                    class="page-btn px-4 py-2 text-sm font-medium rounded-lg text-gray-200 transition"
+                    onclick="goToPage(2)"
+                  >
+                    2
+                  </button>
+                  <button
+                    class="page-btn px-4 py-2 text-sm font-medium rounded-lg text-gray-200 transition"
+                    onclick="goToPage(3)"
+                  >
+                    3
+                  </button>
+
+                  <!-- Inactive/Placeholder Buttons -->
+                  <span class="text-gray-200 px-2 hidden sm:inline">...</span>
+                  <button
+                    class="px-4 py-2 text-sm font-medium rounded-lg text-gray-200 transition hidden sm:inline"
+                    disabled
+                  >
+                    30
+                  </button>
+
+                  <button
+                    id="next-btn"
+                    onclick="goToPage(currentPage + 1)"
+                    class="px-3 py-2 text-sm font-medium rounded-lg text-gray-200 transition disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    <i class="fas fa-chevron-right"></i>
+                  </button>
                 </nav>
+              </div>
             </div>
-
-        </div>
-
+          </div>
+        </main>
+      </div>
     </div>
-    </main>
-    </div>
-  </div>
 
-  <!-- load includes and UI script -->
-  <script src="js/include.js"></script>
-  <script src="js/main.js"></script>
-  <script>
-    // Mock data for 3 pages (5 entries per page for brevity)
-    const data = [
+    <!-- load includes and UI script -->
+    <script src="js/include.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+      // Mock data for 3 pages (5 entries per page for brevity)
+      const data = [
         // Page 1
-        { id: 1, from: "Aaron Smith", amount: "$3.00000000", remarks: "Level 1 Referral Bonus From Aaronsmith0104", time: "01 Nov 2024 08:02 PM" },
-        { id: 2, from: "Roman Novikov", amount: "$0.05000000", remarks: "Level 1 Referral Bonus From Romarioone", time: "01 Nov 2024 07:40 PM" },
-        { id: 3, from: "Aaron Smith", amount: "$3.00000000", remarks: "Level 1 Referral Bonus From Aaronsmith0104", time: "01 Nov 2024 01:50 AM" },
-        { id: 4, from: "Sha Mende", amount: "$0.30000000", remarks: "Level 2 Referral Bonus From Mendsga", time: "31 Oct 2024 01:32 AM" },
-        { id: 5, from: "Roman Novikov", amount: "$0.05000000", remarks: "Level 1 Referral Bonus From Romarioone", time: "29 Oct 2024 07:22 AM" },
+        {
+          id: 1,
+          from: "Aaron Smith",
+          amount: "$3.00000000",
+          remarks: "Level 1 Referral Bonus From Aaronsmith0104",
+          time: "01 Nov 2024 08:02 PM",
+        },
+        {
+          id: 2,
+          from: "Roman Novikov",
+          amount: "$0.05000000",
+          remarks: "Level 1 Referral Bonus From Romarioone",
+          time: "01 Nov 2024 07:40 PM",
+        },
+        {
+          id: 3,
+          from: "Aaron Smith",
+          amount: "$3.00000000",
+          remarks: "Level 1 Referral Bonus From Aaronsmith0104",
+          time: "01 Nov 2024 01:50 AM",
+        },
+        {
+          id: 4,
+          from: "Sha Mende",
+          amount: "$0.30000000",
+          remarks: "Level 2 Referral Bonus From Mendsga",
+          time: "31 Oct 2024 01:32 AM",
+        },
+        {
+          id: 5,
+          from: "Roman Novikov",
+          amount: "$0.05000000",
+          remarks: "Level 1 Referral Bonus From Romarioone",
+          time: "29 Oct 2024 07:22 AM",
+        },
         // Page 2
-        { id: 6, from: "Aaron Smith", amount: "$5.99400000", remarks: "Level 1 Referral Bonus From Aaronsmith0104", time: "28 Oct 2024 11:08 PM" },
-        { id: 7, from: "Appexin Appexin", amount: "$3.00000000", remarks: "Level 1 Referral Bonus From Appexin", time: "28 Oct 2024 03:14 AM" },
-        { id: 8, from: "Patricia Lebsack", amount: "$0.72000000", remarks: "Level 1 Referral Bonus From Karianne", time: "26 Oct 2024 07:58 PM" },
-        { id: 9, from: "Kwabena Appoh", amount: "$0.60000000", remarks: "Level 1 Referral Bonus From Matech", time: "25 Oct 2024 03:50 AM" },
-        { id: 10, from: "Leanne Graham", amount: "$0.60000000", remarks: "Level 1 Referral Bonus From Bret", time: "24 Oct 2024 12:22 PM" },
+        {
+          id: 6,
+          from: "Aaron Smith",
+          amount: "$5.99400000",
+          remarks: "Level 1 Referral Bonus From Aaronsmith0104",
+          time: "28 Oct 2024 11:08 PM",
+        },
+        {
+          id: 7,
+          from: "Appexin Appexin",
+          amount: "$3.00000000",
+          remarks: "Level 1 Referral Bonus From Appexin",
+          time: "28 Oct 2024 03:14 AM",
+        },
+        {
+          id: 8,
+          from: "Patricia Lebsack",
+          amount: "$0.72000000",
+          remarks: "Level 1 Referral Bonus From Karianne",
+          time: "26 Oct 2024 07:58 PM",
+        },
+        {
+          id: 9,
+          from: "Kwabena Appoh",
+          amount: "$0.60000000",
+          remarks: "Level 1 Referral Bonus From Matech",
+          time: "25 Oct 2024 03:50 AM",
+        },
+        {
+          id: 10,
+          from: "Leanne Graham",
+          amount: "$0.60000000",
+          remarks: "Level 1 Referral Bonus From Bret",
+          time: "24 Oct 2024 12:22 PM",
+        },
         // Page 3
-        { id: 11, from: "Appexin18 Appexin18", amount: "$0.15000000", remarks: "Level 2 Referral Bonus From Appexin18", time: "23 Oct 2024 10:02 AM" },
-        { id: 12, from: "Appexin Appexin", amount: "$0.60000000", remarks: "Level 1 Referral Bonus From Appexin", time: "23 Oct 2024 07:48 AM" },
-        { id: 13, from: "New Referrer", amount: "$1.00000000", remarks: "Level 1 Referral Bonus From UserX", time: "22 Oct 2024 09:00 PM" },
-        { id: 14, from: "Another User", amount: "$0.50000000", remarks: "Level 2 Referral Bonus From TestUser", time: "21 Oct 2024 05:30 PM" },
-        { id: 15, from: "Final Test", amount: "$2.00000000", remarks: "Level 1 Referral Bonus From FinalRef", time: "20 Oct 2024 04:00 AM" },
-    ];
+        {
+          id: 11,
+          from: "Appexin18 Appexin18",
+          amount: "$0.15000000",
+          remarks: "Level 2 Referral Bonus From Appexin18",
+          time: "23 Oct 2024 10:02 AM",
+        },
+        {
+          id: 12,
+          from: "Appexin Appexin",
+          amount: "$0.60000000",
+          remarks: "Level 1 Referral Bonus From Appexin",
+          time: "23 Oct 2024 07:48 AM",
+        },
+        {
+          id: 13,
+          from: "New Referrer",
+          amount: "$1.00000000",
+          remarks: "Level 1 Referral Bonus From UserX",
+          time: "22 Oct 2024 09:00 PM",
+        },
+        {
+          id: 14,
+          from: "Another User",
+          amount: "$0.50000000",
+          remarks: "Level 2 Referral Bonus From TestUser",
+          time: "21 Oct 2024 05:30 PM",
+        },
+        {
+          id: 15,
+          from: "Final Test",
+          amount: "$2.00000000",
+          remarks: "Level 1 Referral Bonus From FinalRef",
+          time: "20 Oct 2024 04:00 AM",
+        },
+      ];
 
-    let currentPage = 1;
-    const ENTRIES_PER_PAGE = 5;
-    const MAX_PAGES = 3; // Enforcing max 3 functional pages
+      let currentPage = 1;
+      const ENTRIES_PER_PAGE = 5;
+      const MAX_PAGES = 3; // Enforcing max 3 functional pages
 
-    function renderTable(page) {
+      function renderTable(page) {
         const start = (page - 1) * ENTRIES_PER_PAGE;
         const end = start + ENTRIES_PER_PAGE;
         const pageData = data.slice(start, end);
 
-        const desktopBody = document.getElementById('desktop-table-body');
-        const mobileList = document.getElementById('mobile-card-list');
+        const desktopBody = document.getElementById("desktop-table-body");
+        const mobileList = document.getElementById("mobile-card-list");
 
-        desktopBody.innerHTML = '';
-        mobileList.innerHTML = '';
+        desktopBody.innerHTML = "";
+        mobileList.innerHTML = "";
 
-        pageData.forEach(item => {
-            // Determine amount color (Green for positive bonus)
-            const amountClass = 'text-green-500 font-semibold';
+        pageData.forEach((item) => {
+          // Determine amount color (Green for positive bonus)
+          const amountClass = "text-green-500 font-semibold";
 
-            // --- Desktop Row (TR) ---
-            const desktopRow = `
+          // --- Desktop Row (TR) ---
+          const desktopRow = `
                 <tr class="hover:bg-gray-700/30 transition duration-150">
                     <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-400">${item.id}</td>
                     <td class="px-4 py-3 whitespace-nowrap text-sm text-white font-medium">${item.from}</td>
@@ -264,10 +481,10 @@
                     <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-300">${item.time}</td>
                 </tr>
             `;
-            desktopBody.insertAdjacentHTML('beforeend', desktopRow);
+          desktopBody.insertAdjacentHTML("beforeend", desktopRow);
 
-            // --- Mobile Card (DIV) ---
-            const mobileCard = `
+          // --- Mobile Card (DIV) ---
+          const mobileCard = `
                 <div class="mobile-card space-y-1">
                     <div class="flex justify-between items-center pb-2 border-b border-gray-700/50 mb-1">
                         <span class="text-sm font-bold text-white">${item.id}. ${item.from}</span>
@@ -277,46 +494,46 @@
                     <div class="mobile-row-item"><span class="label">Time:</span> <span class="value text-gray-300">${item.time}</span></div>
                 </div>
             `;
-            mobileList.insertAdjacentHTML('beforeend', mobileCard);
+          mobileList.insertAdjacentHTML("beforeend", mobileCard);
         });
-    }
+      }
 
-    function updatePaginationControls() {
+      function updatePaginationControls() {
         // Update active button styling
-        document.querySelectorAll('.page-btn').forEach(btn => {
-            btn.classList.remove('pagination-active');
-            btn.classList.add('text-gray-400');
-            if (parseInt(btn.textContent) === currentPage) {
-                btn.classList.add('pagination-active');
-                btn.classList.remove('text-gray-400');
-            }
+        document.querySelectorAll(".page-btn").forEach((btn) => {
+          btn.classList.remove("pagination-active");
+          btn.classList.add("text-gray-400");
+          if (parseInt(btn.textContent) === currentPage) {
+            btn.classList.add("pagination-active");
+            btn.classList.remove("text-gray-400");
+          }
         });
 
         // Update Prev/Next button disabled state
-        const prevBtn = document.getElementById('prev-btn');
-        const nextBtn = document.getElementById('next-btn');
+        const prevBtn = document.getElementById("prev-btn");
+        const nextBtn = document.getElementById("next-btn");
 
         // Disable 'Previous' if on page 1
         prevBtn.disabled = currentPage === 1;
 
         // Disable 'Next' if on the last functional page (MAX_PAGES = 3)
         nextBtn.disabled = currentPage === MAX_PAGES;
-    }
+      }
 
-    function goToPage(page) {
+      function goToPage(page) {
         // Boundary check to ensure the page is within the functional limits
         if (page < 1 || page > MAX_PAGES) {
-            return;
+          return;
         }
         currentPage = page;
         renderTable(currentPage);
         updatePaginationControls();
-    }
+      }
 
-    // Initialize the dashboard on load
-    window.onload = () => {
+      // Initialize the dashboard on load
+      window.onload = () => {
         goToPage(1);
-    };
-</script>  
-</body>
+      };
+    </script>
+  </body>
 </html>

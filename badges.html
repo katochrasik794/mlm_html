@@ -1,225 +1,452 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Leads - CRM</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    .min-vh-100 { min-height: 100vh; }
-    .card-transition { transition: box-shadow .12s ease, transform .12s ease; }
-    .card-transition:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(2,6,23,0.08); }
-  </style>
-  <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-body);
-            color: var(--text-body);
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Leads - CRM</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      .min-vh-100 {
+        min-height: 100vh;
+      }
+      .card-transition {
+        transition: box-shadow 0.12s ease, transform 0.12s ease;
+      }
+      .card-transition:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 24px rgba(2, 6, 23, 0.08);
+      }
+    </style>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
+      body {
+        font-family: "Inter", sans-serif;
+        background-color: var(--bg-body);
+        color: var(--text-body);
+      }
+      .badge-card {
+        background-color: var(--bg-card);
+        border-radius: 12px;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2),
+          0 4px 6px -2px rgba(0, 0, 0, 0.1);
+        padding: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+      .badge-icon-container {
+        width: 80px;
+        height: 80px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        margin-bottom: 1rem;
+        position: relative;
+      }
+      .icon-shadow {
+        /* Custom shadow for a slight glow effect */
+        filter: drop-shadow(0 0 8px var(--icon-color));
+      }
+
+      html,
+      body {
+        height: 100vh;
+        overflow: hidden;
+      }
+
+      #sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        overflow-y: auto;
+        width: 19rem;
+      }
+
+      .main-container {
+        margin-left: 19rem;
+        height: 100vh;
+        overflow-y: auto;
+      }
+
+      @media (max-width: 767px) {
+        .main-container {
+          margin-left: 0;
         }
-        .badge-card {
-            background-color: var(--bg-card);
-            border-radius: 12px;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 4px 6px -2px rgba(0, 0, 0, 0.1);
-            padding: 1.5rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-        }
-        .badge-icon-container {
-            width: 80px;
-            height: 80px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border-radius: 50%;
-            margin-bottom: 1rem;
-            position: relative;
-        }
-        .icon-shadow {
-            /* Custom shadow for a slight glow effect */
-            filter: drop-shadow(0 0 8px var(--icon-color));
-        }
+      }
     </style>
 
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
- <link rel="stylesheet" href="style.css">
-</head>
-<body class="bg-gray-900 text-slate-900 antialiased">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body class="bg-gray-900 text-slate-900 antialiased">
+    <div>
+      <div data-include="components/sidebar.html"></div>
 
-  <div class="flex">
-
-    <div data-include="components/sidebar.html"></div>
-
-    <!-- main column: topbar + page content + footer -->
-    <div class="flex-1 flex flex-col min-h-screen">
-      <!-- topbar -->
-      <header class="w-full border-b p-4 sticky text-white bg-gray-800 top-0 z-30">
-        <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
-          <div class="flex items-center gap-3">
-            <!-- Mobile menu button -->
-            <button id="mobileToggle" class="md:hidden p-2 rounded-md">
-              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-              </svg>
-            </button>
-          </div>
-
-          <div class="flex items-center gap-4">
-            <button
-            id="themeToggle"
-            class="p-3 w-12 h-12 rounded-lg flex items-center justify-center text-slate-700 transition"
+      <!-- main column: topbar + page content + footer -->
+      <div class="main-container flex flex-col">
+        <!-- topbar -->
+        <header
+          class="w-full border-b p-4 sticky text-white bg-gray-800 top-0 z-30"
+        >
+          <div
+            class="max-w-7xl mx-auto flex items-center justify-between gap-4"
           >
-            <svg
-              id="themeIcon"
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="lucide lucide-moon"
-            >
-              <path
-                d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"
-              />
-            </svg>
-          </button>
-            <div class="relative">
-              <button id="profileBtn" class="flex items-center gap-2 p-1 rounded-md hover:bg-gray-600">
-                <img src="https://i.pravatar.cc/40" alt="avatar" class="w-8 h-8 rounded-full" />
-                <span class="hidden sm:block text-sm">Raghav</span>
-                <svg class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
-                  <path fill-rule="evenodd"
-                        d="M5.23 7.21a.75.75 0 011.06.02L10 11.17l3.71-3.94a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01.02-1.06z"
-                        clip-rule="evenodd"/>
+            <div class="flex items-center gap-3">
+              <!-- Mobile menu button -->
+              <button id="mobileToggle" class="md:hidden p-2 rounded-md">
+                <svg
+                  class="w-5 h-5"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M4 6h16M4 12h16M4 18h16"
+                  />
                 </svg>
               </button>
+            </div>
 
-              <!-- Profile dropdown -->
-              <div id="profileDropdown"
-                   class="hidden absolute right-0 mt-2 w-44 bg-gray-800 border rounded-md shadow-sm py-1">
-                <a href="#" class="block px-3 py-2 text-sm hover:bg-gray-600">Profile</a>
-                <a href="#" class="block px-3 py-2 text-sm hover:bg-gray-600">Settings</a>
-                <a href="#" class="block px-3 py-2 text-sm hover:bg-gray-600">Sign out</a>
+            <div class="flex items-center gap-4">
+              <button
+                id="themeToggle"
+                class="p-3 w-12 h-12 rounded-lg flex items-center justify-center text-slate-700 transition"
+              >
+                <svg
+                  id="themeIcon"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="lucide lucide-moon"
+                >
+                  <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                </svg>
+              </button>
+              <div class="relative">
+                <button
+                  id="profileBtn"
+                  class="flex items-center gap-2 p-1 rounded-md hover:bg-gray-600"
+                >
+                  <img
+                    src="https://i.pravatar.cc/40"
+                    alt="avatar"
+                    class="w-8 h-8 rounded-full"
+                  />
+                  <span class="hidden sm:block text-sm">Raghav</span>
+                  <svg class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
+                    <path
+                      fill-rule="evenodd"
+                      d="M5.23 7.21a.75.75 0 011.06.02L10 11.17l3.71-3.94a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01.02-1.06z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                </button>
+
+                <!-- Profile dropdown -->
+                <div
+                  id="profileDropdown"
+                  class="hidden absolute right-0 mt-2 w-44 bg-gray-800 border rounded-md shadow-sm py-1"
+                >
+                  <a href="#" class="block px-3 py-2 text-sm hover:bg-gray-600"
+                    >Profile</a
+                  >
+                  <a href="#" class="block px-3 py-2 text-sm hover:bg-gray-600"
+                    >Settings</a
+                  >
+                  <a href="#" class="block px-3 py-2 text-sm hover:bg-gray-600"
+                    >Sign out</a
+                  >
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </header>
+        </header>
 
-      <!-- page-specific content -->
-      <main class="flex-1 p-6 max-w-7xl mx-auto w-full">
-        <div class="max-w-7xl mx-auto">
+        <!-- page-specific content -->
+        <main class="flex-1 p-6 max-w-7xl mx-auto w-full">
+          <div class="max-w-7xl mx-auto">
+            <!-- Title -->
+            <h2 class="text-3xl font-extrabold mb-8 text-white">All Badges</h2>
 
-        <!-- Title -->
-        <h2 class="text-3xl font-extrabold mb-8 text-white">All Badges</h2>
-
-        <!-- Badge Grid (Responsive) -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-
-            <!-- Level 1 Badge Card (Silver/Gray) -->
-            <div class="badge-card">
-                <div class="badge-icon-container" style="--icon-color: #94a3b8;">
-                    <!-- Star icon inside a ribbon SVG for the badge look -->
-                    <svg class="icon-shadow" width="80" height="80" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <!-- Main Ribbon (Dark Blue) -->
-                        <path d="M50 85L30 95L35 75L15 65L37.5 62.5L50 40L62.5 62.5L85 65L65 75L70 95L50 85Z" fill="#334155"/>
-                        <!-- Star (Silver) -->
-                        <path d="M50 40L62.5 62.5L85 65L65 75L70 95L50 85L30 95L35 75L15 65L37.5 62.5L50 40Z" fill="#cbd5e1" stroke="#94a3b8" stroke-width="2"/>
-                        <!-- Center Star (White) -->
-                        <path d="M50 45 L54 55 L65 57 L58 65 L60 75 L50 70 L40 75 L42 65 L35 57 L46 55 Z" fill="#ffffff"/>
-                    </svg>
+            <!-- Badge Grid (Responsive) -->
+            <div
+              class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+            >
+              <!-- Level 1 Badge Card (Silver/Gray) -->
+              <div class="badge-card">
+                <div class="badge-icon-container" style="--icon-color: #94a3b8">
+                  <!-- Star icon inside a ribbon SVG for the badge look -->
+                  <svg
+                    class="icon-shadow"
+                    width="80"
+                    height="80"
+                    viewBox="0 0 100 100"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <!-- Main Ribbon (Dark Blue) -->
+                    <path
+                      d="M50 85L30 95L35 75L15 65L37.5 62.5L50 40L62.5 62.5L85 65L65 75L70 95L50 85Z"
+                      fill="#334155"
+                    />
+                    <!-- Star (Silver) -->
+                    <path
+                      d="M50 40L62.5 62.5L85 65L65 75L70 95L50 85L30 95L35 75L15 65L37.5 62.5L50 40Z"
+                      fill="#cbd5e1"
+                      stroke="#94a3b8"
+                      stroke-width="2"
+                    />
+                    <!-- Center Star (White) -->
+                    <path
+                      d="M50 45 L54 55 L65 57 L58 65 L60 75 L50 70 L40 75 L42 65 L35 57 L46 55 Z"
+                      fill="#ffffff"
+                    />
+                  </svg>
                 </div>
                 <h3 class="text-2xl font-bold text-gray-300">Level 1</h3>
-                <p class="text-sm text-gray-400 mt-1 mb-4">By signing up to the account</p>
-                
-                <ul class="text-left w-full space-y-2 mt-4 text-sm text-gray-300">
-                    <li class="flex justify-between border-b border-gray-700 pb-1"><span class="font-medium text-gray-400">Minimum Invest:</span> <span class="text-green-500 font-semibold">$20.00</span></li>
-                    <li class="flex justify-between border-b border-gray-700 pb-1"><span class="font-medium text-gray-400">Minimum Deposit:</span> <span class="text-green-500 font-semibold">$50.00</span></li>
-                    <li class="flex justify-between"><span class="font-medium text-gray-400">Minimum Earning:</span> <span class="text-green-500 font-semibold">$5.00</span></li>
-                </ul>
-            </div>
+                <p class="text-sm text-gray-400 mt-1 mb-4">
+                  By signing up to the account
+                </p>
 
-            <!-- Level 2 Badge Card (Gold/Yellow) -->
-            <div class="badge-card">
-                <div class="badge-icon-container" style="--icon-color: #facc15;">
-                    <svg class="icon-shadow" width="80" height="80" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <!-- Main Ribbon (Dark Blue) -->
-                        <path d="M50 85L30 95L35 75L15 65L37.5 62.5L50 40L62.5 62.5L85 65L65 75L70 95L50 85Z" fill="#334155"/>
-                        <!-- Star (Gold) -->
-                        <path d="M50 40L62.5 62.5L85 65L65 75L70 95L50 85L30 95L35 75L15 65L37.5 62.5L50 40Z" fill="#fde68a" stroke="#facc15" stroke-width="2"/>
-                        <!-- Center Star (White) -->
-                        <path d="M50 45 L54 55 L65 57 L58 65 L60 75 L50 70 L40 75 L42 65 L35 57 L46 55 Z" fill="#ffffff"/>
-                    </svg>
+                <ul
+                  class="text-left w-full space-y-2 mt-4 text-sm text-gray-300"
+                >
+                  <li
+                    class="flex justify-between border-b border-gray-700 pb-1"
+                  >
+                    <span class="font-medium text-gray-400"
+                      >Minimum Invest:</span
+                    >
+                    <span class="text-green-500 font-semibold">$20.00</span>
+                  </li>
+                  <li
+                    class="flex justify-between border-b border-gray-700 pb-1"
+                  >
+                    <span class="font-medium text-gray-400"
+                      >Minimum Deposit:</span
+                    >
+                    <span class="text-green-500 font-semibold">$50.00</span>
+                  </li>
+                  <li class="flex justify-between">
+                    <span class="font-medium text-gray-400"
+                      >Minimum Earning:</span
+                    >
+                    <span class="text-green-500 font-semibold">$5.00</span>
+                  </li>
+                </ul>
+              </div>
+
+              <!-- Level 2 Badge Card (Gold/Yellow) -->
+              <div class="badge-card">
+                <div class="badge-icon-container" style="--icon-color: #facc15">
+                  <svg
+                    class="icon-shadow"
+                    width="80"
+                    height="80"
+                    viewBox="0 0 100 100"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <!-- Main Ribbon (Dark Blue) -->
+                    <path
+                      d="M50 85L30 95L35 75L15 65L37.5 62.5L50 40L62.5 62.5L85 65L65 75L70 95L50 85Z"
+                      fill="#334155"
+                    />
+                    <!-- Star (Gold) -->
+                    <path
+                      d="M50 40L62.5 62.5L85 65L65 75L70 95L50 85L30 95L35 75L15 65L37.5 62.5L50 40Z"
+                      fill="#fde68a"
+                      stroke="#facc15"
+                      stroke-width="2"
+                    />
+                    <!-- Center Star (White) -->
+                    <path
+                      d="M50 45 L54 55 L65 57 L58 65 L60 75 L50 70 L40 75 L42 65 L35 57 L46 55 Z"
+                      fill="#ffffff"
+                    />
+                  </svg>
                 </div>
                 <h3 class="text-2xl font-bold text-gray-300">Level 2</h3>
-                <p class="text-sm text-gray-400 mt-1 mb-4">By earning $15 from the site</p>
-                
-                <ul class="text-left w-full space-y-2 mt-4 text-sm text-gray-300">
-                    <li class="flex justify-between border-b border-gray-700 pb-1"><span class="font-medium text-gray-400">Minimum Invest:</span> <span class="text-green-500 font-semibold">$50.00</span></li>
-                    <li class="flex justify-between border-b border-gray-700 pb-1"><span class="font-medium text-gray-400">Minimum Deposit:</span> <span class="text-green-500 font-semibold">$100.00</span></li>
-                    <li class="flex justify-between"><span class="font-medium text-gray-400">Minimum Earning:</span> <span class="text-green-500 font-semibold">$15.00</span></li>
+                <p class="text-sm text-gray-400 mt-1 mb-4">
+                  By earning $15 from the site
+                </p>
+
+                <ul
+                  class="text-left w-full space-y-2 mt-4 text-sm text-gray-300"
+                >
+                  <li
+                    class="flex justify-between border-b border-gray-700 pb-1"
+                  >
+                    <span class="font-medium text-gray-400"
+                      >Minimum Invest:</span
+                    >
+                    <span class="text-green-500 font-semibold">$50.00</span>
+                  </li>
+                  <li
+                    class="flex justify-between border-b border-gray-700 pb-1"
+                  >
+                    <span class="font-medium text-gray-400"
+                      >Minimum Deposit:</span
+                    >
+                    <span class="text-green-500 font-semibold">$100.00</span>
+                  </li>
+                  <li class="flex justify-between">
+                    <span class="font-medium text-gray-400"
+                      >Minimum Earning:</span
+                    >
+                    <span class="text-green-500 font-semibold">$15.00</span>
+                  </li>
                 </ul>
-            </div>
-            
-            <!-- Level 3 Badge Card (Red/Maroon) -->
-            <div class="badge-card">
-                <div class="badge-icon-container" style="--icon-color: #ef4444;">
-                    <svg class="icon-shadow" width="80" height="80" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <!-- Main Ribbon (Red) -->
-                        <path d="M50 85L30 95L35 75L15 65L37.5 62.5L50 40L62.5 62.5L85 65L65 75L70 95L50 85Z" fill="#ef4444"/>
-                        <!-- Star (Gold) -->
-                        <path d="M50 40L62.5 62.5L85 65L65 75L70 95L50 85L30 95L35 75L15 65L37.5 62.5L50 40Z" fill="#fde047" stroke="#facc15" stroke-width="2"/>
-                        <!-- Center Star (White) -->
-                        <path d="M50 45 L54 55 L65 57 L58 65 L60 75 L50 70 L40 75 L42 65 L35 57 L46 55 Z" fill="#ffffff"/>
-                    </svg>
+              </div>
+
+              <!-- Level 3 Badge Card (Red/Maroon) -->
+              <div class="badge-card">
+                <div class="badge-icon-container" style="--icon-color: #ef4444">
+                  <svg
+                    class="icon-shadow"
+                    width="80"
+                    height="80"
+                    viewBox="0 0 100 100"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <!-- Main Ribbon (Red) -->
+                    <path
+                      d="M50 85L30 95L35 75L15 65L37.5 62.5L50 40L62.5 62.5L85 65L65 75L70 95L50 85Z"
+                      fill="#ef4444"
+                    />
+                    <!-- Star (Gold) -->
+                    <path
+                      d="M50 40L62.5 62.5L85 65L65 75L70 95L50 85L30 95L35 75L15 65L37.5 62.5L50 40Z"
+                      fill="#fde047"
+                      stroke="#facc15"
+                      stroke-width="2"
+                    />
+                    <!-- Center Star (White) -->
+                    <path
+                      d="M50 45 L54 55 L65 57 L58 65 L60 75 L50 70 L40 75 L42 65 L35 57 L46 55 Z"
+                      fill="#ffffff"
+                    />
+                  </svg>
                 </div>
                 <h3 class="text-2xl font-bold text-gray-300">Level 3</h3>
-                <p class="text-sm text-gray-400 mt-1 mb-4">By earning $25 from the site</p>
-                
-                <ul class="text-left w-full space-y-2 mt-4 text-sm text-gray-300">
-                    <li class="flex justify-between border-b border-gray-700 pb-1"><span class="font-medium text-gray-400">Minimum Invest:</span> <span class="text-green-500 font-semibold">$80.00</span></li>
-                    <li class="flex justify-between border-b border-gray-700 pb-1"><span class="font-medium text-gray-400">Minimum Deposit:</span> <span class="text-green-500 font-semibold">$120.00</span></li>
-                    <li class="flex justify-between"><span class="font-medium text-gray-400">Minimum Earning:</span> <span class="text-green-500 font-semibold">$25.00</span></li>
-                </ul>
-            </div>
+                <p class="text-sm text-gray-400 mt-1 mb-4">
+                  By earning $25 from the site
+                </p>
 
-            <!-- Level 4 Badge Card (Vibrant Yellow/Lime) -->
-            <div class="badge-card">
-                <div class="badge-icon-container" style="--icon-color: #a3e635;">
-                    <svg class="icon-shadow" width="80" height="80" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <!-- Main Ribbon (Lime Green) -->
-                        <path d="M50 85L30 95L35 75L15 65L37.5 62.5L50 40L62.5 62.5L85 65L65 75L70 95L50 85Z" fill="#a3e635"/>
-                        <!-- Star (Gold) -->
-                        <path d="M50 40L62.5 62.5L85 65L65 75L70 95L50 85L30 95L35 75L15 65L37.5 62.5L50 40Z" fill="#fde047" stroke="#facc15" stroke-width="2"/>
-                        <!-- Center Star (White) -->
-                        <path d="M50 45 L54 55 L65 57 L58 65 L60 75 L50 70 L40 75 L42 65 L35 57 L46 55 Z" fill="#ffffff"/>
-                    </svg>
+                <ul
+                  class="text-left w-full space-y-2 mt-4 text-sm text-gray-300"
+                >
+                  <li
+                    class="flex justify-between border-b border-gray-700 pb-1"
+                  >
+                    <span class="font-medium text-gray-400"
+                      >Minimum Invest:</span
+                    >
+                    <span class="text-green-500 font-semibold">$80.00</span>
+                  </li>
+                  <li
+                    class="flex justify-between border-b border-gray-700 pb-1"
+                  >
+                    <span class="font-medium text-gray-400"
+                      >Minimum Deposit:</span
+                    >
+                    <span class="text-green-500 font-semibold">$120.00</span>
+                  </li>
+                  <li class="flex justify-between">
+                    <span class="font-medium text-gray-400"
+                      >Minimum Earning:</span
+                    >
+                    <span class="text-green-500 font-semibold">$25.00</span>
+                  </li>
+                </ul>
+              </div>
+
+              <!-- Level 4 Badge Card (Vibrant Yellow/Lime) -->
+              <div class="badge-card">
+                <div class="badge-icon-container" style="--icon-color: #a3e635">
+                  <svg
+                    class="icon-shadow"
+                    width="80"
+                    height="80"
+                    viewBox="0 0 100 100"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <!-- Main Ribbon (Lime Green) -->
+                    <path
+                      d="M50 85L30 95L35 75L15 65L37.5 62.5L50 40L62.5 62.5L85 65L65 75L70 95L50 85Z"
+                      fill="#a3e635"
+                    />
+                    <!-- Star (Gold) -->
+                    <path
+                      d="M50 40L62.5 62.5L85 65L65 75L70 95L50 85L30 95L35 75L15 65L37.5 62.5L50 40Z"
+                      fill="#fde047"
+                      stroke="#facc15"
+                      stroke-width="2"
+                    />
+                    <!-- Center Star (White) -->
+                    <path
+                      d="M50 45 L54 55 L65 57 L58 65 L60 75 L50 70 L40 75 L42 65 L35 57 L46 55 Z"
+                      fill="#ffffff"
+                    />
+                  </svg>
                 </div>
                 <h3 class="text-2xl font-bold text-gray-300">Level 4</h3>
-                <p class="text-sm text-gray-400 mt-1 mb-4">By earning $50 from the site</p>
-                
-                <ul class="text-left w-full space-y-2 mt-4 text-sm text-gray-300">
-                    <li class="flex justify-between border-b border-gray-700 pb-1"><span class="font-medium text-gray-400">Minimum Invest:</span> <span class="text-green-500 font-semibold">$100.00</span></li>
-                    <li class="flex justify-between border-b border-gray-700 pb-1"><span class="font-medium text-gray-400">Minimum Deposit:</span> <span class="text-green-500 font-semibold">$200.00</span></li>
-                    <li class="flex justify-between"><span class="font-medium text-gray-400">Minimum Earning:</span> <span class="text-green-500 font-semibold">$50.00</span></li>
+                <p class="text-sm text-gray-400 mt-1 mb-4">
+                  By earning $50 from the site
+                </p>
+
+                <ul
+                  class="text-left w-full space-y-2 mt-4 text-sm text-gray-300"
+                >
+                  <li
+                    class="flex justify-between border-b border-gray-700 pb-1"
+                  >
+                    <span class="font-medium text-gray-400"
+                      >Minimum Invest:</span
+                    >
+                    <span class="text-green-500 font-semibold">$100.00</span>
+                  </li>
+                  <li
+                    class="flex justify-between border-b border-gray-700 pb-1"
+                  >
+                    <span class="font-medium text-gray-400"
+                      >Minimum Deposit:</span
+                    >
+                    <span class="text-green-500 font-semibold">$200.00</span>
+                  </li>
+                  <li class="flex justify-between">
+                    <span class="font-medium text-gray-400"
+                      >Minimum Earning:</span
+                    >
+                    <span class="text-green-500 font-semibold">$50.00</span>
+                  </li>
                 </ul>
+              </div>
             </div>
-            
-        </div>
-
+          </div>
+        </main>
+      </div>
     </div>
-      </main>
-    </div>
-  </div>
 
-  <!-- load includes and UI script -->
-  <script src="js/include.js"></script>
-  <script src="js/main.js"></script>
-</body>
+    <!-- load includes and UI script -->
+    <script src="js/include.js"></script>
+    <script src="js/main.js"></script>
+  </body>
 </html>

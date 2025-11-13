@@ -1,271 +1,426 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Leads - CRM</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    .min-vh-100 { min-height: 100vh; }
-    .card-transition { transition: box-shadow .12s ease, transform .12s ease; }
-    .card-transition:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(2,6,23,0.08); }
-  </style>
-<style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-body);
-            color: var(--text-body);
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Leads - CRM</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      .min-vh-100 {
+        min-height: 100vh;
+      }
+      .card-transition {
+        transition: box-shadow 0.12s ease, transform 0.12s ease;
+      }
+      .card-transition:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 24px rgba(2, 6, 23, 0.08);
+      }
+    </style>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
+      body {
+        font-family: "Inter", sans-serif;
+        background-color: var(--bg-body);
+        color: var(--text-body);
+      }
+      .input-card {
+        background-color: var(--bg-card);
+        border-radius: 1rem; /* rounded-xl */
+        padding: 1.5rem;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2),
+          0 4px 6px -2px rgba(0, 0, 0, 0.1);
+      }
+      .method-card {
+        background-color: var(--bg-button);
+        border: 1px solid transparent;
+        transition: all 0.2s ease-in-out;
+        cursor: pointer;
+      }
+      .method-card:hover {
+        border-color: var(--border-card);
+      }
+      .method-card.selected {
+        border-color: #4f46e5; /* indigo-600 border for selected */
+        background-color: var(--bg-card);
+      }
+      input[type="text"],
+      select {
+        background-color: var(--bg-button);
+        border: 1px solid var(--border-card);
+        color: var(--text-button);
+        padding: 0.75rem 1rem;
+        border-radius: 0.5rem; /* rounded-lg */
+        width: 100%;
+        transition: all 0.15s ease-in-out;
+      }
+      input[type="text"]::placeholder {
+        color: var(--text-secondary);
+      }
+      select:focus,
+      input:focus {
+        outline: none;
+        border-color: #6366f1; /* Indigo-500 focus ring */
+        box-shadow: 0 0 0 1px #6366f1;
+      }
+
+      html,
+      body {
+        height: 100vh;
+        overflow: hidden;
+      }
+
+      #sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        overflow-y: auto;
+        width: 19rem;
+      }
+
+      .main-container {
+        margin-left: 19rem;
+        height: 100vh;
+        overflow-y: auto;
+      }
+
+      @media (max-width: 767px) {
+        .main-container {
+          margin-left: 0;
         }
-        .input-card {
-            background-color: var(--bg-card);
-            border-radius: 1rem; /* rounded-xl */
-            padding: 1.5rem;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 4px 6px -2px rgba(0, 0, 0, 0.1);
-        }
-        .method-card {
-            background-color: var(--bg-button);
-            border: 1px solid transparent;
-            transition: all 0.2s ease-in-out;
-            cursor: pointer;
-        }
-        .method-card:hover {
-            border-color: var(--border-card);
-        }
-        .method-card.selected {
-            border-color: #4f46e5; /* indigo-600 border for selected */
-            background-color: var(--bg-card);
-        }
-        input[type="text"], select {
-            background-color: var(--bg-button);
-            border: 1px solid var(--border-card);
-            color: var(--text-button);
-            padding: 0.75rem 1rem;
-            border-radius: 0.5rem; /* rounded-lg */
-            width: 100%;
-            transition: all 0.15s ease-in-out;
-        }
-        input[type="text"]::placeholder {
-            color: var(--text-secondary);
-        }
-        select:focus, input:focus {
-            outline: none;
-            border-color: #6366f1; /* Indigo-500 focus ring */
-            box-shadow: 0 0 0 1px #6366f1;
-        }
+      }
     </style>
 
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
- <link rel="stylesheet" href="style.css">
-</head>
-<body class="bg-gray-900 text-slate-900 antialiased">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body class="bg-gray-900 text-slate-900 antialiased">
+    <div>
+      <div data-include="components/sidebar.html"></div>
 
-  <div class="flex">
-
-    <div data-include="components/sidebar.html"></div>
-
-    <!-- main column: topbar + page content + footer -->
-    <div class="flex-1 flex flex-col min-h-screen">
-      <!-- topbar -->
-      <header class="w-full border-b p-4 sticky text-white bg-gray-800 top-0 z-30">
-        <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
-          <div class="flex items-center gap-3">
-            <!-- Mobile menu button -->
-            <button id="mobileToggle" class="md:hidden p-2 rounded-md">
-              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-              </svg>
-            </button>
-          </div>
-
-          <div class="flex items-center gap-4">
-            <button
-            id="themeToggle"
-            class="p-3 w-12 h-12 rounded-lg flex items-center justify-center text-slate-700 transition"
+      <!-- main column: topbar + page content + footer -->
+      <div class="main-container flex flex-col">
+        <!-- topbar -->
+        <header
+          class="w-full border-b p-4 sticky text-white bg-gray-800 top-0 z-30"
+        >
+          <div
+            class="max-w-7xl mx-auto flex items-center justify-between gap-4"
           >
-            <svg
-              id="themeIcon"
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="lucide lucide-moon"
-            >
-              <path
-                d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"
-              />
-            </svg>
-          </button>
-            <div class="relative">
-              <button id="profileBtn" class="flex items-center gap-2 p-1 rounded-md hover:bg-gray-600">
-                <img src="https://i.pravatar.cc/40" alt="avatar" class="w-8 h-8 rounded-full" />
-                <span class="hidden sm:block text-sm">Raghav</span>
-                <svg class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
-                  <path fill-rule="evenodd"
-                        d="M5.23 7.21a.75.75 0 011.06.02L10 11.17l3.71-3.94a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01.02-1.06z"
-                        clip-rule="evenodd"/>
+            <div class="flex items-center gap-3">
+              <!-- Mobile menu button -->
+              <button id="mobileToggle" class="md:hidden p-2 rounded-md">
+                <svg
+                  class="w-5 h-5"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M4 6h16M4 12h16M4 18h16"
+                  />
                 </svg>
               </button>
+            </div>
 
-              <!-- Profile dropdown -->
-              <div id="profileDropdown"
-                   class="hidden absolute right-0 mt-2 w-44 bg-gray-800 border rounded-md shadow-sm py-1">
-                <a href="#" class="block px-3 py-2 text-sm hover:bg-gray-600">Profile</a>
-                <a href="#" class="block px-3 py-2 text-sm hover:bg-gray-600">Settings</a>
-                <a href="#" class="block px-3 py-2 text-sm hover:bg-gray-600">Sign out</a>
+            <div class="flex items-center gap-4">
+              <button
+                id="themeToggle"
+                class="p-3 w-12 h-12 rounded-lg flex items-center justify-center text-slate-700 transition"
+              >
+                <svg
+                  id="themeIcon"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="lucide lucide-moon"
+                >
+                  <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                </svg>
+              </button>
+              <div class="relative">
+                <button
+                  id="profileBtn"
+                  class="flex items-center gap-2 p-1 rounded-md hover:bg-gray-600"
+                >
+                  <img
+                    src="https://i.pravatar.cc/40"
+                    alt="avatar"
+                    class="w-8 h-8 rounded-full"
+                  />
+                  <span class="hidden sm:block text-sm">Raghav</span>
+                  <svg class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
+                    <path
+                      fill-rule="evenodd"
+                      d="M5.23 7.21a.75.75 0 011.06.02L10 11.17l3.71-3.94a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01.02-1.06z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                </button>
+
+                <!-- Profile dropdown -->
+                <div
+                  id="profileDropdown"
+                  class="hidden absolute right-0 mt-2 w-44 bg-gray-800 border rounded-md shadow-sm py-1"
+                >
+                  <a href="#" class="block px-3 py-2 text-sm hover:bg-gray-600"
+                    >Profile</a
+                  >
+                  <a href="#" class="block px-3 py-2 text-sm hover:bg-gray-600"
+                    >Settings</a
+                  >
+                  <a href="#" class="block px-3 py-2 text-sm hover:bg-gray-600"
+                    >Sign out</a
+                  >
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </header>
+        </header>
 
-      <!-- page-specific content -->
-      <main class="flex-1 p-6 max-w-7xl mx-auto w-full">
-        <div class="max-w-6xl mx-auto">
+        <!-- page-specific content -->
+        <main class="flex-1 p-6 max-w-7xl mx-auto w-full">
+          <div class="max-w-6xl mx-auto">
+            <!-- Title -->
+            <h2 class="text-3xl font-extrabold mb-8 text-white">
+              Payout Money
+            </h2>
 
-        <!-- Title -->
-        <h2 class="text-3xl font-extrabold mb-8 text-white">Payout Money</h2>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              <!-- Left Column: Payout Method Selection -->
+              <div class="lg:col-span-1">
+                <h3 class="text-xl font-semibold mb-5 text-white">
+                  Select Payout Method
+                </h3>
 
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-
-            <!-- Left Column: Payout Method Selection -->
-            <div class="lg:col-span-1">
-                <h3 class="text-xl font-semibold mb-5 text-white">Select Payout Method</h3>
-                
                 <div class="space-y-4">
-
-                    <!-- Bank Transfer (Selected) -->
-                    <div class="method-card selected p-4 rounded-xl flex items-center space-x-4" data-method="bank-transfer">
-                        <img src="https://i.imgur.com/G4l9eJc.png" onerror="this.onerror=null; this.src='https://placehold.co/48x48/000000/ffffff?text=E';" alt="Bank Transfer Logo" class="w-12 h-12 rounded-full p-1 bg-white object-contain">
-                        <div>
-                            <p class="text-lg font-bold text-white">Bank Transfer</p>
-                            <p class="text-sm text-green-500">Payment will receive within 9 hours</p>
-                        </div>
+                  <!-- Bank Transfer (Selected) -->
+                  <div
+                    class="method-card selected p-4 rounded-xl flex items-center space-x-4"
+                    data-method="bank-transfer"
+                  >
+                    <img
+                      src="https://i.imgur.com/G4l9eJc.png"
+                      onerror="this.onerror=null; this.src='https://placehold.co/48x48/000000/ffffff?text=E';"
+                      alt="Bank Transfer Logo"
+                      class="w-12 h-12 rounded-full p-1 bg-white object-contain"
+                    />
+                    <div>
+                      <p class="text-lg font-bold text-white">Bank Transfer</p>
+                      <p class="text-sm text-green-500">
+                        Payment will receive within 9 hours
+                      </p>
                     </div>
+                  </div>
 
-                    <!-- Flutterwave -->
-                    <div class="method-card p-4 rounded-xl flex items-center space-x-4" data-method="flutterwave">
-                        <img src="https://logowik.com/content/ws/49596_flutterwave_logo.html" onerror="this.onerror=null; this.src='https://placehold.co/48x48/000000/ffffff?text=F';" alt="Flutterwave Logo" class="w-12 h-12 rounded-full p-1 bg-white object-contain">
-                        <div>
-                            <p class="text-lg font-bold text-white">Flutterwave</p>
-                            <p class="text-sm text-gray-400">Payment will receive within 1 days</p>
-                        </div>
+                  <!-- Flutterwave -->
+                  <div
+                    class="method-card p-4 rounded-xl flex items-center space-x-4"
+                    data-method="flutterwave"
+                  >
+                    <img
+                      src="https://logowik.com/content/ws/49596_flutterwave_logo.html"
+                      onerror="this.onerror=null; this.src='https://placehold.co/48x48/000000/ffffff?text=F';"
+                      alt="Flutterwave Logo"
+                      class="w-12 h-12 rounded-full p-1 bg-white object-contain"
+                    />
+                    <div>
+                      <p class="text-lg font-bold text-white">Flutterwave</p>
+                      <p class="text-sm text-gray-400">
+                        Payment will receive within 1 days
+                      </p>
                     </div>
+                  </div>
 
-                    <!-- Razorpay -->
-                    <div class="method-card p-4 rounded-xl flex items-center space-x-4" data-method="razorpay">
-                        <img src="https://logowik.com/content/ws/49257_razorpay_logo.html" onerror="this.onerror=null; this.src='https://placehold.co/48x48/000000/ffffff?text=R';" alt="Razorpay Logo" class="w-12 h-12 rounded-full p-1 bg-white object-contain">
-                        <div>
-                            <p class="text-lg font-bold text-white">Razorpay</p>
-                            <p class="text-sm text-gray-400">Payment will receive within 1 days</p>
-                        </div>
+                  <!-- Razorpay -->
+                  <div
+                    class="method-card p-4 rounded-xl flex items-center space-x-4"
+                    data-method="razorpay"
+                  >
+                    <img
+                      src="https://logowik.com/content/ws/49257_razorpay_logo.html"
+                      onerror="this.onerror=null; this.src='https://placehold.co/48x48/000000/ffffff?text=R';"
+                      alt="Razorpay Logo"
+                      class="w-12 h-12 rounded-full p-1 bg-white object-contain"
+                    />
+                    <div>
+                      <p class="text-lg font-bold text-white">Razorpay</p>
+                      <p class="text-sm text-gray-400">
+                        Payment will receive within 1 days
+                      </p>
                     </div>
+                  </div>
 
-                    <!-- Paystack -->
-                    <div class="method-card p-4 rounded-xl flex items-center space-x-4" data-method="paystack">
-                        <img src="https://logowik.com/content/ws/8327_paystack_logo.html" onerror="this.onerror=null; this.src='https://placehold.co/48x48/000000/ffffff?text=P';" alt="Paystack Logo" class="w-12 h-12 rounded-full p-1 bg-white object-contain">
-                        <div>
-                            <p class="text-lg font-bold text-white">Paystack</p>
-                            <p class="text-sm text-gray-400">Payment will receive within 1 days</p>
-                        </div>
+                  <!-- Paystack -->
+                  <div
+                    class="method-card p-4 rounded-xl flex items-center space-x-4"
+                    data-method="paystack"
+                  >
+                    <img
+                      src="https://logowik.com/content/ws/8327_paystack_logo.html"
+                      onerror="this.onerror=null; this.src='https://placehold.co/48x48/000000/ffffff?text=P';"
+                      alt="Paystack Logo"
+                      class="w-12 h-12 rounded-full p-1 bg-white object-contain"
+                    />
+                    <div>
+                      <p class="text-lg font-bold text-white">Paystack</p>
+                      <p class="text-sm text-gray-400">
+                        Payment will receive within 1 days
+                      </p>
                     </div>
+                  </div>
 
-                    <!-- Coinbase -->
-                    <div class="method-card p-4 rounded-xl flex items-center space-x-4" data-method="coinbase">
-                        <img src="https://logowik.com/content/ws/35880_coinbase_logo.html" onerror="this.onerror=null; this.src='https://placehold.co/48x48/000000/ffffff?text=C';" alt="Coinbase Logo" class="w-12 h-12 rounded-full p-1 bg-white object-contain">
-                        <div>
-                            <p class="text-lg font-bold text-white">Coinbase</p>
-                            <p class="text-sm text-gray-400">Payment will receive within 1 days</p>
-                        </div>
+                  <!-- Coinbase -->
+                  <div
+                    class="method-card p-4 rounded-xl flex items-center space-x-4"
+                    data-method="coinbase"
+                  >
+                    <img
+                      src="https://logowik.com/content/ws/35880_coinbase_logo.html"
+                      onerror="this.onerror=null; this.src='https://placehold.co/48x48/000000/ffffff?text=C';"
+                      alt="Coinbase Logo"
+                      class="w-12 h-12 rounded-full p-1 bg-white object-contain"
+                    />
+                    <div>
+                      <p class="text-lg font-bold text-white">Coinbase</p>
+                      <p class="text-sm text-gray-400">
+                        Payment will receive within 1 days
+                      </p>
                     </div>
+                  </div>
                 </div>
-            </div>
+              </div>
 
-            <!-- Right Column: Input and Preview -->
-            <div class="lg:col-span-1 space-y-8">
-                
+              <!-- Right Column: Input and Preview -->
+              <div class="lg:col-span-1 space-y-8">
                 <div class="input-card space-y-4">
-                    <!-- Deposit Balance (Read-only field to display current balance) -->
-                    <div>
-                        <label for="deposit-balance" class="block text-sm font-medium text-gray-300 mb-2">Deposit Balance</label>
-                        <!-- Using a read-only input for styling consistency -->
-                        <input type="text" id="deposit-balance" value="Deposit Balance - $9.41" readonly class="text-gray-400 border-gray-600 bg-gray-700/50 cursor-default">
-                    </div>
+                  <!-- Deposit Balance (Read-only field to display current balance) -->
+                  <div>
+                    <label
+                      for="deposit-balance"
+                      class="block text-sm font-medium text-gray-300 mb-2"
+                      >Deposit Balance</label
+                    >
+                    <!-- Using a read-only input for styling consistency -->
+                    <input
+                      type="text"
+                      id="deposit-balance"
+                      value="Deposit Balance - $9.41"
+                      readonly
+                      class="text-gray-400 border-gray-600 bg-gray-700/50 cursor-default"
+                    />
+                  </div>
 
-                    <!-- Select Currency -->
-                    <div>
-                        <label for="currency-select" class="block text-sm font-medium text-gray-300 mb-2">Select Currency</label>
-                        <select id="currency-select" class="py-3 px-2 text-gray-400">
-                            <option value="" disabled selected>Select Currency</option>
-                            <option value="USD">USD - United States Dollar</option>
-                            <option value="EUR">EUR - Euro</option>
-                            <option value="GBP">GBP - British Pound</option>
-                        </select>
-                    </div>
+                  <!-- Select Currency -->
+                  <div>
+                    <label
+                      for="currency-select"
+                      class="block text-sm font-medium text-gray-300 mb-2"
+                      >Select Currency</label
+                    >
+                    <select
+                      id="currency-select"
+                      class="py-3 px-2 text-gray-400"
+                    >
+                      <option value="" disabled selected>
+                        Select Currency
+                      </option>
+                      <option value="USD">USD - United States Dollar</option>
+                      <option value="EUR">EUR - Euro</option>
+                      <option value="GBP">GBP - British Pound</option>
+                    </select>
+                  </div>
 
-                    <!-- Enter Amount -->
-                    <div>
-                        <label for="amount-input" class="block text-sm font-medium text-gray-300 mb-2">Enter Amount</label>
-                        <input type="text" id="amount-input" placeholder="Enter Amount">
-                    </div>
+                  <!-- Enter Amount -->
+                  <div>
+                    <label
+                      for="amount-input"
+                      class="block text-sm font-medium text-gray-300 mb-2"
+                      >Enter Amount</label
+                    >
+                    <input
+                      type="text"
+                      id="amount-input"
+                      placeholder="Enter Amount"
+                    />
+                  </div>
 
-                    <!-- Payout Button -->
-                    <button class="w-full px-6 py-3 bg-purple-700 text-gray-600 font-semibold rounded-lg hover:bg-purple-800 transition duration-150 ease-in-out">
-                        Withdraw Now
-                    </button>
+                  <!-- Payout Button -->
+                  <button
+                    class="w-full px-6 py-3 bg-purple-700 text-gray-600 font-semibold rounded-lg hover:bg-purple-800 transition duration-150 ease-in-out"
+                  >
+                    Withdraw Now
+                  </button>
                 </div>
 
                 <!-- Payout Preview Placeholder -->
-                <div class="input-card flex flex-col items-center justify-center text-center h-48">
-                    <img src="./images/funds.svg"  alt="Waiting for payout illustration" class="w-24 h-24 object-contain mb-3">
-                    <p class="text-gray-400 text-sm">Waiting for payout preview</p>
+                <div
+                  class="input-card flex flex-col items-center justify-center text-center h-48"
+                >
+                  <img
+                    src="./images/funds.svg"
+                    alt="Waiting for payout illustration"
+                    class="w-24 h-24 object-contain mb-3"
+                  />
+                  <p class="text-gray-400 text-sm">
+                    Waiting for payout preview
+                  </p>
                 </div>
-
+              </div>
             </div>
-
-        </div>
-
-    </div>       
-      </main>
+          </div>
+        </main>
+      </div>
     </div>
-  </div>
 
-  <!-- load includes and UI script -->
-  <script src="js/include.js"></script>
-  <script src="js/main.js"></script>
-  
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const methodCards = document.querySelectorAll('.method-card');
+    <!-- load includes and UI script -->
+    <script src="js/include.js"></script>
+    <script src="js/main.js"></script>
 
-        methodCards.forEach(card => {
-            card.addEventListener('click', () => {
-                // Remove 'selected' class from all cards
-                methodCards.forEach(c => c.classList.remove('selected'));
-                // Add 'selected' class to the clicked card
-                card.classList.add('selected');
-            });
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const methodCards = document.querySelectorAll(".method-card");
+
+        methodCards.forEach((card) => {
+          card.addEventListener("click", () => {
+            // Remove 'selected' class from all cards
+            methodCards.forEach((c) => c.classList.remove("selected"));
+            // Add 'selected' class to the clicked card
+            card.classList.add("selected");
+          });
         });
 
         // Custom modal setup for a mock action on the Withdraw button
-        const withdrawButton = document.querySelector('.input-card button');
-        withdrawButton.addEventListener('click', () => {
-            // In a real application, you would perform validation and API calls here.
-            
-            // Using a temporary way to show feedback without alert()
-            const amount = document.getElementById('amount-input').value;
-            const currency = document.getElementById('currency-select').value;
-            const selectedMethod = document.querySelector('.method-card.selected')?.dataset.method || 'Unknown Method';
-            
-            const message = `Withdrawal request for ${amount || 'N/A'} ${currency || 'N/A'} via ${selectedMethod} submitted!`;
-            
-            const modal = document.createElement('div');
-            modal.innerHTML = `
+        const withdrawButton = document.querySelector(".input-card button");
+        withdrawButton.addEventListener("click", () => {
+          // In a real application, you would perform validation and API calls here.
+
+          // Using a temporary way to show feedback without alert()
+          const amount = document.getElementById("amount-input").value;
+          const currency = document.getElementById("currency-select").value;
+          const selectedMethod =
+            document.querySelector(".method-card.selected")?.dataset.method ||
+            "Unknown Method";
+
+          const message = `Withdrawal request for ${amount || "N/A"} ${
+            currency || "N/A"
+          } via ${selectedMethod} submitted!`;
+
+          const modal = document.createElement("div");
+          modal.innerHTML = `
                 <div class="fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center p-4 z-50">
                     <div class="bg-gray-800 p-6 rounded-xl shadow-2xl max-w-sm w-full text-center">
                         <p class="text-white text-lg font-medium mb-4">${message}</p>
@@ -276,10 +431,9 @@
                     </div>
                 </div>
             `;
-            document.body.appendChild(modal);
-
+          document.body.appendChild(modal);
         });
-    });
-</script> 
-</body>
+      });
+    </script>
+  </body>
 </html>

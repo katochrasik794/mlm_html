@@ -1,335 +1,598 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Leads - CRM</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    .min-vh-100 { min-height: 100vh; }
-    .card-transition { transition: box-shadow .12s ease, transform .12s ease; }
-    .card-transition:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(2,6,23,0.08); }
-  </style>
-<style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-body);
-            color: var(--text-body);
-        }
-        .table-container {
-            background-color: var(--bg-card);
-            border-radius: 12px;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 4px 6px -2px rgba(0, 0, 0, 0.1);
-        }
-        input[type="text"], select {
-            background-color: var(--bg-button);
-            border: 1px solid var(--border-card);
-            color: var(--text-button);
-            padding: 0.75rem 1rem;
-            border-radius: 0.5rem;
-            transition: all 0.15s ease-in-out;
-        }
-        select:focus, input:focus {
-            outline: none;
-            border-color: #6366f1;
-        }
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Leads - CRM</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      .min-vh-100 {
+        min-height: 100vh;
+      }
+      .card-transition {
+        transition: box-shadow 0.12s ease, transform 0.12s ease;
+      }
+      .card-transition:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 24px rgba(2, 6, 23, 0.08);
+      }
+    </style>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
+      body {
+        font-family: "Inter", sans-serif;
+        background-color: var(--bg-body);
+        color: var(--text-body);
+      }
+      .table-container {
+        background-color: var(--bg-card);
+        border-radius: 12px;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2),
+          0 4px 6px -2px rgba(0, 0, 0, 0.1);
+      }
+      input[type="text"],
+      select {
+        background-color: var(--bg-button);
+        border: 1px solid var(--border-card);
+        color: var(--text-button);
+        padding: 0.75rem 1rem;
+        border-radius: 0.5rem;
+        transition: all 0.15s ease-in-out;
+      }
+      select:focus,
+      input:focus {
+        outline: none;
+        border-color: #6366f1;
+      }
 
-        /* Custom mobile row styling */
-        @media (max-width: 767px) {
-            .mobile-row-item {
-                display: flex;
-                justify-content: space-between;
-                padding-top: 0.4rem;
-                padding-bottom: 0.4rem;
-                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            }
-            .mobile-row-item:last-child {
-                border-bottom: none;
-            }
-            .mobile-row-item .label {
-                font-weight: 500;
-                color: var(--text-secondary);
-                font-size: 0.875rem;
-            }
-            .mobile-row-item .value {
-                font-weight: 600;
-                font-size: 0.875rem;
-            }
+      /* Custom mobile row styling */
+      @media (max-width: 767px) {
+        .mobile-row-item {
+          display: flex;
+          justify-content: space-between;
+          padding-top: 0.4rem;
+          padding-bottom: 0.4rem;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
-        .pagination-active {
-            background-color: #10b981; /* green-500 for active state */
-            color: white;
-            font-weight: bold;
+        .mobile-row-item:last-child {
+          border-bottom: none;
         }
+        .mobile-row-item .label {
+          font-weight: 500;
+          color: var(--text-secondary);
+          font-size: 0.875rem;
+        }
+        .mobile-row-item .value {
+          font-weight: 600;
+          font-size: 0.875rem;
+        }
+      }
+      .pagination-active {
+        background-color: #10b981; /* green-500 for active state */
+        color: white;
+        font-weight: bold;
+      }
+
+      html,
+      body {
+        height: 100vh;
+        overflow: hidden;
+      }
+
+      #sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        overflow-y: auto;
+        width: 19rem;
+      }
+
+      .main-container {
+        margin-left: 19rem;
+        height: 100vh;
+        overflow-y: auto;
+      }
+
+      @media (max-width: 767px) {
+        .main-container {
+          margin-left: 0;
+        }
+      }
     </style>
 
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
- <link rel="stylesheet" href="style.css">
-</head>
-<body class="bg-gray-900 text-slate-900 antialiased">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body class="bg-gray-900 text-slate-900 antialiased">
+    <div>
+      <div data-include="components/sidebar.html"></div>
 
-  <div class="flex">
-
-    <div data-include="components/sidebar.html"></div>
-
-    <!-- main column: topbar + page content + footer -->
-    <div class="flex-1 flex flex-col min-h-screen">
-      <!-- topbar -->
-      <header class="w-full border-b p-4 sticky text-white bg-gray-800 top-0 z-30">
-        <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
-          <div class="flex items-center gap-3">
-            <!-- Mobile menu button -->
-            <button id="mobileToggle" class="md:hidden p-2 rounded-md">
-              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-              </svg>
-            </button>
-          </div>
-
-          <div class="flex items-center gap-4">
-            <button
-            id="themeToggle"
-            class="p-3 w-12 h-12 rounded-lg flex items-center justify-center text-slate-700 transition"
+      <!-- main column: topbar + page content + footer -->
+      <div class="main-container flex flex-col">
+        <!-- topbar -->
+        <header
+          class="w-full border-b p-4 sticky text-white bg-gray-800 top-0 z-30"
+        >
+          <div
+            class="max-w-7xl mx-auto flex items-center justify-between gap-4"
           >
-            <svg
-              id="themeIcon"
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="lucide lucide-moon"
-            >
-              <path
-                d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"
-              />
-            </svg>
-          </button>
-            <div class="relative">
-              <button id="profileBtn" class="flex items-center gap-2 p-1 rounded-md hover:bg-gray-600">
-                <img src="https://i.pravatar.cc/40" alt="avatar" class="w-8 h-8 rounded-full" />
-                <span class="hidden sm:block text-sm">Raghav</span>
-                <svg class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
-                  <path fill-rule="evenodd"
-                        d="M5.23 7.21a.75.75 0 011.06.02L10 11.17l3.71-3.94a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01.02-1.06z"
-                        clip-rule="evenodd"/>
+            <div class="flex items-center gap-3">
+              <!-- Mobile menu button -->
+              <button id="mobileToggle" class="md:hidden p-2 rounded-md">
+                <svg
+                  class="w-5 h-5"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M4 6h16M4 12h16M4 18h16"
+                  />
                 </svg>
               </button>
+            </div>
 
-              <!-- Profile dropdown -->
-              <div id="profileDropdown"
-                   class="hidden absolute right-0 mt-2 w-44 bg-gray-800 border rounded-md shadow-sm py-1">
-                <a href="#" class="block px-3 py-2 text-sm hover:bg-gray-600">Profile</a>
-                <a href="#" class="block px-3 py-2 text-sm hover:bg-gray-600">Settings</a>
-                <a href="#" class="block px-3 py-2 text-sm hover:bg-gray-600">Sign out</a>
+            <div class="flex items-center gap-4">
+              <button
+                id="themeToggle"
+                class="p-3 w-12 h-12 rounded-lg flex items-center justify-center text-slate-700 transition"
+              >
+                <svg
+                  id="themeIcon"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="lucide lucide-moon"
+                >
+                  <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                </svg>
+              </button>
+              <div class="relative">
+                <button
+                  id="profileBtn"
+                  class="flex items-center gap-2 p-1 rounded-md hover:bg-gray-600"
+                >
+                  <img
+                    src="https://i.pravatar.cc/40"
+                    alt="avatar"
+                    class="w-8 h-8 rounded-full"
+                  />
+                  <span class="hidden sm:block text-sm">Raghav</span>
+                  <svg class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
+                    <path
+                      fill-rule="evenodd"
+                      d="M5.23 7.21a.75.75 0 011.06.02L10 11.17l3.71-3.94a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01.02-1.06z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                </button>
+
+                <!-- Profile dropdown -->
+                <div
+                  id="profileDropdown"
+                  class="hidden absolute right-0 mt-2 w-44 bg-gray-800 border rounded-md shadow-sm py-1"
+                >
+                  <a href="#" class="block px-3 py-2 text-sm hover:bg-gray-600"
+                    >Profile</a
+                  >
+                  <a href="#" class="block px-3 py-2 text-sm hover:bg-gray-600"
+                    >Settings</a
+                  >
+                  <a href="#" class="block px-3 py-2 text-sm hover:bg-gray-600"
+                    >Sign out</a
+                  >
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </header>
+        </header>
 
-      <!-- page-specific content -->
-      <main class="flex-1 p-6 max-w-7xl mx-auto w-full">
-        <div class="max-w-7xl mx-auto">
+        <!-- page-specific content -->
+        <main class="flex-1 p-6 max-w-7xl mx-auto w-full">
+          <div class="max-w-7xl mx-auto">
+            <!-- Title -->
+            <h2 class="text-3xl font-extrabold mb-6 text-white">Transaction</h2>
 
-        <!-- Title -->
-        <h2 class="text-3xl font-extrabold mb-6 text-white">Transaction</h2>
-
-        <!-- Search and Filter Bar (Responsive) -->
-        <div class="mb-6 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
-            <input type="text" placeholder="Search for Transaction ID" class="w-full">
-            <input type="text" placeholder="Remark" class="w-full">
-            <input type="text" placeholder="Select a date" class="w-full" onfocus="(this.type='date')" onblur="(this.type='text')">
-            <button class="flex items-center justify-center px-6 py-3 bg-purple-700 text-gray-600 font-semibold rounded-lg hover:bg-purple-800 transition duration-150 ease-in-out w-full">
+            <!-- Search and Filter Bar (Responsive) -->
+            <div
+              class="mb-6 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4"
+            >
+              <input
+                type="text"
+                placeholder="Search for Transaction ID"
+                class="w-full"
+              />
+              <input type="text" placeholder="Remark" class="w-full" />
+              <input
+                type="text"
+                placeholder="Select a date"
+                class="w-full"
+                onfocus="(this.type='date')"
+                onblur="(this.type='text')"
+              />
+              <button
+                class="flex items-center justify-center px-6 py-3 bg-purple-700 text-gray-600 font-semibold rounded-lg hover:bg-purple-800 transition duration-150 ease-in-out w-full"
+              >
                 <i class="fas fa-search mr-2"></i> Search
-            </button>
-        </div>
+              </button>
+            </div>
 
-        <!-- Table Container -->
-        <div class="table-container p-2 md:p-6 overflow-x-auto">
-            
-            <!-- Standard Table for Desktop/Tablet (md and up) -->
-            <div class="hidden md:block">
+            <!-- Table Container -->
+            <div class="table-container p-2 md:p-6 overflow-x-auto">
+              <!-- Standard Table for Desktop/Tablet (md and up) -->
+              <div class="hidden md:block">
                 <table class="min-w-full divide-y divide-gray-700">
-                    <thead class="bg-gray-800">
-                        <tr>
-                            <th class="px-4 py-4 text-left text-xs font-medium text-gray-400 uppercase tracking-wider w-1/12">SL No.</th>
-                            <th class="px-4 py-4 text-left text-xs font-medium text-gray-400 uppercase tracking-wider w-2/12">Transaction ID</th>
-                            <th class="px-4 py-4 text-left text-xs font-medium text-gray-400 uppercase tracking-wider w-1/12">Amount</th>
-                            <th class="px-4 py-4 text-left text-xs font-medium text-gray-400 uppercase tracking-wider w-1/12">Charge</th>
-                            <th class="px-4 py-4 text-left text-xs font-medium text-gray-400 uppercase tracking-wider w-4/12">Remarks</th>
-                            <th class="px-4 py-4 text-right text-xs font-medium text-gray-400 uppercase tracking-wider w-2/12">Time</th>
-                        </tr>
-                    </thead>
-                    <tbody id="desktop-table-body" class="divide-y divide-gray-700">
-                        <!-- Table rows will be inserted here by JavaScript -->
-                    </tbody>
+                  <thead class="bg-gray-800">
+                    <tr>
+                      <th
+                        class="px-4 py-4 text-left text-xs font-medium text-gray-400 uppercase tracking-wider w-1/12"
+                      >
+                        SL No.
+                      </th>
+                      <th
+                        class="px-4 py-4 text-left text-xs font-medium text-gray-400 uppercase tracking-wider w-2/12"
+                      >
+                        Transaction ID
+                      </th>
+                      <th
+                        class="px-4 py-4 text-left text-xs font-medium text-gray-400 uppercase tracking-wider w-1/12"
+                      >
+                        Amount
+                      </th>
+                      <th
+                        class="px-4 py-4 text-left text-xs font-medium text-gray-400 uppercase tracking-wider w-1/12"
+                      >
+                        Charge
+                      </th>
+                      <th
+                        class="px-4 py-4 text-left text-xs font-medium text-gray-400 uppercase tracking-wider w-4/12"
+                      >
+                        Remarks
+                      </th>
+                      <th
+                        class="px-4 py-4 text-right text-xs font-medium text-gray-400 uppercase tracking-wider w-2/12"
+                      >
+                        Time
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody
+                    id="desktop-table-body"
+                    class="divide-y divide-gray-700"
+                  >
+                    <!-- Table rows will be inserted here by JavaScript -->
+                  </tbody>
                 </table>
-            </div>
+              </div>
 
-            <!-- Card List for Mobile (less than md) -->
-            <div id="mobile-card-list" class="md:hidden space-y-3">
+              <!-- Card List for Mobile (less than md) -->
+              <div id="mobile-card-list" class="md:hidden space-y-3">
                 <!-- Mobile cards will be inserted here by JavaScript -->
-            </div>
+              </div>
 
-            <!-- Pagination Bar -->
-            <div class="mt-8 flex justify-center">
-                <nav class="flex items-center space-x-1" aria-label="Pagination">
-                    <button id="prev-btn" onclick="goToPage(currentPage - 1)" 
-                            class="px-3 py-2 text-sm font-medium rounded-lg text-gray-200 transition disabled:opacity-50 disabled:cursor-not-allowed">
-                        <i class="fas fa-chevron-left"></i>
-                    </button>
-                    
-                    <!-- Page Buttons (1-3 functional) -->
-                    <button class="page-btn px-4 py-2 text-sm font-medium rounded-lg text-gray-200  transition" onclick="goToPage(1)">1</button>
-                    <button class="page-btn px-4 py-2 text-sm font-medium rounded-lg text-gray-200  transition" onclick="goToPage(2)">2</button>
-                    <button class="page-btn px-4 py-2 text-sm font-medium rounded-lg text-gray-200  transition" onclick="goToPage(3)">3</button>
-                    
-                    <!-- Inactive/Placeholder Buttons -->
-                    <span class="text-gray-200 px-2 hidden sm:inline">...</span>
-                    <button class="px-4 py-2 text-sm font-medium rounded-lg text-gray-200 transition hidden sm:inline" disabled>10</button>
-                    <!-- <button class="px-4 py-2 text-sm font-medium rounded-lg text-gray-400 transition hidden sm:inline" disabled>588</button> -->
+              <!-- Pagination Bar -->
+              <div class="mt-8 flex justify-center">
+                <nav
+                  class="flex items-center space-x-1"
+                  aria-label="Pagination"
+                >
+                  <button
+                    id="prev-btn"
+                    onclick="goToPage(currentPage - 1)"
+                    class="px-3 py-2 text-sm font-medium rounded-lg text-gray-200 transition disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    <i class="fas fa-chevron-left"></i>
+                  </button>
 
-                    <button id="next-btn" onclick="goToPage(currentPage + 1)" 
-                            class="px-3 py-2 text-sm font-medium rounded-lg text-gray-200  transition disabled:opacity-50 disabled:cursor-not-allowed">
-                        <i class="fas fa-chevron-right"></i>
-                    </button>
+                  <!-- Page Buttons (1-3 functional) -->
+                  <button
+                    class="page-btn px-4 py-2 text-sm font-medium rounded-lg text-gray-200 transition"
+                    onclick="goToPage(1)"
+                  >
+                    1
+                  </button>
+                  <button
+                    class="page-btn px-4 py-2 text-sm font-medium rounded-lg text-gray-200 transition"
+                    onclick="goToPage(2)"
+                  >
+                    2
+                  </button>
+                  <button
+                    class="page-btn px-4 py-2 text-sm font-medium rounded-lg text-gray-200 transition"
+                    onclick="goToPage(3)"
+                  >
+                    3
+                  </button>
+
+                  <!-- Inactive/Placeholder Buttons -->
+                  <span class="text-gray-200 px-2 hidden sm:inline">...</span>
+                  <button
+                    class="px-4 py-2 text-sm font-medium rounded-lg text-gray-200 transition hidden sm:inline"
+                    disabled
+                  >
+                    10
+                  </button>
+                  <!-- <button class="px-4 py-2 text-sm font-medium rounded-lg text-gray-400 transition hidden sm:inline" disabled>588</button> -->
+
+                  <button
+                    id="next-btn"
+                    onclick="goToPage(currentPage + 1)"
+                    class="px-3 py-2 text-sm font-medium rounded-lg text-gray-200 transition disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    <i class="fas fa-chevron-right"></i>
+                  </button>
                 </nav>
+              </div>
             </div>
-
-        </div>
-
+          </div>
+        </main>
+      </div>
     </div>
-      </main>
-    </div>
-  </div>
 
-  <!-- load includes and UI script -->
-  <script src="js/include.js"></script>
-  <script src="js/main.js"></script>
-  <script>
-    // Mock data for 3 pages (5 entries per page)
-    const data = [
+    <!-- load includes and UI script -->
+    <script src="js/include.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+      // Mock data for 3 pages (5 entries per page)
+      const data = [
         // Page 1
-        { sl: 1, id: "INV293995525483", amount: -400.00, charge: 0.00, remarks: "Invested on Starter Pack", time: "08 Nov 2025 09:54 AM" },
-        { sl: 2, id: "INV293995525482", amount: -120.00, charge: 0.00, remarks: "Invested on Hatchling Plan", time: "08 Nov 2025 04:59 AM" },
-        { sl: 3, id: "D132418743811", amount: 500.00, charge: 3.00, remarks: "Deposit Via Stripe", time: "08 Nov 2025 04:58 AM" },
-        { sl: 4, id: "D132418743809", amount: 20.00, charge: 0.60, remarks: "Deposit Via Stripe", time: "08 Nov 2025 04:55 AM" },
-        { sl: 5, id: "INV293995525481", amount: -69.00, charge: 0.00, remarks: "Invested On Business Plan", time: "02 Nov 2025 06:45 PM" },
+        {
+          sl: 1,
+          id: "INV293995525483",
+          amount: -400.0,
+          charge: 0.0,
+          remarks: "Invested on Starter Pack",
+          time: "08 Nov 2025 09:54 AM",
+        },
+        {
+          sl: 2,
+          id: "INV293995525482",
+          amount: -120.0,
+          charge: 0.0,
+          remarks: "Invested on Hatchling Plan",
+          time: "08 Nov 2025 04:59 AM",
+        },
+        {
+          sl: 3,
+          id: "D132418743811",
+          amount: 500.0,
+          charge: 3.0,
+          remarks: "Deposit Via Stripe",
+          time: "08 Nov 2025 04:58 AM",
+        },
+        {
+          sl: 4,
+          id: "D132418743809",
+          amount: 20.0,
+          charge: 0.6,
+          remarks: "Deposit Via Stripe",
+          time: "08 Nov 2025 04:55 AM",
+        },
+        {
+          sl: 5,
+          id: "INV293995525481",
+          amount: -69.0,
+          charge: 0.0,
+          remarks: "Invested On Business Plan",
+          time: "02 Nov 2025 06:45 PM",
+        },
         // Page 2
-        { sl: 6, id: "INV293995525480", amount: -300.00, charge: 0.00, remarks: "Invested On Business Plan", time: "01 Nov 2025 03:31 PM" },
-        { sl: 7, id: "INV293995525479", amount: -70.00, charge: 0.00, remarks: "Invested On Business Plan", time: "01 Nov 2025 01:05 PM" },
-        { sl: 8, id: "INV293995525478", amount: -120.00, charge: 0.00, remarks: "Invested On Hatchling Plan", time: "31 Oct 2025 11:33 PM" },
-        { sl: 9, id: "INV293995525477", amount: -89.00, charge: 0.00, remarks: "Invested On Secondary Pack", time: "30 Oct 2025 09:53 AM" },
-        { sl: 10, id: "INV293995525476", amount: -100.00, charge: 0.00, remarks: "Invested On Business Plan", time: "29 Oct 2025 03:32 AM" },
+        {
+          sl: 6,
+          id: "INV293995525480",
+          amount: -300.0,
+          charge: 0.0,
+          remarks: "Invested On Business Plan",
+          time: "01 Nov 2025 03:31 PM",
+        },
+        {
+          sl: 7,
+          id: "INV293995525479",
+          amount: -70.0,
+          charge: 0.0,
+          remarks: "Invested On Business Plan",
+          time: "01 Nov 2025 01:05 PM",
+        },
+        {
+          sl: 8,
+          id: "INV293995525478",
+          amount: -120.0,
+          charge: 0.0,
+          remarks: "Invested On Hatchling Plan",
+          time: "31 Oct 2025 11:33 PM",
+        },
+        {
+          sl: 9,
+          id: "INV293995525477",
+          amount: -89.0,
+          charge: 0.0,
+          remarks: "Invested On Secondary Pack",
+          time: "30 Oct 2025 09:53 AM",
+        },
+        {
+          sl: 10,
+          id: "INV293995525476",
+          amount: -100.0,
+          charge: 0.0,
+          remarks: "Invested On Business Plan",
+          time: "29 Oct 2025 03:32 AM",
+        },
         // Page 3
-        { sl: 11, id: "INV293995525475", amount: -69.00, charge: 0.00, remarks: "Invested On Business Plan", time: "28 Oct 2025 05:40 PM" },
-        { sl: 12, id: "INV293995525474", amount: -100.00, charge: 0.00, remarks: "Invested On Business Plan", time: "27 Oct 2025 10:26 PM" },
-        { sl: 13, id: "D132418743807", amount: 50.00, charge: 0.50, remarks: "Deposit Via Binance", time: "26 Oct 2025 08:10 AM" },
-        { sl: 14, id: "INV293995525473", amount: -50.00, charge: 0.00, remarks: "Invested On Starter Pack", time: "25 Oct 2025 05:22 PM" },
-        { sl: 15, id: "D132418743806", amount: 1000.00, charge: 5.00, remarks: "Deposit Via Paypal", time: "24 Oct 2025 02:15 PM" },
-    ];
+        {
+          sl: 11,
+          id: "INV293995525475",
+          amount: -69.0,
+          charge: 0.0,
+          remarks: "Invested On Business Plan",
+          time: "28 Oct 2025 05:40 PM",
+        },
+        {
+          sl: 12,
+          id: "INV293995525474",
+          amount: -100.0,
+          charge: 0.0,
+          remarks: "Invested On Business Plan",
+          time: "27 Oct 2025 10:26 PM",
+        },
+        {
+          sl: 13,
+          id: "D132418743807",
+          amount: 50.0,
+          charge: 0.5,
+          remarks: "Deposit Via Binance",
+          time: "26 Oct 2025 08:10 AM",
+        },
+        {
+          sl: 14,
+          id: "INV293995525473",
+          amount: -50.0,
+          charge: 0.0,
+          remarks: "Invested On Starter Pack",
+          time: "25 Oct 2025 05:22 PM",
+        },
+        {
+          sl: 15,
+          id: "D132418743806",
+          amount: 1000.0,
+          charge: 5.0,
+          remarks: "Deposit Via Paypal",
+          time: "24 Oct 2025 02:15 PM",
+        },
+      ];
 
-    let currentPage = 1;
-    const ENTRIES_PER_PAGE = 5;
-    const MAX_PAGES = 3; // Enforcing max 3 functional pages
+      let currentPage = 1;
+      const ENTRIES_PER_PAGE = 5;
+      const MAX_PAGES = 3; // Enforcing max 3 functional pages
 
-    function formatAmount(amount) {
+      function formatAmount(amount) {
         const value = parseFloat(amount).toFixed(2);
-        const color = amount < 0 ? 'text-red-500' : 'text-green-500';
-        const sign = amount < 0 ? '-' : '+';
-        
-        return `<span class="${color}">${sign}$${Math.abs(value).toLocaleString()}</span>`;
-    }
-    
-    function formatCharge(amount) {
-        return '$' + parseFloat(amount).toFixed(2);
-    }
+        const color = amount < 0 ? "text-red-500" : "text-green-500";
+        const sign = amount < 0 ? "-" : "+";
 
-    function renderTable(page) {
+        return `<span class="${color}">${sign}$${Math.abs(
+          value
+        ).toLocaleString()}</span>`;
+      }
+
+      function formatCharge(amount) {
+        return "$" + parseFloat(amount).toFixed(2);
+      }
+
+      function renderTable(page) {
         const start = (page - 1) * ENTRIES_PER_PAGE;
         const end = start + ENTRIES_PER_PAGE;
         const pageData = data.slice(start, end);
 
-        const desktopBody = document.getElementById('desktop-table-body');
-        const mobileList = document.getElementById('mobile-card-list');
+        const desktopBody = document.getElementById("desktop-table-body");
+        const mobileList = document.getElementById("mobile-card-list");
 
-        desktopBody.innerHTML = '';
-        mobileList.innerHTML = '';
+        desktopBody.innerHTML = "";
+        mobileList.innerHTML = "";
 
-        pageData.forEach(item => {
-
-            // --- Desktop Row (TR) ---
-            const desktopRow = `
+        pageData.forEach((item) => {
+          // --- Desktop Row (TR) ---
+          const desktopRow = `
                 <tr class="hover:bg-gray-700/30 transition duration-150">
-                    <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-400">${item.sl}</td>
-                    <td class="px-4 py-3 whitespace-nowrap text-sm text-white font-medium">${item.id}</td>
-                    <td class="px-4 py-3 whitespace-nowrap text-sm">${formatAmount(item.amount)}</td>
-                    <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-300">${formatCharge(item.charge)}</td>
-                    <td class="px-4 py-3 text-sm text-gray-300">${item.remarks}</td>
-                    <td class="px-4 py-3 whitespace-nowrap text-sm text-right text-gray-300">${item.time}</td>
+                    <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-400">${
+                      item.sl
+                    }</td>
+                    <td class="px-4 py-3 whitespace-nowrap text-sm text-white font-medium">${
+                      item.id
+                    }</td>
+                    <td class="px-4 py-3 whitespace-nowrap text-sm">${formatAmount(
+                      item.amount
+                    )}</td>
+                    <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-300">${formatCharge(
+                      item.charge
+                    )}</td>
+                    <td class="px-4 py-3 text-sm text-gray-300">${
+                      item.remarks
+                    }</td>
+                    <td class="px-4 py-3 whitespace-nowrap text-sm text-right text-gray-300">${
+                      item.time
+                    }</td>
                 </tr>
             `;
-            desktopBody.insertAdjacentHTML('beforeend', desktopRow);
+          desktopBody.insertAdjacentHTML("beforeend", desktopRow);
 
-            // --- Mobile Card (DIV) ---
-            const mobileCard = `
+          // --- Mobile Card (DIV) ---
+          const mobileCard = `
                 <div class="p-4 bg-gray-800 rounded-lg shadow-lg space-y-1">
                     <div class="flex justify-between items-center pb-2 border-b border-gray-700/50">
-                        <span class="text-xs font-bold text-gray-400">#${item.sl}</span>
-                        <span class="text-sm font-semibold text-white">${item.id}</span>
+                        <span class="text-xs font-bold text-gray-400">#${
+                          item.sl
+                        }</span>
+                        <span class="text-sm font-semibold text-white">${
+                          item.id
+                        }</span>
                     </div>
-                    <div class="mobile-row-item"><span class="label">Amount:</span> <span class="value">${formatAmount(item.amount)}</span></div>
-                    <div class="mobile-row-item"><span class="label">Charge:</span> <span class="value text-gray-300">${formatCharge(item.charge)}</span></div>
-                    <div class="mobile-row-item"><span class="label">Time:</span> <span class="value text-gray-300">${item.time}</span></div>
-                    <div class="mobile-row-item"><span class="label">Remarks:</span> <span class="value text-right text-gray-300">${item.remarks}</span></div>
+                    <div class="mobile-row-item"><span class="label">Amount:</span> <span class="value">${formatAmount(
+                      item.amount
+                    )}</span></div>
+                    <div class="mobile-row-item"><span class="label">Charge:</span> <span class="value text-gray-300">${formatCharge(
+                      item.charge
+                    )}</span></div>
+                    <div class="mobile-row-item"><span class="label">Time:</span> <span class="value text-gray-300">${
+                      item.time
+                    }</span></div>
+                    <div class="mobile-row-item"><span class="label">Remarks:</span> <span class="value text-right text-gray-300">${
+                      item.remarks
+                    }</span></div>
                 </div>
             `;
-            mobileList.insertAdjacentHTML('beforeend', mobileCard);
+          mobileList.insertAdjacentHTML("beforeend", mobileCard);
         });
-    }
+      }
 
-    function updatePaginationControls() {
+      function updatePaginationControls() {
         // Update active button styling
-        document.querySelectorAll('.page-btn').forEach(btn => {
-            btn.classList.remove('pagination-active');
-            btn.classList.add('text-gray-400');
-            if (parseInt(btn.textContent) === currentPage) {
-                btn.classList.add('pagination-active');
-                btn.classList.remove('text-gray-400');
-            }
+        document.querySelectorAll(".page-btn").forEach((btn) => {
+          btn.classList.remove("pagination-active");
+          btn.classList.add("text-gray-400");
+          if (parseInt(btn.textContent) === currentPage) {
+            btn.classList.add("pagination-active");
+            btn.classList.remove("text-gray-400");
+          }
         });
 
         // Update Prev/Next button disabled state
-        const prevBtn = document.getElementById('prev-btn');
-        const nextBtn = document.getElementById('next-btn');
+        const prevBtn = document.getElementById("prev-btn");
+        const nextBtn = document.getElementById("next-btn");
 
         // Disable 'Previous' if on page 1
         prevBtn.disabled = currentPage === 1;
 
         // Disable 'Next' if on the last functional page (MAX_PAGES = 3)
         nextBtn.disabled = currentPage === MAX_PAGES;
-    }
+      }
 
-    function goToPage(page) {
+      function goToPage(page) {
         // Boundary check to ensure the page is within the functional limits
         if (page < 1 || page > MAX_PAGES) {
-            return;
+          return;
         }
         currentPage = page;
         renderTable(currentPage);
         updatePaginationControls();
-    }
+      }
 
-    // Initialize the dashboard on load
-    window.onload = () => {
+      // Initialize the dashboard on load
+      window.onload = () => {
         goToPage(1);
-    };
-</script>
-</body>
+      };
+    </script>
+  </body>
 </html>
