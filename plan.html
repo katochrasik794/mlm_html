@@ -68,6 +68,9 @@
         margin-left: 19rem;
         height: 100vh;
         overflow-y: auto;
+        overflow-x: hidden;
+        scrollbar-width: none; /* Firefox */
+        -ms-overflow-style: none; /* IE and Edge */
       }
 
       @media (max-width: 1023px) {
@@ -76,19 +79,9 @@
         }
       }
 
-      /* Scrollbar styling for main container */
+      /* Hide scrollbar for main container */
       .main-container::-webkit-scrollbar {
-        width: 6px;
-      }
-      .main-container::-webkit-scrollbar-track {
-        background: transparent;
-      }
-      .main-container::-webkit-scrollbar-thumb {
-        background: rgba(0, 0, 0, 0.2);
-        border-radius: 4px;
-      }
-      .main-container::-webkit-scrollbar-thumb:hover {
-        background: rgba(0, 0, 0, 0.4);
+        display: none; /* Chrome, Safari, Opera */
       }
 
       /* Scrollbar styling for table */
@@ -124,7 +117,7 @@
           class="w-full border-b p-4 sticky text-white bg-gray-800 top-0 z-30"
         >
           <div
-            class="max-w-7xl mx-auto flex items-center justify-between gap-4"
+            class="max-w-7xl mx-auto flex items-center justify-between gap-4 overflow-x-hidden"
           >
             <div class="flex items-center gap-3">
               <!-- Mobile menu button -->
@@ -208,6 +201,339 @@
 
         <!-- page-specific content -->
         <main class="flex-1 py-6 max-w-7xl mx-1 w-full">
+          <div class="max-w-7xl mx-auto p-4 md:p-8">
+            <h2 class="text-3xl font-extrabold mb-6 text-white text-center">
+              Investment Plans
+            </h2>
+
+            <div
+              class="table-container bg-gray-900 rounded-xl shadow-2xl p-2 md:p-6 overflow-x-auto"
+            >
+              <div class="hidden md:block">
+                <table class="min-w-full divide-y divide-gray-700">
+                  <thead class="bg-gray-800">
+                    <tr>
+                      <th
+                        class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider w-1/12"
+                      >
+                        SL
+                      </th>
+                      <th
+                        class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider w-3/12"
+                      >
+                        Name
+                      </th>
+                      <th
+                        class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider w-2/12"
+                      >
+                        Price
+                      </th>
+                      <th
+                        class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider w-3/12"
+                      >
+                        Profit
+                      </th>
+                      <th
+                        class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider w-2/12"
+                      >
+                        Capital Back
+                      </th>
+                      <th
+                        class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider w-1/12 text-center"
+                      >
+                        Action
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-gray-700">
+                    <tr class="hover:bg-gray-700/30 transition duration-150">
+                      <td
+                        class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-300"
+                      >
+                        1
+                      </td>
+                      <td
+                        class="px-6 py-4 whitespace-nowrap text-base font-semibold text-white"
+                      >
+                        Business Plan
+                      </td>
+                      <td
+                        class="px-6 py-4 whitespace-nowrap text-sm text-gray-300"
+                      >
+                        $69 - $999
+                      </td>
+                      <td
+                        class="px-6 py-4 whitespace-nowrap text-sm text-green-400 font-medium"
+                      >
+                        6.00% Every Day
+                      </td>
+                      <td
+                        class="px-6 py-4 whitespace-nowrap text-center text-xl"
+                      >
+                        <i class="fas fa-check-circle text-green-500"></i>
+                      </td>
+                      <td
+                        class="px-6 py-4 whitespace-nowrap text-sm font-medium text-center"
+                      >
+                        <button
+                          class="open-modal-btn px-4 py-2 bg-purple-700 text-gray-600 rounded-lg text-sm font-semibold hover:bg-purple-800 transition duration-150 shadow-lg shadow-purple-900/50 flex items-center justify-center mx-auto"
+                          data-plan-name="Business Plan"
+                          data-invest-range="$69 - $999"
+                          data-interest="6.00 %"
+                        >
+                          <i class="fas fa-sack-dollar mr-2"></i> Invest
+                        </button>
+                      </td>
+                    </tr>
+
+                    <tr class="hover:bg-gray-700/30 transition duration-150">
+                      <td
+                        class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-300"
+                      >
+                        2
+                      </td>
+                      <td
+                        class="px-6 py-4 whitespace-nowrap text-base font-semibold text-white"
+                      >
+                        Baby Plan
+                      </td>
+                      <td
+                        class="px-6 py-4 whitespace-nowrap text-sm text-gray-300"
+                      >
+                        $99 - $888
+                      </td>
+                      <td
+                        class="px-6 py-4 whitespace-nowrap text-sm text-green-400 font-medium"
+                      >
+                        $6 Every Day
+                      </td>
+                      <td
+                        class="px-6 py-4 whitespace-nowrap text-center text-xl"
+                      >
+                        <i class="fas fa-check-circle text-green-500"></i>
+                      </td>
+                      <td
+                        class="px-6 py-4 whitespace-nowrap text-sm font-medium text-center"
+                      >
+                        <button
+                          class="open-modal-btn px-4 py-2 bg-purple-700 text-gray-600 rounded-lg text-sm font-semibold hover:bg-purple-800 transition duration-150 shadow-lg shadow-purple-900/50 flex items-center justify-center mx-auto"
+                          data-plan-name="Business Plan"
+                          data-invest-range="$69 - $999"
+                          data-interest="6.00 %"
+                        >
+                          <i class="fas fa-sack-dollar mr-2"></i> Invest
+                        </button>
+                      </td>
+                    </tr>
+
+                    <tr class="hover:bg-gray-700/30 transition duration-150">
+                      <td
+                        class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-300"
+                      >
+                        3
+                      </td>
+                      <td
+                        class="px-6 py-4 whitespace-nowrap text-base font-semibold text-white"
+                      >
+                        Hatchling Plan
+                      </td>
+                      <td
+                        class="px-6 py-4 whitespace-nowrap text-sm text-gray-300"
+                      >
+                        $120
+                      </td>
+                      <td
+                        class="px-6 py-4 whitespace-nowrap text-sm text-green-400 font-medium"
+                      >
+                        6% Every Day
+                      </td>
+                      <td
+                        class="px-6 py-4 whitespace-nowrap text-center text-xl"
+                      >
+                        <i class="fas fa-times-circle text-red-500"></i>
+                      </td>
+                      <td
+                        class="px-6 py-4 whitespace-nowrap text-sm font-medium text-center"
+                      >
+                        <button
+                          class="open-modal-btn px-4 py-2 bg-purple-700 text-gray-600 rounded-lg text-sm font-semibold hover:bg-purple-800 transition duration-150 shadow-lg shadow-purple-900/50 flex items-center justify-center mx-auto"
+                          data-plan-name="Business Plan"
+                          data-invest-range="$69 - $999"
+                          data-interest="6.00 %"
+                        >
+                          <i class="fas fa-sack-dollar mr-2"></i> Invest
+                        </button>
+                      </td>
+                    </tr>
+                    <tr class="hover:bg-gray-700/30 transition duration-150">
+                      <td
+                        class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-300"
+                      >
+                        4
+                      </td>
+                      <td
+                        class="px-6 py-4 whitespace-nowrap text-base font-semibold text-white"
+                      >
+                        Secondary Pack
+                      </td>
+                      <td
+                        class="px-6 py-4 whitespace-nowrap text-sm text-gray-300"
+                      >
+                        $89 - $666
+                      </td>
+                      <td
+                        class="px-6 py-4 whitespace-nowrap text-sm text-green-400 font-medium"
+                      >
+                        $3 Every Day
+                      </td>
+                      <td
+                        class="px-6 py-4 whitespace-nowrap text-center text-xl"
+                      >
+                        <i class="fas fa-check-circle text-green-500"></i>
+                      </td>
+                      <td
+                        class="px-6 py-4 whitespace-nowrap text-sm font-medium text-center"
+                      >
+                        <button
+                          class="open-modal-btn px-4 py-2 bg-purple-700 text-gray-600 rounded-lg text-sm font-semibold hover:bg-purple-800 transition duration-150 shadow-lg shadow-purple-900/50 flex items-center justify-center mx-auto"
+                          data-plan-name="Business Plan"
+                          data-invest-range="$69 - $999"
+                          data-interest="6.00 %"
+                        >
+                          <i class="fas fa-sack-dollar mr-2"></i> Invest
+                        </button>
+                      </td>
+                    </tr>
+                    <tr class="hover:bg-gray-700/30 transition duration-150">
+                      <td
+                        class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-300"
+                      >
+                        5
+                      </td>
+                      <td
+                        class="px-6 py-4 whitespace-nowrap text-base font-semibold text-white"
+                      >
+                        Starter Pack
+                      </td>
+                      <td
+                        class="px-6 py-4 whitespace-nowrap text-sm text-gray-300"
+                      >
+                        $50 - $400
+                      </td>
+                      <td
+                        class="px-6 py-4 whitespace-nowrap text-sm text-green-400 font-medium"
+                      >
+                        1% Every Day
+                      </td>
+                      <td
+                        class="px-6 py-4 whitespace-nowrap text-center text-xl"
+                      >
+                        <i class="fas fa-check-circle text-green-500"></i>
+                      </td>
+                      <td
+                        class="px-6 py-4 whitespace-nowrap text-sm font-medium text-center"
+                      >
+                        <button
+                          class="open-modal-btn px-4 py-2 bg-purple-700 text-gray-600 rounded-lg text-sm font-semibold hover:bg-purple-800 transition duration-150 shadow-lg shadow-purple-900/50 flex items-center justify-center mx-auto"
+                          data-plan-name="Business Plan"
+                          data-invest-range="$69 - $999"
+                          data-interest="6.00 %"
+                        >
+                          <i class="fas fa-sack-dollar mr-2"></i> Invest
+                        </button>
+                      </td>
+                    </tr>
+                    <tr class="hover:bg-gray-700/30 transition duration-150">
+                      <td
+                        class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-300"
+                      >
+                        6
+                      </td>
+                      <td
+                        class="px-6 py-4 whitespace-nowrap text-base font-semibold text-white"
+                      >
+                        Starter Pack
+                      </td>
+                      <td
+                        class="px-6 py-4 whitespace-nowrap text-sm text-gray-300"
+                      >
+                        $40 - $400
+                      </td>
+                      <td
+                        class="px-6 py-4 whitespace-nowrap text-sm text-green-400 font-medium"
+                      >
+                        1% Every Day
+                      </td>
+                      <td
+                        class="px-6 py-4 whitespace-nowrap text-center text-xl"
+                      >
+                        <i class="fas fa-check-circle text-green-500"></i>
+                      </td>
+                      <td
+                        class="px-6 py-4 whitespace-nowrap text-sm font-medium text-center"
+                      >
+                        <button
+                          class="open-modal-btn px-4 py-2 bg-purple-700 text-gray-600 rounded-lg text-sm font-semibold hover:bg-purple-800 transition duration-150 shadow-lg shadow-purple-900/50 flex items-center justify-center mx-auto"
+                          data-plan-name="Business Plan"
+                          data-invest-range="$69 - $999"
+                          data-interest="6.00 %"
+                        >
+                          <i class="fas fa-sack-dollar mr-2"></i> Invest
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="md:hidden space-y-4">
+                <div
+                  class="p-4 bg-gray-800 rounded-lg shadow-lg table-row-mobile"
+                >
+                  <div
+                    class="text-lg font-semibold text-white flex items-center"
+                  >
+                    <span class="text-sm font-medium text-gray-400 mr-2"
+                      >1.</span
+                    >
+                    Business Plan
+                  </div>
+                  <div>
+                    <span class="text-sm font-medium text-gray-400"
+                      >Price:</span
+                    >
+                    <span class="font-semibold text-gray-300">$69 - $999</span>
+                  </div>
+                  <div>
+                    <span class="text-sm font-medium text-gray-400"
+                      >Profit:</span
+                    >
+                    <span class="font-semibold text-green-400"
+                      >6.00% Every Day</span
+                    >
+                  </div>
+                  <div>
+                    <span class="text-sm font-medium text-gray-400"
+                      >Capital Back:</span
+                    >
+                    <span class="text-xl">
+                      <i class="fas fa-check-circle text-green-500"></i>
+                    </span>
+                  </div>
+                  <div class="mt-2 pt-3 border-t border-gray-700/50">
+                    <button
+                      class="open-modal-btn w-full px-4 py-3 bg-green-600 text-gray-600 rounded-lg text-base font-semibold hover:bg-green-700 transition duration-150 shadow-lg shadow-green-900/50 flex items-center justify-center"
+                      data-plan-name="Business Plan"
+                      data-invest-range="$69 - $999"
+                      data-interest="6.00 %"
+                    >
+                      <i class="fas fa-sack-dollar mr-2"></i> Invest
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
           <div class="max-w-7xl mx-auto p-4 md:p-8">
             <h2 class="text-3xl font-extrabold mb-6 text-white text-center">
               Investment Plans
