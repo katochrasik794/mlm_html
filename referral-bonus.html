@@ -241,23 +241,24 @@
               Referral Bonus
             </h2>
 
-            <!-- Search and Filter Bar (Responsive) -->
-            <div
-              class="mb-6 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3"
-            >
-              <input type="text" placeholder="Search User" class="w-full" />
-              <input
-                type="text"
-                placeholder="Select a date"
-                class="w-full"
-                onfocus="(this.type='date')"
-                onblur="(this.type='text')"
-              />
-              <button
-                class="flex items-center justify-center px-6 py-3 bg-purple-700 text-gray-600 font-semibold rounded-lg hover:bg-purple-800 transition duration-150 ease-in-out w-full"
-              >
-                <i class="fas fa-search mr-2"></i> Search
-              </button>
+            <!-- Filter Bar -->
+            <div class="mb-6">
+              <div class="flex flex-wrap gap-4 items-end">
+                <div class="flex-1 min-w-0">
+                  <label for="filter-from" class="block text-sm font-medium text-gray-300 mb-1">Bonus From</label>
+                  <input type="text" id="filter-from" class="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white" placeholder="Filter by bonus from">
+                </div>
+                <div class="flex-1 min-w-0">
+                  <label for="filter-amount" class="block text-sm font-medium text-gray-300 mb-1">Amount</label>
+                  <input type="text" id="filter-amount" class="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white" placeholder="Filter by amount">
+                </div>
+                <div class="flex-1 min-w-0">
+                  <label for="filter-date" class="block text-sm font-medium text-gray-300 mb-1">Select a date</label>
+                  <input type="date" id="filter-date" class="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white">
+                </div>
+                <button id="apply-filter" class="px-4 py-2 bg-purple-700 text-gray-600 rounded-md hover:bg-purple-800">Apply Filter</button>
+                <button id="clear-filter" class="px-4 py-2 bg-purple-700 text-gray-600 rounded-md hover:bg-purple-800">Clear Filter</button>
+              </div>
             </div>
 
             <!-- Table Container -->
@@ -322,34 +323,16 @@
                     <i class="fas fa-chevron-left"></i>
                   </button>
 
-                  <!-- Page Buttons (1-3 functional) -->
-                  <button
-                    class="page-btn px-4 py-2 text-sm font-medium rounded-lg text-gray-200 transition"
-                    onclick="goToPage(1)"
-                  >
-                    1
-                  </button>
-                  <button
-                    class="page-btn px-4 py-2 text-sm font-medium rounded-lg text-gray-200 transition"
-                    onclick="goToPage(2)"
-                  >
-                    2
-                  </button>
-                  <button
-                    class="page-btn px-4 py-2 text-sm font-medium rounded-lg text-gray-200 transition"
-                    onclick="goToPage(3)"
-                  >
-                    3
-                  </button>
+                  <!-- Page Buttons will be created dynamically -->
 
                   <!-- Inactive/Placeholder Buttons -->
-                  <span class="text-gray-200 px-2 hidden sm:inline">...</span>
+                  <!-- <span class="text-gray-200 px-2 hidden sm:inline">...</span>
                   <button
                     class="px-4 py-2 text-sm font-medium rounded-lg text-gray-200 transition hidden sm:inline"
                     disabled
                   >
                     30
-                  </button>
+                  </button> -->
 
                   <button
                     id="next-btn"
@@ -370,126 +353,37 @@
     <script src="js/include.js"></script>
     <script src="js/main.js"></script>
     <script>
-      // Mock data for 3 pages (5 entries per page for brevity)
+      // ---------- CONFIG & DATA ----------
+      const ENTRIES_PER_PAGE = 5; // <<-- moved here (must be declared BEFORE computing pages)
+
       const data = [
-        // Page 1
-        {
-          id: 1,
-          from: "Aaron Smith",
-          amount: "$3.00000000",
-          remarks: "Level 1 Referral Bonus From Aaronsmith0104",
-          time: "01 Nov 2024 08:02 PM",
-        },
-        {
-          id: 2,
-          from: "Roman Novikov",
-          amount: "$0.05000000",
-          remarks: "Level 1 Referral Bonus From Romarioone",
-          time: "01 Nov 2024 07:40 PM",
-        },
-        {
-          id: 3,
-          from: "Aaron Smith",
-          amount: "$3.00000000",
-          remarks: "Level 1 Referral Bonus From Aaronsmith0104",
-          time: "01 Nov 2024 01:50 AM",
-        },
-        {
-          id: 4,
-          from: "Sha Mende",
-          amount: "$0.30000000",
-          remarks: "Level 2 Referral Bonus From Mendsga",
-          time: "31 Oct 2024 01:32 AM",
-        },
-        {
-          id: 5,
-          from: "Roman Novikov",
-          amount: "$0.05000000",
-          remarks: "Level 1 Referral Bonus From Romarioone",
-          time: "29 Oct 2024 07:22 AM",
-        },
-        // Page 2
-        {
-          id: 6,
-          from: "Aaron Smith",
-          amount: "$5.99400000",
-          remarks: "Level 1 Referral Bonus From Aaronsmith0104",
-          time: "28 Oct 2024 11:08 PM",
-        },
-        {
-          id: 7,
-          from: "Appexin Appexin",
-          amount: "$3.00000000",
-          remarks: "Level 1 Referral Bonus From Appexin",
-          time: "28 Oct 2024 03:14 AM",
-        },
-        {
-          id: 8,
-          from: "Patricia Lebsack",
-          amount: "$0.72000000",
-          remarks: "Level 1 Referral Bonus From Karianne",
-          time: "26 Oct 2024 07:58 PM",
-        },
-        {
-          id: 9,
-          from: "Kwabena Appoh",
-          amount: "$0.60000000",
-          remarks: "Level 1 Referral Bonus From Matech",
-          time: "25 Oct 2024 03:50 AM",
-        },
-        {
-          id: 10,
-          from: "Leanne Graham",
-          amount: "$0.60000000",
-          remarks: "Level 1 Referral Bonus From Bret",
-          time: "24 Oct 2024 12:22 PM",
-        },
-        // Page 3
-        {
-          id: 11,
-          from: "Appexin18 Appexin18",
-          amount: "$0.15000000",
-          remarks: "Level 2 Referral Bonus From Appexin18",
-          time: "23 Oct 2024 10:02 AM",
-        },
-        {
-          id: 12,
-          from: "Appexin Appexin",
-          amount: "$0.60000000",
-          remarks: "Level 1 Referral Bonus From Appexin",
-          time: "23 Oct 2024 07:48 AM",
-        },
-        {
-          id: 13,
-          from: "New Referrer",
-          amount: "$1.00000000",
-          remarks: "Level 1 Referral Bonus From UserX",
-          time: "22 Oct 2024 09:00 PM",
-        },
-        {
-          id: 14,
-          from: "Another User",
-          amount: "$0.50000000",
-          remarks: "Level 2 Referral Bonus From TestUser",
-          time: "21 Oct 2024 05:30 PM",
-        },
-        {
-          id: 15,
-          from: "Final Test",
-          amount: "$2.00000000",
-          remarks: "Level 1 Referral Bonus From FinalRef",
-          time: "20 Oct 2024 04:00 AM",
-        },
+        { id: 1, from: "Aaron Smith", amount: "$3.00000000", remarks: "Level 1 Referral Bonus From Aaronsmith0104", time: "01 Nov 2024 08:02 PM" },
+        { id: 2, from: "Roman Novikov", amount: "$0.05000000", remarks: "Level 1 Referral Bonus From Romarioone", time: "01 Nov 2024 07:40 PM" },
+        { id: 3, from: "Aaron Smith", amount: "$3.00000000", remarks: "Level 1 Referral Bonus From Aaronsmith0104", time: "01 Nov 2024 01:50 AM" },
+        { id: 4, from: "Sha Mende", amount: "$0.30000000", remarks: "Level 2 Referral Bonus From Mendsga", time: "31 Oct 2024 01:32 AM" },
+        { id: 5, from: "Roman Novikov", amount: "$0.05000000", remarks: "Level 1 Referral Bonus From Romarioone", time: "29 Oct 2024 07:22 AM" },
+        { id: 6, from: "Aaron Smith", amount: "$5.99400000", remarks: "Level 1 Referral Bonus From Aaronsmith0104", time: "28 Oct 2024 11:08 PM" },
+        { id: 7, from: "Appexin Appexin", amount: "$3.00000000", remarks: "Level 1 Referral Bonus From Appexin", time: "28 Oct 2024 03:14 AM" },
+        { id: 8, from: "Patricia Lebsack", amount: "$0.72000000", remarks: "Level 1 Referral Bonus From Karianne", time: "26 Oct 2024 07:58 PM" },
+        { id: 9, from: "Kwabena Appoh", amount: "$0.60000000", remarks: "Level 1 Referral Bonus From Matech", time: "25 Oct 2024 03:50 AM" },
+        { id: 10, from: "Leanne Graham", amount: "$0.60000000", remarks: "Level 1 Referral Bonus From Bret", time: "24 Oct 2024 12:22 PM" },
+        { id: 11, from: "Appexin18 Appexin18", amount: "$0.15000000", remarks: "Level 2 Referral Bonus From Appexin18", time: "23 Oct 2024 10:02 AM" },
+        { id: 12, from: "Appexin Appexin", amount: "$0.60000000", remarks: "Level 1 Referral Bonus From Appexin", time: "23 Oct 2024 07:48 AM" },
+        { id: 13, from: "New Referrer", amount: "$1.00000000", remarks: "Level 1 Referral Bonus From UserX", time: "22 Oct 2024 09:00 PM" },
+        { id: 14, from: "Another User", amount: "$0.50000000", remarks: "Level 2 Referral Bonus From TestUser", time: "21 Oct 2024 05:30 PM" },
+        { id: 15, from: "Final Test", amount: "$2.00000000", remarks: "Level 1 Referral Bonus From FinalRef", time: "20 Oct 2024 04:00 AM" }
       ];
 
+      // ---------- STATE ----------
+      let filteredData = [...data];
       let currentPage = 1;
-      const ENTRIES_PER_PAGE = 5;
-      const MAX_PAGES = 3; // Enforcing max 3 functional pages
+      let totalPages = Math.max(1, Math.ceil(filteredData.length / ENTRIES_PER_PAGE));
 
+      // ---------- RENDER ----------
       function renderTable(page) {
         const start = (page - 1) * ENTRIES_PER_PAGE;
         const end = start + ENTRIES_PER_PAGE;
-        const pageData = data.slice(start, end);
+        const pageData = filteredData.slice(start, end);
 
         const desktopBody = document.getElementById("desktop-table-body");
         const mobileList = document.getElementById("mobile-card-list");
@@ -497,11 +391,23 @@
         desktopBody.innerHTML = "";
         mobileList.innerHTML = "";
 
+        if (pageData.length === 0) {
+          // Show "no results" row for desktop
+          const noRow = `
+            <tr>
+              <td colspan="5" class="px-4 py-6 text-center text-sm text-gray-400">No records found</td>
+            </tr>
+          `;
+          desktopBody.insertAdjacentHTML("beforeend", noRow);
+          // Show "no results" card for mobile
+          const noCard = `<div class="mobile-card"><div class="text-center text-gray-400 py-4">No records found</div></div>`;
+          mobileList.insertAdjacentHTML("beforeend", noCard);
+          return;
+        }
+
         pageData.forEach((item) => {
-          // Determine amount color (Green for positive bonus)
           const amountClass = "text-green-500 font-semibold";
 
-          // --- Desktop Row (TR) ---
           const desktopRow = `
                 <tr class="hover:bg-gray-700/30 transition duration-150">
                     <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-400">${item.id}</td>
@@ -513,7 +419,6 @@
             `;
           desktopBody.insertAdjacentHTML("beforeend", desktopRow);
 
-          // --- Mobile Card (DIV) ---
           const mobileCard = `
                 <div class="mobile-card space-y-1">
                     <div class="flex justify-between items-center pb-2 border-b border-gray-700/50 mb-1">
@@ -528,42 +433,110 @@
         });
       }
 
+      function formatDate(dateStr) {
+        if (!dateStr) return '';
+        const date = new Date(dateStr);
+        if (isNaN(date)) return '';
+        const day = String(date.getDate()).padStart(2, '0');
+        const month = date.toLocaleString('en', { month: 'short' });
+        const year = date.getFullYear();
+        return `${day} ${month} ${year}`;
+      }
+
+      // ---------- FILTER ----------
+      function applyFilter() {
+        const from = document.getElementById('filter-from').value.trim().toLowerCase();
+        const amount = document.getElementById('filter-amount').value.trim().toLowerCase();
+        const date = document.getElementById('filter-date').value;
+        const dateFormatted = formatDate(date).toLowerCase();
+
+        if (!from && !amount && !date) {
+          filteredData = [...data];
+        } else {
+          filteredData = data.filter(item => {
+            const fromMatch = from ? item.from.toLowerCase().includes(from) : false;
+            const amountMatch = amount ? item.amount.toLowerCase().includes(amount) : false;
+            const dateMatch = date ? item.time.toLowerCase().includes(dateFormatted) : false;
+            return fromMatch || amountMatch || dateMatch;
+          });
+        }
+
+        totalPages = Math.max(1, Math.ceil(filteredData.length / ENTRIES_PER_PAGE));
+        goToPage(1);
+      }
+
+      function clearFilter() {
+        document.getElementById('filter-from').value = '';
+        document.getElementById('filter-amount').value = '';
+        document.getElementById('filter-date').value = '';
+        filteredData = [...data];
+        totalPages = Math.max(1, Math.ceil(filteredData.length / ENTRIES_PER_PAGE));
+        goToPage(1);
+      }
+
+      // ---------- PAGINATION ----------
       function updatePaginationControls() {
+        // Remove existing page buttons
+        document.querySelectorAll('.page-btn').forEach(btn => btn.remove());
+
+        // Get nav
+        const nav = document.querySelector('nav[aria-label="Pagination"]');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+
+        // Safety: ensure totalPages is at least 1
+        totalPages = Math.max(1, totalPages);
+
+        // Insert page buttons BEFORE nextBtn
+        for(let i = 1; i <= totalPages; i++){
+          const btn = document.createElement('button');
+          btn.className = 'page-btn px-4 py-2 text-sm font-medium rounded-lg text-gray-200 transition';
+          btn.textContent = i;
+          btn.onclick = () => goToPage(i);
+          nav.insertBefore(btn, nextBtn);
+        }
+
         // Update active button styling
         document.querySelectorAll(".page-btn").forEach((btn) => {
           btn.classList.remove("pagination-active");
-          btn.classList.add("text-gray-400");
+          btn.classList.remove("text-gray-400");
+          btn.classList.add("text-gray-200");
           if (parseInt(btn.textContent) === currentPage) {
             btn.classList.add("pagination-active");
-            btn.classList.remove("text-gray-400");
+            btn.classList.remove("text-gray-200");
           }
         });
 
         // Update Prev/Next button disabled state
-        const prevBtn = document.getElementById("prev-btn");
-        const nextBtn = document.getElementById("next-btn");
-
-        // Disable 'Previous' if on page 1
         prevBtn.disabled = currentPage === 1;
-
-        // Disable 'Next' if on the last functional page (MAX_PAGES = 3)
-        nextBtn.disabled = currentPage === MAX_PAGES;
+        nextBtn.disabled = currentPage === totalPages;
       }
 
       function goToPage(page) {
-        // Boundary check to ensure the page is within the functional limits
-        if (page < 1 || page > MAX_PAGES) {
-          return;
-        }
+        // Recompute totalPages (in case filteredData changed)
+        totalPages = Math.max(1, Math.ceil(filteredData.length / ENTRIES_PER_PAGE));
+
+        // Boundary check
+        if (page < 1) page = 1;
+        if (page > totalPages) page = totalPages;
+
         currentPage = page;
         renderTable(currentPage);
         updatePaginationControls();
       }
 
-      // Initialize the dashboard on load
+      // ---------- INIT ----------
       window.onload = () => {
+        // initial pagination values
+        totalPages = Math.max(1, Math.ceil(filteredData.length / ENTRIES_PER_PAGE));
         goToPage(1);
+
+        // Attach handlers (safe to attach now)
+        document.getElementById('apply-filter').addEventListener('click', applyFilter);
+        document.getElementById('clear-filter').addEventListener('click', clearFilter);
       };
+
+      // If scripts are executed before DOM ready, below would fail, but we attached in onload above.
     </script>
   </body>
 </html>

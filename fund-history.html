@@ -35,7 +35,6 @@
             border-color: #6366f1;
         }
 
-        /* Custom mobile row styling */
         @media (max-width: 767px) {
             .mobile-row-item {
                 display: flex;
@@ -59,12 +58,11 @@
             }
         }
         .pagination-active {
-            background-color: #10b981; /* green-500 for active state */
+            background-color: #10b981;
             color: white;
             font-weight: bold;
         }
 
-        /* Scrollbar styling for main container */
         .main-container::-webkit-scrollbar {
           width: 6px;
         }
@@ -79,7 +77,6 @@
           background: rgba(0, 0, 0, 0.4);
         }
 
-        /* Scrollbar styling for table */
         .table-container::-webkit-scrollbar {
           height: 4px;
         }
@@ -130,13 +127,10 @@
 
     <div data-include="components/sidebar.html"></div>
 
-    <!-- main column: topbar + page content + footer -->
     <div class="main-container flex flex-col">
-      <!-- topbar -->
       <header class="w-full border-b p-4 sticky text-white bg-gray-800 top-0 z-30">
         <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
           <div class="flex items-center gap-3">
-            <!-- Mobile menu button -->
             <button id="mobileToggle" class="lg:hidden p-2 rounded-md">
               <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
@@ -178,7 +172,6 @@
                 </svg>
               </button>
 
-              <!-- Profile dropdown -->
               <div id="profileDropdown"
                    class="hidden absolute right-0 mt-2 w-44 bg-gray-800 border rounded-md shadow-sm py-1">
                 <a href="#" class="block px-3 py-2 text-sm hover:bg-gray-600">Profile</a>
@@ -190,32 +183,34 @@
         </div>
       </header>
 
-      <!-- page-specific content -->
       <main class="flex-1 p-6 max-w-7xl mx-auto w-full">
         <div class="max-w-7xl mx-auto">
 
-        <!-- Title -->
         <h2 class="text-3xl font-extrabold mb-6 text-white">Fund History</h2>
 
-        <!-- Search and Filter Bar -->
-        <div class="mb-6 flex flex-col md:flex-row gap-3">
-            <input type="text" placeholder="Transaction ID" class="flex-grow md:max-w-xs">
-            <select class="flex-grow md:max-w-xs py-2 text-white px-2">
-                <option>All Payment</option>
-                <option>Stripe</option>
-                <option>Paypal</option>
-                <option>Blockchain</option>
+        <div class="mb-6 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-5">
+            <input type="text" id="transaction-id-filter" placeholder="Transaction ID" class="w-full py-3 px-2 text-white bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-700">
+            <select id="gateway-filter" class="w-full py-3 px-2 text-white bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-700">
+                <option value="">All Payment</option>
+                <option value="Stripe">Stripe</option>
+                <option value="Paypal">Paypal</option>
+                <option value="Blockchain">Blockchain</option>
+                <option value="CoinPayments">CoinPayments</option>
+                <option value="Bank Transfer">Bank Transfer</option>
+                <option value="Binance">Binance</option>
+                <option value="Nowpayments">Nowpayments</option>
             </select>
-            <input type="text" placeholder="Select a date" class="flex-grow md:max-w-xs" onfocus="(this.type='date')" onblur="(this.type='text')">
-            <button class="flex items-center justify-center px-6 py-3 bg-purple-700 text-gray-600 font-semibold rounded-lg hover:bg-purple-800 transition duration-150 ease-in-out md:max-w-xs">
+            <input type="text" id="date-filter" placeholder="Select a date" class="w-full py-3 px-2 text-white bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-700" onfocus="(this.type='date')" onblur="(this.type='text')">
+            <button id="apply-filter" class="w-full py-3 px-2 bg-purple-700 text-gray-600 font-semibold rounded-lg hover:bg-purple-800 transition duration-150 ease-in-out">
                 <i class="fas fa-search mr-2"></i> Search
+            </button>
+            <button id="clear-filter" class="w-full py-3 px-2 bg-gray-600 text-white font-semibold rounded-lg hover:bg-gray-700 transition duration-150 ease-in-out">
+                Clear Filter
             </button>
         </div>
 
-        <!-- Table Container -->
         <div class="table-container p-2 md:p-6 overflow-x-auto">
             
-            <!-- Standard Table for Desktop/Tablet (md and up) -->
             <div class="hidden md:block">
                 <table class="min-w-full divide-y divide-gray-700">
                     <thead class="bg-gray-800">
@@ -228,37 +223,27 @@
                             <th class="px-4 py-3 text-right text-xs font-medium text-gray-400 uppercase tracking-wider w-2/12">Time</th>
                         </tr>
                     </thead>
-                    <tbody id="desktop-table-body" class="divide-y divide-gray-700">
-                        <!-- Table rows will be inserted here by JavaScript -->
-                    </tbody>
+                    <tbody id="desktop-table-body" class="divide-y divide-gray-700"></tbody>
                 </table>
             </div>
 
-            <!-- Card List for Mobile (less than md) -->
-            <div id="mobile-card-list" class="md:hidden space-y-3">
-                <!-- Mobile cards will be inserted here by JavaScript -->
-            </div>
+            <div id="mobile-card-list" class="md:hidden space-y-3"></div>
 
-            <!-- Pagination Bar -->
+            <!-- ✅ Fixed Pagination -->
             <div class="mt-8 flex justify-center">
                 <nav class="flex items-center space-x-1" aria-label="Pagination">
                     <button id="prev-btn" onclick="goToPage(currentPage - 1)" 
                             class="px-3 py-2 text-sm font-medium rounded-lg text-gray-200 transition disabled:opacity-50 disabled:cursor-not-allowed">
                         <i class="fas fa-chevron-left"></i>
                     </button>
-                    
-                    <!-- Page Buttons (1-3 functional) -->
-                    <button class="page-btn px-4 py-2 text-sm font-medium rounded-lg text-gray-200  transition" onclick="goToPage(1)">1</button>
-                    <button class="page-btn px-4 py-2 text-sm font-medium rounded-lg text-gray-200  transition" onclick="goToPage(2)">2</button>
-                    <button class="page-btn px-4 py-2 text-sm font-medium rounded-lg text-gray-200  transition" onclick="goToPage(3)">3</button>
-                    
-                    <!-- Inactive/Placeholder Buttons -->
-                    <span class="text-gray-400 px-2 hidden sm:inline">...</span>
-                    <button class="px-4 py-2 text-sm font-medium rounded-lg text-gray-400 transition hidden sm:inline" disabled>8</button>
-                    <!-- <button class="px-4 py-2 text-sm font-medium rounded-lg text-gray-400 transition hidden sm:inline" disabled>172</button> -->
+
+                    <div id="page-buttons" class="flex space-x-1"></div>
+
+                    <!-- ✅ Added missing element -->
+                    <span id="ellipsis" class="text-gray-400 px-2 hidden sm:inline">...</span>
 
                     <button id="next-btn" onclick="goToPage(currentPage + 1)" 
-                            class="px-3 py-2 text-sm font-medium rounded-lg text-gray-400  transition disabled:opacity-50 disabled:cursor-not-allowed">
+                            class="px-3 py-2 text-sm font-medium rounded-lg text-gray-400 transition disabled:opacity-50 disabled:cursor-not-allowed">
                         <i class="fas fa-chevron-right"></i>
                     </button>
                 </nav>
@@ -273,25 +258,20 @@
     </div>
   </div>
 
-  <!-- load includes and UI script -->
   <script src="js/include.js"></script>
   <script src="js/main.js"></script>
   <script>
-    // Mock data for 3 pages (5 entries per page)
     const data = [
-        // Page 1
         { id: "D132418743822", gateway: "CoinPayments", amount: 10989.01, charge: 54.95, status: "Pending", time: "10 Nov 2025 04:12 PM" },
         { id: "D132418743821", gateway: "Blockchain", amount: 5494.50549451, charge: 0.00, status: "Pending", time: "09 Nov 2025 11:30 PM" },
         { id: "D132418743820", gateway: "Paypal", amount: 5494.05, charge: 0.00, status: "Pending", time: "09 Nov 2025 11:16 PM" },
         { id: "D132418743819", gateway: "Paypal", amount: 5494.05, charge: 0.00, status: "Pending", time: "09 Nov 2025 11:16 PM" },
         { id: "D132418743818", gateway: "Paypal", amount: 5494.05, charge: 0.00, status: "Pending", time: "09 Nov 2025 11:16 PM" },
-        // Page 2
         { id: "D132418743817", gateway: "Blockchain", amount: 5494.505494505, charge: 0.00, status: "Pending", time: "09 Nov 2025 11:02 PM" },
         { id: "D132418743816", gateway: "Bank Transfer", amount: 520.00, charge: 0.50, status: "Pending", time: "09 Nov 2025 11:02 PM" },
         { id: "D132418743815", gateway: "Binance", amount: 37037.03703704, charge: 0.00, status: "Pending", time: "09 Nov 2025 01:23 PM" },
         { id: "D132418743814", gateway: "Blockchain", amount: 5494.50549451, charge: 0.00, status: "Pending", time: "09 Nov 2025 01:22 PM" },
         { id: "D132418743813", gateway: "Nowpayments", amount: 1098.9010989, charge: 0.00, status: "Pending", time: "09 Nov 2025 01:40 AM" },
-        // Page 3
         { id: "D132418743812", gateway: "Nowpayments", amount: 6043.95604396, charge: 0.00, status: "Pending", time: "08 Nov 2025 12:31 PM" },
         { id: "D132418743811", gateway: "Stripe", amount: 500.00, charge: 3.00, status: "Complete", time: "08 Nov 2025 04:57 AM" },
         { id: "D132418743810", gateway: "Binance", amount: 750.50, charge: 0.00, status: "Pending", time: "07 Nov 2025 09:15 PM" },
@@ -301,62 +281,72 @@
 
     let currentPage = 1;
     const ENTRIES_PER_PAGE = 5;
-    const MAX_PAGES = 3; // Enforcing max 3 functional pages
+    let filteredData = data;
+    let TOTAL_ENTRIES = data.length;
+    let MAX_PAGES = Math.ceil(TOTAL_ENTRIES / ENTRIES_PER_PAGE);
+    const DISPLAY_PAGE_LIMIT = 10;
+
+    function getFilteredData() {
+        const transactionIdFilter = document.getElementById('transaction-id-filter').value.toLowerCase();
+        const gatewayFilter = document.getElementById('gateway-filter').value;
+        const dateFilter = document.getElementById('date-filter').value;
+
+        return data.filter(item => {
+            const idMatch = !transactionIdFilter || item.id.toLowerCase().includes(transactionIdFilter);
+            const gatewayMatch = !gatewayFilter || item.gateway === gatewayFilter;
+            const dateMatch = !dateFilter || item.time.includes(dateFilter);
+            return idMatch && gatewayMatch && dateMatch;
+        });
+    }
+
+    function updateFilteredData() {
+        filteredData = getFilteredData();
+        TOTAL_ENTRIES = filteredData.length;
+        MAX_PAGES = Math.ceil(TOTAL_ENTRIES / ENTRIES_PER_PAGE);
+        currentPage = 1;
+        renderPageButtons();
+        goToPage(1);
+    }
+
+    function clearFilters() {
+        document.getElementById('transaction-id-filter').value = '';
+        document.getElementById('gateway-filter').value = '';
+        document.getElementById('date-filter').value = '';
+        updateFilteredData();
+    }
 
     function formatCurrency(amount) {
-        // Use toLocaleString for better number formatting, rounding to 2 decimal places
         return '$' + parseFloat(amount).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
     
     function getStatusTag(status) {
-        let colorClass;
-        let text;
-        
-        if (status === "Complete") {
-            colorClass = "text-green-500";
-            text = "Complete";
-        } else {
-            colorClass = "text-yellow-500";
-            text = "Pending";
-        }
-        
-        return `
-            <span class="flex items-center ${colorClass} whitespace-nowrap">
-                <span class="w-2 h-2 mr-1 rounded-full bg-${status === 'Complete' ? 'green' : 'yellow'}-500"></span> ${text}
-            </span>
-        `;
+        let colorClass = status === "Complete" ? "text-green-500" : "text-yellow-500";
+        let colorDot = status === "Complete" ? "bg-green-500" : "bg-yellow-500";
+        return `<span class="flex items-center ${colorClass} whitespace-nowrap">
+                  <span class="w-2 h-2 mr-1 rounded-full ${colorDot}"></span>${status}</span>`;
     }
 
     function renderTable(page) {
         const start = (page - 1) * ENTRIES_PER_PAGE;
         const end = start + ENTRIES_PER_PAGE;
-        const pageData = data.slice(start, end);
-
+        const pageData = filteredData.slice(start, end);
         const desktopBody = document.getElementById('desktop-table-body');
         const mobileList = document.getElementById('mobile-card-list');
-
         desktopBody.innerHTML = '';
         mobileList.innerHTML = '';
 
         pageData.forEach(item => {
-
-            // --- Desktop Row (TR) ---
-            const desktopRow = `
+            desktopBody.insertAdjacentHTML('beforeend', `
                 <tr class="hover:bg-gray-700/30 transition duration-150">
                     <td class="px-4 py-3 whitespace-nowrap text-sm text-white font-medium">${item.id}</td>
                     <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-300">${item.gateway}</td>
                     <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-300">${formatCurrency(item.amount)}</td>
                     <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-300">${formatCurrency(item.charge)}</td>
-                    <td class="px-4 py-3 whitespace-nowrap text-sm">
-                        ${getStatusTag(item.status)}
-                    </td>
+                    <td class="px-4 py-3 whitespace-nowrap text-sm">${getStatusTag(item.status)}</td>
                     <td class="px-4 py-3 whitespace-nowrap text-sm text-right text-gray-300">${item.time}</td>
-                </tr>
-            `;
-            desktopBody.insertAdjacentHTML('beforeend', desktopRow);
+                </tr>`);
 
-            // --- Mobile Card (DIV) ---
-            const mobileCard = `
+            mobileList.insertAdjacentHTML('beforeend', `
                 <div class="p-4 bg-gray-800 rounded-lg shadow-lg space-y-1">
                     <div class="flex justify-between items-center pb-2 border-b border-gray-700/50">
                         <span class="text-xs font-bold text-gray-400">Transaction ID:</span>
@@ -367,14 +357,25 @@
                     <div class="mobile-row-item"><span class="label">Charge:</span> <span class="value">${formatCurrency(item.charge)}</span></div>
                     <div class="mobile-row-item"><span class="label">Status:</span> ${getStatusTag(item.status)}</div>
                     <div class="mobile-row-item"><span class="label">Time:</span> <span class="value">${item.time}</span></div>
-                </div>
-            `;
-            mobileList.insertAdjacentHTML('beforeend', mobileCard);
+                </div>`);
         });
     }
 
+    function renderPageButtons() {
+        const buttonContainer = document.getElementById('page-buttons');
+        buttonContainer.innerHTML = '';
+        const displayLimit = Math.min(DISPLAY_PAGE_LIMIT, MAX_PAGES);
+        for (let i = 1; i <= displayLimit; i++) {
+            const btn = document.createElement('button');
+            btn.className = 'page-btn px-4 py-2 text-sm font-medium rounded-lg text-gray-200 transition';
+            btn.textContent = i;
+            btn.onclick = () => goToPage(i);
+            buttonContainer.appendChild(btn);
+        }
+        document.getElementById('ellipsis').classList.toggle('hidden', MAX_PAGES <= displayLimit);
+    }
+
     function updatePaginationControls() {
-        // Update active button styling
         document.querySelectorAll('.page-btn').forEach(btn => {
             btn.classList.remove('pagination-active');
             btn.classList.add('text-gray-400');
@@ -383,33 +384,23 @@
                 btn.classList.remove('text-gray-400');
             }
         });
-
-        // Update Prev/Next button disabled state
-        const prevBtn = document.getElementById('prev-btn');
-        const nextBtn = document.getElementById('next-btn');
-
-        // Disable 'Previous' if on page 1
-        prevBtn.disabled = currentPage === 1;
-
-        // Disable 'Next' if on the last functional page (MAX_PAGES = 3)
-        nextBtn.disabled = currentPage === MAX_PAGES;
+        document.getElementById('prev-btn').disabled = currentPage === 1;
+        document.getElementById('next-btn').disabled = currentPage === MAX_PAGES;
     }
 
     function goToPage(page) {
-        // Boundary check to ensure the page is within the functional limits
-        if (page < 1 || page > MAX_PAGES) {
-            return;
-        }
+        if (page < 1 || page > MAX_PAGES) return;
         currentPage = page;
         renderTable(currentPage);
         updatePaginationControls();
     }
 
-    // Initialize the dashboard on load
-    window.onload = () => {
-        goToPage(1);
-    };
-</script>
+    document.addEventListener('DOMContentLoaded', () => {
+        updateFilteredData();
+        document.getElementById('apply-filter').addEventListener('click', updateFilteredData);
+        document.getElementById('clear-filter').addEventListener('click', clearFilters);
+    });
+  </script>
 
 </body>
 </html>

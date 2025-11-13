@@ -223,25 +223,34 @@
 
             <!-- Search and Filter Bar (Responsive) -->
             <div
-              class="mb-6 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4"
+              class="mb-6 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-5"
             >
               <input
                 type="text"
+                id="transaction-id-filter"
                 placeholder="Search for Transaction ID"
-                class="w-full"
+                class="w-full py-3 px-2 text-white bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-700"
               />
-              <input type="text" placeholder="Remark" class="w-full" />
+              <input type="text" id="amount-filter" placeholder="Amount" class="w-full py-3 px-2 text-white bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-700" />
               <input
                 type="text"
+                id="date-filter"
                 placeholder="Select a date"
-                class="w-full"
+                class="w-full py-3 px-2 text-white bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-700"
                 onfocus="(this.type='date')"
                 onblur="(this.type='text')"
               />
               <button
-                class="flex items-center justify-center px-6 py-3 bg-purple-700 text-gray-600 font-semibold rounded-lg hover:bg-purple-800 transition duration-150 ease-in-out w-full"
+                id="apply-filter"
+                class="w-full py-3 px-2 bg-purple-700 text-gray-600 font-semibold rounded-lg hover:bg-purple-800 transition duration-150 ease-in-out"
               >
                 <i class="fas fa-search mr-2"></i> Search
+              </button>
+              <button
+                id="clear-filter"
+                class="w-full py-3 px-2 bg-gray-600 text-white font-semibold rounded-lg hover:bg-gray-700 transition duration-150 ease-in-out"
+              >
+                Clear Filter
               </button>
             </div>
 
@@ -313,24 +322,26 @@
                   </button>
 
                   <!-- Page Buttons (1-3 functional) -->
-                  <button
-                    class="page-btn px-4 py-2 text-sm font-medium rounded-lg text-gray-200 transition"
-                    onclick="goToPage(1)"
-                  >
-                    1
-                  </button>
-                  <button
-                    class="page-btn px-4 py-2 text-sm font-medium rounded-lg text-gray-200 transition"
-                    onclick="goToPage(2)"
-                  >
-                    2
-                  </button>
-                  <button
-                    class="page-btn px-4 py-2 text-sm font-medium rounded-lg text-gray-200 transition"
-                    onclick="goToPage(3)"
-                  >
-                    3
-                  </button>
+                  <div id="page-buttons" class="flex space-x-1">
+                    <button
+                      class="page-btn px-4 py-2 text-sm font-medium rounded-lg text-gray-200 transition"
+                      onclick="goToPage(1)"
+                    >
+                      1
+                    </button>
+                    <button
+                      class="page-btn px-4 py-2 text-sm font-medium rounded-lg text-gray-200 transition"
+                      onclick="goToPage(2)"
+                    >
+                      2
+                    </button>
+                    <button
+                      class="page-btn px-4 py-2 text-sm font-medium rounded-lg text-gray-200 transition"
+                      onclick="goToPage(3)"
+                    >
+                      3
+                    </button>
+                  </div>
 
                   <!-- Inactive/Placeholder Buttons -->
                   <span class="text-gray-200 px-2 hidden sm:inline">...</span>
@@ -360,254 +371,152 @@
     <!-- load includes and UI script -->
     <script src="js/include.js"></script>
     <script src="js/main.js"></script>
-    <script>
-      // Mock data for 3 pages (5 entries per page)
-      const data = [
-        // Page 1
-        {
-          sl: 1,
-          id: "INV293995525483",
-          amount: -400.0,
-          charge: 0.0,
-          remarks: "Invested on Starter Pack",
-          time: "08 Nov 2025 09:54 AM",
-        },
-        {
-          sl: 2,
-          id: "INV293995525482",
-          amount: -120.0,
-          charge: 0.0,
-          remarks: "Invested on Hatchling Plan",
-          time: "08 Nov 2025 04:59 AM",
-        },
-        {
-          sl: 3,
-          id: "D132418743811",
-          amount: 500.0,
-          charge: 3.0,
-          remarks: "Deposit Via Stripe",
-          time: "08 Nov 2025 04:58 AM",
-        },
-        {
-          sl: 4,
-          id: "D132418743809",
-          amount: 20.0,
-          charge: 0.6,
-          remarks: "Deposit Via Stripe",
-          time: "08 Nov 2025 04:55 AM",
-        },
-        {
-          sl: 5,
-          id: "INV293995525481",
-          amount: -69.0,
-          charge: 0.0,
-          remarks: "Invested On Business Plan",
-          time: "02 Nov 2025 06:45 PM",
-        },
-        // Page 2
-        {
-          sl: 6,
-          id: "INV293995525480",
-          amount: -300.0,
-          charge: 0.0,
-          remarks: "Invested On Business Plan",
-          time: "01 Nov 2025 03:31 PM",
-        },
-        {
-          sl: 7,
-          id: "INV293995525479",
-          amount: -70.0,
-          charge: 0.0,
-          remarks: "Invested On Business Plan",
-          time: "01 Nov 2025 01:05 PM",
-        },
-        {
-          sl: 8,
-          id: "INV293995525478",
-          amount: -120.0,
-          charge: 0.0,
-          remarks: "Invested On Hatchling Plan",
-          time: "31 Oct 2025 11:33 PM",
-        },
-        {
-          sl: 9,
-          id: "INV293995525477",
-          amount: -89.0,
-          charge: 0.0,
-          remarks: "Invested On Secondary Pack",
-          time: "30 Oct 2025 09:53 AM",
-        },
-        {
-          sl: 10,
-          id: "INV293995525476",
-          amount: -100.0,
-          charge: 0.0,
-          remarks: "Invested On Business Plan",
-          time: "29 Oct 2025 03:32 AM",
-        },
-        // Page 3
-        {
-          sl: 11,
-          id: "INV293995525475",
-          amount: -69.0,
-          charge: 0.0,
-          remarks: "Invested On Business Plan",
-          time: "28 Oct 2025 05:40 PM",
-        },
-        {
-          sl: 12,
-          id: "INV293995525474",
-          amount: -100.0,
-          charge: 0.0,
-          remarks: "Invested On Business Plan",
-          time: "27 Oct 2025 10:26 PM",
-        },
-        {
-          sl: 13,
-          id: "D132418743807",
-          amount: 50.0,
-          charge: 0.5,
-          remarks: "Deposit Via Binance",
-          time: "26 Oct 2025 08:10 AM",
-        },
-        {
-          sl: 14,
-          id: "INV293995525473",
-          amount: -50.0,
-          charge: 0.0,
-          remarks: "Invested On Starter Pack",
-          time: "25 Oct 2025 05:22 PM",
-        },
-        {
-          sl: 15,
-          id: "D132418743806",
-          amount: 1000.0,
-          charge: 5.0,
-          remarks: "Deposit Via Paypal",
-          time: "24 Oct 2025 02:15 PM",
-        },
-      ];
+<script>
+  // Mock data for 3 pages (5 entries per page)
+  const data = [
+    { sl: 1, id: "INV293995525483", amount: -400.0, charge: 0.0, remarks: "Invested on Starter Pack", time: "2025-11-08 09:54 AM" },
+    { sl: 2, id: "INV293995525482", amount: -120.0, charge: 0.0, remarks: "Invested on Hatchling Plan", time: "2025-11-08 04:59 AM" },
+    { sl: 3, id: "D132418743811", amount: 500.0, charge: 3.0, remarks: "Deposit Via Stripe", time: "2025-11-08 04:58 AM" },
+    { sl: 4, id: "D132418743809", amount: 20.0, charge: 0.6, remarks: "Deposit Via Stripe", time: "2025-11-08 04:55 AM" },
+    { sl: 5, id: "INV293995525481", amount: -69.0, charge: 0.0, remarks: "Invested On Business Plan", time: "2025-11-02 06:45 PM" },
+    { sl: 6, id: "INV293995525480", amount: -300.0, charge: 0.0, remarks: "Invested On Business Plan", time: "2025-11-01 03:31 PM" },
+    { sl: 7, id: "INV293995525479", amount: -70.0, charge: 0.0, remarks: "Invested On Business Plan", time: "2025-11-01 01:05 PM" },
+    { sl: 8, id: "INV293995525478", amount: -120.0, charge: 0.0, remarks: "Invested On Hatchling Plan", time: "2025-10-31 11:33 PM" },
+    { sl: 9, id: "INV293995525477", amount: -89.0, charge: 0.0, remarks: "Invested On Secondary Pack", time: "2025-10-30 09:53 AM" },
+    { sl: 10, id: "INV293995525476", amount: -100.0, charge: 0.0, remarks: "Invested On Business Plan", time: "2025-10-29 03:32 AM" },
+    { sl: 11, id: "INV293995525475", amount: -69.0, charge: 0.0, remarks: "Invested On Business Plan", time: "2025-10-28 05:40 PM" },
+    { sl: 12, id: "INV293995525474", amount: -100.0, charge: 0.0, remarks: "Invested On Business Plan", time: "2025-10-27 10:26 PM" },
+    { sl: 13, id: "D132418743807", amount: 50.0, charge: 0.5, remarks: "Deposit Via Binance", time: "2025-10-26 08:10 AM" },
+    { sl: 14, id: "INV293995525473", amount: -50.0, charge: 0.0, remarks: "Invested On Starter Pack", time: "2025-10-25 05:22 PM" },
+    { sl: 15, id: "D132418743806", amount: 1000.0, charge: 5.0, remarks: "Deposit Via Paypal", time: "2025-10-24 02:15 PM" },
+  ];
 
-      let currentPage = 1;
-      const ENTRIES_PER_PAGE = 5;
-      const MAX_PAGES = 3; // Enforcing max 3 functional pages
+  let currentPage = 1;
+  const ENTRIES_PER_PAGE = 5;
+  let filteredData = data;
+  let TOTAL_ENTRIES = data.length;
+  let MAX_PAGES = Math.ceil(TOTAL_ENTRIES / ENTRIES_PER_PAGE);
 
-      function formatAmount(amount) {
-        const value = parseFloat(amount).toFixed(2);
-        const color = amount < 0 ? "text-red-500" : "text-green-500";
-        const sign = amount < 0 ? "-" : "+";
+  function getFilteredData() {
+    const transactionIdFilter = document.getElementById('transaction-id-filter').value.toLowerCase();
+    const amountFilter = document.getElementById('amount-filter').value.toLowerCase();
+    const dateFilter = document.getElementById('date-filter').value;
 
-        return `<span class="${color}">${sign}$${Math.abs(
-          value
-        ).toLocaleString()}</span>`;
+    return data.filter(item => {
+      const idMatch = !transactionIdFilter || item.id.toLowerCase().includes(transactionIdFilter);
+      const amountMatch = !amountFilter || item.amount.toString().includes(amountFilter);
+      const dateMatch = !dateFilter || item.time.includes(dateFilter);
+      return idMatch && amountMatch && dateMatch;
+    });
+  }
+
+  function updateFilteredData() {
+    filteredData = getFilteredData();
+    TOTAL_ENTRIES = filteredData.length;
+    MAX_PAGES = Math.ceil(TOTAL_ENTRIES / ENTRIES_PER_PAGE);
+    currentPage = 1;
+    renderPageButtons();
+    goToPage(1);
+  }
+
+  function clearFilters() {
+    document.getElementById('transaction-id-filter').value = '';
+    document.getElementById('amount-filter').value = '';
+    document.getElementById('date-filter').value = '';
+    updateFilteredData();
+  }
+
+  function formatAmount(amount) {
+    const value = parseFloat(amount).toFixed(2);
+    const color = amount < 0 ? "text-red-500" : "text-green-500";
+    const sign = amount < 0 ? "-" : "+";
+    return `<span class="${color}">${sign}$${Math.abs(value).toLocaleString()}</span>`;
+  }
+
+  function formatCharge(amount) {
+    return "$" + parseFloat(amount).toFixed(2);
+  }
+
+  function renderTable(page) {
+    const start = (page - 1) * ENTRIES_PER_PAGE;
+    const end = start + ENTRIES_PER_PAGE;
+    const pageData = filteredData.slice(start, end);
+
+    const desktopBody = document.getElementById("desktop-table-body");
+    const mobileList = document.getElementById("mobile-card-list");
+
+    desktopBody.innerHTML = "";
+    mobileList.innerHTML = "";
+
+    pageData.forEach((item) => {
+      const desktopRow = `
+        <tr class="hover:bg-gray-700/30 transition duration-150">
+          <td class="px-4 py-3 text-gray-400">${item.sl}</td>
+          <td class="px-4 py-3 text-white font-medium">${item.id}</td>
+          <td class="px-4 py-3">${formatAmount(item.amount)}</td>
+          <td class="px-4 py-3 text-gray-300">${formatCharge(item.charge)}</td>
+          <td class="px-4 py-3 text-gray-300">${item.remarks}</td>
+          <td class="px-4 py-3 text-gray-300 text-right">${item.time}</td>
+        </tr>`;
+      desktopBody.insertAdjacentHTML("beforeend", desktopRow);
+
+      const mobileCard = `
+        <div class="p-4 bg-gray-800 rounded-lg shadow-lg space-y-1">
+          <div class="flex justify-between border-b border-gray-700/50 pb-1">
+            <span class="text-xs text-gray-400">#${item.sl}</span>
+            <span class="text-sm text-white font-semibold">${item.id}</span>
+          </div>
+          <div class="mobile-row-item"><span class="label">Amount:</span> <span class="value">${formatAmount(item.amount)}</span></div>
+          <div class="mobile-row-item"><span class="label">Charge:</span> <span class="value">${formatCharge(item.charge)}</span></div>
+          <div class="mobile-row-item"><span class="label">Time:</span> <span class="value text-gray-300">${item.time}</span></div>
+          <div class="mobile-row-item"><span class="label">Remarks:</span> <span class="value text-gray-300">${item.remarks}</span></div>
+        </div>`;
+      mobileList.insertAdjacentHTML("beforeend", mobileCard);
+    });
+  }
+
+  function renderPageButtons() {
+    const buttonContainer = document.getElementById('page-buttons');
+    buttonContainer.innerHTML = '';
+
+    for (let i = 1; i <= MAX_PAGES; i++) {
+      const btn = document.createElement('button');
+      btn.className = 'page-btn px-4 py-2 text-sm font-medium rounded-lg text-gray-200 transition';
+      btn.textContent = i;
+      btn.onclick = () => goToPage(i);
+      buttonContainer.appendChild(btn);
+    }
+  }
+
+  function updatePaginationControls() {
+    document.querySelectorAll(".page-btn").forEach((btn) => {
+      btn.classList.remove("pagination-active");
+      if (parseInt(btn.textContent) === currentPage) {
+        btn.classList.add("pagination-active");
       }
+    });
 
-      function formatCharge(amount) {
-        return "$" + parseFloat(amount).toFixed(2);
-      }
+    document.getElementById("prev-btn").disabled = currentPage === 1;
+    document.getElementById("next-btn").disabled = currentPage === MAX_PAGES;
+  }
 
-      function renderTable(page) {
-        const start = (page - 1) * ENTRIES_PER_PAGE;
-        const end = start + ENTRIES_PER_PAGE;
-        const pageData = data.slice(start, end);
+  function goToPage(page) {
+    if (page < 1 || page > MAX_PAGES) return;
+    currentPage = page;
+    renderTable(currentPage);
+    updatePaginationControls();
+  }
 
-        const desktopBody = document.getElementById("desktop-table-body");
-        const mobileList = document.getElementById("mobile-card-list");
+  // Initialize on page load
+  document.addEventListener('DOMContentLoaded', () => {
+    renderPageButtons();
+    goToPage(1); // ✅ Shows page 1 by default
 
-        desktopBody.innerHTML = "";
-        mobileList.innerHTML = "";
+    // Filter buttons
+    document.getElementById('apply-filter').addEventListener('click', updateFilteredData);
+    document.getElementById('clear-filter').addEventListener('click', clearFilters);
+  });
+</script>
 
-        pageData.forEach((item) => {
-          // --- Desktop Row (TR) ---
-          const desktopRow = `
-                <tr class="hover:bg-gray-700/30 transition duration-150">
-                    <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-400">${
-                      item.sl
-                    }</td>
-                    <td class="px-4 py-3 whitespace-nowrap text-sm text-white font-medium">${
-                      item.id
-                    }</td>
-                    <td class="px-4 py-3 whitespace-nowrap text-sm">${formatAmount(
-                      item.amount
-                    )}</td>
-                    <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-300">${formatCharge(
-                      item.charge
-                    )}</td>
-                    <td class="px-4 py-3 text-sm text-gray-300">${
-                      item.remarks
-                    }</td>
-                    <td class="px-4 py-3 whitespace-nowrap text-sm text-right text-gray-300">${
-                      item.time
-                    }</td>
-                </tr>
-            `;
-          desktopBody.insertAdjacentHTML("beforeend", desktopRow);
-
-          // --- Mobile Card (DIV) ---
-          const mobileCard = `
-                <div class="p-4 bg-gray-800 rounded-lg shadow-lg space-y-1">
-                    <div class="flex justify-between items-center pb-2 border-b border-gray-700/50">
-                        <span class="text-xs font-bold text-gray-400">#${
-                          item.sl
-                        }</span>
-                        <span class="text-sm font-semibold text-white">${
-                          item.id
-                        }</span>
-                    </div>
-                    <div class="mobile-row-item"><span class="label">Amount:</span> <span class="value">${formatAmount(
-                      item.amount
-                    )}</span></div>
-                    <div class="mobile-row-item"><span class="label">Charge:</span> <span class="value text-gray-300">${formatCharge(
-                      item.charge
-                    )}</span></div>
-                    <div class="mobile-row-item"><span class="label">Time:</span> <span class="value text-gray-300">${
-                      item.time
-                    }</span></div>
-                    <div class="mobile-row-item"><span class="label">Remarks:</span> <span class="value text-right text-gray-300">${
-                      item.remarks
-                    }</span></div>
-                </div>
-            `;
-          mobileList.insertAdjacentHTML("beforeend", mobileCard);
-        });
-      }
-
-      function updatePaginationControls() {
-        // Update active button styling
-        document.querySelectorAll(".page-btn").forEach((btn) => {
-          btn.classList.remove("pagination-active");
-          btn.classList.add("text-gray-400");
-          if (parseInt(btn.textContent) === currentPage) {
-            btn.classList.add("pagination-active");
-            btn.classList.remove("text-gray-400");
-          }
-        });
-
-        // Update Prev/Next button disabled state
-        const prevBtn = document.getElementById("prev-btn");
-        const nextBtn = document.getElementById("next-btn");
-
-        // Disable 'Previous' if on page 1
-        prevBtn.disabled = currentPage === 1;
-
-        // Disable 'Next' if on the last functional page (MAX_PAGES = 3)
-        nextBtn.disabled = currentPage === MAX_PAGES;
-      }
-
-      function goToPage(page) {
-        // Boundary check to ensure the page is within the functional limits
-        if (page < 1 || page > MAX_PAGES) {
-          return;
-        }
-        currentPage = page;
-        renderTable(currentPage);
-        updatePaginationControls();
-      }
-
-      // Initialize the dashboard on load
-      window.onload = () => {
-        goToPage(1);
-      };
-    </script>
   </body>
 </html>

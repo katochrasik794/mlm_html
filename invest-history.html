@@ -178,6 +178,19 @@
 
         <h2 class="text-3xl font-extrabold mb-6 text-white">Invest History</h2>
 
+        <!-- Filter Bar -->
+        <div class="mb-6 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-5">
+          <input type="text" id="plan-filter" placeholder="Filter by Plan" class="w-full py-3 px-2 text-white bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-700">
+          <input type="text" id="interest-filter" placeholder="Filter by Return Interest" class="w-full py-3 px-2 text-white bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-700">
+          <input type="text" id="status-filter" placeholder="Filter by Upcoming Payment" class="w-full py-3 px-2 text-white bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-700">
+          <button id="apply-filter" class="w-full py-3 px-2 bg-purple-700 text-gray-600 font-semibold rounded-lg hover:bg-purple-800 transition duration-150 ease-in-out">
+            Apply Filter
+          </button>
+          <button id="clear-filter" class="w-full py-3 px-2 bg-gray-600 text-white font-semibold rounded-lg hover:bg-gray-700 transition duration-150 ease-in-out">
+            Clear Filter
+          </button>
+        </div>
+
         <div class="table-container p-2 md:p-6 overflow-x-auto">
             
             <div class="hidden md:block">
@@ -262,9 +275,39 @@
 
     let currentPage = 1;
     const ENTRIES_PER_PAGE = 5; // MODIFIED to 5 as requested
-    const TOTAL_ENTRIES = mockData.length;
-    const MAX_PAGES = Math.ceil(TOTAL_ENTRIES / ENTRIES_PER_PAGE);
-    const DISPLAY_PAGE_LIMIT = Math.min(10, MAX_PAGES); // Display up to 10 buttons or MAX_PAGES
+    let filteredData = mockData; // Will hold the filtered data
+    let TOTAL_ENTRIES = mockData.length;
+    let MAX_PAGES = Math.ceil(TOTAL_ENTRIES / ENTRIES_PER_PAGE);
+    const DISPLAY_PAGE_LIMIT = 10; // Display up to 10 buttons
+
+    function getFilteredData() {
+        const planFilter = document.getElementById('plan-filter').value.toLowerCase();
+        const interestFilter = document.getElementById('interest-filter').value.toLowerCase();
+        const statusFilter = document.getElementById('status-filter').value.toLowerCase();
+
+        return mockData.filter(item => {
+            const planMatch = !planFilter || item.plan.toLowerCase().includes(planFilter);
+            const interestMatch = !interestFilter || item.interest.toLowerCase().includes(interestFilter);
+            const statusMatch = !statusFilter || item.status.toLowerCase().includes(statusFilter);
+            return planMatch && interestMatch && statusMatch;
+        });
+    }
+
+    function updateFilteredData() {
+        filteredData = getFilteredData();
+        TOTAL_ENTRIES = filteredData.length;
+        MAX_PAGES = Math.ceil(TOTAL_ENTRIES / ENTRIES_PER_PAGE);
+        currentPage = 1; // Reset to first page when filtering
+        renderPageButtons();
+        goToPage(1);
+    }
+
+    function clearFilters() {
+        document.getElementById('plan-filter').value = '';
+        document.getElementById('interest-filter').value = '';
+        document.getElementById('status-filter').value = '';
+        updateFilteredData();
+    }
 
     function getStatusBadge(status) {
         let dotColor = '';
@@ -290,7 +333,7 @@
     function renderTable(page) {
         const start = (page - 1) * ENTRIES_PER_PAGE;
         const end = start + ENTRIES_PER_PAGE;
-        const pageData = mockData.slice(start, end);
+        const pageData = filteredData.slice(start, end);
 
         const desktopBody = document.getElementById('desktop-table-body');
         const mobileList = document.getElementById('mobile-card-list');
@@ -333,7 +376,8 @@
         const buttonContainer = document.getElementById('page-buttons');
         buttonContainer.innerHTML = '';
 
-        for (let i = 1; i <= DISPLAY_PAGE_LIMIT; i++) {
+        const displayLimit = Math.min(DISPLAY_PAGE_LIMIT, MAX_PAGES);
+        for (let i = 1; i <= displayLimit; i++) {
             const btn = document.createElement('button');
             btn.className = 'page-btn px-4 py-2 text-sm font-medium rounded-lg text-gray-200  transition';
             btn.textContent = i;
@@ -341,7 +385,7 @@
             buttonContainer.appendChild(btn);
         }
         // Only show ellipsis if we have more pages than we explicitly display (e.g., more than 10 pages)
-        document.getElementById('ellipsis').classList.toggle('hidden', MAX_PAGES <= DISPLAY_PAGE_LIMIT);
+        document.getElementById('ellipsis').classList.toggle('hidden', MAX_PAGES <= displayLimit);
     }
 
     function updatePaginationControls() {
@@ -375,8 +419,12 @@
 
     // Initialize the dashboard on load
     window.onload = () => {
-        renderPageButtons(); 
+        renderPageButtons();
         goToPage(1); // Load the first page
+
+        // Add event listeners for filter buttons
+        document.getElementById('apply-filter').addEventListener('click', updateFilteredData);
+        document.getElementById('clear-filter').addEventListener('click', clearFilters);
     };
 </script>
 </body>

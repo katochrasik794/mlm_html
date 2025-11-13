@@ -203,17 +203,20 @@
         <h2 class="text-3xl font-extrabold mb-6 text-white">Payout Log</h2>
 
         <!-- Search and Filter Bar (Responsive) -->
-        <div class="mb-6 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
-            <input type="text" placeholder="Transaction ID" class="w-full">
-            <select class="w-full py-2 text-white px-2">
+        <div class="mb-6 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-5">
+            <input type="text" id="transaction-id-filter" placeholder="Transaction ID" class="w-full py-3 px-2 text-white bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-700">
+            <select id="gateway-filter" class="w-full py-3 px-2 text-white bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-700">
                 <option value="">All Payment</option>
-                <option value="bank">Bank Transfer</option>
-                <option value="flutterwave">Flutterwave</option>
-                <option value="coinbase">Coinbase</option>
+                <option value="Bank Transfer">Bank Transfer</option>
+                <option value="Flutterwave">Flutterwave</option>
+                <option value="Coinbase">Coinbase</option>
             </select>
-            <input type="text" placeholder="Select a date" class="w-full" onfocus="(this.type='date')" onblur="(this.type='text')">
-            <button class="flex items-center justify-center px-6 py-3 bg-purple-700 text-gray-600 font-semibold rounded-lg hover:bg-purple-800 transition duration-150 ease-in-out w-full">
+            <input type="date" id="date-filter" class="w-full py-3 px-2 text-white bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-700">
+            <button id="apply-filter" class="w-full py-3 px-2 bg-purple-700 text-gray-600 font-semibold rounded-lg hover:bg-purple-800 transition duration-150 ease-in-out">
                 <i class="fas fa-search mr-2"></i> Search
+            </button>
+            <button id="clear-filter" class="w-full py-3 px-2 bg-gray-600 text-white font-semibold rounded-lg hover:bg-gray-700 transition duration-150 ease-in-out">
+                Clear Filter
             </button>
         </div>
 
@@ -254,9 +257,11 @@
                     </button>
                     
                     <!-- Page Buttons (1-3 functional) -->
-                    <button class="page-btn px-4 py-2 text-sm font-medium rounded-lg text-gray-200 transition" onclick="goToPage(1)">1</button>
-                    <button class="page-btn px-4 py-2 text-sm font-medium rounded-lg text-gray-200 transition" onclick="goToPage(2)">2</button>
-                    <button class="page-btn px-4 py-2 text-sm font-medium rounded-lg text-gray-200 transition" onclick="goToPage(3)">3</button>
+                    <div id="page-buttons" class="flex space-x-1">
+                        <button class="page-btn px-4 py-2 text-sm font-medium rounded-lg text-gray-200 transition" onclick="goToPage(1)">1</button>
+                        <button class="page-btn px-4 py-2 text-sm font-medium rounded-lg text-gray-200 transition" onclick="goToPage(2)">2</button>
+                        <button class="page-btn px-4 py-2 text-sm font-medium rounded-lg text-gray-200 transition" onclick="goToPage(3)">3</button>
+                    </div>
                     
                     <!-- Inactive/Placeholder Buttons -->
                     <span class="text-gray-400 px-2 hidden sm:inline">...</span>
@@ -280,192 +285,190 @@
   <!-- load includes and UI script -->
   <script src="js/include.js"></script>
   <script src="js/main.js"></script>
-  <script>
-    // Mock data for 3 pages (5 entries per page for brevity)
-    const data = [
-        // Page 1
-        { id: "P807964037254", gateway: "Flutterwave", amount: "70 USD", charge: "0.5 USD", status: "Pending", time: "02 Nov 2025 09:17 AM" },
-        { id: "P807964037253", gateway: "Bank Transfer", amount: "20 EUR", charge: "0.5 EUR", status: "Pending", time: "26 Oct 2025 10:56 PM" },
-        { id: "P807964037252", gateway: "Bank Transfer", amount: "10 EUR", charge: "0.5 EUR", status: "Pending", time: "25 Oct 2025 12:33 PM" },
-        { id: "P807964037251", gateway: "Bank Transfer", amount: "5 EUR", charge: "0.5 EUR", status: "Pending", time: "18 Oct 2025 10:13 PM" },
-        { id: "P807964037250", gateway: "Bank Transfer", amount: "1 EUR", charge: "0.5 EUR", status: "Pending", time: "12 Oct 2025 12:26 PM" },
-        // Page 2
-        { id: "P807964037249", gateway: "Bank Transfer", amount: "10 EUR", charge: "0.5 EUR", status: "Pending", time: "08 Oct 2025 11:13 PM" },
-        { id: "P807964037248", gateway: "Flutterwave", amount: "100 USD", charge: "0.5 USD", status: "Pending", time: "08 Oct 2025 07:28 AM" },
-        { id: "P807964037247", gateway: "Bank Transfer", amount: "1000 EUR", charge: "0.5 EUR", status: "Pending", time: "01 Oct 2025 07:47 PM" },
-        { id: "P807964037246", gateway: "Coinbase", amount: "1000 BNB", charge: "5.5 BNB", status: "Generated", time: "01 Oct 2025 04:42 PM" },
-        { id: "P807964037245", gateway: "Flutterwave", amount: "100 USD", charge: "0.5 USD", status: "Pending", time: "01 Oct 2025 06:17 AM" },
-        // Page 3
-        { id: "P807964037244", gateway: "Bank Transfer", amount: "50 EUR", charge: "0.5 EUR", status: "Confirmed", time: "29 Sep 2025 09:00 PM" },
-        { id: "P807964037243", gateway: "Flutterwave", amount: "200 USD", charge: "1.0 USD", status: "Confirmed", time: "25 Sep 2025 04:30 PM" },
-        { id: "P807964037242", gateway: "Coinbase", amount: "50 ETH", charge: "0.1 ETH", status: "Rejected", time: "20 Sep 2025 11:00 AM" },
-        { id: "P807964037241", gateway: "Bank Transfer", amount: "500 EUR", charge: "0.5 EUR", status: "Confirmed", time: "15 Sep 2025 09:00 AM" },
-        { id: "P807964037240", gateway: "Flutterwave", amount: "10 USD", charge: "0.5 USD", status: "Pending", time: "10 Sep 2025 05:00 PM" },
-    ];
+<script>
+  const data = [
+    // Page 1
+    { id: "P807964037254", gateway: "Flutterwave", amount: "70 USD", charge: "0.5 USD", status: "Pending", time: "02 Nov 2025 09:17 AM" },
+    { id: "P807964037253", gateway: "Bank Transfer", amount: "20 EUR", charge: "0.5 EUR", status: "Pending", time: "26 Oct 2025 10:56 PM" },
+    { id: "P807964037252", gateway: "Bank Transfer", amount: "10 EUR", charge: "0.5 EUR", status: "Pending", time: "25 Oct 2025 12:33 PM" },
+    { id: "P807964037251", gateway: "Bank Transfer", amount: "5 EUR", charge: "0.5 EUR", status: "Pending", time: "18 Oct 2025 10:13 PM" },
+    { id: "P807964037250", gateway: "Bank Transfer", amount: "1 EUR", charge: "0.5 EUR", status: "Pending", time: "12 Oct 2025 12:26 PM" },
+    // Page 2
+    { id: "P807964037249", gateway: "Bank Transfer", amount: "10 EUR", charge: "0.5 EUR", status: "Pending", time: "08 Oct 2025 11:13 PM" },
+    { id: "P807964037248", gateway: "Flutterwave", amount: "100 USD", charge: "0.5 USD", status: "Pending", time: "08 Oct 2025 07:28 AM" },
+    { id: "P807964037247", gateway: "Bank Transfer", amount: "1000 EUR", charge: "0.5 EUR", status: "Pending", time: "01 Oct 2025 07:47 PM" },
+    { id: "P807964037246", gateway: "Coinbase", amount: "1000 BNB", charge: "5.5 BNB", status: "Generated", time: "01 Oct 2025 04:42 PM" },
+    { id: "P807964037245", gateway: "Flutterwave", amount: "100 USD", charge: "0.5 USD", status: "Pending", time: "01 Oct 2025 06:17 AM" },
+    // Page 3
+    { id: "P807964037244", gateway: "Bank Transfer", amount: "50 EUR", charge: "0.5 EUR", status: "Confirmed", time: "29 Sep 2025 09:00 PM" },
+    { id: "P807964037243", gateway: "Flutterwave", amount: "200 USD", charge: "1.0 USD", status: "Confirmed", time: "25 Sep 2025 04:30 PM" },
+    { id: "P807964037242", gateway: "Coinbase", amount: "50 ETH", charge: "0.1 ETH", status: "Rejected", time: "20 Sep 2025 11:00 AM" },
+    { id: "P807964037241", gateway: "Bank Transfer", amount: "500 EUR", charge: "0.5 EUR", status: "Confirmed", time: "15 Sep 2025 09:00 AM" },
+    { id: "P807964037240", gateway: "Flutterwave", amount: "10 USD", charge: "0.5 USD", status: "Pending", time: "10 Sep 2025 05:00 PM" },
+  ];
 
-    let currentPage = 1;
-    const ENTRIES_PER_PAGE = 5;
-    const MAX_PAGES = 3; // Enforcing max 3 functional pages
+  let currentPage = 1;
+  const ENTRIES_PER_PAGE = 5;
+  let filteredData = data;
+  let TOTAL_ENTRIES = data.length;
+  let MAX_PAGES = Math.ceil(TOTAL_ENTRIES / ENTRIES_PER_PAGE);
 
-    function getStatusBadge(status) {
-        let colorClass = '';
-        let iconClass = '';
-        switch (status) {
-            case 'Pending':
-                colorClass = 'text-yellow-500';
-                iconClass = 'bg-yellow-500';
-                break;
-            case 'Generated':
-                colorClass = 'text-blue-500';
-                iconClass = 'bg-blue-500';
-                break;
-            case 'Confirmed':
-                colorClass = 'text-green-500';
-                iconClass = 'bg-green-500';
-                break;
-            case 'Rejected':
-                colorClass = 'text-red-500';
-                iconClass = 'bg-red-500';
-                break;
-            default:
-                colorClass = 'text-gray-400';
-                iconClass = 'bg-gray-400';
-        }
-        return `
-            <span class="flex items-center">
-                <span class="w-2 h-2 rounded-full mr-2 ${iconClass}"></span>
-                <span class="${colorClass} font-medium">${status}</span>
-            </span>
-        `;
-    }
+  // --- Filter helpers ---
+  function formatDateForFilter(dateString) {
+    if (!dateString) return '';
+    const date = new Date(dateString);
+    const day = date.getDate().toString().padStart(2, '0');
+    const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const month = monthNames[date.getMonth()];
+    const year = date.getFullYear();
+    return `${day} ${month} ${year}`;
+  }
 
-    // Custom modal function instead of alert()
-    function showActionModal(id, action) {
-        const modalId = 'payout-modal';
-        let modal = document.getElementById(modalId);
-        if (!modal) {
-            modal = document.createElement('div');
-            modal.id = modalId;
-            modal.classList.add('fixed', 'inset-0', 'backdrop-blur', 'flex', 'items-center', 'justify-center', 'p-4', 'z-50', 'hidden');
-            document.body.appendChild(modal);
-        }
+  function getFilteredData() {
+    const transactionIdFilter = document.getElementById('transaction-id-filter').value.toLowerCase();
+    const gatewayFilter = document.getElementById('gateway-filter').value;
+    const dateFilter = document.getElementById('date-filter').value;
+    const formattedDate = formatDateForFilter(dateFilter);
 
-        const message = `Payout ${action} initiated for Transaction ID: ${id}.`;
+    return data.filter(item => {
+      const idMatch = !transactionIdFilter || item.id.toLowerCase().includes(transactionIdFilter);
+      const gatewayMatch = !gatewayFilter || item.gateway === gatewayFilter;
+      const dateMatch = !dateFilter || item.time.includes(formattedDate);
+      return idMatch && gatewayMatch && dateMatch;
+    });
+  }
 
-        modal.innerHTML = `
-            <div class="bg-gray-800 p-6 rounded-xl shadow-2xl max-w-sm w-full text-center">
-                <p class="text-white text-lg font-medium mb-4">${message}</p>
-                <button onclick="document.getElementById('${modalId}').classList.add('hidden')" 
-                        class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition">
-                    OK
-                </button>
-            </div>
-        `;
-        modal.classList.remove('hidden');
-    }
+  function updateFilteredData() {
+    filteredData = getFilteredData();
+    TOTAL_ENTRIES = filteredData.length;
+    MAX_PAGES = Math.ceil(TOTAL_ENTRIES / ENTRIES_PER_PAGE);
+    renderPageButtons();
+    goToPage(1); // Always show first page on filter
+  }
 
-    function renderDetailButton(id, status) {
-        let btnClass = 'bg-purple-700 text-gray-600 hover:bg-purple-800';
-        let btnText = 'Confirm';
-        let action = 'Confirmation';
+  function clearFilters() {
+    document.getElementById('transaction-id-filter').value = '';
+    document.getElementById('gateway-filter').value = '';
+    document.getElementById('date-filter').value = '';
+    updateFilteredData();
+  }
 
-        if (status !== 'Pending') {
-            btnClass = 'bg-gray-600 text-white cursor-not-allowed';
-            btnText = status === 'Confirmed' ? 'View' : 'Detail';
-            action = 'Detail View (Not implemented)';
-        }
-
-        return `
-            <button onclick="${status === 'Pending' ? `showActionModal('${id}', 'Confirmation')` : `showActionModal('${id}', 'Detail View (Not implemented)')`}"
-                    class="w-full px-3 py-2 text-sm font-semibold rounded-lg text-gray-600 transition duration-150 ease-in-out ${btnClass}">
-                ${btnText}
-            </button>
-        `;
-    }
-
-    function renderTable(page) {
-        const start = (page - 1) * ENTRIES_PER_PAGE;
-        const end = start + ENTRIES_PER_PAGE;
-        const pageData = data.slice(start, end);
-
-        const desktopBody = document.getElementById('desktop-table-body');
-        const mobileList = document.getElementById('mobile-card-list');
-
-        desktopBody.innerHTML = '';
-        mobileList.innerHTML = '';
-
-        pageData.forEach(item => {
-            const statusHtml = getStatusBadge(item.status);
-            const detailButtonHtml = renderDetailButton(item.id, item.status);
-
-            // --- Desktop Row (TR) ---
-            const desktopRow = `
-                <tr class="hover:bg-gray-700/30 transition duration-150">
-                    <td class="px-4 py-3 whitespace-nowrap text-sm text-white font-medium">${item.id}</td>
-                    <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-300">${item.gateway}</td>
-                    <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-300">${item.amount}</td>
-                    <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-300">${item.charge}</td>
-                    <td class="px-4 py-3 whitespace-nowrap text-sm">${statusHtml}</td>
-                    <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-300">${item.time}</td>
-                    <td class="px-4 py-3 text-center w-28">${detailButtonHtml}</td>
-                </tr>
-            `;
-            desktopBody.insertAdjacentHTML('beforeend', desktopRow);
-
-            // --- Mobile Card (DIV) ---
-            const mobileCard = `
-                <div class="mobile-card space-y-1">
-                    <div class="flex justify-between items-start pb-2 border-b border-gray-700/50 mb-1">
-                        <span class="text-sm font-bold text-white">${item.id}</span>
-                        <div class="text-right">${statusHtml}</div>
-                    </div>
-                    <div class="mobile-row-item"><span class="label">Gateway:</span> <span class="value text-gray-300">${item.gateway}</span></div>
-                    <div class="mobile-row-item"><span class="label">Amount:</span> <span class="value text-gray-300">${item.amount}</span></div>
-                    <div class="mobile-row-item"><span class="label">Charge:</span> <span class="value text-gray-300">${item.charge}</span></div>
-                    <div class="mobile-row-item"><span class="label">Time:</span> <span class="value text-gray-300">${item.time}</span></div>
-                    <div class="mobile-action-btn">${detailButtonHtml}</div>
-                </div>
-            `;
-            mobileList.insertAdjacentHTML('beforeend', mobileCard);
-        });
-    }
-
-    function updatePaginationControls() {
-        // Update active button styling
-        document.querySelectorAll('.page-btn').forEach(btn => {
-            btn.classList.remove('pagination-active');
-            btn.classList.add('text-gray-400',);
-            if (parseInt(btn.textContent) === currentPage) {
-                btn.classList.add('pagination-active');
-                btn.classList.remove('text-gray-400',);
-            }
-        });
-
-        // Update Prev/Next button disabled state
-        const prevBtn = document.getElementById('prev-btn');
-        const nextBtn = document.getElementById('next-btn');
-
-        // Disable 'Previous' if on page 1
-        prevBtn.disabled = currentPage === 1;
-
-        // Disable 'Next' if on the last functional page (MAX_PAGES = 3)
-        nextBtn.disabled = currentPage === MAX_PAGES;
-    }
-
-    function goToPage(page) {
-        // Boundary check to ensure the page is within the functional limits
-        if (page < 1 || page > MAX_PAGES) {
-            return;
-        }
-        currentPage = page;
-        renderTable(currentPage);
-        updatePaginationControls();
-    }
-
-    // Initialize the dashboard on load
-    window.onload = () => {
-        goToPage(1);
+  // --- Renderers ---
+  function getStatusBadge(status) {
+    const colors = {
+      Pending: 'text-yellow-500 bg-yellow-500',
+      Generated: 'text-blue-500 bg-blue-500',
+      Confirmed: 'text-green-500 bg-green-500',
+      Rejected: 'text-red-500 bg-red-500',
     };
+    const [text, bg] = (colors[status] || 'text-gray-400 bg-gray-400').split(' ');
+    return `<span class="flex items-center"><span class="w-2 h-2 rounded-full mr-2 ${bg}"></span><span class="${text} font-medium">${status}</span></span>`;
+  }
+
+  function renderDetailButton(id, status) {
+    const disabled = status !== 'Pending';
+    const text = disabled ? (status === 'Confirmed' ? 'View' : 'Detail') : 'Confirm';
+    const bg = disabled ? 'bg-gray-600 text-white cursor-not-allowed' : 'bg-purple-700 text-gray-600 hover:bg-purple-800';
+    const action = disabled ? 'Detail View (Not implemented)' : 'Confirmation';
+    return `<button onclick="showActionModal('${id}', '${action}')" class="w-full px-3 py-2 text-sm font-semibold rounded-lg ${bg}">${text}</button>`;
+  }
+
+  function showActionModal(id, action) {
+    const modalId = 'payout-modal';
+    let modal = document.getElementById(modalId);
+    if (!modal) {
+      modal = document.createElement('div');
+      modal.id = modalId;
+      modal.classList.add('fixed', 'inset-0', 'backdrop-blur', 'flex', 'items-center', 'justify-center', 'p-4', 'z-50', 'hidden');
+      document.body.appendChild(modal);
+    }
+
+    modal.innerHTML = `
+      <div class="bg-gray-800 p-6 rounded-xl shadow-2xl max-w-sm w-full text-center">
+        <p class="text-white text-lg font-medium mb-4">Payout ${action} initiated for Transaction ID: ${id}</p>
+        <button onclick="document.getElementById('${modalId}').classList.add('hidden')" class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition">OK</button>
+      </div>
+    `;
+    modal.classList.remove('hidden');
+  }
+
+  function renderTable(page) {
+    const start = (page - 1) * ENTRIES_PER_PAGE;
+    const pageData = filteredData.slice(start, start + ENTRIES_PER_PAGE);
+
+    const desktopBody = document.getElementById('desktop-table-body');
+    const mobileList = document.getElementById('mobile-card-list');
+    desktopBody.innerHTML = '';
+    mobileList.innerHTML = '';
+
+    pageData.forEach(item => {
+      const statusHtml = getStatusBadge(item.status);
+      const detailHtml = renderDetailButton(item.id, item.status);
+
+      desktopBody.insertAdjacentHTML('beforeend', `
+        <tr class="hover:bg-gray-700/30 transition duration-150">
+          <td class="px-4 py-3 text-sm text-white font-medium">${item.id}</td>
+          <td class="px-4 py-3 text-sm text-gray-300">${item.gateway}</td>
+          <td class="px-4 py-3 text-sm text-gray-300">${item.amount}</td>
+          <td class="px-4 py-3 text-sm text-gray-300">${item.charge}</td>
+          <td class="px-4 py-3 text-sm">${statusHtml}</td>
+          <td class="px-4 py-3 text-sm text-gray-300">${item.time}</td>
+          <td class="px-4 py-3 text-center w-28">${detailHtml}</td>
+        </tr>
+      `);
+
+      mobileList.insertAdjacentHTML('beforeend', `
+        <div class="mobile-card space-y-1">
+          <div class="flex justify-between items-start pb-2 border-b border-gray-700/50 mb-1">
+            <span class="text-sm font-bold text-white">${item.id}</span>
+            <div>${statusHtml}</div>
+          </div>
+          <div class="mobile-row-item"><span class="label">Gateway:</span> <span class="value text-gray-300">${item.gateway}</span></div>
+          <div class="mobile-row-item"><span class="label">Amount:</span> <span class="value text-gray-300">${item.amount}</span></div>
+          <div class="mobile-row-item"><span class="label">Charge:</span> <span class="value text-gray-300">${item.charge}</span></div>
+          <div class="mobile-row-item"><span class="label">Time:</span> <span class="value text-gray-300">${item.time}</span></div>
+          <div class="mobile-action-btn">${detailHtml}</div>
+        </div>
+      `);
+    });
+  }
+
+  function renderPageButtons() {
+    const container = document.getElementById('page-buttons');
+    container.innerHTML = '';
+    for (let i = 1; i <= MAX_PAGES; i++) {
+      const btn = document.createElement('button');
+      btn.textContent = i;
+      btn.className = 'page-btn px-4 py-2 text-sm font-medium rounded-lg text-gray-200 transition';
+      btn.onclick = () => goToPage(i);
+      container.appendChild(btn);
+    }
+  }
+
+  function updatePaginationControls() {
+    document.querySelectorAll('.page-btn').forEach(btn => {
+      btn.classList.remove('pagination-active', 'text-gray-400');
+      if (parseInt(btn.textContent) === currentPage) btn.classList.add('pagination-active');
+    });
+    document.getElementById('prev-btn').disabled = currentPage === 1;
+    document.getElementById('next-btn').disabled = currentPage === MAX_PAGES;
+  }
+
+  function goToPage(page) {
+    if (page < 1 || page > MAX_PAGES) return;
+    currentPage = page;
+    renderTable(currentPage);
+    updatePaginationControls();
+  }
+
+  // --- Initialize ---
+  document.addEventListener('DOMContentLoaded', () => {
+    renderPageButtons();
+    goToPage(1); // ✅ Load first page on page load
+    document.getElementById('apply-filter').addEventListener('click', updateFilteredData);
+    document.getElementById('clear-filter').addEventListener('click', clearFilters);
+  });
 </script>
+
 </body>
 </html>

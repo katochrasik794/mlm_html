@@ -251,6 +251,22 @@
                 Link copied!
               </p>
             </div>
+            <!-- Filter Bar -->
+            <div class="mb-6">
+              <div class="flex flex-wrap gap-4 items-end">
+                <div class="flex w-[170px] h-[42px]">
+                  <input type="text" id="filter-username" class="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white" placeholder="Filter by username">
+                </div>
+                <div class="flex w-[170px] h-[42px]">
+                  <input type="text" id="filter-email" class="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white" placeholder="Filter by email">
+                </div>
+                <div class="flex w-[170px]">
+                  <input type="date" id="filter-joined" class="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white">
+                </div>
+                <button id="apply-filter" class="px-4 py-2 bg-purple-700 text-gray-600 rounded-md hover:bg-purple-700">Apply Filter</button>
+                <button id="clear-filter" class="px-4 py-2 bg-purple-700 text-white rounded-md hover:bg-purple-800">Clear Filter</button>
+              </div>
+            </div>
 
             <!-- Referral List Table Container -->
             <div class="container-card p-2 md:p-6 overflow-x-auto">
@@ -335,13 +351,15 @@
                   </button>
 
                   <!-- Inactive/Placeholder Buttons -->
-                  <span class="text-gray-400 px-2 hidden sm:inline">...</span>
+                  <!-- <span class="text-gray-400 px-2 hidden sm:inline">...</span>
                   <button
                     class="px-4 py-2 text-sm font-medium rounded-lg text-gray-200 transition hidden sm:inline"
                     disabled
                   >
                     11
-                  </button>
+                  </button> -->
+
+                  
 
                   <button
                     id="next-btn"
@@ -361,234 +379,184 @@
     <!-- load includes and UI script -->
     <script src="js/include.js"></script>
     <script src="js/main.js"></script>
-    <script>
-      // Mock data for 3 pages (5 entries per page for brevity)
-      const data = [
-        // Page 1
-        {
-          user: "Bret",
-          level: "Level 1",
-          email: "Q335h138i@Example.Net",
-          phone: "01600000000",
-          joined: "24 Oct 2024",
-        },
-        {
-          user: "Karianne",
-          level: "Level 1",
-          email: "Pm6o5o0bm0@Example.Biz",
-          phone: "4931709623",
-          joined: "21 Oct 2024",
-        },
-        {
-          user: "Kacchi",
-          level: "Level 2",
-          email: "Onjim19s2u@Example.Net",
-          phone: "+3765456545654",
-          joined: "17 Oct 2024",
-        },
-        {
-          user: "Asdwax",
-          level: "Level 1",
-          email: "79gqj0kpghg@Example.Com",
-          phone: "+93564646464",
-          joined: "23 Oct 2024",
-        },
-        {
-          user: "Matech",
-          level: "Level 1",
-          email: "J7t80own0@Example.Net",
-          phone: "+233+23324111777",
-          joined: "16 Oct 2024",
-        },
-        // Page 2
-        {
-          user: "Ravikumar123",
-          level: "Level 1",
-          email: "2vf483bil@Example.Com",
-          phone: "+919918208077",
-          joined: "19 Oct 2024",
-        },
-        {
-          user: "Shashi",
-          level: "Level 2",
-          email: "Zi63h9pkm5@Example.Com",
-          phone: "+91+9186603731000",
-          joined: "24 Oct 2024",
-        },
-        {
-          user: "Kwabena",
-          level: "Level 1",
-          email: "V67ekwmyzo@Example.Com",
-          phone: "+233+233232344676",
-          joined: "24 Oct 2024",
-        },
-        {
-          user: "Ddjjgj",
-          level: "Level 1",
-          email: "Gq39fsfe54@Example.Biz",
-          phone: "+91+393939393919",
-          joined: "19 Oct 2024",
-        },
-        {
-          user: "Hanumant09",
-          level: "Level 1",
-          email: "Q5epgw10er@Example.Net",
-          phone: "+91+919766302713",
-          joined: "21 Oct 2024",
-        },
-        // Page 3
-        {
-          user: "Solangi200",
-          level: "Level 1",
-          email: "Gbpkulexcj@Example.Biz",
-          phone: "+92+923312266200",
-          joined: "27 Oct 2024",
-        },
-        {
-          user: "Prueba1997",
-          level: "Level 2",
-          email: "9z9g5jbi1ee@Example.Biz",
-          phone: "+51+51936272729",
-          joined: "23 Oct 2024",
-        },
-        {
-          user: "UserA_24",
-          level: "Level 1",
-          email: "user_a@Example.Net",
-          phone: "1234567890",
-          joined: "10 Oct 2024",
-        },
-        {
-          user: "TestRefB",
-          level: "Level 1",
-          email: "test.b@Example.Com",
-          phone: "9876543210",
-          joined: "05 Oct 2024",
-        },
-        {
-          user: "NewReferral",
-          level: "Level 3",
-          email: "new_ref@Example.Net",
-          phone: "5551234567",
-          joined: "01 Oct 2024",
-        },
-      ];
+<script>
+  // ✅ Define constants first
+  const ENTRIES_PER_PAGE = 5;
 
-      let currentPage = 1;
-      const ENTRIES_PER_PAGE = 5;
-      const MAX_PAGES = 3; // Enforcing max 3 functional pages
+  // Mock data for 3 pages
+  const data = [
+    // Page 1
+    { user: "Bret", level: "Level 1", email: "Q335h138i@Example.Net", phone: "01600000000", joined: "24 Oct 2025" },
+    { user: "Karianne", level: "Level 1", email: "Pm6o5o0bm0@Example.Biz", phone: "4931709623", joined: "21 Oct 2025" },
+    { user: "Kacchi", level: "Level 2", email: "Onjim19s2u@Example.Net", phone: "+3765456545654", joined: "17 Oct 2025" },
+    { user: "Asdwax", level: "Level 1", email: "79gqj0kpghg@Example.Com", phone: "+93564646464", joined: "23 Oct 2025" },
+    { user: "Matech", level: "Level 1", email: "J7t80own0@Example.Net", phone: "+233+23324111777", joined: "16 Oct 2025" },
+    // Page 2
+    { user: "Ravikumar123", level: "Level 1", email: "2vf483bil@Example.Com", phone: "+919918208077", joined: "19 Oct 2025" },
+    { user: "Shashi", level: "Level 2", email: "Zi63h9pkm5@Example.Com", phone: "+91+9186603731000", joined: "24 Oct 2025" },
+    { user: "Kwabena", level: "Level 1", email: "V67ekwmyzo@Example.Com", phone: "+233+233232344676", joined: "24 Oct 2025" },
+    { user: "Ddjjgj", level: "Level 1", email: "Gq39fsfe54@Example.Biz", phone: "+91+393939393919", joined: "19 Oct 2025" },
+    { user: "Hanumant09", level: "Level 1", email: "Q5epgw10er@Example.Net", phone: "+91+919766302713", joined: "21 Oct 2025" },
+    // Page 3
+    { user: "Solangi200", level: "Level 1", email: "Gbpkulexcj@Example.Biz", phone: "+92+923312266200", joined: "27 Oct 2025" },
+    { user: "Prueba1997", level: "Level 2", email: "9z9g5jbi1ee@Example.Biz", phone: "+51+51936272729", joined: "23 Oct 2025" },
+    { user: "UserA_24", level: "Level 1", email: "user_a@Example.Net", phone: "1234567890", joined: "10 Oct 2025" },
+    { user: "TestRefB", level: "Level 1", email: "test.b@Example.Com", phone: "9876543210", joined: "05 Oct 2025" },
+    { user: "NewReferral", level: "Level 3", email: "new_ref@Example.Net", phone: "5551234567", joined: "01 Oct 2025" },
+  ];
 
-      function getUsernameDisplay(username) {
-        // Green circle indicator
-        return `
-            <span class="flex items-center space-x-2">
-                <span class="w-2.5 h-2.5 bg-lime-500 rounded-full"></span>
-                <span class="text-white font-medium">${username}</span>
-            </span>
-        `;
+  let filteredData = [...data];
+  let totalPages = Math.ceil(filteredData.length / ENTRIES_PER_PAGE);
+  let currentPage = 1;
+
+  function getUsernameDisplay(username) {
+    return `
+      <span class="flex items-center space-x-2">
+        <span class="w-2.5 h-2.5 bg-lime-500 rounded-full"></span>
+        <span class="text-white font-medium">${username}</span>
+      </span>
+    `;
+  }
+
+  function renderTable(page) {
+    const start = (page - 1) * ENTRIES_PER_PAGE;
+    const end = start + ENTRIES_PER_PAGE;
+    const pageData = filteredData.slice(start, end);
+
+    const desktopBody = document.getElementById("desktop-table-body");
+    const mobileList = document.getElementById("mobile-card-list");
+
+    desktopBody.innerHTML = "";
+    mobileList.innerHTML = "";
+
+    pageData.forEach((item) => {
+      const usernameHtml = getUsernameDisplay(item.user);
+      const levelClass = item.level === "Level 1" ? "text-green-500" : "text-indigo-500";
+
+      // Desktop Row
+      desktopBody.insertAdjacentHTML("beforeend", `
+        <tr class="hover:bg-gray-700/30 transition duration-150">
+          <td class="px-4 py-3 whitespace-nowrap text-sm">${usernameHtml}</td>
+          <td class="px-4 py-3 whitespace-nowrap text-sm ${levelClass}">${item.level}</td>
+          <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-300">${item.email}</td>
+          <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-300">${item.phone}</td>
+          <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-300">${item.joined}</td>
+        </tr>
+      `);
+
+      // Mobile Card
+      mobileList.insertAdjacentHTML("beforeend", `
+        <div class="mobile-card space-y-1">
+          <div class="flex justify-between items-center pb-2 border-b border-gray-700/50 mb-1">
+            <div class="text-sm font-bold text-white">${usernameHtml}</div>
+            <span class="text-xs font-semibold ${levelClass}">${item.level}</span>
+          </div>
+          <div class="mobile-row-item"><span class="label">Email:</span><span class="value text-gray-300">${item.email}</span></div>
+          <div class="mobile-row-item"><span class="label">Phone:</span><span class="value text-gray-300">${item.phone}</span></div>
+          <div class="mobile-row-item"><span class="label">Joined:</span><span class="value text-gray-300">${item.joined}</span></div>
+        </div>
+      `);
+    });
+  }
+
+  function updatePaginationControls() {
+    const nav = document.querySelector('nav[aria-label="Pagination"]');
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
+
+    // Remove old buttons
+    document.querySelectorAll('.page-btn').forEach(btn => btn.remove());
+
+    // Add new page buttons
+    for (let i = 1; i <= totalPages; i++) {
+      const btn = document.createElement('button');
+      btn.className = 'page-btn px-4 py-2 text-sm font-medium rounded-lg text-gray-200 transition';
+      btn.textContent = i;
+      btn.onclick = () => goToPage(i);
+      nav.insertBefore(btn, nextBtn);
+    }
+
+    // Highlight current page
+    document.querySelectorAll('.page-btn').forEach(btn => {
+      btn.classList.remove('pagination-active');
+      if (parseInt(btn.textContent) === currentPage) {
+        btn.classList.add('pagination-active');
       }
+    });
 
-      function renderTable(page) {
-        const start = (page - 1) * ENTRIES_PER_PAGE;
-        const end = start + ENTRIES_PER_PAGE;
-        const pageData = data.slice(start, end);
+    prevBtn.disabled = currentPage === 1;
+    nextBtn.disabled = currentPage === totalPages;
+  }
 
-        const desktopBody = document.getElementById("desktop-table-body");
-        const mobileList = document.getElementById("mobile-card-list");
+  function goToPage(page) {
+    if (page < 1 || page > totalPages) return;
+    currentPage = page;
+    renderTable(page);
+    updatePaginationControls();
+  }
 
-        desktopBody.innerHTML = "";
-        mobileList.innerHTML = "";
+  function formatDate(dateStr) {
+    if (!dateStr) return '';
+    const date = new Date(dateStr);
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = date.toLocaleString('en', { month: 'short' });
+    const year = date.getFullYear();
+    return `${day} ${month} ${year}`;
+  }
 
-        pageData.forEach((item) => {
-          const usernameHtml = getUsernameDisplay(item.user);
-          const levelClass =
-            item.level === "Level 1" ? "text-green-500" : "text-indigo-500";
+  // ✅ Filter logic
+  function applyFilter() {
+    const username = document.getElementById('filter-username').value.toLowerCase();
+    const email = document.getElementById('filter-email').value.toLowerCase();
+    const joined = document.getElementById('filter-joined').value;
+    const joinedFormatted = formatDate(joined).toLowerCase();
 
-          // --- Desktop Row (TR) ---
-          const desktopRow = `
-                <tr class="hover:bg-gray-700/30 transition duration-150">
-                    <td class="px-4 py-3 whitespace-nowrap text-sm">${usernameHtml}</td>
-                    <td class="px-4 py-3 whitespace-nowrap text-sm ${levelClass}">${item.level}</td>
-                    <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-300">${item.email}</td>
-                    <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-300">${item.phone}</td>
-                    <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-300">${item.joined}</td>
-                </tr>
-            `;
-          desktopBody.insertAdjacentHTML("beforeend", desktopRow);
+    if (!username && !email && !joined) {
+      filteredData = [...data];
+    } else {
+      filteredData = data.filter(item => {
+        const userMatch = username ? item.user.toLowerCase().includes(username) : false;
+        const emailMatch = email ? item.email.toLowerCase().includes(email) : false;
+        const joinedMatch = joined ? item.joined.toLowerCase().includes(joinedFormatted) : false;
+        return userMatch || emailMatch || joinedMatch;
+      });
+    }
 
-          // --- Mobile Card (DIV) ---
-          const mobileCard = `
-                <div class="mobile-card space-y-1">
-                    <div class="flex justify-between items-center pb-2 border-b border-gray-700/50 mb-1">
-                        <div class="text-sm font-bold text-white">${usernameHtml}</div>
-                        <span class="text-xs font-semibold ${levelClass}">${item.level}</span>
-                    </div>
-                    <div class="mobile-row-item"><span class="label">Email:</span> <span class="value text-gray-300">${item.email}</span></div>
-                    <div class="mobile-row-item"><span class="label">Phone:</span> <span class="value text-gray-300">${item.phone}</span></div>
-                    <div class="mobile-row-item"><span class="label">Joined:</span> <span class="value text-gray-300">${item.joined}</span></div>
-                </div>
-            `;
-          mobileList.insertAdjacentHTML("beforeend", mobileCard);
-        });
-      }
+    totalPages = Math.ceil(filteredData.length / ENTRIES_PER_PAGE);
+    goToPage(1);
+  }
 
-      function updatePaginationControls() {
-        // Update active button styling
-        document.querySelectorAll(".page-btn").forEach((btn) => {
-          btn.classList.remove("pagination-active");
-          btn.classList.add("text-gray-400", "hover:bg-gray-700/50");
-          if (parseInt(btn.textContent) === currentPage) {
-            btn.classList.add("pagination-active");
-            btn.classList.remove("text-gray-400", "hover:bg-gray-700/50");
-          }
-        });
+  function clearFilter() {
+    document.getElementById('filter-username').value = '';
+    document.getElementById('filter-email').value = '';
+    document.getElementById('filter-joined').value = '';
+    filteredData = [...data];
+    totalPages = Math.ceil(filteredData.length / ENTRIES_PER_PAGE);
+    goToPage(1);
+  }
 
-        // Update Prev/Next button disabled state
-        const prevBtn = document.getElementById("prev-btn");
-        const nextBtn = document.getElementById("next-btn");
+  // Copy link
+  document.getElementById("copy-btn").addEventListener("click", () => {
+    const linkInput = document.getElementById("referral-link");
+    const message = document.getElementById("copy-message");
+    linkInput.select();
+    document.execCommand("copy");
+    message.classList.remove("opacity-0");
+    message.classList.add("opacity-100");
+    setTimeout(() => {
+      message.classList.remove("opacity-100");
+      message.classList.add("opacity-0");
+    }, 1500);
+  });
 
-        // Disable 'Previous' if on page 1
-        prevBtn.disabled = currentPage === 1;
+  // ✅ Initialize everything
+  document.getElementById('apply-filter').addEventListener('click', applyFilter);
+  document.getElementById('clear-filter').addEventListener('click', clearFilter);
 
-        // Disable 'Next' if on the last functional page (MAX_PAGES = 3)
-        nextBtn.disabled = currentPage === MAX_PAGES;
-      }
+  window.onload = () => {
+    goToPage(1); // Show page 1 by default
+  };
+</script>
 
-      function goToPage(page) {
-        // Boundary check to ensure the page is within the functional limits
-        if (page < 1 || page > MAX_PAGES) {
-          return;
-        }
-        currentPage = page;
-        renderTable(currentPage);
-        updatePaginationControls();
-      }
-
-      // Function to copy the referral link
-      function copyLink() {
-        const linkInput = document.getElementById("referral-link");
-        const message = document.getElementById("copy-message");
-
-        // Use document.execCommand('copy') for better compatibility in iframe environments
-        linkInput.select();
-        document.execCommand("copy");
-
-        // Show success message briefly
-        message.classList.remove("opacity-0");
-        message.classList.add("opacity-100");
-        setTimeout(() => {
-          message.classList.remove("opacity-100");
-          message.classList.add("opacity-0");
-        }, 1500);
-      }
-
-      // Attach event listener to the copy button
-      document.getElementById("copy-btn").addEventListener("click", copyLink);
-
-      // Initialize the table on load
-      window.onload = () => {
-        goToPage(1);
-      };
-    </script>
   </body>
 </html>
