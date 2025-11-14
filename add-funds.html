@@ -76,6 +76,21 @@
         background: rgba(0, 0, 0, 0.4);
       }
 
+      /* Scrollbar styling for payment methods container */
+      .payment-methods-container::-webkit-scrollbar {
+        width: 6px;
+      }
+      .payment-methods-container::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      .payment-methods-container::-webkit-scrollbar-thumb {
+        background: rgba(0, 0, 0, 0.2);
+        border-radius: 4px;
+      }
+      .payment-methods-container::-webkit-scrollbar-thumb:hover {
+        background: rgba(0, 0, 0, 0.4);
+      }
+
       html,
       body {
         height: 100vh;
@@ -219,90 +234,209 @@
             <!-- Title -->
             <h2 class="text-3xl font-extrabold mb-8 text-white">Add Fund</h2>
 
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 p-4 border border-gray-700">
               <!-- Select Payment Methods (Left Column) -->
               <div class="lg:col-span-1">
                 <h3 class="text-xl font-semibold mb-5 text-white">
                   Select Payment
                 </h3>
 
-                <div class="space-y-4">
-                  <!-- Stripe Card -->
-                  <div
-                    class="payment-method-card selected add-funds p-4 rounded-xl flex items-center space-x-4"
-                    data-method="stripe"
-                  >
-                    <img
-                      src="https://upload.wikimedia.org/wikipedia/commons/b/ba/Stripe_Logo%2C_revised_2016.svg"
-                      alt="Stripe Logo"
-                      class="w-12 h-12 rounded-full p-1 bg-white object-contain"
-                    />
-                    <div>
-                      <p class="text-lg font-bold text-white">Stripe</p>
-                      <p class="text-sm text-gray-400">
-                        Send form your payment gateway, your bank may charge you
-                        a cash advance fee.
-                      </p>
-                    </div>
-                  </div>
+                <div class="space-y-4 max-h-[450px] overflow-y-auto payment-methods-container">
+                   <!-- Stripe Card -->
+                   <div
+                     class="payment-method-card selected add-funds p-4 rounded-xl flex items-center space-x-4"
+                     data-method="stripe"
+                   >
+                     <div class="w-16 h-14 rounded-full bg-blue-500 flex items-center justify-center text-white font-bold text-lg">S</div>
+                     <div>
+                       <p class="text-lg font-bold text-white">Stripe</p>
+                       <p class="text-sm text-gray-400">
+                         Send from your payment gateway, your bank may charge you
+                         a cash advance fee.
+                       </p>
+                     </div>
+                   </div>
 
-                  <!-- Bank Transfer Card -->
-                  <div
-                    class="add-funds payment-method-card p-4 rounded-xl flex items-center space-x-4"
-                    data-method="bank-transfer"
-                  >
-                    <img
-                      src="https://www.svgrepo.com/show/305886/bank-transfer.svg"
-                      alt="Bank Transfer Logo"
-                      class="w-12 h-12 rounded-full p-1 bg-white object-contain"
-                    />
-                    <div>
-                      <p class="text-lg font-bold text-white">Bank Transfer</p>
-                      <p class="text-sm text-gray-400">
-                        Send form your payment gateway, your bank may charge you
-                        a cash advance fee.
-                      </p>
-                    </div>
-                  </div>
+                   <!-- Bank Transfer Card -->
+                   <div
+                     class="add-funds payment-method-card p-4 rounded-xl flex items-center space-x-4"
+                     data-method="bank-transfer"
+                   >
+                     <div class="w-16 h-14 rounded-full bg-green-500 flex items-center justify-center text-white font-bold text-lg">B</div>
+                     <div>
+                       <p class="text-lg font-bold text-white">Bank Transfer</p>
+                       <p class="text-sm text-gray-400">
+                         Send from your payment gateway, your bank may charge you
+                         a cash advance fee.
+                       </p>
+                     </div>
+                   </div>
 
-                  <!-- Midtrans Card -->
-                  <div
-                    class="add-funds payment-method-card p-4 rounded-xl flex items-center space-x-4"
-                    data-method="midtrans"
-                  >
-                    <img
-                      src="https://upload.wikimedia.org/wikipedia/commons/2/23/Midtrans.png"
-                      alt="Midtrans Logo"
-                      class="w-12 h-12 rounded-full p-1 bg-white object-contain"
-                    />
-                    <div>
-                      <p class="text-lg font-bold text-white">Midtrans</p>
-                      <p class="text-sm text-gray-400">
-                        Send form your payment gateway, your bank may charge you
-                        a cash advance fee.
-                      </p>
-                    </div>
-                  </div>
+                   <!-- Midtrans Card -->
+                   <div
+                     class="add-funds payment-method-card p-4 rounded-xl flex items-center space-x-4"
+                     data-method="midtrans"
+                   >
+                     <div class="w-16 h-14 rounded-full bg-purple-500 flex items-center justify-center text-white font-bold text-lg">M</div>
+                     <div>
+                       <p class="text-lg font-bold text-white">Midtrans</p>
+                       <p class="text-sm text-gray-400">
+                         Send from your payment gateway, your bank may charge you
+                         a cash advance fee.
+                       </p>
+                     </div>
+                   </div>
 
-                  <!-- Skrill Card -->
-                  <div
-                    class="add-funds payment-method-card p-4 rounded-xl flex items-center space-x-4"
-                    data-method="skrill"
-                  >
-                    <img
-                      src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Skrill_Logo.svg/1200px-Skrill_Logo.svg.png"
-                      alt="Skrill Logo"
-                      class="w-12 h-12 rounded-full p-1 bg-white object-contain"
-                    />
-                    <div>
-                      <p class="text-lg font-bold text-white">Skrill</p>
-                      <p class="text-sm text-gray-400">
-                        Send form your payment gateway, your bank may charge you
-                        a cash advance fee.
-                      </p>
-                    </div>
-                  </div>
-                </div>
+                   <!-- Skrill Card -->
+                   <div
+                     class="add-funds payment-method-card p-4 rounded-xl flex items-center space-x-4"
+                     data-method="skrill"
+                   >
+                     <div class="w-16 h-14 rounded-full bg-red-500 flex items-center justify-center text-white font-bold text-lg">S</div>
+                     <div>
+                       <p class="text-lg font-bold text-white">Skrill</p>
+                       <p class="text-sm text-gray-400">
+                         Send from your payment gateway, your bank may charge you
+                         a cash advance fee.
+                       </p>
+                     </div>
+                   </div>
+
+                   <!-- Flutterwave Card -->
+                   <div
+                     class="add-funds payment-method-card p-4 rounded-xl flex items-center space-x-4"
+                     data-method="flutterwave"
+                   >
+                     <div class="w-16 h-14 rounded-full bg-indigo-500 flex items-center justify-center text-white font-bold text-lg">F</div>
+                     <div>
+                       <p class="text-lg font-bold text-white">Flutterwave</p>
+                       <p class="text-sm text-gray-400">
+                         Send from your payment gateway, your bank may charge you
+                         a cash advance fee.
+                       </p>
+                     </div>
+                   </div>
+
+                   <!-- Paystack Card -->
+                   <div
+                     class="add-funds payment-method-card p-4 rounded-xl flex items-center space-x-4"
+                     data-method="paystack"
+                   >
+                     <div class="w-16 h-14 rounded-full bg-yellow-500 flex items-center justify-center text-white font-bold text-lg">P</div>
+                     <div>
+                       <p class="text-lg font-bold text-white">Paystack</p>
+                       <p class="text-sm text-gray-400">
+                         Send from your payment gateway, your bank may charge you
+                         a cash advance fee.
+                       </p>
+                     </div>
+                   </div>
+
+                   <!-- Razorpay Card -->
+                   <div
+                     class="add-funds payment-method-card p-4 rounded-xl flex items-center space-x-4"
+                     data-method="razorpay"
+                   >
+                     <div class="w-16 h-14 rounded-full bg-pink-500 flex items-center justify-center text-white font-bold text-lg">R</div>
+                     <div>
+                       <p class="text-lg font-bold text-white">Razorpay</p>
+                       <p class="text-sm text-gray-400">
+                         Send from your payment gateway, your bank may charge you
+                         a cash advance fee.
+                       </p>
+                     </div>
+                   </div>
+
+                   <!-- Authorize.net Card -->
+                   <div
+                     class="add-funds payment-method-card p-4 rounded-xl flex items-center space-x-4"
+                     data-method="authorize-net"
+                   >
+                     <div class="w-16 h-14 rounded-full bg-teal-500 flex items-center justify-center text-white font-bold text-lg">A</div>
+                     <div>
+                       <p class="text-lg font-bold text-white">Authorize.net</p>
+                       <p class="text-sm text-gray-400">
+                         Send from your payment gateway, your bank may charge you
+                         a cash advance fee.
+                       </p>
+                     </div>
+                   </div>
+
+                   <!-- Perfect Money Card -->
+                   <div
+                     class="add-funds payment-method-card p-4 rounded-xl flex items-center space-x-4"
+                     data-method="perfect-money"
+                   >
+                     <div class="w-16 h-14 rounded-full bg-orange-500 flex items-center justify-center text-white font-bold text-lg">P</div>
+                     <div>
+                       <p class="text-lg font-bold text-white">Perfect Money</p>
+                       <p class="text-sm text-gray-400">
+                         Send from your payment gateway, your bank may charge you
+                         a cash advance fee.
+                       </p>
+                     </div>
+                   </div>
+
+                   <!-- Ime Pay Card -->
+                   <div
+                     class="add-funds payment-method-card p-4 rounded-xl flex items-center space-x-4"
+                     data-method="ime-pay"
+                   >
+                     <div class="w-16 h-14 rounded-full bg-cyan-500 flex items-center justify-center text-white font-bold text-lg">I</div>
+                     <div>
+                       <p class="text-lg font-bold text-white">Ime Pay</p>
+                       <p class="text-sm text-gray-400">
+                         Send from your payment gateway, your bank may charge you
+                         a cash advance fee.
+                       </p>
+                     </div>
+                   </div>
+
+                   <!-- Paypal Card -->
+                   <div
+                     class="add-funds payment-method-card p-4 rounded-xl flex items-center space-x-4"
+                     data-method="paypal"
+                   >
+                     <div class="w-16 h-14 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold text-lg">P</div>
+                     <div>
+                       <p class="text-lg font-bold text-white">Paypal</p>
+                       <p class="text-sm text-gray-400">
+                         Send from your payment gateway, your bank may charge you
+                         a cash advance fee.
+                       </p>
+                     </div>
+                   </div>
+
+                   <!-- 2Checkout Card -->
+                   <div
+                     class="add-funds payment-method-card p-4 rounded-xl flex items-center space-x-4"
+                     data-method="2checkout"
+                   >
+                     <div class="w-16 h-14 rounded-full bg-gray-500 flex items-center justify-center text-white font-bold text-lg">2</div>
+                     <div>
+                       <p class="text-lg font-bold text-white">2Checkout</p>
+                       <p class="text-sm text-gray-400">
+                         Send from your payment gateway, your bank may charge you
+                         a cash advance fee.
+                       </p>
+                     </div>
+                   </div>
+
+                   <!-- Binance Card -->
+                   <div
+                     class="add-funds payment-method-card p-4 rounded-xl flex items-center space-x-4"
+                     data-method="binance"
+                   >
+                     <div class="w-16 h-14 rounded-full bg-yellow-600 flex items-center justify-center text-white font-bold text-lg">B</div>
+                     <div>
+                       <p class="text-lg font-bold text-white">Binance</p>
+                       <p class="text-sm text-gray-400">
+                         Send from your payment gateway, your bank may charge you
+                         a cash advance fee.
+                       </p>
+                     </div>
+                   </div>
+                 </div>
               </div>
 
               <!-- Input Fields and Payment Preview (Right Column) -->

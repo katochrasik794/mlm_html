@@ -189,6 +189,12 @@ button:hover {
 .dark .add-funds {
   background-color: var(--bg-add-funds);
 }
+.payout {
+  background-color: var(--bg-add-funds);
+}
+.dark .payout {
+  background-color: var(--bg-add-funds);
+}
 
 
 

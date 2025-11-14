@@ -105,6 +105,21 @@
       .main-container::-webkit-scrollbar-thumb:hover {
         background: rgba(0, 0, 0, 0.4);
       }
+
+      /* Scrollbar styling for payout methods container */
+      .payout-methods-container::-webkit-scrollbar {
+        width: 6px;
+      }
+      .payout-methods-container::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      .payout-methods-container::-webkit-scrollbar-thumb {
+        background: rgba(0, 0, 0, 0.2);
+        border-radius: 4px;
+      }
+      .payout-methods-container::-webkit-scrollbar-thumb:hover {
+        background: rgba(0, 0, 0, 0.4);
+      }
     </style>
 
     <link
@@ -113,215 +128,349 @@
     />
     <link rel="stylesheet" href="style.css" />
   </head>
-  <body class="bg-gray-900 text-slate-900 antialiased">
+  <body class="antialiased">
     <div>
       <div data-include="components/sidebar.html"></div>
 
       <!-- main column: topbar + page content + footer -->
-      <div class="main-container flex flex-col">
+      <div class="main-container payout flex flex-col">
         <!-- topbar -->
-        <header
-          class="w-full border-b p-4 sticky text-white bg-gray-800 top-0 z-30"
-        >
-          <div
-            class="max-w-7xl mx-auto flex items-center justify-between gap-4"
-          >
-            <div class="flex items-center gap-3">
-              <!-- Mobile menu button -->
-              <button id="mobileToggle" class="lg:hidden p-2 rounded-md">
-                <svg
-                  class="w-5 h-5"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M4 6h16M4 12h16M4 18h16"
-                  />
-                </svg>
-              </button>
-            </div>
-
-            <div class="flex items-center gap-4">
-              <button
-                id="themeToggle"
-                class="p-3 w-12 h-12 rounded-lg flex items-center justify-center text-slate-700 transition"
+        <header class="topbar p-4 text-white ml-6 mr-6 mt-10 rounded-xl">
+        <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
+          <div class="flex items-center gap-3">
+            <!-- Mobile menu button -->
+            <button id="mobileToggle" class="lg:hidden p-2 rounded-md">
+              <svg
+                class="w-5 h-5"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                class=""
               >
-                <svg
-                  id="themeIcon"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
+                <path
                   stroke-linecap="round"
                   stroke-linejoin="round"
-                  class="lucide lucide-moon"
+                  stroke-width="2"
+                  d="M4 6h16M4 12h16M4 18h16"
+                  class=""
+                />
+              </svg>
+            </button>
+          </div>
+
+          <div class="flex items-center gap-4 header-right">
+            <button
+              id="themeToggle"
+              class="p-3 w-12 h-12 rounded-lg flex items-center justify-center text-slate-700 transition"
+            >
+              <svg
+                id="themeIcon"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="lucide lucide-moon"
+              >
+                <path
+                  d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"
+                  class=""
+                />
+              </svg>
+            </button>
+            <div class="relative">
+              <button
+                id="profileBtn"
+                class="flex items-center gap-2 p-1 rounded-md hover:bg-gray-600"
+              >
+                <img
+                  src="https://i.pravatar.cc/40"
+                  alt="avatar"
+                  class="w-8 h-8 rounded-full"
+                />
+                <span class="hidden sm:block text-sm">Raghav</span>
+                <svg
+                  class="w-4 h-4"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  class=""
                 >
-                  <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                  <path
+                    fill-rule="evenodd"
+                    d="M5.23 7.21a.75.75 0 011.06.02L10 11.17l3.71-3.94a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01.02-1.06z"
+                    clip-rule="evenodd"
+                    class=""
+                  />
                 </svg>
               </button>
-              <div class="relative">
-                <button
-                  id="profileBtn"
-                  class="flex items-center gap-2 p-1 rounded-md hover:bg-gray-600"
-                >
-                  <img
-                    src="https://i.pravatar.cc/40"
-                    alt="avatar"
-                    class="w-8 h-8 rounded-full"
-                  />
-                  <span class="hidden sm:block text-sm">Raghav</span>
-                  <svg class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
-                    <path
-                      fill-rule="evenodd"
-                      d="M5.23 7.21a.75.75 0 011.06.02L10 11.17l3.71-3.94a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01.02-1.06z"
-                      clip-rule="evenodd"
-                    />
-                  </svg>
-                </button>
 
-                <!-- Profile dropdown -->
-                <div
-                  id="profileDropdown"
-                  class="hidden absolute right-0 mt-2 w-44 bg-gray-800 border rounded-md shadow-sm py-1"
+              <!-- Profile dropdown -->
+              <div
+                id="profileDropdown"
+                class="hidden absolute right-0 mt-2 w-44 py-1"
+              >
+              <a href="index.html" class="block px-3 py-2 text-sm hover:bg-gray-600"
+                  >Dashboard</a
                 >
-                  <a href="#" class="block px-3 py-2 text-sm hover:bg-gray-600"
-                    >Profile</a
-                  >
-                  <a href="#" class="block px-3 py-2 text-sm hover:bg-gray-600"
-                    >Settings</a
-                  >
-                  <a href="#" class="block px-3 py-2 text-sm hover:bg-gray-600"
-                    >Sign out</a
-                  >
-                </div>
+                <a href="profile.html" class="block px-3 py-2 text-sm hover:bg-gray-600"
+                  >My Profile</a
+                >
+                <a href="two-factor.html" class="block px-3 py-2 text-sm hover:bg-gray-600"
+                  >2FA Security</a
+                >
+                <a href="#" class="block px-3 py-2 text-sm hover:bg-gray-600"
+                  >logout out</a
+                >
               </div>
             </div>
           </div>
-        </header>
+        </div>
+      </header>
 
         <!-- page-specific content -->
-        <main class="flex-1 p-6 max-w-7xl mx-auto w-full">
+        <main class="payout p-6 max-w-7xl mx-auto w-full">
+          <!-- 1. Dismissible Notification Banner -->
+          <div
+            id="notification-banner"
+            class="w-full bg-[#09112A] border-l-2 border-[#31E861] text-white flex items-center justify-between px-4 py-3 shadow-md mb-4"
+          >
+            <!-- LEFT SIDE: Text + Allow Button -->
+            <div class="flex items-center gap-6 py-2">
+              <p class="text-sm">
+                Today Withdraw feature is off. Please try on one of these days: Tuesday , Wednesday , Thursday , Saturday , Sunday
+                <span class="opacity-80"
+                  ></span
+                >
+              </p>
+
+              <!-- <button
+                class="bg-purple-700 text-gray-600 font-semibold px-5 py-2 rounded-md hover:brightness-105 transition"
+              >
+                Allow Me
+              </button> -->
+            </div>
+
+            <!-- RIGHT SIDE: Close Button -->
+            <button
+              class="text-white text-xl hover:text-gray-300 transition"
+              onclick="document.getElementById('notification-banner').remove()"
+            >
+              &times;
+            </button>
+          </div>
           <div class="max-w-6xl mx-auto">
             <!-- Title -->
             <h2 class="text-3xl font-extrabold mb-8 text-white">
               Payout Money
             </h2>
 
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 payout">
               <!-- Left Column: Payout Method Selection -->
               <div class="lg:col-span-1">
                 <h3 class="text-xl font-semibold mb-5 text-white">
                   Select Payout Method
                 </h3>
 
-                <div class="space-y-4">
-                  <!-- Bank Transfer (Selected) -->
-                  <div
-                    class="method-card selected p-4 rounded-xl flex items-center space-x-4"
-                    data-method="bank-transfer"
-                  >
-                    <img
-                      src="https://i.imgur.com/G4l9eJc.png"
-                      onerror="this.onerror=null; this.src='https://placehold.co/48x48/000000/ffffff?text=E';"
-                      alt="Bank Transfer Logo"
-                      class="w-12 h-12 rounded-full p-1 bg-white object-contain"
-                    />
-                    <div>
-                      <p class="text-lg font-bold text-white">Bank Transfer</p>
-                      <p class="text-sm text-green-500">
-                        Payment will receive within 9 hours
-                      </p>
-                    </div>
-                  </div>
+                <div class="space-y-4 max-h-[470px] overflow-y-auto payout-methods-container">
+                   <!-- Bank Transfer (Selected) -->
+                   <div
+                     class="method-card selected p-4 rounded-xl flex items-center space-x-4 payout"
+                     data-method="bank-transfer"
+                   >
+                     <img
+                       src="https://i.imgur.com/G4l9eJc.png"
+                       onerror="this.onerror=null; this.src='https://placehold.co/48x48/000000/ffffff?text=E';"
+                       alt="Bank Transfer Logo"
+                       class="w-12 h-12 rounded-full p-1 bg-white object-contain"
+                     />
+                     <div>
+                       <p class="text-lg font-bold text-white">Bank Transfer</p>
+                       <p class="text-sm text-green-500">
+                         Payment will receive within 9 hours
+                       </p>
+                     </div>
+                   </div>
 
-                  <!-- Flutterwave -->
-                  <div
-                    class="method-card p-4 rounded-xl flex items-center space-x-4"
-                    data-method="flutterwave"
-                  >
-                    <img
-                      src="https://logowik.com/content/ws/49596_flutterwave_logo.html"
-                      onerror="this.onerror=null; this.src='https://placehold.co/48x48/000000/ffffff?text=F';"
-                      alt="Flutterwave Logo"
-                      class="w-12 h-12 rounded-full p-1 bg-white object-contain"
-                    />
-                    <div>
-                      <p class="text-lg font-bold text-white">Flutterwave</p>
-                      <p class="text-sm text-gray-400">
-                        Payment will receive within 1 days
-                      </p>
-                    </div>
-                  </div>
+                   <!-- Flutterwave -->
+                   <div
+                     class="method-card p-4 rounded-xl flex items-center space-x-4 payout"
+                     data-method="flutterwave"
+                   >
+                     <img
+                       src="https://logowik.com/content/ws/49596_flutterwave_logo.html"
+                       onerror="this.onerror=null; this.src='https://placehold.co/48x48/000000/ffffff?text=F';"
+                       alt="Flutterwave Logo"
+                       class="w-12 h-12 rounded-full p-1 bg-white object-contain"
+                     />
+                     <div>
+                       <p class="text-lg font-bold text-white">Flutterwave</p>
+                       <p class="text-sm text-gray-400">
+                         Payment will receive within 1 days
+                       </p>
+                     </div>
+                   </div>
 
-                  <!-- Razorpay -->
-                  <div
-                    class="method-card p-4 rounded-xl flex items-center space-x-4"
-                    data-method="razorpay"
-                  >
-                    <img
-                      src="https://logowik.com/content/ws/49257_razorpay_logo.html"
-                      onerror="this.onerror=null; this.src='https://placehold.co/48x48/000000/ffffff?text=R';"
-                      alt="Razorpay Logo"
-                      class="w-12 h-12 rounded-full p-1 bg-white object-contain"
-                    />
-                    <div>
-                      <p class="text-lg font-bold text-white">Razorpay</p>
-                      <p class="text-sm text-gray-400">
-                        Payment will receive within 1 days
-                      </p>
-                    </div>
-                  </div>
+                   <!-- Razorpay -->
+                   <div
+                     class="method-card p-4 rounded-xl flex items-center space-x-4 payout"
+                     data-method="razorpay"
+                   >
+                     <img
+                       src="https://logowik.com/content/ws/49257_razorpay_logo.html"
+                       onerror="this.onerror=null; this.src='https://placehold.co/48x48/000000/ffffff?text=R';"
+                       alt="Razorpay Logo"
+                       class="w-12 h-12 rounded-full p-1 bg-white object-contain"
+                     />
+                     <div>
+                       <p class="text-lg font-bold text-white">Razorpay</p>
+                       <p class="text-sm text-gray-400">
+                         Payment will receive within 1 days
+                       </p>
+                     </div>
+                   </div>
 
-                  <!-- Paystack -->
-                  <div
-                    class="method-card p-4 rounded-xl flex items-center space-x-4"
-                    data-method="paystack"
-                  >
-                    <img
-                      src="https://logowik.com/content/ws/8327_paystack_logo.html"
-                      onerror="this.onerror=null; this.src='https://placehold.co/48x48/000000/ffffff?text=P';"
-                      alt="Paystack Logo"
-                      class="w-12 h-12 rounded-full p-1 bg-white object-contain"
-                    />
-                    <div>
-                      <p class="text-lg font-bold text-white">Paystack</p>
-                      <p class="text-sm text-gray-400">
-                        Payment will receive within 1 days
-                      </p>
-                    </div>
-                  </div>
+                   <!-- Paystack -->
+                   <div
+                     class="method-card p-4 rounded-xl flex items-center space-x-4 payout"
+                     data-method="paystack"
+                   >
+                     <img
+                       src="https://logowik.com/content/ws/8327_paystack_logo.html"
+                       onerror="this.onerror=null; this.src='https://placehold.co/48x48/000000/ffffff?text=P';"
+                       alt="Paystack Logo"
+                       class="w-12 h-12 rounded-full p-1 bg-white object-contain"
+                     />
+                     <div>
+                       <p class="text-lg font-bold text-white">Paystack</p>
+                       <p class="text-sm text-gray-400">
+                         Payment will receive within 1 days
+                       </p>
+                     </div>
+                   </div>
 
-                  <!-- Coinbase -->
-                  <div
-                    class="method-card p-4 rounded-xl flex items-center space-x-4"
-                    data-method="coinbase"
-                  >
-                    <img
-                      src="https://logowik.com/content/ws/35880_coinbase_logo.html"
-                      onerror="this.onerror=null; this.src='https://placehold.co/48x48/000000/ffffff?text=C';"
-                      alt="Coinbase Logo"
-                      class="w-12 h-12 rounded-full p-1 bg-white object-contain"
-                    />
-                    <div>
-                      <p class="text-lg font-bold text-white">Coinbase</p>
-                      <p class="text-sm text-gray-400">
-                        Payment will receive within 1 days
-                      </p>
-                    </div>
-                  </div>
-                </div>
+                   <!-- Coinbase -->
+                   <div
+                     class="method-card p-4 rounded-xl flex items-center space-x-4 payout"
+                     data-method="coinbase"
+                   >
+                     <img
+                       src="https://logowik.com/content/ws/35880_coinbase_logo.html"
+                       onerror="this.onerror=null; this.src='https://placehold.co/48x48/000000/ffffff?text=C';"
+                       alt="Coinbase Logo"
+                       class="w-12 h-12 rounded-full p-1 bg-white object-contain"
+                     />
+                     <div>
+                       <p class="text-lg font-bold text-white">Coinbase</p>
+                       <p class="text-sm text-gray-400">
+                         Payment will receive within 1 days
+                       </p>
+                     </div>
+                   </div>
+
+                   <!-- Perfect Money -->
+                   <div
+                     class="method-card p-4 rounded-xl flex items-center space-x-4 payout"
+                     data-method="perfect-money"
+                   >
+                     <img
+                       src="https://logowik.com/content/ws/12345_perfect_money_logo.html"
+                       onerror="this.onerror=null; this.src='https://placehold.co/48x48/000000/ffffff?text=P';"
+                       alt="Perfect Money Logo"
+                       class="w-12 h-12 rounded-full p-1 bg-white object-contain"
+                     />
+                     <div>
+                       <p class="text-lg font-bold text-white">Perfect Money</p>
+                       <p class="text-sm text-gray-400">
+                         Payment will receive within 2 days
+                       </p>
+                     </div>
+                   </div>
+
+                   <!-- Paypal -->
+                   <div
+                     class="method-card p-4 rounded-xl flex items-center space-x-4 payout"
+                     data-method="paypal"
+                   >
+                     <img
+                       src="https://logowik.com/content/ws/67890_paypal_logo.html"
+                       onerror="this.onerror=null; this.src='https://placehold.co/48x48/000000/ffffff?text=P';"
+                       alt="Paypal Logo"
+                       class="w-12 h-12 rounded-full p-1 bg-white object-contain"
+                     />
+                     <div>
+                       <p class="text-lg font-bold text-white">Paypal</p>
+                       <p class="text-sm text-gray-400">
+                         Payment will receive within 1 day
+                       </p>
+                     </div>
+                   </div>
+
+                   <!-- Binance -->
+                   <div
+                     class="method-card p-4 rounded-xl flex items-center space-x-4 payout"
+                     data-method="binance"
+                   >
+                     <img
+                       src="https://logowik.com/content/ws/11111_binance_logo.html"
+                       onerror="this.onerror=null; this.src='https://placehold.co/48x48/000000/ffffff?text=B';"
+                       alt="Binance Logo"
+                       class="w-12 h-12 rounded-full p-1 bg-white object-contain"
+                     />
+                     <div>
+                       <p class="text-lg font-bold text-white">Binance</p>
+                       <p class="text-sm text-gray-400">
+                         Payment will receive within 1 day
+                       </p>
+                     </div>
+                   </div>
+
+                   <!-- Stripe -->
+                   <div
+                     class="method-card p-4 rounded-xl flex items-center space-x-4 payout"
+                     data-method="stripe"
+                   >
+                     <img
+                       src="https://logowik.com/content/ws/22222_stripe_logo.html"
+                       onerror="this.onerror=null; this.src='https://placehold.co/48x48/000000/ffffff?text=S';"
+                       alt="Stripe Logo"
+                       class="w-12 h-12 rounded-full p-1 bg-white object-contain"
+                     />
+                     <div>
+                       <p class="text-lg font-bold text-white">Stripe</p>
+                       <p class="text-sm text-gray-400">
+                         Payment will receive within 1 day
+                       </p>
+                     </div>
+                   </div>
+
+                   <!-- Authorize.net -->
+                   <div
+                     class="method-card p-4 rounded-xl flex items-center space-x-4 payout"
+                     data-method="authorize-net"
+                   >
+                     <img
+                       src="https://logowik.com/content/ws/33333_authorize_net_logo.html"
+                       onerror="this.onerror=null; this.src='https://placehold.co/48x48/000000/ffffff?text=A';"
+                       alt="Authorize.net Logo"
+                       class="w-12 h-12 rounded-full p-1 bg-white object-contain payout"
+                     />
+                     <div>
+                       <p class="text-lg font-bold text-white">Authorize.net</p>
+                       <p class="text-sm text-gray-400">
+                         Payment will receive within 2 days
+                       </p>
+                     </div>
+                   </div>
+                 </div>
               </div>
 
               <!-- Right Column: Input and Preview -->
               <div class="lg:col-span-1 space-y-8">
-                <div class="input-card space-y-4">
+                <div class="input-card space-y-4 payout">
                   <!-- Deposit Balance (Read-only field to display current balance) -->
                   <div>
                     <label
@@ -383,7 +532,7 @@
 
                 <!-- Payout Preview Placeholder -->
                 <div
-                  class="input-card flex flex-col items-center justify-center text-center h-48"
+                  class="payout input-card flex flex-col items-center justify-center text-center h-48"
                 >
                   <img
                     src="./images/funds.svg"
