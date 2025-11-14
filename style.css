@@ -4,6 +4,7 @@
   --text-body: #1f2937;
   --bg-header: #ffffff;
   --text-header: #1f2937;
+  --bg-level: #ececec;
   --bg-main: #f8fafc;
   --text-main: #1f2937;
   --bg-mobileSidebar: white;
@@ -25,11 +26,12 @@
   --text-body: #f9fafb;
   --bg-header: #374151;
   --text-header: #f9fafb;
+  --bg-level: #0f1730;
   --bg-main: #1f2937;
   --text-main: #f9fafb;
   --bg-mobileSidebar: #000000;
   --bg-card: #050c20;
-  --text-card: #f9fafb;
+  --text-card: #ffffff;
   --bg-table: #374151;
   --border-card: #4b5563;
   --bg-notification: #050c20;
@@ -115,12 +117,29 @@ button:hover {
   background-color: var(--bg-card);         /* text color */
 }
 
+.level{
+  background-color: var(--bg-level);
+}
+
+.dark .level{
+  background-color: var(--bg-level);
+}
 .dark  #mobileSidebar{
   background-color: var(--bg-mobileSidebar);
 }
 
+.topbar{
+  background-color: var(--bg-header);
+}
 .dark .topbar {
   background-color: var(--bg-card);         /* dark mode text color */
+}
+
+#profileDropdown{
+  background-color: var(--bg-card);
+}
+.dark #profileDropdown{
+  background-color: var(--bg-card);
 }
 
 /* Light mode (default) */

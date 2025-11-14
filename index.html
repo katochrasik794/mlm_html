@@ -12,7 +12,8 @@
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap");
 
-      html, body {
+      html,
+      body {
         font-family: "Ubuntu", sans-serif;
         background-color: #f8fafc; /* Light background for the whole page */
         height: 100vh;
@@ -70,6 +71,9 @@
       })();
     </script>
 
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+
+
     <script src="https://cdn.tailwindcss.com" class=""></script>
 
     <style>
@@ -107,436 +111,378 @@
     <!-- Project styles (light + dark variables and component overrides) -->
     <link rel="stylesheet" href="style.css" class="" />
   </head>
-  <body class="bg-[#000204] text-slate-900 antialiased">
+  <body class="text-slate-900 antialiased">
     <!-- SIDEBAR (included dynamically) -->
-     <div data-include="components/sidebar.html"></div>
+    <div data-include="components/sidebar.html"></div>
 
-    <!-- TOPBAR -->
-    <header
-      class="topbar absolute top-8 left-0 lg:left-[21rem] right-0 mr-8 p-4 text-white  "
+    <!-- MAIN (content) -->
+    <div
+      class="main-dashboard ml-0 lg:ml-[19rem] mt-0 pt-8 flex flex-col h-screen overflow-y-auto overflow-x-hidden"
     >
-          <div
-            class="max-w-7xl mx-auto flex items-center justify-between gap-4"
-          >
-            <div class="flex items-center gap-3">
-              <!-- Mobile menu button -->
-              <button id="mobileToggle" class="lg:hidden p-2 rounded-md">
+      <!-- TOPBAR -->
+      <header class="topbar p-4 text-white ml-6 mr-6 rounded-xl">
+        <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
+          <div class="flex items-center gap-3">
+            <!-- Mobile menu button -->
+            <button id="mobileToggle" class="lg:hidden p-2 rounded-md">
+              <svg
+                class="w-5 h-5"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                class=""
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 6h16M4 12h16M4 18h16"
+                  class=""
+                />
+              </svg>
+            </button>
+          </div>
+
+          <div class="flex items-center gap-4 header-right">
+            <button
+              id="themeToggle"
+              class="p-3 w-12 h-12 rounded-lg flex items-center justify-center text-slate-700 transition"
+            >
+              <svg
+                id="themeIcon"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="lucide lucide-moon"
+              >
+                <path
+                  d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"
+                  class=""
+                />
+              </svg>
+            </button>
+            <div class="relative">
+              <button
+                id="profileBtn"
+                class="flex items-center gap-2 p-1 rounded-md hover:bg-gray-600"
+              >
+                <img
+                  src="https://i.pravatar.cc/40"
+                  alt="avatar"
+                  class="w-8 h-8 rounded-full"
+                />
+                <span class="hidden sm:block text-sm">Raghav</span>
                 <svg
-                  class="w-5 h-5"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
+                  class="w-4 h-4"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
                   class=""
                 >
                   <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M4 6h16M4 12h16M4 18h16"
+                    fill-rule="evenodd"
+                    d="M5.23 7.21a.75.75 0 011.06.02L10 11.17l3.71-3.94a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01.02-1.06z"
+                    clip-rule="evenodd"
                     class=""
                   />
                 </svg>
               </button>
-            </div>
 
-            <div class="flex items-center gap-4 header-right">
-              <button
-                id="themeToggle"
-                class="p-3 w-12 h-12 rounded-lg flex items-center justify-center text-slate-700 transition"
+              <!-- Profile dropdown -->
+              <div
+                id="profileDropdown"
+                class="hidden absolute right-0 mt-2 w-44 py-1"
               >
-                <svg
-                  id="themeIcon"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  class="lucide lucide-moon"
+              <a href="index.html" class="block px-3 py-2 text-sm hover:bg-gray-600"
+                  >Dashboard</a
                 >
-                  <path
-                    d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"
-                    class=""
-                  />
-                </svg>
-              </button>
-              <div class="relative">
-                <button
-                  id="profileBtn"
-                  class="flex items-center gap-2 p-1 rounded-md hover:bg-gray-600"
+                <a href="profile.html" class="block px-3 py-2 text-sm hover:bg-gray-600"
+                  >My Profile</a
                 >
-                  <img
-                    src="https://i.pravatar.cc/40"
-                    alt="avatar"
-                    class="w-8 h-8 rounded-full"
-                  />
-                  <span class="hidden sm:block text-sm">Raghav</span>
-                  <svg
-                    class="w-4 h-4"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                    class=""
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M5.23 7.21a.75.75 0 011.06.02L10 11.17l3.71-3.94a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01.02-1.06z"
-                      clip-rule="evenodd"
-                      class=""
-                    />
-                  </svg>
-                </button>
-
-                <!-- Profile dropdown -->
-                <div
-                  id="profileDropdown"
-                  class="hidden absolute right-0 mt-2 w-44 bg-gray-800 border rounded-md shadow-sm py-1"
+                <a href="two-factor.html" class="block px-3 py-2 text-sm hover:bg-gray-600"
+                  >2FA Security</a
                 >
-                  <a href="#" class="block px-3 py-2 text-sm hover:bg-gray-600"
-                    >Profile</a
-                  >
-                  <a href="#" class="block px-3 py-2 text-sm hover:bg-gray-600"
-                    >Settings</a
-                  >
-                  <a href="#" class="block px-3 py-2 text-sm hover:bg-gray-600"
-                    >Sign out</a
-                  >
-                </div>
+                <a href="#" class="block px-3 py-2 text-sm hover:bg-gray-600"
+                  >logout out</a
+                >
               </div>
             </div>
           </div>
-        </header>
+        </div>
+      </header>
 
-        <!-- MAIN (content) -->
-        <div class="ml-0 lg:ml-[19rem] mt-10 pt-16 flex flex-col h-screen overflow-y-auto">
-          
-          <main
-            class="main-dashboard flex-1  max-w-7xl mx-auto w-full text-white"
+      <main class="main-dashboard flex-1 max-w-7xl mx-auto w-full text-white">
+        <div class="p-4 sm:p-6 lg:p-8">
+          <!-- 1. Dismissible Notification Banner -->
+          <div
+            id="notification-banner"
+            class="w-full bg-[#09112A] border-l-2 border-[#31E861] text-white flex items-center justify-between px-4 py-3 shadow-md mb-4"
           >
-          <div class="p-4 sm:p-6 lg:p-8">
-            <!-- 1. Dismissible Notification Banner -->
-            <div
-  id="notification-banner"
-  class="w-full bg-[#09112A] border-l-2 border-[#31E861] text-white 
-         flex items-center justify-between px-4 py-3 shadow-md mb-4"
->
-  
-  <!-- LEFT SIDE: Text + Allow Button -->
-  <div class="flex items-center gap-6">
-    <p class="text-sm">
-      Do not miss any single important notification!
-      <span class="opacity-80">Allow your browser to get instant push notification.</span>
-    </p>
+            <!-- LEFT SIDE: Text + Allow Button -->
+            <div class="flex items-center gap-6">
+              <p class="text-sm">
+                Do not miss any single important notification!
+                <span class="opacity-80"
+                  >Allow your browser to get instant push notification.</span
+                >
+              </p>
 
-    <button
-      class="bg-purple-700 text-gray-600 font-semibold px-5 py-2 rounded-md 
-             hover:brightness-105 transition"
-    >
-      Allow Me
-    </button>
-  </div>
+              <button
+                class="bg-purple-700 text-gray-600 font-semibold px-5 py-2 rounded-md hover:brightness-105 transition"
+              >
+                Allow Me
+              </button>
+            </div>
 
-  <!-- RIGHT SIDE: Close Button -->
-  <button
-    class="text-white text-xl hover:text-gray-300 transition"
-    onclick="document.getElementById('notification-banner').remove()"
-  >
-    &times;
-  </button>
+            <!-- RIGHT SIDE: Close Button -->
+            <button
+              class="text-white text-xl hover:text-gray-300 transition"
+              onclick="document.getElementById('notification-banner').remove()"
+            >
+              &times;
+            </button>
+          </div>
 
-</div>
-
-
-            <!-- 2. Top Statistics Cards Grid -->
-            <div class="mb-8">
-              <!-- <h2 class="text-2xl font-bold text-white mb-4">
+          <!-- 2. Top Statistics Cards Grid -->
+          <div class="mb-8">
+            <!-- <h2 class="text-2xl font-bold text-white mb-4">
                 Dashboard Overview
               </h2> -->
 
-              <div
-                class="grid grid-cols-2 gap-4 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-8"
-              >
-                <!-- Card 1: Main Balance -->
-                <div
-                  class="card p-4 sm:p-5 col-span-2 flex items-start space-x-3"
-                >
-                  <div class="flex-grow">
-                    <p class="text-xs font-medium text-white uppercase">
-                      Main Balance
-                    </p>
-                    <p
-                      class="text-xl sm:text-2xl font-extrabold text-green-600 mt-1"
-                    >
-                      $9.41
-                    </p>
-                  </div>
-                  <div class="text-green-500 text-2xl">💰</div>
-                </div>
+            <div class="grid grid-cols-2 gap-4 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-8">
 
-                <!-- Card 2: Interest Balance -->
-                <div
-                  class="card p-4 sm:p-5 col-span-2 flex items-start space-x-3"
-                >
-                  <div class="flex-grow">
-                    <p class="text-xs font-medium text-white uppercase">
-                      Interest Balance
-                    </p>
-                    <p
-                      class="text-xl sm:text-2xl font-extrabold text-blue-600 mt-1"
-                    >
-                      $1.08
-                    </p>
-                  </div>
-                  <div class="text-blue-500 text-2xl">📈</div>
-                </div>
+  <!-- Card 1: Main Balance -->
+  <div class="card p-4 sm:p-5 col-span-2 flex items-start space-x-3">
+    <div class="flex-grow">
+      <p class="text-xs font-medium  uppercase">Main Balance</p>
+      <p class="text-xl sm:text-2xl font-extrabold  mt-1">$9.41</p>
+    </div>
+    <i data-lucide="wallet" class="text-purple-700 w-7 h-7"></i>
+  </div>
 
-                <!-- Card 3: Total Deposit -->
-                <div
-                  class="card p-4 sm:p-5 col-span-2 flex items-start space-x-3"
-                >
-                  <div class="flex-grow">
-                    <p class="text-xs font-medium text-white uppercase">
-                      Total Deposit
-                    </p>
-                    <p
-                      class="text-xl sm:text-2xl font-extrabold text-green-500 mt-1"
-                    >
-                      $1,193,871.21
-                    </p>
-                  </div>
-                  <div class="text-gray-500 text-2xl">💵</div>
-                </div>
+  <!-- Card 2: Interest Balance -->
+  <div class="card p-4 sm:p-5 col-span-2 flex items-start space-x-3">
+    <div class="flex-grow">
+      <p class="text-xs font-medium  uppercase">Interest Balance</p>
+      <p class="text-xl sm:text-2xl font-extrabold  mt-1">$1.08</p>
+    </div>
+    <i data-lucide="trending-up" class="text-purple-700 w-7 h-7"></i>
+  </div>
 
-                <!-- Card 4: Total Earn -->
-                <div
-                  class="card p-4 sm:p-5 col-span-2 flex items-start space-x-3"
-                >
-                  <div class="flex-grow">
-                    <p class="text-xs font-medium text-white uppercase">
-                      Total Earn
-                    </p>
-                    <p
-                      class="text-xl sm:text-2xl font-extrabold text-green-500 mt-1"
-                    >
-                      $106,806.88
-                    </p>
-                  </div>
-                  <div class="text-gray-500 text-2xl">💸</div>
-                </div>
+  <!-- Card 3: Total Deposit -->
+  <div class="card p-4 sm:p-5 col-span-2 flex items-start space-x-3">
+    <div class="flex-grow">
+      <p class="text-xs font-medium  uppercase">Total Deposit</p>
+      <p class="text-xl sm:text-2xl font-extrabold  mt-1">$1,193,871.21</p>
+    </div>
+    <i data-lucide="banknote" class="text-purple-700 w-7 h-7"></i>
+  </div>
 
-                <!-- Card 5: Total Invest -->
-                <div
-                  class="card p-4 sm:p-5 col-span-2 flex items-start space-x-3"
-                >
-                  <div class="flex-grow">
-                    <p class="text-xs font-medium text-white uppercase">
-                      Total Invest
-                    </p>
-                    <p
-                      class="text-xl sm:text-2xl font-extrabold text-green-500 mt-1"
-                    >
-                      $565,842.38
-                    </p>
-                  </div>
-                  <div class="text-gray-500 text-2xl">🏦</div>
-                </div>
+  <!-- Card 4: Total Earn -->
+  <div class="card p-4 sm:p-5 col-span-2 flex items-start space-x-3">
+    <div class="flex-grow">
+      <p class="text-xs font-medium  uppercase">Total Earn</p>
+      <p class="text-xl sm:text-2xl font-extrabold  mt-1">$106,806.88</p>
+    </div>
+    <i data-lucide="coins" class="text-purple-700 w-7 h-7"></i>
+  </div>
 
-                <!-- Card 6: Total Payout -->
-                <div
-                  class="card p-4 sm:p-5 col-span-2 flex items-start space-x-3"
-                >
-                  <div class="flex-grow">
-                    <p class="text-xs font-medium text-white uppercase">
-                      Total Payout
-                    </p>
-                    <p
-                      class="text-xl sm:text-2xl font-extrabold text-green-500 mt-1"
-                    >
-                      $4,468.37
-                    </p>
-                  </div>
-                  <div class="text-gray-500 text-2xl">💳</div>
-                </div>
+  <!-- Card 5: Total Invest -->
+  <div class="card p-4 sm:p-5 col-span-2 flex items-start space-x-3">
+    <div class="flex-grow">
+      <p class="text-xs font-medium  uppercase">Total Invest</p>
+      <p class="text-xl sm:text-2xl font-extrabold  mt-1">$565,842.38</p>
+    </div>
+    <i data-lucide="landmark" class="text-purple-700 w-7 h-7"></i>
+  </div>
 
-                <!-- Card 7: Total Ticket -->
-                <div
-                  class="card p-4 sm:p-5 col-span-2 flex items-start space-x-3"
-                >
-                  <div class="flex-grow">
-                    <p class="text-xs font-medium text-white uppercase">
-                      Total Ticket
-                    </p>
-                    <p
-                      class="text-xl sm:text-2xl font-extrabold text-blue-500 mt-1"
-                    >
-                      21
-                    </p>
-                  </div>
-                  <div class="text-gray-500 text-2xl">🎫</div>
-                </div>
+  <!-- Card 6: Total Payout -->
+  <div class="card p-4 sm:p-5 col-span-2 flex items-start space-x-3">
+    <div class="flex-grow">
+      <p class="text-xs font-medium  uppercase">Total Payout</p>
+      <p class="text-xl sm:text-2xl font-extrabold  mt-1">$4,468.37</p>
+    </div>
+    <i data-lucide="credit-card" class="text-purple-700 w-7 h-7"></i>
+  </div>
 
-                <!-- Card 8: Total Referral Bonus -->
+  <!-- Card 7: Total Ticket -->
+  <div class="card p-4 sm:p-5 col-span-2 flex items-start space-x-3">
+    <div class="flex-grow">
+      <p class="text-xs font-medium  uppercase">Total Ticket</p>
+      <p class="text-xl sm:text-2xl font-extrabold t mt-1">21</p>
+    </div>
+    <i data-lucide="ticket" class="text-purple-700 w-7 h-7"></i>
+  </div>
+
+  <!-- Card 8: Referral Bonus -->
+  <div class="card p-4 sm:p-5 col-span-2 flex items-start space-x-3">
+    <div class="flex-grow">
+      <p class="text-xs font-medium text-white uppercase">Referral Bonus</p>
+      <p class="text-xl sm:text-2xl font-extrabold mt-1">$36.388</p>
+    </div>
+    <i data-lucide="handshake" class="text-purple-700 w-7 h-7"></i>
+  </div>
+
+</div>
+
+<script>
+  lucide.createIcons();
+</script>
+
+          </div>
+
+          <!-- 3. Main Content Area Grid (Referral, Team Investment, Charts) -->
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <!-- Left Column (Referral & Transaction Chart) - Spans 2/3 on large screens -->
+            <div class="lg:col-span-2 space-y-6">
+              <!-- Referral Link Section -->
+              <div class="card p-6">
+                <h3 class="text-lg font-semibold text-gray-800 mb-3">
+                  Your Referral Link
+                </h3>
+                <div class="flex flex-col sm:flex-row gap-3">
+                  <!-- Link Input -->
+                  <input
+                    id="referral-link"
+                    type="text"
+                    readonly
+                    class="flex-grow p-3 border border-gray-300 bg-gray-800 rounded-lg text-sm text-gray-200 truncate"
+                    value="https://hyip-pro.bugfinder.app/register/demouser"
+                  />
+
+                  <!-- Copy Button -->
+                  <button
+                    onclick="copyReferralLink()"
+                    class="px-5 py-3 bg-purple-700 text-white font-medium rounded-lg hover:bg-purple-800 transition duration-150 ease-in-out shadow-md whitespace-nowrap"
+                  >
+                    Copy Link
+                  </button>
+                </div>
+              </div>
+
+              <!-- Transaction Analytics Chart Placeholder (Wide Area) -->
+              <div class="card p-6">
+                <h3 class="text-lg font-semibold text-white mb-4">
+                  Transaction Analytics
+                </h3>
+                <!-- Placeholder for the Bar/Line Chart -->
                 <div
-                  class="card p-4 sm:p-5 col-span-2 flex items-start space-x-3"
+                  class="w-full h-80 border border-dashed border-gray-300 flex items-center justify-center rounded-lg"
                 >
-                  <div class="flex-grow">
-                    <p class="text-xs font-medium text-white uppercase">
-                      Referral Bonus
-                    </p>
-                    <p
-                      class="text-xl sm:text-2xl font-extrabold text-blue-500 mt-1"
-                    >
-                      $36.388
-                    </p>
-                  </div>
-                  <div class="text-gray-500 text-2xl">🤝</div>
+                  <p class="text-gray-200">
+                    Placeholder for Responsive Bar/Line Chart (Requires Chart.js
+                    or similar)
+                  </p>
+                </div>
+                <!-- Mock Legend for the chart -->
+                <div
+                  class="flex flex-wrap justify-center gap-x-4 gap-y-2 text-xs mt-4"
+                >
+                  <span class="flex items-center"
+                    ><span
+                      class="w-2 h-2 rounded-full mr-1 bg-orange-500"
+                    ></span
+                    >Investment</span
+                  >
+                  <span class="flex items-center"
+                    ><span class="w-2 h-2 rounded-full mr-1 bg-red-500"></span
+                    >Payout</span
+                  >
+                  <span class="flex items-center"
+                    ><span class="w-2 h-2 rounded-full mr-1 bg-blue-500"></span
+                    >Deposit</span
+                  >
+                  <span class="flex items-center"
+                    ><span class="w-2 h-2 rounded-full mr-1 bg-green-500"></span
+                    >Deposit Bonus</span
+                  >
+                  <span class="flex items-center"
+                    ><span
+                      class="w-2 h-2 rounded-full mr-1 bg-yellow-500"
+                    ></span
+                    >Investment Bonus</span
+                  >
                 </div>
               </div>
             </div>
 
-            <!-- 3. Main Content Area Grid (Referral, Team Investment, Charts) -->
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-              <!-- Left Column (Referral & Transaction Chart) - Spans 2/3 on large screens -->
-              <div class="lg:col-span-2 space-y-6">
-                <!-- Referral Link Section -->
-                <div class="card p-6">
-                  <h3 class="text-lg font-semibold text-gray-800 mb-3">
-                    Your Referral Link
-                  </h3>
-                  <div class="flex flex-col sm:flex-row gap-3">
-                    <!-- Link Input -->
-                    <input
-                      id="referral-link"
-                      type="text"
-                      readonly
-                      class="flex-grow p-3 border border-gray-300 bg-gray-800 rounded-lg text-sm text-gray-200 truncate"
-                      value="https://hyip-pro.bugfinder.app/register/demouser"
-                    />
+            <!-- Right Column (Team Investment & Metrics) - Spans 1/3 on large screens -->
+            <div class="lg:col-span-1 space-y-6">
+              <!-- Team Investment Card -->
+              <div class="card p-6 flex items-start justify-between space-x-3">
 
-                    <!-- Copy Button -->
-                    <button
-                      onclick="copyReferralLink()"
-                      class="px-5 py-3 bg-indigo-600 text-white font-medium rounded-lg hover:bg-indigo-700 transition duration-150 ease-in-out shadow-md whitespace-nowrap"
+  <!-- Content -->
+  <div>
+    <h3 class="text-lg font-semibold text-gray-200 mb-1">
+      Team Investment
+    </h3>
+    <div class="text-3xl font-extrabold">
+      $361,359.45
+    </div>
+  </div>
+  <!-- Icon -->
+  <i data-lucide="users" class="text-purple-700 w-8 h-8"></i>
+<script>
+  lucide.createIcons();
+</script>
+</div>
+
+
+              <!-- Investment Metrics Chart Placeholder -->
+              <div class="card p-6 text-center">
+                <h3 class="text-lg font-semibold text-gray-200 mb-6">
+                  Investment Metrics
+                </h3>
+
+                <!-- Placeholder for Doughnut Charts -->
+                <div class="flex justify-around items-center space-x-2">
+                  <!-- Metric 1: Invest Completed -->
+                  <div class="flex flex-col items-center">
+                    <div
+                      class="w-20 h-20 rounded-full border-4 border-indigo-200 flex items-center justify-center text-sm font-bold text-indigo-700 bg-indigo-50"
                     >
-                      Copy Link
-                    </button>
-                  </div>
-                </div>
-
-                <!-- Transaction Analytics Chart Placeholder (Wide Area) -->
-                <div class="card p-6">
-                  <h3 class="text-lg font-semibold text-white mb-4">
-                    Transaction Analytics
-                  </h3>
-                  <!-- Placeholder for the Bar/Line Chart -->
-                  <div
-                    class="w-full h-80  border border-dashed border-gray-300 flex items-center justify-center rounded-lg"
-                  >
-                    <p class="text-gray-200">
-                      Placeholder for Responsive Bar/Line Chart (Requires
-                      Chart.js or similar)
+                      13%
+                    </div>
+                    <p class="text-sm font-medium text-gray-300 mt-2">
+                      Invest Completed
                     </p>
                   </div>
-                  <!-- Mock Legend for the chart -->
-                  <div
-                    class="flex flex-wrap justify-center gap-x-4 gap-y-2 text-xs mt-4"
-                  >
-                    <span class="flex items-center"
-                      ><span
-                        class="w-2 h-2 rounded-full mr-1 bg-orange-500"
-                      ></span
-                      >Investment</span
+
+                  <!-- Metric 2: ROI Speed -->
+                  <div class="flex flex-col items-center">
+                    <div
+                      class="w-20 h-20 rounded-full border-4 border-green-200 flex items-center justify-center text-sm font-bold text-green-700 bg-green-50"
                     >
-                    <span class="flex items-center"
-                      ><span class="w-2 h-2 rounded-full mr-1 bg-red-500"></span
-                      >Payout</span
-                    >
-                    <span class="flex items-center"
-                      ><span
-                        class="w-2 h-2 rounded-full mr-1 bg-blue-500"
-                      ></span
-                      >Deposit</span
-                    >
-                    <span class="flex items-center"
-                      ><span
-                        class="w-2 h-2 rounded-full mr-1 bg-green-500"
-                      ></span
-                      >Deposit Bonus</span
-                    >
-                    <span class="flex items-center"
-                      ><span
-                        class="w-2 h-2 rounded-full mr-1 bg-yellow-500"
-                      ></span
-                      >Investment Bonus</span
-                    >
+                      -39%
+                    </div>
+                    <p class="text-sm font-medium text-gray-300 mt-2">
+                      ROI Speed
+                    </p>
                   </div>
-                </div>
-              </div>
 
-              <!-- Right Column (Team Investment & Metrics) - Spans 1/3 on large screens -->
-              <div class="lg:col-span-1 space-y-6">
-                <!-- Team Investment Card -->
-                <div class="card p-6">
-                  <h3 class="text-lg font-semibold text-gray-200 mb-3">
-                    Team Investment
-                  </h3>
-                  <div class="text-3xl font-extrabold text-blue-500">
-                    $361,359.45
-                  </div>
-                </div>
-
-                <!-- Investment Metrics Chart Placeholder -->
-                <div class="card p-6 text-center">
-                  <h3 class="text-lg font-semibold text-gray-200 mb-6">
-                    Investment Metrics
-                  </h3>
-
-                  <!-- Placeholder for Doughnut Charts -->
-                  <div class="flex justify-around items-center space-x-2">
-                    <!-- Metric 1: Invest Completed -->
-                    <div class="flex flex-col items-center">
-                      <div
-                        class="w-20 h-20 rounded-full border-4 border-indigo-200 flex items-center justify-center text-sm font-bold text-indigo-700 bg-indigo-50"
-                      >
-                        13%
-                      </div>
-                      <p class="text-sm font-medium text-gray-300 mt-2">
-                        Invest Completed
-                      </p>
+                  <!-- Metric 3: ROI Redeemed -->
+                  <div class="flex flex-col items-center">
+                    <div
+                      class="w-20 h-20 rounded-full border-4 border-orange-200 flex items-center justify-center text-sm font-bold text-orange-700 bg-orange-50"
+                    >
+                      139%
                     </div>
-
-                    <!-- Metric 2: ROI Speed -->
-                    <div class="flex flex-col items-center">
-                      <div
-                        class="w-20 h-20 rounded-full border-4 border-green-200 flex items-center justify-center text-sm font-bold text-green-700 bg-green-50"
-                      >
-                        -39%
-                      </div>
-                      <p class="text-sm font-medium text-gray-300 mt-2">
-                        ROI Speed
-                      </p>
-                    </div>
-
-                    <!-- Metric 3: ROI Redeemed -->
-                    <div class="flex flex-col items-center">
-                      <div
-                        class="w-20 h-20 rounded-full border-4 border-orange-200 flex items-center justify-center text-sm font-bold text-orange-700 bg-orange-50"
-                      >
-                        139%
-                      </div>
-                      <p class="text-sm font-medium text-gray-300 mt-2">
-                        ROI Redeemed
-                      </p>
-                    </div>
+                    <p class="text-sm font-medium text-gray-300 mt-2">
+                      ROI Redeemed
+                    </p>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </main>
-      </div>
+        </div>
+      </main>
+    </div>
 
     <!-- Include.js loads sidebar/topbar/footer -->
     <script src="js/include.js" class=""></script>
