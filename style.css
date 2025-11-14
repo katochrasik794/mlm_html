@@ -31,7 +31,7 @@
   --text-main: #f9fafb;
   --bg-mobileSidebar: #000000;
   --bg-card: #050c20;
-  --text-card: #ffffff;
+  --text-card: #f0efef;
   --bg-table: #374151;
   --border-card: #4b5563;
   --bg-notification: #050c20;
@@ -65,6 +65,7 @@ main {
   background-color: var(--bg-card);
   color: var(--text-card);
   border-color: var(--border-card);
+  font-size: medium;
 }
 
 #notification-banner {
@@ -168,6 +169,18 @@ button:hover {
   border-left: var(--border-notification);
 }
 
+.table-head{
+  background-color: var(--bg-level);
+}
+.dark .table-head{
+  background-color: var(--bg-level);
+}
+.table-body{
+  background-color: var(--bg-card);
+}
+.dark .table-body{
+  background-color: var(--bg-card);
+}
 
 
 
