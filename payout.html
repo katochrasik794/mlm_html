@@ -91,6 +91,27 @@
         }
       }
 
+      /* Sidebar toggle styles */
+      body.sidebar-hidden #sidebar {
+        transform: translateX(-100%);
+      }
+
+      body.sidebar-hidden .main-dashboard {
+        margin-left: 0 !important;
+      }
+
+      body.sidebar-hidden .topbar .max-w-7xl {
+        max-width: none !important;
+      }
+
+      #sidebar {
+        transition: transform 1s ease;
+      }
+
+      .main-dashboard {
+        transition: margin-left 1s ease;
+      }
+
       /* Scrollbar styling for main container */
       .main-container::-webkit-scrollbar {
         width: 6px;
@@ -133,10 +154,10 @@
       <div data-include="components/sidebar.html"></div>
 
       <!-- main column: topbar + page content + footer -->
-      <div class="main-container payout flex flex-col">
+      <div class="main-container main-dashboard payout flex flex-col">
         <!-- topbar -->
         <header class="topbar p-4 text-white ml-6 mr-6 mt-10 rounded-xl">
-        <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
+        <div class="mx-auto flex items-center justify-between gap-4">
           <div class="flex items-center gap-3">
             <!-- Mobile menu button -->
             <button id="mobileToggle" class="lg:hidden p-2 rounded-md">
@@ -153,6 +174,22 @@
                   stroke-width="2"
                   d="M4 6h16M4 12h16M4 18h16"
                   class=""
+                />
+              </svg>
+            </button>
+            <!-- Desktop hamburger menu button -->
+            <button id="desktopToggle" class="hidden lg:block p-2 rounded-md">
+              <svg
+                class="w-5 h-5"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 6h16M4 12h16M4 18h16"
                 />
               </svg>
             </button>
@@ -232,7 +269,7 @@
       </header>
 
         <!-- page-specific content -->
-        <main class="payout p-6 max-w-7xl mx-auto w-full">
+        <main class="payout p-6 mx-auto w-full">
           <!-- 1. Dismissible Notification Banner -->
           <div
             id="notification-banner"
@@ -262,7 +299,7 @@
               &times;
             </button>
           </div>
-          <div class="max-w-6xl mx-auto">
+          <div class="mx-auto">
             <!-- Title -->
             <h2 class="text-3xl font-extrabold mb-8 text-white">
               Payout Money
@@ -553,6 +590,12 @@
     <!-- load includes and UI script -->
     <script src="js/include.js"></script>
     <script src="js/main.js"></script>
+    <script>
+      // Desktop sidebar toggle
+      document.getElementById('desktopToggle').addEventListener('click', function() {
+        document.body.classList.toggle('sidebar-hidden');
+      });
+    </script>
 
     <script>
       document.addEventListener("DOMContentLoaded", () => {

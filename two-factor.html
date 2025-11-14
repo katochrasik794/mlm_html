@@ -52,9 +52,30 @@
         }
 
         @media (max-width: 1023px) {
-            .main-container {
-                margin-left: 0;
-            }
+          .main-container {
+            margin-left: 0;
+          }
+        }
+  
+        /* Sidebar toggle styles */
+        body.sidebar-hidden #sidebar {
+          transform: translateX(-100%);
+        }
+  
+        body.sidebar-hidden .main-dashboard {
+          margin-left: 0 !important;
+        }
+  
+        body.sidebar-hidden .topbar .max-w-7xl {
+          max-width: none !important;
+        }
+  
+        #sidebar {
+          transition: transform 1s ease;
+        }
+  
+        .main-dashboard {
+          transition: margin-left 1s ease;
         }
 
         /* Scrollbar styling for main container */
@@ -104,6 +125,22 @@
                   stroke-width="2"
                   d="M4 6h16M4 12h16M4 18h16"
                   class=""
+                />
+              </svg>
+            </button>
+            <!-- Desktop hamburger menu button -->
+            <button id="desktopToggle" class="hidden lg:block p-2 rounded-md">
+              <svg
+                class="w-5 h-5"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 6h16M4 12h16M4 18h16"
                 />
               </svg>
             </button>
@@ -268,6 +305,12 @@
   <!-- load includes and UI script -->
   <script src="js/include.js"></script>
   <script src="js/main.js"></script>
+  <script>
+    // Desktop sidebar toggle
+    document.getElementById('desktopToggle').addEventListener('click', function() {
+      document.body.classList.toggle('sidebar-hidden');
+    });
+  </script>
   <script>
     // Mock function for copying to clipboard (safer than navigator.clipboard in some environments)
     function copyToClipboard(text) {

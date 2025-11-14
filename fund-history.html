@@ -116,6 +116,27 @@
                 margin-left: 0;
             }
         }
+
+        /* Sidebar toggle styles */
+        body.sidebar-hidden #sidebar {
+          transform: translateX(-100%);
+        }
+
+        body.sidebar-hidden .main-dashboard {
+          margin-left: 0 !important;
+        }
+
+        body.sidebar-hidden .topbar .max-w-7xl {
+          max-width: none !important;
+        }
+
+        #sidebar {
+          transition: transform 1s ease;
+        }
+
+        .main-dashboard {
+          transition: margin-left 1s ease;
+        }
     </style>
 
  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
@@ -129,7 +150,7 @@
 
     <div class="main-container main-dashboard flex flex-col">
       <header class="topbar p-4 text-white ml-6 mr-6 mt-10 rounded-xl">
-        <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
+        <div class="flex items-center justify-between gap-4">
           <div class="flex items-center gap-3">
             <!-- Mobile menu button -->
             <button id="mobileToggle" class="lg:hidden p-2 rounded-md">
@@ -146,6 +167,22 @@
                   stroke-width="2"
                   d="M4 6h16M4 12h16M4 18h16"
                   class=""
+                />
+              </svg>
+            </button>
+            <!-- Desktop hamburger menu button -->
+            <button id="desktopToggle" class="hidden lg:block p-2 rounded-md">
+              <svg
+                class="w-5 h-5"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 6h16M4 12h16M4 18h16"
                 />
               </svg>
             </button>
@@ -224,8 +261,8 @@
         </div>
       </header>
 
-      <main class="main-dashboard  p-6 max-w-7xl mx-auto w-full">
-        <div class="max-w-7xl mx-auto">
+      <main class="main-dashboard  p-6 mx-auto w-full">
+        <div class="mx-auto">
 
         <h2 class="text-3xl font-extrabold mb-6 text-white">Fund History</h2>
 
@@ -302,6 +339,12 @@
 
   <script src="js/include.js"></script>
   <script src="js/main.js"></script>
+  <script>
+    // Desktop sidebar toggle
+    document.getElementById('desktopToggle').addEventListener('click', function() {
+      document.body.classList.toggle('sidebar-hidden');
+    });
+  </script>
   <script>
     const data = [
         { id: "D132418743822", gateway: "CoinPayments", amount: 10989.01, charge: 54.95, status: "Pending", time: "10 Nov 2025 04:12 PM" },

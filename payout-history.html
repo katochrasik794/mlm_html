@@ -94,6 +94,27 @@
             margin-left: 0;
           }
         }
+
+        /* Sidebar toggle styles */
+        body.sidebar-hidden #sidebar {
+          transform: translateX(-100%);
+        }
+
+        body.sidebar-hidden .main-dashboard {
+          margin-left: 0 !important;
+        }
+
+        body.sidebar-hidden .topbar .max-w-7xl {
+          max-width: none !important;
+        }
+
+        #sidebar {
+          transition: transform 1s ease;
+        }
+
+        .main-dashboard {
+          transition: margin-left 1s ease;
+        }
   
         /* Scrollbar styling for main container */
         .main-container::-webkit-scrollbar {
@@ -139,7 +160,7 @@
     <div class="main-container main-dashboard flex-col">
       <!-- topbar -->
       <header class="topbar p-4 text-white ml-6 mr-6 mt-10 rounded-xl">
-        <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
+        <div class=" mx-auto flex items-center justify-between gap-4">
           <div class="flex items-center gap-3">
             <!-- Mobile menu button -->
             <button id="mobileToggle" class="lg:hidden p-2 rounded-md">
@@ -156,6 +177,22 @@
                   stroke-width="2"
                   d="M4 6h16M4 12h16M4 18h16"
                   class=""
+                />
+              </svg>
+            </button>
+            <!-- Desktop hamburger menu button -->
+            <button id="desktopToggle" class="hidden lg:block p-2 rounded-md">
+              <svg
+                class="w-5 h-5"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 6h16M4 12h16M4 18h16"
                 />
               </svg>
             </button>
@@ -235,7 +272,7 @@
       </header>
 
       <!-- page-specific content -->
-      <main class="main-dashboard p-6 max-w-7xl mx-auto w-full">
+      <main class="main-dashboard p-6 mx-auto w-full">
         <div class="max-w-7xl mx-auto">
 
         <!-- Title -->
@@ -324,6 +361,12 @@
   <!-- load includes and UI script -->
   <script src="js/include.js"></script>
   <script src="js/main.js"></script>
+  <script>
+    // Desktop sidebar toggle
+    document.getElementById('desktopToggle').addEventListener('click', function() {
+      document.body.classList.toggle('sidebar-hidden');
+    });
+  </script>
 <script>
   const data = [
     // Page 1

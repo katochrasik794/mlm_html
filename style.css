@@ -52,6 +52,12 @@ body {
     font-family: 'Ubuntu', sans-serif;
     background-color: #f8fafc; /* Light background for the whole page */
 }
+.dark body {
+  background-color: var(--bg-body);
+  color: var(--text-body);
+    font-family: 'Ubuntu', sans-serif;
+    background-color: #f8fafc; /* Light background for the whole page */
+}
 
 header {
   background-color: var(--bg-header);
