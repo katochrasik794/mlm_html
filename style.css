@@ -19,6 +19,7 @@
   --text-button: #1f2937;
   --bg-hover: #f3f4f6;
   --text-secondary: #6b7280;
+  --bg-add-funds: #f8fafc;
 }
 
 .dark {
@@ -41,6 +42,7 @@
   --text-button: #f9fafb;
   --bg-hover: #4b5563;
   --text-secondary: #9ca3af;
+  --bg-add-funds: #020015;
 }
 
 /* Apply variables to elements */
@@ -180,6 +182,12 @@ button:hover {
 }
 .dark .table-body{
   background-color: var(--bg-card);
+}
+.add-funds {
+  background-color: var(--bg-add-funds);
+}
+.dark .add-funds {
+  background-color: var(--bg-add-funds);
 }
 
 
