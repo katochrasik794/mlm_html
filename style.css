@@ -6,6 +6,7 @@
   --text-header: #1f2937;
   --bg-main: #f8fafc;
   --text-main: #1f2937;
+  --bg-mobileSidebar: white;
   --bg-card: #ffffff;
   --text-card: #1f2937;
   --bg-table: #ffffff;
@@ -26,7 +27,8 @@
   --text-header: #f9fafb;
   --bg-main: #1f2937;
   --text-main: #f9fafb;
-  --bg-card: #374151;
+  --bg-mobileSidebar: #000000;
+  --bg-card: #050c20;
   --text-card: #f9fafb;
   --bg-table: #374151;
   --border-card: #4b5563;
@@ -58,7 +60,7 @@ main {
 }
 
 .card {
-  background-color: var(--bg-body);
+  background-color: var(--bg-card);
   color: var(--text-card);
   border-color: var(--border-card);
 }
@@ -105,14 +107,20 @@ button:hover {
   background-color: var(--bg-card);
 }
 
-/* Sidebar dark mode */
+#mobileSidebar {
+  background-color: var(--bg-mobileSidebar);
+  /* color: var(--text-card); */
+}
 .dark #sidebar {
-  background-color: var(--bg-body); /* uses dark mode background */
-  color: var(--text-card);          /* text color */
+  background-color: var(--bg-card);         /* text color */
+}
+
+.dark  #mobileSidebar{
+  background-color: var(--bg-mobileSidebar);
 }
 
 .dark .topbar {
-  background-color: var(--bg-body);         /* dark mode text color */
+  background-color: var(--bg-card);         /* dark mode text color */
 }
 
 /* Light mode (default) */

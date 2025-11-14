@@ -113,7 +113,7 @@
 
     <!-- TOPBAR -->
     <header
-      class="topbar fixed top-0 left-0 lg:left-[19rem] right-0 border-b border-gray-700 p-4 text-white  z-1"
+      class="topbar absolute top-8 left-0 lg:left-[21rem] right-0 mr-8 p-4 text-white  "
     >
           <div
             class="max-w-7xl mx-auto flex items-center justify-between gap-4"
@@ -210,44 +210,50 @@
         </header>
 
         <!-- MAIN (content) -->
-        <div class="ml-0 lg:ml-[19rem] pt-16 flex flex-col h-screen overflow-y-auto">
+        <div class="ml-0 lg:ml-[19rem] mt-10 pt-16 flex flex-col h-screen overflow-y-auto">
+          
           <main
-            class="main-dashboard flex-1 p-6 max-w-7xl mx-auto w-full text-white"
+            class="main-dashboard flex-1  max-w-7xl mx-auto w-full text-white"
           >
           <div class="p-4 sm:p-6 lg:p-8">
             <!-- 1. Dismissible Notification Banner -->
             <div
-              id="notification-banner"
-              class="flex items-center justify-between flex-wrap gap-y-2 p-3 mb-6 rounded-lg shadow-md transition duration-300"
-              role="alert"
-            >
-              <p class="text-sm font-medium">
-                <span class="font-bold mr-2"
-                  >Do not miss any single important notification!</span
-                >
-                Allow your browser to get instant push notification.
-              </p>
-              <div class="flex items-center space-x-3">
-                <button
-                  class="px-4 py-2 text-sm font-semibold rounded-lg bg-purple-700 text-white hover:bg-purple-800 transition"
-                >
-                  Allow Me
-                </button>
-                <button
-                  onclick="document.getElementById('notification-banner').remove()"
-                  class="text-xl font-bold p-1 leading-none hover:text-gray-900 transition"
-                  aria-label="Dismiss"
-                >
-                  &times;
-                </button>
-              </div>
-            </div>
+  id="notification-banner"
+  class="w-full bg-[#09112A] border-l-2 border-[#31E861] text-white 
+         flex items-center justify-between px-4 py-3 shadow-md mb-4"
+>
+  
+  <!-- LEFT SIDE: Text + Allow Button -->
+  <div class="flex items-center gap-6">
+    <p class="text-sm">
+      Do not miss any single important notification!
+      <span class="opacity-80">Allow your browser to get instant push notification.</span>
+    </p>
+
+    <button
+      class="bg-purple-700 text-gray-600 font-semibold px-5 py-2 rounded-md 
+             hover:brightness-105 transition"
+    >
+      Allow Me
+    </button>
+  </div>
+
+  <!-- RIGHT SIDE: Close Button -->
+  <button
+    class="text-white text-xl hover:text-gray-300 transition"
+    onclick="document.getElementById('notification-banner').remove()"
+  >
+    &times;
+  </button>
+
+</div>
+
 
             <!-- 2. Top Statistics Cards Grid -->
             <div class="mb-8">
-              <h2 class="text-2xl font-bold text-white mb-4">
+              <!-- <h2 class="text-2xl font-bold text-white mb-4">
                 Dashboard Overview
-              </h2>
+              </h2> -->
 
               <div
                 class="grid grid-cols-2 gap-4 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-8"
