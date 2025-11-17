@@ -303,7 +303,7 @@
   <body>
     <div
       id="sidebar"
-      class="sidebar sidebar-container w-64 p-4 fixed left-0 top-16 z-10 h-screen overflow-y-auto mb-4"
+      class="sidebar sidebar-container w-64 p-4 fixed left-0 top-16 z-10 h-screen overflow-y-auto mb-4 hidden lg:block"
     >
       <div class="sidebar-logo text-center mb-6">
         <div class="text-2xl font-bold text-red-500 text-only ">MLM</div>
@@ -817,10 +817,14 @@ document.getElementById("sidebarToggle").addEventListener("click", function () {
 
   // Update main content positioning
   if (mainContentWrapper) {
-    if (isCollapsed) {
-      mainContentWrapper.style.left = "80px"; // Collapsed sidebar width
+    if (sidebar.offsetWidth > 0) {
+      if (isCollapsed) {
+        mainContentWrapper.style.left = "80px"; // Collapsed sidebar width
+      } else {
+        mainContentWrapper.style.left = "256px"; // Full sidebar width (w-64)
+      }
     } else {
-      mainContentWrapper.style.left = "256px"; // Full sidebar width (w-64)
+      mainContentWrapper.style.left = "0";
     }
   }
 });
@@ -840,14 +844,18 @@ menuItems.forEach((item) => {
 document.addEventListener("DOMContentLoaded", function() {
   const sidebar = document.getElementById("sidebar");
   const mainContentWrapper = document.getElementById("main-content-wrapper");
-  
+
   if (mainContentWrapper && sidebar) {
     // Set initial position based on current sidebar state
-    const isCollapsed = sidebar.classList.contains("collapsed");
-    if (isCollapsed) {
-      mainContentWrapper.style.left = "80px";
+    if (sidebar.offsetWidth > 0) {
+      const isCollapsed = sidebar.classList.contains("collapsed");
+      if (isCollapsed) {
+        mainContentWrapper.style.left = "80px";
+      } else {
+        mainContentWrapper.style.left = "256px";
+      }
     } else {
-      mainContentWrapper.style.left = "256px";
+      mainContentWrapper.style.left = "0";
     }
   }
 });

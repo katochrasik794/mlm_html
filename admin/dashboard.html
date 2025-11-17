@@ -28,11 +28,64 @@
       </div>
       <div id="main-content" class="flex-1 overflow-y-auto bg-[#2c2f32] text-white transition-all duration-300 ease-in-out">
         <!-- DASHBOARD MAIN CONTENT -->
+         
+         
         <div
           id="main-content-wrapper"
-          class="fixed top-16 left-64 right-0 bottom-0 overflow-y-auto overflow-x-hidden flex flex-col transition-all duration-300 ease-in-out"
+          class="fixed top-16 left-0 lg:left-64 right-0 bottom-0 overflow-y-auto overflow-x-hidden flex flex-col transition-all duration-300 ease-in-out"
         >
-          <main class="bg-[#2c2f32] flex-1 mx-auto w-full text-white">
+          <main class="bg-[#2c2f32] flex- mx-auto w-full text-white">
+             <!-- TOP BAR -->
+  <header class="w-full bg-[#2c2f32] py-3 px-4 flex items-center justify-between shadow">
+
+    <!-- SEARCH -->
+    <div class="flex items-center w-full max-w-xl rounded-full px-4 py-2 space-x-3 shadow-lg">
+      <i class="fas fa-search text-gray-400"></i>
+      <input type="text" placeholder="Search for a menu"
+        class="bg-transparent w-full focus:outline-none text-gray-300 placeholder-gray-400">
+    </div>
+
+    <!-- RIGHT SIDE -->
+    <div class="relative ml-4">
+
+      <!-- AVATAR BUTTON -->
+      <button id="avatarBtn">
+        <img src="https://i.pravatar.cc/80" class="w-10 h-10 rounded-full border border-gray-700 cursor-pointer" />
+      </button>
+
+      <!-- DROPDOWN -->
+      <div id="dropdownMenu"
+        class="hidden absolute right-0 mt-3 w-56 bg-gray-800 rounded-xl shadow-xl border border-gray-700 z-50">
+
+        <!-- PROFILE INFO -->
+        <div class="px-4 py-3 flex items-center gap-4">
+          <div>
+            <img src="https://i.pravatar.cc/80" class="w-10 h-10 rounded-full border border-gray-700 cursor-pointer" />
+          </div>
+          <div>
+            <p class="text-sm font-semibold">admin</p>
+          <p class="text-xs text-gray-400">admin@gmail.com</p>
+          </div>
+        </div>
+
+        <!-- MENU ITEMS -->
+        <ul class="py-2">
+          <li>
+            <a href="#"
+              class="block px-4 py-2 text-sm hover:bg-gray-700 transition">Profile & account</a>
+          </li>
+          <li>
+            <a href="#"
+              class="block px-4 py-2 text-sm hover:bg-gray-700 transition">Sign out</a>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </header>
+
+
+
             <div class="p-4 sm:p-6">
               <div
                 class="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-lg flex items-start justify-between shadow-md"
@@ -93,7 +146,7 @@
                 </div>
               </div>
 
-              <div class="grid grid-cols-1 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-6">
                 <div
                   class="lg:col-span-2 xl:col-span-2 bg-[#25282a] p-6 rounded-xl shadow-lg text-white border-b border-blue-500"
                 >
@@ -215,7 +268,7 @@
                 </div>
 
                 <div
-                  class="lg:col-span-1 xl:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-6"
+                  class="lg:col-span-2 xl:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-6"
                 >
                   <div class="p-6 rounded-xl shadow-lg flex flex-col bg-[#25282a] border-b border-blue-500">
                     <div class="flex justify-between items-center mb-3 ">
@@ -363,8 +416,832 @@
                 </div>
               </div>
             </div>
+            
+        <div class="p-4 sm:p-6">
+          <div
+            class="bg-white p-6 rounded-xl shadow-lg mb-6 flex flex-col lg:flex-row"
+          >
+            <div class="flex-grow lg:w-3/4 pr-4">
+              <h2 class="text-xl font-semibold text-gray-800 mb-4">
+                This Month's Summary
+              </h2>
+
+              <div class="relative h-64 w-full">
+                <div class="absolute inset-0 flex">
+                  <div
+                    class="w-10 flex flex-col justify-between text-right text-xs text-gray-500 pr-2 pt-2 pb-6"
+                  >
+                    <span>600</span>
+                    <span>500</span>
+                    <span>400</span>
+                    <span>300</span>
+                    <span>200</span>
+                    <span>100</span>
+                    <span>0.00</span>
+                  </div>
+                  <div
+                    class="flex-grow border-l border-b border-gray-300 relative"
+                  >
+                    <div class="absolute bottom-0 left-0 right-0 h-full">
+                      <svg
+                        class="w-full h-full"
+                        viewBox="0 0 100 100"
+                        preserveAspectRatio="none"
+                      >
+                        <polyline
+                          fill="none"
+                          stroke="#FBBF24"
+                          stroke-width="2"
+                          points="
+                                        0,95 3,95 6,95 9,30 12,95 15,95 18,95 21,95 24,95
+                                        27,95 30,5 33,95 36,95 39,95 42,95 45,95 48,95 51,95
+                                        54,95 57,95 60,95 63,95 66,95 69,95 72,95 75,95
+                                        78,95 81,95 84,95 87,95 90,95 93,95 96,95 100,95
+                                    "
+                        />
+                        <polyline
+                          fill="none"
+                          stroke="#10B981"
+                          stroke-width="1"
+                          points="0,95 100,95"
+                        />
+                        <polyline
+                          fill="none"
+                          stroke="#3B82F6"
+                          stroke-width="1"
+                          points="0,95 100,95"
+                        />
+                      </svg>
+                    </div>
+                    <div
+                      class="absolute bottom-0 left-0 right-0 flex justify-between text-xs text-gray-500 pt-1 px-1"
+                    >
+                      <span class="w-1/32 text-center">Day 01</span>
+                      <span class="w-1/32 text-center">Day 04</span>
+                      <span class="w-1/32 text-center">Day 08</span>
+                      <span class="w-1/32 text-center">Day 12</span>
+                      <span class="w-1/32 text-center">Day 16</span>
+                      <span class="w-1/32 text-center">Day 20</span>
+                      <span class="w-1/32 text-center">Day 24</span>
+                      <span class="w-1/32 text-center">Day 30</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                class="flex justify-center space-x-6 text-sm mt-4 pt-4 border-t border-gray-200"
+              >
+                <div class="flex items-center space-x-2">
+                  <span
+                    class="inline-block w-3 h-3 bg-red-500 rounded-full"
+                  ></span>
+                  <span class="text-gray-600">Return Profit</span>
+                </div>
+                <div class="flex items-center space-x-2">
+                  <span
+                    class="inline-block w-3 h-3 bg-blue-500 rounded-full"
+                  ></span>
+                  <span class="text-gray-600">Payout</span>
+                </div>
+                <div class="flex items-center space-x-2">
+                  <span
+                    class="inline-block w-3 h-3 bg-yellow-500 rounded-full"
+                  ></span>
+                  <span class="text-gray-600">Investment</span>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="lg:w-1/4 lg:border-l border-gray-200 lg:pl-6 pt-4 lg:pt-10 mt-6 lg:mt-0"
+            >
+              <div class="mb-8">
+                <p class="text-sm font-medium text-gray-500 uppercase">
+                  Invest
+                </p>
+                <p class="text-4xl font-bold text-gray-900 mt-1">$959</p>
+              </div>
+              <div>
+                <p class="text-sm font-medium text-gray-500 uppercase">
+                  Return Profit
+                </p>
+                <p class="text-4xl font-bold text-gray-900 mt-1">$0</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
+            <div class="grid grid-cols-1 gap-4 xl:col-span-1">
+              <a
+                href="#"
+                class="bg-white p-6 rounded-xl shadow-lg flex items-center justify-between hover:shadow-xl transition duration-200"
+              >
+                <div class="flex items-center space-x-4">
+                  <div class="p-3 bg-blue-100 rounded-lg">
+                    <svg
+                      class="w-6 h-6 text-blue-600"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M11 5.882V19.06M12 18v1m0 0V5.882M21 12a9 9 0 11-18 0 9 9 0 0118 0zM17 12a5 5 0 10-10 0 5 5 0 0010 0zM15 12a3 3 0 10-6 0 3 3 0 006 0z"
+                      ></path>
+                    </svg>
+                  </div>
+                  <div>
+                    <p class="text-lg font-semibold text-gray-800">
+                      Investment Plan
+                    </p>
+                    <p class="text-sm text-gray-500">Create a new plan</p>
+                  </div>
+                </div>
+                <svg
+                  class="w-5 h-5 text-gray-400"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9 5l7 7-7 7"
+                  ></path>
+                </svg>
+              </a>
+
+              <a
+                href="#"
+                class="bg-white p-6 rounded-xl shadow-lg flex items-center justify-between hover:shadow-xl transition duration-200"
+              >
+                <div class="flex items-center space-x-4">
+                  <div class="p-3 bg-orange-100 rounded-lg">
+                    <svg
+                      class="w-6 h-6 text-orange-600"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m4 4v10l8-4m0-10v.01"
+                      ></path>
+                    </svg>
+                  </div>
+                  <div>
+                    <p class="text-lg font-semibold text-gray-800">Schedule</p>
+                    <p class="text-sm text-gray-500">Manage Schedule</p>
+                  </div>
+                </div>
+                <svg
+                  class="w-5 h-5 text-gray-400"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9 5l7 7-7 7"
+                  ></path>
+                </svg>
+              </a>
+
+              <a
+                href="#"
+                class="bg-white p-6 rounded-xl shadow-lg flex items-center justify-between hover:shadow-xl transition duration-200"
+              >
+                <div class="flex items-center space-x-4">
+                  <div class="p-3 bg-purple-100 rounded-lg">
+                    <svg
+                      class="w-6 h-6 text-purple-600"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M14 10h4.764a2 2 0 011.838 1.03l-.433.916C19.266 12.392 18 12 18 12a3 3 0 00-3-3m-9 12a3 3 0 11-6 0 3 3 0 016 0zM12 9a3 3 0 01-3 3m1-12.836l-3.322 3.322m3.322-3.322l3.322 3.322M9 14l3 3m0 0l3-3m-3 3v-2m-3 0h6"
+                      ></path>
+                    </svg>
+                  </div>
+                  <div>
+                    <p class="text-lg font-semibold text-gray-800">Referral</p>
+                    <p class="text-sm text-gray-500">Manage Referral</p>
+                  </div>
+                </div>
+                <svg
+                  class="w-5 h-5 text-gray-400"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9 5l7 7-7 7"
+                  ></path>
+                </svg>
+              </a>
+            </div>
+
+            <div class="xl:col-span-2 bg-white p-6 rounded-xl shadow-lg">
+              <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl font-semibold text-gray-800">
+                  Top Investment Plan
+                </h2>
+                <a
+                  href="#"
+                  class="text-sm font-medium text-blue-600 hover:text-blue-700"
+                  >View all</a
+                >
+              </div>
+
+              <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                  <thead>
+                    <tr
+                      class="text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    >
+                      <th class="py-3 pr-3">Plan Name</th>
+                      <th class="py-3 px-3">Price</th>
+                      <th class="py-3 px-3 text-right">Total Invest</th>
+                      <th class="py-3 pl-3 text-right">Invest Amount</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-gray-200 text-sm text-gray-700">
+                    <tr>
+                      <td class="py-3 pr-3 font-semibold">Business Plan</td>
+                      <td class="py-3 px-3 text-gray-600">$69 - $999</td>
+                      <td class="py-3 px-3 text-right">
+                        1475 <span class="text-xs text-gray-400">(times)</span>
+                      </td>
+                      <td class="py-3 pl-3 text-right font-medium">
+                        $54,463.63
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="py-3 pr-3 font-semibold">Baby Plan</td>
+                      <td class="py-3 px-3 text-gray-600">$99 - $888</td>
+                      <td class="py-3 px-3 text-right">
+                        357 <span class="text-xs text-gray-400">(times)</span>
+                      </td>
+                      <td class="py-3 pl-3 text-right font-medium">
+                        $10,671.97
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="py-3 pr-3 font-semibold">Starter Pack</td>
+                      <td class="py-3 px-3 text-gray-600">$50 - $400</td>
+                      <td class="py-3 px-3 text-right">
+                        198 <span class="text-xs text-gray-400">(times)</span>
+                      </td>
+                      <td class="py-3 pl-3 text-right font-medium">$3,355.9</td>
+                    </tr>
+                    <tr>
+                      <td class="py-3 pr-3 font-semibold">Secondary Pack</td>
+                      <td class="py-3 px-3 text-gray-600">$89 - $666</td>
+                      <td class="py-3 px-3 text-right">
+                        116 <span class="text-xs text-gray-400">(times)</span>
+                      </td>
+                      <td class="py-3 pl-3 text-right font-medium">$3,197.3</td>
+                    </tr>
+                    <tr>
+                      <td class="py-3 pr-3 font-semibold">Hatchling Plan</td>
+                      <td class="py-3 px-3 text-gray-600">$120</td>
+                      <td class="py-3 px-3 text-right">
+                        199 <span class="text-xs text-gray-400">(times)</span>
+                      </td>
+                      <td class="py-3 pl-3 text-right font-medium">$2,386.0</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="p-4 sm:p-6">
+          <div class="bg-white p-6 rounded-xl shadow-lg mb-6">
+            <div class="flex justify-between items-center mb-4">
+              <h2 class="text-xl font-semibold text-gray-800">Latest Users</h2>
+              <a
+                href="#"
+                class="text-sm font-medium text-blue-600 hover:text-blue-700"
+                >View all</a
+              >
+            </div>
+
+            <div class="overflow-x-auto">
+              <table class="min-w-full divide-y divide-gray-200">
+                <thead>
+                  <tr
+                    class="text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  >
+                    <th class="py-3 pr-4 w-1/5">Full Name</th>
+                    <th class="py-3 px-2 w-1/5">Email-Phone</th>
+                    <th class="py-3 px-2">Balance</th>
+                    <th class="py-3 px-2">Interest Balance</th>
+                    <th class="py-3 px-2">Total Invest</th>
+                    <th class="py-3 px-2">Status</th>
+                    <th class="py-3 px-2">Last Login</th>
+                    <th class="py-3 pl-4 text-right">Action</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200 text-sm text-gray-700">
+                  <tr>
+                    <td class="py-4 pr-4 flex items-center">
+                      <span
+                        class="w-8 h-8 flex items-center justify-center rounded-full bg-blue-100 text-blue-600 font-bold text-xs mr-3"
+                        >U</span
+                      >
+                      <div>
+                        <p class="font-medium">umesh kumar</p>
+                        <p class="text-xs text-gray-400">@umeshkumarppp</p>
+                      </div>
+                    </td>
+                    <td class="py-4 px-2">
+                      <p>umeshkumarhataak@gmail.com</p>
+                      <p class="text-xs text-gray-400">+919813675128</p>
+                    </td>
+                    <td class="py-4 px-2">$0</td>
+                    <td class="py-4 px-2">$0</td>
+                    <td class="py-4 px-2">$0</td>
+                    <td class="py-4 px-2">
+                      <span class="flex items-center text-green-500">
+                        <span
+                          class="inline-block w-2 h-2 mr-1 bg-green-500 rounded-full"
+                        ></span>
+                        Active
+                      </span>
+                    </td>
+                    <td class="py-4 px-2">0 seconds ago</td>
+                    <td class="py-4 pl-4 text-right">
+                      <div class="flex justify-end items-center space-x-2">
+                        <button
+                          class="text-gray-500 hover:text-gray-700 text-xs"
+                        >
+                          Edit
+                        </button>
+                        <button class="text-gray-400 hover:text-gray-600">
+                          <svg
+                            class="w-4 h-4"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              d="M19 9l-7 7-7-7"
+                            ></path>
+                          </svg>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="py-4 pr-4 flex items-center">
+                      <span
+                        class="w-8 h-8 flex items-center justify-center rounded-full bg-blue-100 text-blue-600 font-bold text-xs mr-3"
+                        >P</span
+                      >
+                      <div>
+                        <p class="font-medium">PNG MONERO</p>
+                        <p class="text-xs text-gray-400">@Png237</p>
+                      </div>
+                    </td>
+                    <td class="py-4 px-2">
+                      <p>violatucker34@gmail.com</p>
+                      <p class="text-xs text-gray-400">674455868</p>
+                    </td>
+                    <td class="py-4 px-2">$10</td>
+                    <td class="py-4 px-2">$0</td>
+                    <td class="py-4 px-2">$0</td>
+                    <td class="py-4 px-2">
+                      <span class="flex items-center text-green-500">
+                        <span
+                          class="inline-block w-2 h-2 mr-1 bg-green-500 rounded-full"
+                        ></span>
+                        Active
+                      </span>
+                    </td>
+                    <td class="py-4 px-2">3 days ago</td>
+                    <td class="py-4 pl-4 text-right">
+                      <div class="flex justify-end items-center space-x-2">
+                        <button
+                          class="text-gray-500 hover:text-gray-700 text-xs"
+                        >
+                          Edit
+                        </button>
+                        <button class="text-gray-400 hover:text-gray-600">
+                          <svg
+                            class="w-4 h-4"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              d="M19 9l-7 7-7-7"
+                            ></path>
+                          </svg>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="py-4 pr-4 flex items-center">
+                      <span
+                        class="w-8 h-8 flex items-center justify-center rounded-full bg-blue-100 text-blue-600 font-bold text-xs mr-3"
+                        >M</span
+                      >
+                      <div>
+                        <p class="font-medium">Mark Ogen</p>
+                        <p class="text-xs text-gray-400">@Markogen</p>
+                      </div>
+                    </td>
+                    <td class="py-4 px-2">
+                      <p>acceptnew06@gmail.com</p>
+                      <p class="text-xs text-gray-400">676862940</p>
+                    </td>
+                    <td class="py-4 px-2">$10</td>
+                    <td class="py-4 px-2">$0</td>
+                    <td class="py-4 px-2">$0</td>
+                    <td class="py-4 px-2">
+                      <span class="flex items-center text-green-500">
+                        <span
+                          class="inline-block w-2 h-2 mr-1 bg-green-500 rounded-full"
+                        ></span>
+                        Active
+                      </span>
+                    </td>
+                    <td class="py-4 px-2">1 day ago</td>
+                    <td class="py-4 pl-4 text-right">
+                      <div class="flex justify-end items-center space-x-2">
+                        <button
+                          class="text-gray-500 hover:text-gray-700 text-xs"
+                        >
+                          Edit
+                        </button>
+                        <button class="text-gray-400 hover:text-gray-600">
+                          <svg
+                            class="w-4 h-4"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              d="M19 9l-7 7-7-7"
+                            ></path>
+                          </svg>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="py-4 pr-4 flex items-center">
+                      <span
+                        class="w-8 h-8 flex items-center justify-center rounded-full bg-blue-100 text-blue-600 font-bold text-xs mr-3"
+                        >T</span
+                      >
+                      <div>
+                        <p class="font-medium">Tanyi Williams</p>
+                        <p class="text-xs text-gray-400">@williamswise24</p>
+                      </div>
+                    </td>
+                    <td class="py-4 px-2">
+                      <p>ryannk447@gmail.com</p>
+                      <p class="text-xs text-gray-400">674274204</p>
+                    </td>
+                    <td class="py-4 px-2">$10</td>
+                    <td class="py-4 px-2">$0</td>
+                    <td class="py-4 px-2">$0</td>
+                    <td class="py-4 px-2">
+                      <span class="flex items-center text-green-500">
+                        <span
+                          class="inline-block w-2 h-2 mr-1 bg-green-500 rounded-full"
+                        ></span>
+                        Active
+                      </span>
+                    </td>
+                    <td class="py-4 px-2">2 days ago</td>
+                    <td class="py-4 pl-4 text-right">
+                      <div class="flex justify-end items-center space-x-2">
+                        <button
+                          class="text-gray-500 hover:text-gray-700 text-xs"
+                        >
+                          Edit
+                        </button>
+                        <button class="text-gray-400 hover:text-gray-600">
+                          <svg
+                            class="w-4 h-4"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              d="M19 9l-7 7-7-7"
+                            ></path>
+                          </svg>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="py-4 pr-4 flex items-center">
+                      <span
+                        class="w-8 h-8 flex items-center justify-center rounded-full bg-blue-100 text-blue-600 font-bold text-xs mr-3"
+                        >A</span
+                      >
+                      <div>
+                        <p class="font-medium">ahsan raza</p>
+                        <p class="text-xs text-gray-400">@oklast</p>
+                      </div>
+                    </td>
+                    <td class="py-4 px-2">
+                      <p>oklast@gmail.com</p>
+                      <p class="text-xs text-gray-400">3272381662</p>
+                    </td>
+                    <td class="py-4 px-2">$10</td>
+                    <td class="py-4 px-2">$0</td>
+                    <td class="py-4 px-2">$0</td>
+                    <td class="py-4 px-2">
+                      <span class="flex items-center text-green-500">
+                        <span
+                          class="inline-block w-2 h-2 mr-1 bg-green-500 rounded-full"
+                        ></span>
+                        Active
+                      </span>
+                    </td>
+                    <td class="py-4 px-2">5 days ago</td>
+                    <td class="py-4 pl-4 text-right">
+                      <div class="flex justify-end items-center space-x-2">
+                        <button
+                          class="text-gray-500 hover:text-gray-700 text-xs"
+                        >
+                          Edit
+                        </button>
+                        <button class="text-gray-400 hover:text-gray-600">
+                          <svg
+                            class="w-4 h-4"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              d="M19 9l-7 7-7-7"
+                            ></path>
+                          </svg>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div
+              class="bg-white p-6 rounded-xl shadow-lg flex flex-col items-center"
+            >
+              <h3 class="text-lg font-semibold text-gray-800 mb-4">
+                Browser History
+              </h3>
+              <div class="relative w-40 h-40">
+                <svg
+                  class="w-full h-full"
+                  viewBox="0 0 36 36"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <circle
+                    cx="18"
+                    cy="18"
+                    r="16"
+                    fill="transparent"
+                    stroke="#E5E7EB"
+                    stroke-width="4"
+                  ></circle>
+                  <circle
+                    cx="18"
+                    cy="18"
+                    r="16"
+                    fill="transparent"
+                    stroke="#3B82F6"
+                    stroke-width="4"
+                    stroke-dasharray="100 0"
+                    stroke-dashoffset="0"
+                    transform="rotate(-90 18 18)"
+                  ></circle>
+                  <circle
+                    cx="18"
+                    cy="18"
+                    r="16"
+                    fill="transparent"
+                    stroke="#F97316"
+                    stroke-width="4"
+                    stroke-dasharray="50 100"
+                    stroke-dashoffset="0"
+                    transform="rotate(70 18 18)"
+                  ></circle>
+                  <circle
+                    cx="18"
+                    cy="18"
+                    r="16"
+                    fill="transparent"
+                    stroke="#EF4444"
+                    stroke-width="4"
+                    stroke-dasharray="5 100"
+                    stroke-dashoffset="0"
+                    transform="rotate(270 18 18)"
+                  ></circle>
+                </svg>
+                <div
+                  class="absolute inset-0 flex flex-col items-center justify-center"
+                >
+                  <p class="text-sm font-medium text-gray-500">
+                    <span class="text-green-500">✓</span> On track
+                  </p>
+                </div>
+              </div>
+              <p class="text-xs text-gray-500 mt-4">
+                Last 30 Days Browser History
+              </p>
+            </div>
+
+            <div
+              class="bg-white p-6 rounded-xl shadow-lg flex flex-col items-center"
+            >
+              <h3 class="text-lg font-semibold text-gray-800 mb-4">
+                Operating System History
+              </h3>
+              <div class="relative w-40 h-40">
+                <svg
+                  class="w-full h-full"
+                  viewBox="0 0 36 36"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <circle
+                    cx="18"
+                    cy="18"
+                    r="16"
+                    fill="transparent"
+                    stroke="#E5E7EB"
+                    stroke-width="4"
+                  ></circle>
+                  <circle
+                    cx="18"
+                    cy="18"
+                    r="16"
+                    fill="transparent"
+                    stroke="#EF4444"
+                    stroke-width="4"
+                    stroke-dasharray="100 0"
+                    stroke-dashoffset="0"
+                    transform="rotate(-90 18 18)"
+                  ></circle>
+                  <circle
+                    cx="18"
+                    cy="18"
+                    r="16"
+                    fill="transparent"
+                    stroke="#F97316"
+                    stroke-width="4"
+                    stroke-dasharray="50 100"
+                    stroke-dashoffset="0"
+                    transform="rotate(80 18 18)"
+                  ></circle>
+                  <circle
+                    cx="18"
+                    cy="18"
+                    r="16"
+                    fill="transparent"
+                    stroke="#3B82F6"
+                    stroke-width="4"
+                    stroke-dasharray="10 100"
+                    stroke-dashoffset="0"
+                    transform="rotate(270 18 18)"
+                  ></circle>
+                </svg>
+                <div
+                  class="absolute inset-0 flex flex-col items-center justify-center"
+                >
+                  <p class="text-sm font-medium text-gray-500">
+                    <span class="text-green-500">✓</span> On track
+                  </p>
+                </div>
+              </div>
+              <p class="text-xs text-gray-500 mt-4">Last 30 Days OS History</p>
+            </div>
+
+            <div
+              class="bg-white p-6 rounded-xl shadow-lg flex flex-col items-center"
+            >
+              <h3 class="text-lg font-semibold text-gray-800 mb-4">
+                Device History
+              </h3>
+              <div class="relative w-40 h-40">
+                <svg
+                  class="w-full h-full"
+                  viewBox="0 0 36 36"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <circle
+                    cx="18"
+                    cy="18"
+                    r="16"
+                    fill="transparent"
+                    stroke="#E5E7EB"
+                    stroke-width="4"
+                  ></circle>
+                  <circle
+                    cx="18"
+                    cy="18"
+                    r="16"
+                    fill="transparent"
+                    stroke="#3B82F6"
+                    stroke-width="4"
+                    stroke-dasharray="100 0"
+                    stroke-dashoffset="0"
+                    transform="rotate(-90 18 18)"
+                  ></circle>
+                  <circle
+                    cx="18"
+                    cy="18"
+                    r="16"
+                    fill="transparent"
+                    stroke="#F97316"
+                    stroke-width="4"
+                    stroke-dasharray="50 100"
+                    stroke-dashoffset="0"
+                    transform="rotate(70 18 18)"
+                  ></circle>
+                  <circle
+                    cx="18"
+                    cy="18"
+                    r="16"
+                    fill="transparent"
+                    stroke="#EF4444"
+                    stroke-width="4"
+                    stroke-dasharray="5 100"
+                    stroke-dashoffset="0"
+                    transform="rotate(270 18 18)"
+                  ></circle>
+                </svg>
+                <div
+                  class="absolute inset-0 flex flex-col items-center justify-center"
+                >
+                  <p class="text-sm font-medium text-gray-500">
+                    <span class="text-orange-500">✓</span> On track
+                  </p>
+                </div>
+              </div>
+              <p class="text-xs text-gray-500 mt-4">
+                Last 30 Days Device History
+              </p>
+            </div>
+          </div>
+        </div>
           </main>
         </div>
+        
       </div>
     </div>
 
@@ -454,5 +1331,21 @@
     </script>
     <script src="./js/include.js"></script>
     <script src="./js/admin.js"></script>
+      <script>
+    const avatarBtn = document.getElementById("avatarBtn");
+    const dropdown = document.getElementById("dropdownMenu");
+
+    // Toggle on click
+    avatarBtn.addEventListener("click", () => {
+      dropdown.classList.toggle("hidden");
+    });
+
+    // Close when clicking outside
+    document.addEventListener("click", (e) => {
+      if (!avatarBtn.contains(e.target) && !dropdown.contains(e.target)) {
+        dropdown.classList.add("hidden");
+      }
+    });
+  </script>
   </body>
 </html>
