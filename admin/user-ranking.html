@@ -37,6 +37,82 @@
       <div id="sidebar-container" class="relative hidden lg:block">
         <div data-include="components/sidebar.html"></div>
       </div>
+      <!-- TOP BAR -->
+      <header class="fixed top-0 left-0 lg:left-64 right-0 z-40 w-full bg-[#2c2f32] py-3 px-4 flex items-center justify-between shadow">
+        <div class="flex items-center space-x-4 flex-1">
+          <!-- HAMBURGER AND MLM - visible below desktop -->
+          <div class="flex items-center space-x-2 lg:hidden">
+            <button
+              id="hamburgerBtn"
+              class="text-white p-2 hover:bg-gray-700 rounded"
+            >
+              <i class="fas fa-bars"></i>
+            </button>
+            <div class="text-xl font-bold text-red-500">MLM</div>
+          </div>
+
+          <!-- SEARCH -->
+          <div
+            class="flex items-center flex-1 max-w-xl rounded-full px-4 py-2 space-x-3 shadow-lg"
+          >
+            <i class="fas fa-search text-gray-400"></i>
+            <input
+              type="text"
+              placeholder="Search for a menu"
+              class="bg-transparent w-full focus:outline-none text-gray-300 placeholder-gray-400"
+            />
+          </div>
+        </div>
+
+        <!-- RIGHT SIDE -->
+        <div class="relative ml-4">
+          <!-- AVATAR BUTTON -->
+          <button id="avatarBtn">
+            <img
+              src="https://i.pravatar.cc/80"
+              class="w-10 h-10 rounded-full border border-gray-700 cursor-pointer"
+            />
+          </button>
+
+          <!-- DROPDOWN -->
+          <div
+            id="dropdownMenu"
+            class="hidden absolute right-0 mt-3 w-56 bg-gray-800 rounded-xl shadow-xl border border-gray-700 z-50"
+          >
+            <!-- PROFILE INFO -->
+            <div class="px-4 py-3 flex items-center gap-4">
+              <div>
+                <img
+                  src="https://i.pravatar.cc/80"
+                  class="w-10 h-10 rounded-full border border-gray-700 cursor-pointer"
+                />
+              </div>
+              <div>
+                <p class="text-sm font-semibold">admin</p>
+                <p class="text-xs text-gray-400">admin@gmail.com</p>
+              </div>
+            </div>
+
+            <!-- MENU ITEMS -->
+            <ul class="py-2">
+              <li>
+                <a
+                  href="#"
+                  class="block px-4 py-2 text-sm hover:bg-gray-700 transition"
+                  >Profile & account</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="block px-4 py-2 text-sm hover:bg-gray-700 transition"
+                  >Sign out</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </header>
       <div
         id="main-content"
         class="overflow-y-auto bg-[#2c2f32] text-white transition-all duration-300 ease-in-out"
@@ -45,87 +121,9 @@
 
         <div
           id="main-content-wrapper"
-          class="fixed top-0 left-0 lg:left-64 right-0 bottom-0 overflow-y-auto overflow-x-hidden flex flex-col transition-all duration-300 ease-in-out"
+          class="fixed top-16 left-0 lg:left-64 right-0 bottom-0 overflow-y-auto overflow-x-hidden flex flex-col transition-all duration-300 ease-in-out"
         >
           <main class="bg-[#1e2022] mx-auto w-full text-white">
-            <!-- TOP BAR -->
-            <header
-              class="w-full bg-[#2c2f32] py-3 px-4 flex items-center justify-between shadow"
-            >
-              <div class="flex items-center space-x-4 flex-1">
-                <!-- HAMBURGER AND MLM - visible below desktop -->
-                <div class="flex items-center space-x-2 lg:hidden">
-                  <button
-                    id="hamburgerBtn"
-                    class="text-white p-2 hover:bg-gray-700 rounded"
-                  >
-                    <i class="fas fa-bars"></i>
-                  </button>
-                  <div class="text-xl font-bold text-red-500">MLM</div>
-                </div>
-
-                <!-- SEARCH -->
-                <div
-                  class="flex items-center flex-1 max-w-xl rounded-full px-4 py-2 space-x-3 shadow-lg"
-                >
-                  <i class="fas fa-search text-gray-400"></i>
-                  <input
-                    type="text"
-                    placeholder="Search for a menu"
-                    class="bg-transparent w-full focus:outline-none text-gray-300 placeholder-gray-400"
-                  />
-                </div>
-              </div>
-
-              <!-- RIGHT SIDE -->
-              <div class="relative ml-4">
-                <!-- AVATAR BUTTON -->
-                <button id="avatarBtn">
-                  <img
-                    src="https://i.pravatar.cc/80"
-                    class="w-10 h-10 rounded-full border border-gray-700 cursor-pointer"
-                  />
-                </button>
-
-                <!-- DROPDOWN -->
-                <div
-                  id="dropdownMenu"
-                  class="hidden absolute right-0 mt-3 w-56 bg-gray-800 rounded-xl shadow-xl border border-gray-700 z-50"
-                >
-                  <!-- PROFILE INFO -->
-                  <div class="px-4 py-3 flex items-center gap-4">
-                    <div>
-                      <img
-                        src="https://i.pravatar.cc/80"
-                        class="w-10 h-10 rounded-full border border-gray-700 cursor-pointer"
-                      />
-                    </div>
-                    <div>
-                      <p class="text-sm font-semibold">admin</p>
-                      <p class="text-xs text-gray-400">admin@gmail.com</p>
-                    </div>
-                  </div>
-
-                  <!-- MENU ITEMS -->
-                  <ul class="py-2">
-                    <li>
-                      <a
-                        href="#"
-                        class="block px-4 py-2 text-sm hover:bg-gray-700 transition"
-                        >Profile & account</a
-                      >
-                    </li>
-                    <li>
-                      <a
-                        href="#"
-                        class="block px-4 py-2 text-sm hover:bg-gray-700 transition"
-                        >Sign out</a
-                      >
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </header>
 
             <div class="p-4 sm:p-6 min-h-screen">
               <div class="mb-6 border-b border-gray-700">

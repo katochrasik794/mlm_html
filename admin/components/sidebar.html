@@ -816,15 +816,25 @@ document.getElementById("sidebarToggle").addEventListener("click", function () {
   );
 
   // Update main content positioning
+  const header = document.querySelector('header');
   if (mainContentWrapper) {
     if (sidebar.offsetWidth > 0) {
       if (isCollapsed) {
         mainContentWrapper.style.left = "80px"; // Collapsed sidebar width
+        if (header && window.innerWidth >= 1024) {
+          header.style.left = "80px";
+        }
       } else {
         mainContentWrapper.style.left = "256px"; // Full sidebar width (w-64)
+        if (header && window.innerWidth >= 1024) {
+          header.style.left = "256px";
+        }
       }
     } else {
       mainContentWrapper.style.left = "0";
+      if (header) {
+        header.style.left = "0";
+      }
     }
   }
 });
@@ -844,6 +854,7 @@ menuItems.forEach((item) => {
 document.addEventListener("DOMContentLoaded", function() {
   const sidebar = document.getElementById("sidebar");
   const mainContentWrapper = document.getElementById("main-content-wrapper");
+  const header = document.querySelector('header');
 
   if (mainContentWrapper && sidebar) {
     // Set initial position based on current sidebar state
@@ -851,11 +862,20 @@ document.addEventListener("DOMContentLoaded", function() {
       const isCollapsed = sidebar.classList.contains("collapsed");
       if (isCollapsed) {
         mainContentWrapper.style.left = "80px";
+        if (header && window.innerWidth >= 1024) {
+          header.style.left = "80px";
+        }
       } else {
         mainContentWrapper.style.left = "256px";
+        if (header && window.innerWidth >= 1024) {
+          header.style.left = "256px";
+        }
       }
     } else {
       mainContentWrapper.style.left = "0";
+      if (header) {
+        header.style.left = "0";
+      }
     }
   }
 });
