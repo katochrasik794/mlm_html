@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Theme Toggle Test</title>
+  <!-- short Tailwind classes OK for layout, not required for functionality -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    body { background: #0f1724; color: #e5e7eb; min-height:100vh; display:flex; align-items:center; justify-content:center; }
+    .dark body { background: #f8fafc; color: #0f1724; } /* just for visible effect when class toggles */
+  </style>
+</head>
+<body>
+  <div class="p-6 bg-gray-800 rounded-lg text-gray-200">
+    <div class="mb-4">Current html.class: <span id="cls"></span></div>
+
+    <button id="themeToggle" class="p-3 w-12 h-12 rounded-lg flex items-center justify-center text-slate-700 transition"
+            aria-pressed="false" aria-label="Toggle theme" title="Toggle theme">
+      <svg id="themeIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+           fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <!-- initial moon -->
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+      </svg>
+    </button>
+
+    <div class="mt-4 text-sm">
+      <p>Check console for debug logs. Click the button to toggle.</p>
+    </div>
+  </div>
+
+<script>
+(function () {
+  // debug helper
+  function log(...args) { console.log('[theme-debug]', ...args); }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const btn = document.getElementById('themeToggle');
+    const icon = document.getElementById('themeIcon');
+    const clsSpan = document.getElementById('cls');
+
+    // sanity checks
+    if (!btn) { console.error('[theme-debug] No #themeToggle found'); return; }
+    if (!icon) { console.error('[theme-debug] No #themeIcon found'); return; }
+    log('elements found', { btn, icon });
+
+    // helper to update status text on page
+    function updateStatus() {
+      clsSpan.textContent = document.documentElement.className || '(no class)';
+    }
+
+    function setIconForDark(isDark) {
+      try {
+        if (isDark) {
+          // when dark -> show sun icon (action will switch to light)
+          icon.innerHTML = '<circle cx="12" cy="12" r="4"></circle>' +
+                           '<path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>';
+        } else {
+          // when light -> show moon icon (action will switch to dark)
+          icon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+        }
+        btn.setAttribute('aria-pressed', String(isDark));
+        btn.setAttribute('aria-label', isDark ? 'Switch to light' : 'Switch to dark');
+      } catch (err) {
+        console.error('[theme-debug] setIconForDark error', err);
+      }
+    }
+
+    // init theme from localStorage or system preference
+    try {
+      const saved = localStorage.getItem('theme'); // may be null
+      const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const initialDark = saved ? saved === 'dark' : prefersDark;
+
+      document.documentElement.classList.toggle('dark', initialDark);
+      setIconForDark(initialDark);
+      updateStatus();
+
+      log('initialized', { saved, prefersDark, initialDark, htmlClass: document.documentElement.className });
+    } catch (err) {
+      console.error('[theme-debug] init error', err);
+    }
+
+    // click handler
+    btn.addEventListener('click', () => {
+      try {
+        const nowDark = document.documentElement.classList.toggle('dark');
+        localStorage.setItem('theme', nowDark ? 'dark' : 'light');
+        setIconForDark(nowDark);
+        updateStatus();
+        log('toggled', { nowDark, htmlClass: document.documentElement.className, localStorageTheme: localStorage.getItem('theme') });
+      } catch (err) {
+        console.error('[theme-debug] click handler error', err);
+      }
+    });
+
+    // also observe class changes (useful if other scripts modify it)
+    const mo = new MutationObserver(() => {
+      const isDark = document.documentElement.classList.contains('dark');
+      setIconForDark(isDark);
+      updateStatus();
+      log('mutation observed. dark?', isDark);
+    });
+    mo.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+
+  });
+})();
+</script>
+</body>
+</html>
+
