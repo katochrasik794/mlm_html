@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+  <head class="">
+    <meta charset="utf-8" class="" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1"
+      class=""
+    />
+    <title class="">Plan List - Admin</title>
+    <link rel="stylesheet" href="/mlm_html//admin//style.css" />
+    <script src="https://cdn.tailwindcss.com" class=""></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      .custom-scrollbar::-webkit-scrollbar {
+        height: 8px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background-color: #374151; /* Gray-700 */
+        border-radius: 4px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-track {
+        background-color: #1f2937; /* Gray-800 */
+      }
+    </style>
+  </head>
+  <body class="">
+    <!-- SIDEBAR (included dynamically) & MAIN CONTENT FLEX LAYOUT -->
+    <div class="flex h-screen pt-16">
+      <div id="sidebar-container" class="relative hidden lg:block">
+        <div data-include="components/sidebar.html"></div>
+      </div>
+      <div
+        id="main-content"
+        class="overflow-y-auto bg-[#2c2f32] text-white transition-all duration-300 ease-in-out"
+      >
+        <!-- DASHBOARD MAIN CONTENT -->
+
+        <div
+          id="main-content-wrapper"
+          class="fixed top-16 left-0 lg:left-64 right-0 bottom-0 overflow-y-auto overflow-x-hidden flex flex-col transition-all duration-300 ease-in-out"
+        >
+          <main class="bg-[#1e2022] mx-auto w-full text-white">
+            <!-- TOP BAR -->
+            <header
+              class="w-full bg-[#2c2f32] py-3 px-4 flex items-center justify-between shadow"
+            >
+              <div class="flex items-center space-x-4 flex-1">
+                <!-- HAMBURGER AND MLM - visible below desktop -->
+                <div class="flex items-center space-x-2 lg:hidden">
+                  <button
+                    id="hamburgerBtn"
+                    class="text-white p-2 hover:bg-gray-700 rounded"
+                  >
+                    <i class="fas fa-bars"></i>
+                  </button>
+                  <div class="text-xl font-bold text-red-500">MLM</div>
+                </div>
+
+                <!-- SEARCH -->
+                <div
+                  class="flex items-center flex-1 max-w-xl rounded-full px-4 py-2 space-x-3 shadow-lg"
+                >
+                  <i class="fas fa-search text-gray-400"></i>
+                  <input
+                    type="text"
+                    placeholder="Search for a menu"
+                    class="bg-transparent w-full focus:outline-none text-gray-300 placeholder-gray-400"
+                  />
+                </div>
+              </div>
+
+              <!-- RIGHT SIDE -->
+              <div class="relative ml-4">
+                <!-- AVATAR BUTTON -->
+                <button id="avatarBtn">
+                  <img
+                    src="https://i.pravatar.cc/80"
+                    class="w-10 h-10 rounded-full border border-gray-700 cursor-pointer"
+                  />
+                </button>
+
+                <!-- DROPDOWN -->
+                <div
+                  id="dropdownMenu"
+                  class="hidden absolute right-0 mt-3 w-56 bg-gray-800 rounded-xl shadow-xl border border-gray-700 z-50"
+                >
+                  <!-- PROFILE INFO -->
+                  <div class="px-4 py-3 flex items-center gap-4">
+                    <div>
+                      <img
+                        src="https://i.pravatar.cc/80"
+                        class="w-10 h-10 rounded-full border border-gray-700 cursor-pointer"
+                      />
+                    </div>
+                    <div>
+                      <p class="text-sm font-semibold">admin</p>
+                      <p class="text-xs text-gray-400">admin@gmail.com</p>
+                    </div>
+                  </div>
+
+                  <!-- MENU ITEMS -->
+                  <ul class="py-2">
+                    <li>
+                      <a
+                        href="#"
+                        class="block px-4 py-2 text-sm hover:bg-gray-700 transition"
+                        >Profile & account</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        href="#"
+                        class="block px-4 py-2 text-sm hover:bg-gray-700 transition"
+                        >Sign out</a
+                      >
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </header>
+
+            <div class="p-4 sm:p-6 min-h-screen">
+              <div class="mb-6 border-b border-gray-700">
+                <div class="flex items-end">
+                  <div class="flex-1 mb-2 sm:mb-0">
+                    <nav aria-label="breadcrumb">
+                      <ol class="flex items-center text-sm text-gray-500">
+                        <li class="flex items-center">
+                          <a
+                            class="text-gray-400 hover:text-gray-700"
+                            href="javascript:void(0);"
+                            >Dashboard</a
+                          >
+                          <span class="mx-2">/</span>
+                        </li>
+                        <li class="text-white font-medium" aria-current="page">
+                          Rank List
+                        </li>
+                      </ol>
+                    </nav>
+                    <h1 class="text-2xl font-bold text-white mt-2 mb-10">
+                      Rank List
+                    </h1>
+                  </div>
+                </div>
+              </div>
+
+              <div class="max-w-7xl mx-auto">
+                <!-- Header and Controls (Simplified: Search is gone, keeping Add New button) -->
+
+                <!-- Rank Table Container -->
+                <div
+                  class="card-bg p-4 rounded-xl shadow-lg border border-gray-700 bg-[#2c2f32]"
+                >
+                  <div class="flex justify-between items-center mb-6">
+                    <div class="relative w-full sm:max-w-xs">
+                      <input
+                        type="text"
+                        placeholder="Search plan"
+                        class="w-full bg-[#2c2f32] text-gray-300 placeholder-gray-500 py-3 pl-10 pr-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 border border-gray-700"
+                      />
+                      <!-- Search Icon (Lucide) -->
+                      <div
+                        class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="20"
+                          height="20"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          class="text-gray-400"
+                        >
+                          <circle cx="11" cy="11" r="8"></circle>
+                          <path d="m21 21-4.3-4.3" />
+                        </svg>
+                      </div>
+                    </div>
+                    <!-- Add New Button -->
+                    <button
+                      class="flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 px-6 rounded-lg transition duration-150 shadow-md shadow-blue-500/50"
+                    >
+                      <svg
+                        class="w-5 h-5 mr-2"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M12 4v16m8-8H4"
+                        />
+                      </svg>
+                      <a href="create-rank.html"> Add New </a>
+                    </button>
+                  </div>
+                  <div class="overflow-x-auto">
+                    <table class="min-w-full">
+                      <thead
+                        class="text-xs uppercase tracking-wider text-gray-400 bg-gray-600"
+                      >
+                        <tr class="">
+                          <th scope="col" class="py-3 px-3 text-left">
+                            RANK NAME
+                          </th>
+                          <th scope="col" class="py-3 px-3 text-left">
+                            RANK LEVEL
+                          </th>
+                          <th scope="col" class="py-3 px-3 text-center">
+                            RANK ICON
+                          </th>
+                          <th scope="col" class="py-3 px-3 text-right">
+                            MIN INVEST
+                          </th>
+                          <th scope="col" class="py-3 px-3 text-right">
+                            MIN DEPOSIT
+                          </th>
+                          <th scope="col" class="py-3 px-3 text-right">
+                            MIN EARNING
+                          </th>
+                          <th scope="col" class="py-3 px-3 text-left">
+                            DETAILS
+                          </th>
+                          <th scope="col" class="py-3 px-3 text-center">
+                            STATUS
+                          </th>
+                          <th scope="col" class="py-3 px-3 text-center">
+                            ACTION
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody class="text-sm text-gray-300">
+                        <!-- Row 1: Level 1 - Silver Medal -->
+                        <tr
+                          class="table-row-highlight hover:bg-gray-700/50 transition duration-150"
+                        >
+                          <td
+                            class="py-3 px-3 whitespace-nowrap font-medium text-white"
+                          >
+                            Hyip Member
+                          </td>
+                          <td class="py-3 px-3 whitespace-nowrap">Level 1</td>
+                          <td class="py-3 px-3 text-center">
+                            <!-- Silver Medal SVG Icon -->
+                            <svg
+                              class="w-8 h-8 mx-auto"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                fill-rule="evenodd"
+                                clip-rule="evenodd"
+                                d="M12 2C8.68629 2 6 4.68629 6 8C6 11.3137 12 22 12 22C12 22 18 11.3137 18 8C18 4.68629 15.3137 2 12 2ZM12 11C10.3431 11 9 9.65685 9 8C9 6.34315 10.3431 5 12 5C13.6569 5 15 6.34315 15 8C15 9.65685 13.6569 11 12 11Z"
+                                fill="#C0C0C0"
+                              />
+                              <path
+                                d="M14 17.5C14 18.3284 13.3284 19 12.5 19H11.5C10.6716 19 10 18.3284 10 17.5V17H14V17.5Z"
+                                fill="#A9A9A9"
+                              />
+                              <path d="M15 18H9V19H15V18Z" fill="#707070" />
+                              <path d="M16 18H8V19H16V18Z" fill="#5A5A5A" />
+                              <path d="M7 16H17V17H7V16Z" fill="#404040" />
+                              <path
+                                d="M11 12L12 13L13 12L12 11L11 12Z"
+                                fill="#f0f0f0"
+                              />
+                            </svg>
+                          </td>
+                          <td
+                            class="py-3 px-3 whitespace-nowrap text-right text-base"
+                          >
+                            20.00
+                          </td>
+                          <td
+                            class="py-3 px-3 whitespace-nowrap text-right text-base"
+                          >
+                            50.00
+                          </td>
+                          <td
+                            class="py-3 px-3 whitespace-nowrap text-right text-base"
+                          >
+                            5.00
+                          </td>
+                          <td class="py-3 px-3">
+                            By signing up to the account
+                          </td>
+                          <td class="py-3 px-3 text-center">
+                            <span
+                              class="flex items-center justify-center text-green-400"
+                            >
+                              <span
+                                class="h-2 w-2 rounded-full bg-green-500 mr-1"
+                              ></span>
+                              Active
+                            </span>
+                          </td>
+                          <td class="py-3 px-3 text-center">
+                            <!-- Simple Edit Button -->
+                            <button
+                              class="text-gray-400 hover:text-white transition duration-150 p-2 rounded-lg inline-flex items-center"
+                            >
+                              <svg
+                                class="w-5 h-5"
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                              >
+                                <path
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  stroke-width="2"
+                                  d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
+                                />
+                              </svg>
+                              <a href="edit-rank.html">Edit</a>
+                            </button>
+                          </td>
+                        </tr>
+
+                        <!-- Row 2: Level 2 - Gold/Bronze Medal -->
+                        <tr
+                          class="table-row-highlight hover:bg-gray-700/50 transition duration-150"
+                        >
+                          <td
+                            class="py-3 px-3 whitespace-nowrap font-medium text-white"
+                          >
+                            Hyip Leader
+                          </td>
+                          <td class="py-3 px-3 whitespace-nowrap">Level 2</td>
+                          <td class="py-3 px-3 text-center">
+                            <!-- Gold/Bronze Medal SVG Icon -->
+                            <svg
+                              class="w-8 h-8 mx-auto"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                fill-rule="evenodd"
+                                clip-rule="evenodd"
+                                d="M12 2C8.68629 2 6 4.68629 6 8C6 11.3137 12 22 12 22C12 22 18 11.3137 18 8C18 4.68629 15.3137 2 12 2ZM12 11C10.3431 11 9 9.65685 9 8C9 6.34315 10.3431 5 12 5C13.6569 5 15 6.34315 15 8C15 9.65685 13.6569 11 12 11Z"
+                                fill="#D4AF37"
+                              />
+                              <path
+                                d="M14 17.5C14 18.3284 13.3284 19 12.5 19H11.5C10.6716 19 10 18.3284 10 17.5V17H14V17.5Z"
+                                fill="#B8860B"
+                              />
+                              <path d="M15 18H9V19H15V18Z" fill="#8B4513" />
+                              <path d="M16 18H8V19H16V18Z" fill="#A0522D" />
+                              <path d="M7 16H17V17H7V16Z" fill="#5C4033" />
+                              <path
+                                d="M11 12L12 13L13 12L12 11L11 12Z"
+                                fill="#FFFFFF"
+                              />
+                            </svg>
+                          </td>
+                          <td
+                            class="py-3 px-3 whitespace-nowrap text-right text-base"
+                          >
+                            50.00
+                          </td>
+                          <td
+                            class="py-3 px-3 whitespace-nowrap text-right text-base"
+                          >
+                            100.00
+                          </td>
+                          <td
+                            class="py-3 px-3 whitespace-nowrap text-right text-base"
+                          >
+                            15.00
+                          </td>
+                          <td class="py-3 px-3">
+                            By earning $15 from the site
+                          </td>
+                          <td class="py-3 px-3 text-center">
+                            <span
+                              class="flex items-center justify-center text-green-400"
+                            >
+                              <span
+                                class="h-2 w-2 rounded-full bg-green-500 mr-1"
+                              ></span>
+                              Active
+                            </span>
+                          </td>
+                          <td class="py-3 px-3 text-center">
+                            <!-- Simple Edit Button -->
+                            <button
+                              class="text-gray-400 hover:text-white transition duration-150 p-2 rounded-lg inline-flex items-center"
+                            >
+                              <svg
+                                class="w-5 h-5"
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                              >
+                                <path
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  stroke-width="2"
+                                  d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
+                                />
+                              </svg>
+                              <a href="edit-rank.html">Edit</a>
+                            </button>
+                          </td>
+                        </tr>
+
+                        <!-- Row 3: Level 3 - Gold Medal -->
+                        <tr
+                          class="table-row-highlight hover:bg-gray-700/50 transition duration-150"
+                        >
+                          <td
+                            class="py-3 px-3 whitespace-nowrap font-medium text-white"
+                          >
+                            Hyip Captain
+                          </td>
+                          <td class="py-3 px-3 whitespace-nowrap">Level 3</td>
+                          <td class="py-3 px-3 text-center">
+                            <!-- Gold Medal SVG Icon -->
+                            <svg
+                              class="w-8 h-8 mx-auto"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                fill-rule="evenodd"
+                                clip-rule="evenodd"
+                                d="M12 2C8.68629 2 6 4.68629 6 8C6 11.3137 12 22 12 22C12 22 18 11.3137 18 8C18 4.68629 15.3137 2 12 2ZM12 11C10.3431 11 9 9.65685 9 8C9 6.34315 10.3431 5 12 5C13.6569 5 15 6.34315 15 8C15 9.65685 13.6569 11 12 11Z"
+                                fill="#FFD700"
+                              />
+                              <path
+                                d="M14 17.5C14 18.3284 13.3284 19 12.5 19H11.5C10.6716 19 10 18.3284 10 17.5V17H14V17.5Z"
+                                fill="#DAA520"
+                              />
+                              <path d="M15 18H9V19H15V18Z" fill="#B8860B" />
+                              <path d="M16 18H8V19H16V18Z" fill="#A0522D" />
+                              <path d="M7 16H17V17H7V16Z" fill="#8B4513" />
+                              <path
+                                d="M11 12L12 13L13 12L12 11L11 12Z"
+                                fill="#FFFFFF"
+                              />
+                            </svg>
+                          </td>
+                          <td
+                            class="py-3 px-3 whitespace-nowrap text-right text-base"
+                          >
+                            80.00
+                          </td>
+                          <td
+                            class="py-3 px-3 whitespace-nowrap text-right text-base"
+                          >
+                            120.00
+                          </td>
+                          <td
+                            class="py-3 px-3 whitespace-nowrap text-right text-base"
+                          >
+                            25.00
+                          </td>
+                          <td class="py-3 px-3">
+                            By earning $25 from the site
+                          </td>
+                          <td class="py-3 px-3 text-center">
+                            <span
+                              class="flex items-center justify-center text-green-400"
+                            >
+                              <span
+                                class="h-2 w-2 rounded-full bg-green-500 mr-1"
+                              ></span>
+                              Active
+                            </span>
+                          </td>
+                          <td class="py-3 px-3 text-center">
+                            <!-- Simple Edit Button -->
+                            <button
+                              class="text-gray-400 hover:text-white transition duration-150 p-2 rounded-lg inline-flex items-center"
+                            >
+                              <svg
+                                class="w-5 h-5"
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                              >
+                                <path
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  stroke-width="2"
+                                  d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
+                                />
+                              </svg>
+                              <a href="edit-rank.html">Edit</a>
+                            </button>
+                          </td>
+                        </tr>
+
+                        <!-- Row 4: Level 4 - Gold Medal (reused) -->
+                        <tr
+                          class="table-row-highlight hover:bg-gray-700/50 transition duration-150"
+                        >
+                          <td
+                            class="py-3 px-3 whitespace-nowrap font-medium text-white"
+                          >
+                            Hyip Victor
+                          </td>
+                          <td class="py-3 px-3 whitespace-nowrap">Level 4</td>
+                          <td class="py-3 px-3 text-center">
+                            <!-- Gold Medal SVG Icon (reused) -->
+                            <svg
+                              class="w-8 h-8 mx-auto"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                fill-rule="evenodd"
+                                clip-rule="evenodd"
+                                d="M12 2C8.68629 2 6 4.68629 6 8C6 11.3137 12 22 12 22C12 22 18 11.3137 18 8C18 4.68629 15.3137 2 12 2ZM12 11C10.3431 11 9 9.65685 9 8C9 6.34315 10.3431 5 12 5C13.6569 5 15 6.34315 15 8C15 9.65685 13.6569 11 12 11Z"
+                                fill="#FFD700"
+                              />
+                              <path
+                                d="M14 17.5C14 18.3284 13.3284 19 12.5 19H11.5C10.6716 19 10 18.3284 10 17.5V17H14V17.5Z"
+                                fill="#DAA520"
+                              />
+                              <path d="M15 18H9V19H15V18Z" fill="#B8860B" />
+                              <path d="M16 18H8V19H16V18Z" fill="#A0522D" />
+                              <path d="M7 16H17V17H7V16Z" fill="#8B4513" />
+                              <path
+                                d="M11 12L12 13L13 12L12 11L11 12Z"
+                                fill="#FFFFFF"
+                              />
+                            </svg>
+                          </td>
+                          <td
+                            class="py-3 px-3 whitespace-nowrap text-right text-base"
+                          >
+                            100.00
+                          </td>
+                          <td
+                            class="py-3 px-3 whitespace-nowrap text-right text-base"
+                          >
+                            200.00
+                          </td>
+                          <td
+                            class="py-3 px-3 whitespace-nowrap text-right text-base"
+                          >
+                            50.00
+                          </td>
+                          <td class="py-3 px-3">
+                            By earning $50 from the site
+                          </td>
+                          <td class="py-3 px-3 text-center">
+                            <span
+                              class="flex items-center justify-center text-green-400"
+                            >
+                              <span
+                                class="h-2 w-2 rounded-full bg-green-500 mr-1"
+                              ></span>
+                              Active
+                            </span>
+                          </td>
+                          <td class="py-3 px-3 text-center">
+                            <!-- Simple Edit Button -->
+                            <button
+                              class="text-gray-400 hover:text-white transition duration-150 p-2 rounded-lg inline-flex items-center"
+                            >
+                              <svg
+                                class="w-5 h-5"
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                              >
+                                <path
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  stroke-width="2"
+                                  d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
+                                />
+                              </svg>
+                              <a href="edit-rank.html">Edit</a>
+                            </button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+
+                  <!-- Footer Pagination/Showing Info -->
+                  <div
+                    class="flex flex-col sm:flex-row justify-start items-center pt-4 border-t border-border-dark mt-4 text-sm text-gray-400"
+                  >
+                    <span class="mr-4">Showing:</span>
+                    <div class="relative inline-block">
+                      <select
+                        class="bg-[#2c2f32] border border-border-dark rounded-lg py-1 px-3 pr-8 text-white focus:outline-none appearance-none cursor-pointer"
+                      >
+                        <option>20</option>
+                        <option>50</option>
+                        <option>100</option>
+                      </select>
+                      <div
+                        class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-500"
+                      >
+                        <svg
+                          class="h-4 w-4"
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 20 20"
+                          fill="currentColor"
+                        >
+                          <path
+                            fill-rule="evenodd"
+                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                            clip-rule="evenodd"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                    <span class="ml-2 text-gray-300"> of</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </main>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("componentsLoaded", () => {
+        const hamburgerBtn = document.getElementById("hamburgerBtn");
+        const dropdownMenu = document.getElementById("dropdownMenu");
+
+        hamburgerBtn.addEventListener("click", () => {
+          dropdownMenu.classList.toggle("hidden");
+        });
+      });
+    </script>
+    <script src="./js/include.js"></script>
+    <script src="./js/admin.js"></script>
+    <script>
+      const avatarBtn = document.getElementById("avatarBtn");
+      const dropdown = document.getElementById("dropdownMenu");
+
+      // Toggle on click
+      avatarBtn.addEventListener("click", () => {
+        dropdown.classList.toggle("hidden");
+      });
+
+      // Close when clicking outside
+      document.addEventListener("click", (e) => {
+        if (!avatarBtn.contains(e.target) && !dropdown.contains(e.target)) {
+          dropdown.classList.add("hidden");
+        }
+      });
+    </script>
+  </body>
+</html>

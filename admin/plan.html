@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+  <head class="">
+    <meta charset="utf-8" class="" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1"
+      class=""
+    />
+    <title class="">Plan List - Admin</title>
+    <link rel="stylesheet" href="/mlm_html//admin//style.css" />
+    <script src="https://cdn.tailwindcss.com" class=""></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      .custom-scrollbar::-webkit-scrollbar {
+        height: 8px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background-color: #374151; /* Gray-700 */
+        border-radius: 4px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-track {
+        background-color: #1f2937; /* Gray-800 */
+      }
+
+      /* Ensure smooth opening/closing of modal */
+      .modal-transition {
+        transition: opacity 0.3s ease-out;
+      }
+    </style>
+  </head>
+  <body class="">
+    <!-- SIDEBAR (included dynamically) & MAIN CONTENT FLEX LAYOUT -->
+    <div class="flex h-screen pt-16">
+      <div id="sidebar-container" class="relative hidden lg:block">
+        <div data-include="components/sidebar.html"></div>
+      </div>
+      <div
+        id="main-content"
+        class="overflow-y-auto bg-[#2c2f32] text-white transition-all duration-300 ease-in-out"
+      >
+        <!-- DASHBOARD MAIN CONTENT -->
+
+        <div
+          id="main-content-wrapper"
+          class="fixed top-16 left-0 lg:left-64 right-0 bottom-0 overflow-y-auto overflow-x-hidden flex flex-col transition-all duration-300 ease-in-out"
+        >
+          <main class="bg-[#1e2022] mx-auto w-full text-white">
+            <!-- TOP BAR -->
+            <header
+              class="w-full bg-[#2c2f32] py-3 px-4 flex items-center justify-between shadow"
+            >
+              <div class="flex items-center space-x-4 flex-1">
+                <!-- HAMBURGER AND MLM - visible below desktop -->
+                <div class="flex items-center space-x-2 lg:hidden">
+                  <button
+                    id="hamburgerBtn"
+                    class="text-white p-2 hover:bg-gray-700 rounded"
+                  >
+                    <i class="fas fa-bars"></i>
+                  </button>
+                  <div class="text-xl font-bold text-red-500">MLM</div>
+                </div>
+
+                <!-- SEARCH -->
+                <div
+                  class="flex items-center flex-1 max-w-xl rounded-full px-4 py-2 space-x-3 shadow-lg"
+                >
+                  <i class="fas fa-search text-gray-400"></i>
+                  <input
+                    type="text"
+                    placeholder="Search for a menu"
+                    class="bg-transparent w-full focus:outline-none text-gray-300 placeholder-gray-400"
+                  />
+                </div>
+              </div>
+
+              <!-- RIGHT SIDE -->
+              <div class="relative ml-4">
+                <!-- AVATAR BUTTON -->
+                <button id="avatarBtn">
+                  <img
+                    src="https://i.pravatar.cc/80"
+                    class="w-10 h-10 rounded-full border border-gray-700 cursor-pointer"
+                  />
+                </button>
+
+                <!-- DROPDOWN -->
+                <div
+                  id="dropdownMenu"
+                  class="hidden absolute right-0 mt-3 w-56 bg-gray-800 rounded-xl shadow-xl border border-gray-700 z-50"
+                >
+                  <!-- PROFILE INFO -->
+                  <div class="px-4 py-3 flex items-center gap-4">
+                    <div>
+                      <img
+                        src="https://i.pravatar.cc/80"
+                        class="w-10 h-10 rounded-full border border-gray-700 cursor-pointer"
+                      />
+                    </div>
+                    <div>
+                      <p class="text-sm font-semibold">admin</p>
+                      <p class="text-xs text-gray-400">admin@gmail.com</p>
+                    </div>
+                  </div>
+
+                  <!-- MENU ITEMS -->
+                  <ul class="py-2">
+                    <li>
+                      <a
+                        href="#"
+                        class="block px-4 py-2 text-sm hover:bg-gray-700 transition"
+                        >Profile & account</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        href="#"
+                        class="block px-4 py-2 text-sm hover:bg-gray-700 transition"
+                        >Sign out</a
+                      >
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </header>
+
+            <div class="p-4 sm:p-6 min-h-screen">
+              <div class="mb-6 border-b border-gray-700">
+                <div class="flex items-end">
+                  <div class="flex-1 mb-2 sm:mb-0">
+                    <nav aria-label="breadcrumb">
+                      <ol class="flex items-center text-sm text-gray-500">
+                        <li class="flex items-center">
+                          <a
+                            class="text-gray-400 hover:text-gray-700"
+                            href="javascript:void(0);"
+                            >Dashboard</a
+                          >
+                          <span class="mx-2">/</span>
+                        </li>
+                        <li class="text-white font-medium" aria-current="page">
+                          Plan List
+                        </li>
+                      </ol>
+                    </nav>
+                    <h1 class="text-2xl font-bold text-white mt-2 mb-10">
+                      Plan List
+                    </h1>
+                  </div>
+                </div>
+              </div>
+
+              <div class="max-w-7xl mx-auto">
+                <!-- Main Content Card & Responsive Table -->
+                <div class="bg-[#2c2f32] p-2 sm:p-6 rounded-xl shadow-2xl">
+                  <!-- Header: Search and Add New Button -->
+                  <div
+                    class="flex flex-col sm:flex-row justify-between items-center mb-6 gap-4"
+                  >
+                    <!-- Search Input (Placeholder changed to "Search plan") -->
+                    <div class="relative w-full sm:max-w-xs">
+                      <input
+                        type="text"
+                        placeholder="Search plan"
+                        class="w-full bg-[#2c2f32] text-gray-300 placeholder-gray-500 py-3 pl-10 pr-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 border border-gray-700"
+                      />
+                      <!-- Search Icon (Lucide) -->
+                      <div
+                        class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="20"
+                          height="20"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          class="text-gray-400"
+                        >
+                          <circle cx="11" cy="11" r="8"></circle>
+                          <path d="m21 21-4.3-4.3" />
+                        </svg>
+                      </div>
+                    </div>
+
+                    <!-- Add New Button -->
+                    <button
+                      id="openAddModalBtn"
+                      class="w-full sm:w-auto flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg shadow-lg transition duration-300 ease-in-out transform hover:scale-[1.02]"
+                    >
+                      <!-- Add Icon (Lucide) -->
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="mr-2"
+                      >
+                        <path d="M5 12h14" />
+                        <path d="M12 5v14" />
+                      </svg>
+                      <a href="create.html">
+                        Add New
+                      </a>
+                    </button>
+                  </div>
+                  <div class="overflow-x-auto custom-scrollbar">
+                    <table class="min-w-full divide-y divide-gray-700">
+                      <thead
+                        class="bg-gray-600 text-gray-400 uppercase text-xs tracking-wider"
+                      >
+                        <tr>
+                          <th
+                            scope="col"
+                            class="py-3 px-4 text-left font-medium"
+                          >
+                            SL.
+                          </th>
+                          <th
+                            scope="col"
+                            class="py-3 px-4 text-left font-medium"
+                          >
+                            NAME
+                          </th>
+                          <th
+                            scope="col"
+                            class="py-3 px-4 text-left font-medium"
+                          >
+                            PLAN PRICE
+                          </th>
+                          <th
+                            scope="col"
+                            class="py-3 px-4 text-left font-medium"
+                          >
+                            STATUS
+                          </th>
+                          <th
+                            scope="col"
+                            class="py-3 px-4 text-left font-medium"
+                          >
+                            FEATURED
+                          </th>
+                          <th
+                            scope="col"
+                            class="py-3 px-4 text-left font-medium"
+                          >
+                            ACTION
+                          </th>
+                        </tr>
+                      </thead>
+
+                      <tbody class="divide-y divide-gray-700 text-sm">
+                        <!-- Utility function to render status pill -->
+                        <script>
+                          function getStatusPill(isActive) {
+                            if (isActive) {
+                              return '<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-900 text-green-400"><svg class="mr-1.5 h-2 w-2 text-green-400" fill="currentColor" viewBox="0 0 8 8"><circle cx="4" cy="4" r="3" /></svg>Active</span>';
+                            } else {
+                              return '<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-900 text-red-400">In-active</span>';
+                            }
+                          }
+                          function getFeaturedPill(isFeatured) {
+                            if (isFeatured) {
+                              return '<span class="inline-flex items-center"><svg class="h-3 w-3 text-green-500 mr-1" fill="currentColor" viewBox="0 0 20 20"><circle cx="10" cy="10" r="5"/></svg>Yes</span>';
+                            } else {
+                              return '<span class="inline-flex items-center"><svg class="h-3 w-3 text-gray-500 mr-1" fill="currentColor" viewBox="0 0 20 20"><circle cx="10" cy="10" r="5"/></svg>No</span>';
+                            }
+                          }
+                        </script>
+
+                        <!-- Plan Data Array (for dynamic rendering/looping in real app) -->
+                        <script>
+                          const plans = [
+                            {
+                              sl: 1,
+                              name: "Business Plan",
+                              price: "$69 - $999",
+                              status: true,
+                              featured: true,
+                            },
+                            {
+                              sl: 2,
+                              name: "Baby Plan",
+                              price: "$99 - $888",
+                              status: true,
+                              featured: true,
+                            },
+                            {
+                              sl: 3,
+                              name: "Hatchling Plan",
+                              price: "$120",
+                              status: true,
+                              featured: true,
+                            },
+                            {
+                              sl: 4,
+                              name: "Secondary Pack",
+                              price: "$89 - $666",
+                              status: true,
+                              featured: true,
+                            },
+                            {
+                              sl: 5,
+                              name: "Primary Pack",
+                              price: "$50 - $555",
+                              status: false,
+                              featured: true,
+                            },
+                            {
+                              sl: 6,
+                              name: "Starter Pack",
+                              price: "$50 - $400",
+                              status: true,
+                              featured: false,
+                            },
+                            {
+                              sl: 7,
+                              name: "Starter Pack",
+                              price: "$40 - $400",
+                              status: true,
+                              featured: true,
+                            },
+                          ];
+                        </script>
+
+                        <!-- Dynamically generated rows based on the image -->
+                        <!-- Row 1: Business Plan -->
+                        <tr class="hover:bg-gray-700 transition duration-150">
+                          <td class="py-4 px-4 whitespace-nowrap text-gray-300">
+                            1
+                          </td>
+                          <td
+                            class="py-4 px-4 whitespace-nowrap text-white font-medium"
+                          >
+                            Business Plan
+                          </td>
+                          <td class="py-4 px-4 whitespace-nowrap text-gray-300">
+                            $69 - $999
+                          </td>
+                          <td class="py-4 px-4 whitespace-nowrap">
+                            <script>
+                              document.write(getStatusPill(true));
+                            </script>
+                          </td>
+                          <td class="py-4 px-4 whitespace-nowrap">
+                            <script>
+                              document.write(getFeaturedPill(true));
+                            </script>
+                          </td>
+                          <td class="py-4 px-4 whitespace-nowrap">
+                            <button
+                              class="editBtn flex items-center text-sm font-medium bg-gray-700 hover:bg-gray-600 text-gray-300 py-1.5 px-3 rounded-md transition duration-150"
+                              data-name="Business Plan"
+                              data-price="$69 - $999"
+                            >
+                              <!-- Edit Icon (Lucide) -->
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="16"
+                                height="16"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                class="mr-1 w-4 h-4"
+                              >
+                                <path
+                                  d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"
+                                />
+                              </svg>
+                              <a href="edit.html">
+                                Edit
+                              </a>
+                            </button>
+                          </td>
+                        </tr>
+
+                        <!-- Row 2: Baby Plan -->
+                        <tr class="hover:bg-gray-700 transition duration-150">
+                          <td class="py-4 px-4 whitespace-nowrap text-gray-300">
+                            2
+                          </td>
+                          <td
+                            class="py-4 px-4 whitespace-nowrap text-white font-medium"
+                          >
+                            Baby Plan
+                          </td>
+                          <td class="py-4 px-4 whitespace-nowrap text-gray-300">
+                            $99 - $888
+                          </td>
+                          <td class="py-4 px-4 whitespace-nowrap">
+                            <script>
+                              document.write(getStatusPill(true));
+                            </script>
+                          </td>
+                          <td class="py-4 px-4 whitespace-nowrap">
+                            <script>
+                              document.write(getFeaturedPill(true));
+                            </script>
+                          </td>
+                          <td class="py-4 px-4 whitespace-nowrap">
+                            <button
+                              class="editBtn flex items-center text-sm font-medium bg-gray-700 hover:bg-gray-600 text-gray-300 py-1.5 px-3 rounded-md transition duration-150"
+                              data-name="Baby Plan"
+                              data-price="$99 - $888"
+                            >
+                              <!-- Edit Icon -->
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="16"
+                                height="16"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                class="mr-1 w-4 h-4"
+                              >
+                                <path
+                                  d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"
+                                />
+                              </svg>
+                              <a href="edit.html">
+                                Edit
+                              </a>
+                            </button>
+                          </td>
+                        </tr>
+
+                        <!-- Row 3: Hatchling Plan -->
+                        <tr class="hover:bg-gray-700 transition duration-150">
+                          <td class="py-4 px-4 whitespace-nowrap text-gray-300">
+                            3
+                          </td>
+                          <td
+                            class="py-4 px-4 whitespace-nowrap text-white font-medium"
+                          >
+                            Hatchling Plan
+                          </td>
+                          <td class="py-4 px-4 whitespace-nowrap text-gray-300">
+                            $120
+                          </td>
+                          <td class="py-4 px-4 whitespace-nowrap">
+                            <script>
+                              document.write(getStatusPill(true));
+                            </script>
+                          </td>
+                          <td class="py-4 px-4 whitespace-nowrap">
+                            <script>
+                              document.write(getFeaturedPill(true));
+                            </script>
+                          </td>
+                          <td class="py-4 px-4 whitespace-nowrap">
+                            <button
+                              class="editBtn flex items-center text-sm font-medium bg-gray-700 hover:bg-gray-600 text-gray-300 py-1.5 px-3 rounded-md transition duration-150"
+                              data-name="Hatchling Plan"
+                              data-price="$120"
+                            >
+                              <!-- Edit Icon -->
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="16"
+                                height="16"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                class="mr-1 w-4 h-4"
+                              >
+                                <path
+                                  d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"
+                                />
+                              </svg>
+                              <a href="edit.html">
+                                Edit
+                              </a>
+                            </button>
+                          </td>
+                        </tr>
+
+                        <!-- Row 4: Secondary Pack -->
+                        <tr class="hover:bg-gray-700 transition duration-150">
+                          <td class="py-4 px-4 whitespace-nowrap text-gray-300">
+                            4
+                          </td>
+                          <td
+                            class="py-4 px-4 whitespace-nowrap text-white font-medium"
+                          >
+                            Secondary Pack
+                          </td>
+                          <td class="py-4 px-4 whitespace-nowrap text-gray-300">
+                            $89 - $666
+                          </td>
+                          <td class="py-4 px-4 whitespace-nowrap">
+                            <script>
+                              document.write(getStatusPill(true));
+                            </script>
+                          </td>
+                          <td class="py-4 px-4 whitespace-nowrap">
+                            <script>
+                              document.write(getFeaturedPill(true));
+                            </script>
+                          </td>
+                          <td class="py-4 px-4 whitespace-nowrap">
+                            <button
+                              class="editBtn flex items-center text-sm font-medium bg-gray-700 hover:bg-gray-600 text-gray-300 py-1.5 px-3 rounded-md transition duration-150"
+                              data-name="Secondary Pack"
+                              data-price="$89 - $666"
+                            >
+                              <!-- Edit Icon -->
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="16"
+                                height="16"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                class="mr-1 w-4 h-4"
+                              >
+                                <path
+                                  d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"
+                                />
+                              </svg>
+                              <a href="edit.html">
+                                Edit
+                              </a>
+                            </button>
+                          </td>
+                        </tr>
+
+                        <!-- Row 5: Primary Pack (Inactive) -->
+                        <tr class="hover:bg-gray-700 transition duration-150">
+                          <td class="py-4 px-4 whitespace-nowrap text-gray-300">
+                            5
+                          </td>
+                          <td
+                            class="py-4 px-4 whitespace-nowrap text-white font-medium"
+                          >
+                            Primary Pack
+                          </td>
+                          <td class="py-4 px-4 whitespace-nowrap text-gray-300">
+                            $50 - $555
+                          </td>
+                          <td class="py-4 px-4 whitespace-nowrap">
+                            <script>
+                              document.write(getStatusPill(false));
+                            </script>
+                          </td>
+                          <td class="py-4 px-4 whitespace-nowrap">
+                            <script>
+                              document.write(getFeaturedPill(true));
+                            </script>
+                          </td>
+                          <td class="py-4 px-4 whitespace-nowrap">
+                            <button
+                              class="editBtn flex items-center text-sm font-medium bg-gray-700 hover:bg-gray-600 text-gray-300 py-1.5 px-3 rounded-md transition duration-150"
+                              data-name="Primary Pack"
+                              data-price="$50 - $555"
+                            >
+                              <!-- Edit Icon -->
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="16"
+                                height="16"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                class="mr-1 w-4 h-4"
+                              >
+                                <path
+                                  d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"
+                                />
+                              </svg>
+                              <a href="edit.html">
+                                Edit
+                              </a>
+                            </button>
+                          </td>
+                        </tr>
+
+                        <!-- Row 6: Starter Pack (Not Featured) -->
+                        <tr class="hover:bg-gray-700 transition duration-150">
+                          <td class="py-4 px-4 whitespace-nowrap text-gray-300">
+                            6
+                          </td>
+                          <td
+                            class="py-4 px-4 whitespace-nowrap text-white font-medium"
+                          >
+                            Starter Pack
+                          </td>
+                          <td class="py-4 px-4 whitespace-nowrap text-gray-300">
+                            $50 - $400
+                          </td>
+                          <td class="py-4 px-4 whitespace-nowrap">
+                            <script>
+                              document.write(getStatusPill(true));
+                            </script>
+                          </td>
+                          <td class="py-4 px-4 whitespace-nowrap">
+                            <script>
+                              document.write(getFeaturedPill(false));
+                            </script>
+                          </td>
+                          <td class="py-4 px-4 whitespace-nowrap">
+                            <button
+                              class="editBtn flex items-center text-sm font-medium bg-gray-700 hover:bg-gray-600 text-gray-300 py-1.5 px-3 rounded-md transition duration-150"
+                              data-name="Starter Pack"
+                              data-price="$50 - $400"
+                            >
+                              <!-- Edit Icon -->
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="16"
+                                height="16"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                class="mr-1 w-4 h-4"
+                              >
+                                <path
+                                  d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"
+                                />
+                              </svg>
+                              <a href="edit.html">
+                                Edit
+                              </a>
+                            </button>
+                          </td>
+                        </tr>
+
+                        <!-- Row 7: Starter Pack -->
+                        <tr class="hover:bg-gray-700 transition duration-150">
+                          <td class="py-4 px-4 whitespace-nowrap text-gray-300">
+                            7
+                          </td>
+                          <td
+                            class="py-4 px-4 whitespace-nowrap text-white font-medium"
+                          >
+                            Starter Pack
+                          </td>
+                          <td class="py-4 px-4 whitespace-nowrap text-gray-300">
+                            $40 - $400
+                          </td>
+                          <td class="py-4 px-4 whitespace-nowrap">
+                            <script>
+                              document.write(getStatusPill(true));
+                            </script>
+                          </td>
+                          <td class="py-4 px-4 whitespace-nowrap">
+                            <script>
+                              document.write(getFeaturedPill(true));
+                            </script>
+                          </td>
+                          <td class="py-4 px-4 whitespace-nowrap">
+                            <button
+                              class="editBtn flex items-center text-sm font-medium bg-gray-700 hover:bg-gray-600 text-gray-300 py-1.5 px-3 rounded-md transition duration-150"
+                              data-name="Starter Pack"
+                              data-price="$40 - $400"
+                            >
+                              <!-- Edit Icon -->
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="16"
+                                height="16"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                class="mr-1 w-4 h-4"
+                              >
+                                <path
+                                  d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"
+                                />
+                              </svg>
+                              <a href="edit.html">
+                                Edit
+                              </a>
+                            </button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+
+                  <!-- Table Footer/Pagination Indicator (Updated count) -->
+                  <div
+                    class="mt-6 flex justify-between text-sm text-gray-400 border-t border-gray-700 pt-4"
+                  >
+                    <div></div>
+                    <!-- Placeholder for left alignment -->
+                    <div class="flex items-center">
+                      Showing:
+                      <span class="inline-flex items-center mx-2 text-white">
+                        20
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="12"
+                          height="12"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          class="ml-1"
+                        >
+                          <path d="m6 9 6 6 6-6" />
+                        </svg>
+                      </span>
+                      of 7
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </main>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("componentsLoaded", () => {
+        const hamburgerBtn = document.getElementById("hamburgerBtn");
+        const dropdownMenu = document.getElementById("dropdownMenu");
+
+        hamburgerBtn.addEventListener("click", () => {
+          dropdownMenu.classList.toggle("hidden");
+        });
+      });
+    </script>
+    <script src="./js/include.js"></script>
+    <script src="./js/admin.js"></script>
+    <script>
+      const avatarBtn = document.getElementById("avatarBtn");
+      const dropdown = document.getElementById("dropdownMenu");
+
+      // Toggle on click
+      avatarBtn.addEventListener("click", () => {
+        dropdown.classList.toggle("hidden");
+      });
+
+      // Close when clicking outside
+      document.addEventListener("click", (e) => {
+        if (!avatarBtn.contains(e.target) && !dropdown.contains(e.target)) {
+          dropdown.classList.add("hidden");
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+  <head class="">
+    <meta charset="utf-8" class="" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1"
+      class=""
+    />
+    <title class="">Plan List - Admin</title>
+    <link rel="stylesheet" href="/mlm_html//admin//style.css" />
+    <script src="https://cdn.tailwindcss.com" class=""></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      .custom-scrollbar::-webkit-scrollbar {
+        height: 8px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background-color: #374151; /* Gray-700 */
+        border-radius: 4px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-track {
+        background-color: #1f2937; /* Gray-800 */
+      }
+      .toggle-switch {
+            /* Input checkbox is visually hidden */
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            cursor: pointer;
+            width: 40px;
+            height: 20px;
+            background-color: #4b5563; /* Gray-600 (Off state) */
+            border-radius: 9999px; /* Fully rounded */
+            position: relative;
+            transition: background-color 0.3s;
+            outline: none;
+        }
+        
+        /* The circular handle */
+        .toggle-switch::before {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 16px;
+            height: 16px;
+            background-color: #f3f4f6; /* White */
+            border-radius: 50%;
+            transition: transform 0.3s;
+        }
+
+        /* Checked (On) state styles */
+        .toggle-switch:checked {
+            background-color: #3b82f6; /* Blue-500 (On state) */
+        }
+
+        .toggle-switch:checked::before {
+            transform: translateX(20px);
+        }
+
+        /* Focus styles for accessibility */
+        .toggle-switch:focus {
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.5); /* Blue-500 ring */
+        }
+    </style>
+  </head>
+  <body class="">
+    <!-- SIDEBAR (included dynamically) & MAIN CONTENT FLEX LAYOUT -->
+    <div class="flex h-screen pt-16">
+      <div id="sidebar-container" class="relative hidden lg:block">
+        <div data-include="components/sidebar.html"></div>
+      </div>
+      <div
+        id="main-content"
+        class="overflow-y-auto bg-[#2c2f32] text-white transition-all duration-300 ease-in-out"
+      >
+        <!-- DASHBOARD MAIN CONTENT -->
+
+        <div
+          id="main-content-wrapper"
+          class="fixed top-16 left-0 lg:left-64 right-0 bottom-0 overflow-y-auto overflow-x-hidden flex flex-col transition-all duration-300 ease-in-out"
+        >
+          <main class="bg-[#1e2022] mx-auto w-full text-white">
+            <!-- TOP BAR -->
+            <header
+              class="w-full bg-[#2c2f32] py-3 px-4 flex items-center justify-between shadow"
+            >
+              <div class="flex items-center space-x-4 flex-1">
+                <!-- HAMBURGER AND MLM - visible below desktop -->
+                <div class="flex items-center space-x-2 lg:hidden">
+                  <button
+                    id="hamburgerBtn"
+                    class="text-white p-2 hover:bg-gray-700 rounded"
+                  >
+                    <i class="fas fa-bars"></i>
+                  </button>
+                  <div class="text-xl font-bold text-red-500">MLM</div>
+                </div>
+
+                <!-- SEARCH -->
+                <div
+                  class="flex items-center flex-1 max-w-xl rounded-full px-4 py-2 space-x-3 shadow-lg"
+                >
+                  <i class="fas fa-search text-gray-400"></i>
+                  <input
+                    type="text"
+                    placeholder="Search for a menu"
+                    class="bg-transparent w-full focus:outline-none text-gray-300 placeholder-gray-400"
+                  />
+                </div>
+              </div>
+
+              <!-- RIGHT SIDE -->
+              <div class="relative ml-4">
+                <!-- AVATAR BUTTON -->
+                <button id="avatarBtn">
+                  <img
+                    src="https://i.pravatar.cc/80"
+                    class="w-10 h-10 rounded-full border border-gray-700 cursor-pointer"
+                  />
+                </button>
+
+                <!-- DROPDOWN -->
+                <div
+                  id="dropdownMenu"
+                  class="hidden absolute right-0 mt-3 w-56 bg-gray-800 rounded-xl shadow-xl border border-gray-700 z-50"
+                >
+                  <!-- PROFILE INFO -->
+                  <div class="px-4 py-3 flex items-center gap-4">
+                    <div>
+                      <img
+                        src="https://i.pravatar.cc/80"
+                        class="w-10 h-10 rounded-full border border-gray-700 cursor-pointer"
+                      />
+                    </div>
+                    <div>
+                      <p class="text-sm font-semibold">admin</p>
+                      <p class="text-xs text-gray-400">admin@gmail.com</p>
+                    </div>
+                  </div>
+
+                  <!-- MENU ITEMS -->
+                  <ul class="py-2">
+                    <li>
+                      <a
+                        href="#"
+                        class="block px-4 py-2 text-sm hover:bg-gray-700 transition"
+                        >Profile & account</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        href="#"
+                        class="block px-4 py-2 text-sm hover:bg-gray-700 transition"
+                        >Sign out</a
+                      >
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </header>
+
+            <div class="p-4 sm:p-6 min-h-screen">
+              <div class="mb-6 border-b border-gray-700">
+                <div class="flex items-end">
+                  <div class="flex-1 mb-2 sm:mb-0">
+                    <nav aria-label="breadcrumb">
+                      <ol class="flex items-center text-sm text-gray-500">
+                        <li class="flex items-center">
+                          <a
+                            class="text-gray-400 hover:text-gray-700"
+                            href="javascript:void(0);"
+                            >Dashboard</a
+                          >
+                          <span class="mx-2">/</span>
+                        </li>
+                        <li class="text-white font-medium" aria-current="page">
+                          Edit Plan
+                        </li>
+                      </ol>
+                    </nav>
+                    <h1 class="text-2xl font-bold text-white mt-2 mb-10">
+                      Edit Plan
+                    </h1>
+                  </div>
+                </div>
+              </div>
+              <body class="bg-gray-900 min-h-screen p-4 sm:p-8 text-white">
+
+    <div class="max-w-6xl mx-auto">
+        
+        <!-- Main Form Container -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            
+            <!-- Left Column: Plan Information (Col Span 2) -->
+            <div class="lg:col-span-2 bg-[#2c2f32]  p-6 rounded-xl shadow-2xl space-y-6">
+                <h2 class="text-xl font-semibold border-b border-gray-700 pb-4">Plan Information</h2>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    
+                    <!-- 1. Name -->
+                    <div>
+                        <label for="plan-name" class="block text-sm font-medium text-gray-300 mb-1">Name</label>
+                        <input 
+                            type="text" 
+                            id="plan-name" 
+                            placeholder="e.g.: basic plan" 
+                            class="w-full bg-[#2c2f32]  text-white placeholder-gray-500 py-2.5 px-3 rounded-lg border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150"
+                        >
+                    </div>
+
+                    <!-- 2. Badge Name (Optional) -->
+                    <div>
+                        <label for="badge-name" class="block text-sm font-medium text-gray-300 mb-1 flex items-center">
+                            Badge Name (Optional)
+                            <span class="ml-1 text-gray-500 cursor-help" title="This badge will appear on the plan card.">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+                            </span>
+                        </label>
+                        <input 
+                            type="text" 
+                            id="badge-name" 
+                            placeholder="e.g.: premium, popular" 
+                            class="w-full bg-[#2c2f32]  text-white placeholder-gray-500 py-2.5 px-3 rounded-lg border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150"
+                        >
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    
+                    <!-- 3. Minimum Amount -->
+                    <div>
+                        <label for="min-amount" class="block text-sm font-medium text-gray-300 mb-1">Minimum Amount</label>
+                        <div class="flex rounded-lg border border-gray-700 focus-within:ring-2 focus-within:ring-blue-500 transition duration-150">
+                            <input 
+                                type="number" 
+                                id="min-amount" 
+                                placeholder="e.g.: 2000" 
+                                class="flex-1 min-w-0 bg-[#2c2f32]  text-white placeholder-gray-500 py-2.5 px-3 rounded-l-lg focus:outline-none"
+                            >
+                            <span class="inline-flex items-center px-3 rounded-r-lg bg-gray-700 text-gray-300 font-medium border-l border-gray-700">
+                                $
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- 4. Maximum Amount -->
+                    <div>
+                        <label for="max-amount" class="block text-sm font-medium text-gray-300 mb-1">Maximum Amount</label>
+                        <div class="flex rounded-lg border border-gray-700 focus-within:ring-2 focus-within:ring-blue-500 transition duration-150">
+                            <input 
+                                type="number" 
+                                id="max-amount" 
+                                placeholder="e.g.: 5000" 
+                                class="flex-1 min-w-0 bg-[#2c2f32]  text-white placeholder-gray-500 py-2.5 px-3 rounded-l-lg focus:outline-none"
+                            >
+                            <span class="inline-flex items-center px-3 rounded-r-lg bg-gray-700 text-gray-300 font-medium border-l border-gray-700">
+                                $
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+
+                    <!-- 5. Yield -->
+                    <div>
+                        <label for="yield-rate" class="block text-sm font-medium text-gray-300 mb-1 flex items-center">
+                            Yield
+                            <span class="ml-1 text-gray-500 cursor-help" title="The percentage return on investment.">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+                            </span>
+                        </label>
+                        <div class="flex rounded-lg border border-gray-700 focus-within:ring-2 focus-within:ring-blue-500 transition duration-150">
+                            <input 
+                                type="number" 
+                                step="0.01" 
+                                id="yield-rate" 
+                                placeholder="e.g.: 5.00" 
+                                class="flex-1 min-w-0 bg-[#2c2f32]  text-white placeholder-gray-500 py-2.5 px-3 rounded-l-lg focus:outline-none"
+                            >
+                            <span class="inline-flex items-center px-3 rounded-r-lg bg-gray-700 text-gray-300 font-medium border-l border-gray-700">
+                                %
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- 6. Accrual (Dropdown) -->
+                    <div>
+                        <label for="accrual-period" class="block text-sm font-medium text-gray-300 mb-1">Accrual</label>
+                        <div class="relative">
+                            <select 
+                                id="accrual-period" 
+                                class="w-full bg-[#2c2f32]  text-white py-2.5 px-3 rounded-lg border border-gray-700 appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150"
+                            >
+                                <option value="" disabled selected class="text-gray-500">Select a Period</option>
+                                <option value="daily">Daily</option>
+                                <option value="weekly">Weekly</option>
+                                <option value="monthly">Monthly</option>
+                                <option value="yearly">Yearly</option>
+                            </select>
+                            <!-- Dropdown arrow icon -->
+                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-500">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 7. Maturity -->
+                <div class="sm:w-1/2 pr-3">
+                    <label for="maturity-count" class="block text-sm font-medium text-gray-300 mb-1 flex items-center">
+                        Maturity
+                        <span class="ml-1 text-gray-500 cursor-help" title="The number of periods until the plan matures.">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+                        </span>
+                    </label>
+                    <div class="flex rounded-lg border border-gray-700 focus-within:ring-2 focus-within:ring-blue-500 transition duration-150">
+                        <input 
+                            type="number" 
+                            id="maturity-count" 
+                            placeholder="e.g.: 50" 
+                            class="flex-1 min-w-0 bg-[#2c2f32]  text-white placeholder-gray-500 py-2.5 px-3 rounded-l-lg focus:outline-none"
+                        >
+                        <span class="inline-flex items-center px-3 rounded-r-lg bg-gray-700 text-gray-300 font-medium border-l border-gray-700">
+                            Times
+                        </span>
+                    </div>
+                </div>
+
+            </div>
+            
+            <!-- Right Column: Status and Publish (Col Span 1) -->
+            <div class="lg:col-span-1 space-y-6">
+                
+                <!-- Status Card -->
+                <div class="bg-[#2c2f32]  p-6 rounded-xl shadow-2xl space-y-4">
+                    <h2 class="text-xl font-semibold border-b border-gray-700 pb-4">Status</h2>
+                    
+                    <!-- Toggle 1: Plan Price Type -->
+                    <div class="flex items-center justify-between">
+                        <div class="pr-2">
+                            <label class="block text-sm font-medium text-gray-300">Plan Price Type</label>
+                            <p class="text-xs text-gray-500 mt-1">
+                                Invest amount has range then turn off this button
+                            </p>
+                        </div>
+                        <input type="checkbox" class="toggle-switch">
+                    </div>
+
+                    <!-- Toggle 2: Capital Back -->
+                    <div class="flex items-center justify-between pt-2 border-t border-gray-700">
+                        <div class="pr-2">
+                            <label class="block text-sm font-medium text-gray-300">Capital Back</label>
+                            <p class="text-xs text-gray-500 mt-1">
+                                If you want to return of the original amount of money invested at the end of the investment period, then please turn on this button
+                            </p>
+                        </div>
+                        <input type="checkbox" class="toggle-switch">
+                    </div>
+
+                    <!-- Toggle 3: Return -->
+                    <div class="flex items-center justify-between pt-2 border-t border-gray-700">
+                        <div class="pr-2">
+                            <label class="block text-sm font-medium text-gray-300">Return</label>
+                            <p class="text-xs text-gray-500 mt-1">
+                                If return type has lifetime then turn on this button.
+                            </p>
+                        </div>
+                        <input type="checkbox" class="toggle-switch">
+                    </div>
+
+                    <!-- Toggle 4: Featured -->
+                    <div class="flex items-center justify-between pt-2 border-t border-gray-700">
+                        <div class="pr-2">
+                            <label class="block text-sm font-medium text-gray-300">Featured</label>
+                            <p class="text-xs text-gray-500 mt-1">
+                                If plan period has unlimited then turn on this button.
+                            </p>
+                        </div>
+                        <input type="checkbox" class="toggle-switch">
+                    </div>
+                </div>
+
+                <!-- Publish Card -->
+                <div class="bg-[#2c2f32]  p-6 rounded-xl shadow-2xl">
+                    <h2 class="text-xl font-semibold border-b border-gray-700 pb-4">Publish</h2>
+                    
+                    <div class="mt-4 flex justify-between space-x-3">
+                        <button class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 px-4 rounded-lg transition duration-150 text-sm">
+                            Save & Publish
+                        </button>
+                        <button class="flex-1 bg-green-600 hover:bg-green-700 text-white font-semibold py-2.5 px-4 rounded-lg transition duration-150 text-sm">
+                            Save & Draft
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+            </div>
+          </main>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("componentsLoaded", () => {
+        const hamburgerBtn = document.getElementById("hamburgerBtn");
+        const dropdownMenu = document.getElementById("dropdownMenu");
+
+        hamburgerBtn.addEventListener("click", () => {
+          dropdownMenu.classList.toggle("hidden");
+        });
+      });
+    </script>
+    <script src="./js/include.js"></script>
+    <script src="./js/admin.js"></script>
+    <script>
+      const avatarBtn = document.getElementById("avatarBtn");
+      const dropdown = document.getElementById("dropdownMenu");
+
+      // Toggle on click
+      avatarBtn.addEventListener("click", () => {
+        dropdown.classList.toggle("hidden");
+      });
+
+      // Close when clicking outside
+      document.addEventListener("click", (e) => {
+        if (!avatarBtn.contains(e.target) && !dropdown.contains(e.target)) {
+          dropdown.classList.add("hidden");
+        }
+      });
+    </script>
+  </body>
+</html>

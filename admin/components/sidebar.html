@@ -16,7 +16,7 @@
 
     <style>
       .sidebar {
-        transition: width 0.25s ease-in-out;
+        transition: width 0.25s ease-in-out, transform 0.3s ease-in-out;
         overflow-x: hidden;
         /* overflow-y: scroll; */
       }
@@ -303,7 +303,7 @@
   <body>
     <div
       id="sidebar"
-      class="sidebar sidebar-container w-64 p-4 fixed left-0 top-16 z-10 h-screen overflow-y-auto mb-4 hidden lg:block"
+      class="sidebar sidebar-container w-64 p-4 fixed left-0 top-16 z-10 h-screen overflow-y-auto mb-4 -translate-x-full lg:translate-x-0"
     >
       <div class="sidebar-logo text-center mb-6">
         <div class="text-2xl font-bold text-red-500 text-only ">MLM</div>
@@ -326,14 +326,14 @@
           </div>
           <ul class="sidebar-menu">
             <li class="sidebar-menu-item mb-2 menu-item">
-              <a href="#" class="sidebar-menu-link">
+              <a href="schedule.html" class="sidebar-menu-link">
                 <i class="fa-solid fa-calendar-days"></i>
                 <span class="sidebar-item-text text-only">Schedule</span>
               </a>
             </li>
 
             <li class="sidebar-menu-item mb-2 menu-item">
-              <a href="#" class="sidebar-menu-link">
+              <a href="plan.html" class="sidebar-menu-link">
                 <i class="fa-solid fa-list"></i>
                 <span class="sidebar-item-text text-only">Plan List</span>
               </a>
@@ -347,7 +347,7 @@
           </div>
           <ul class="sidebar-menu">
             <li class="sidebar-menu-item mb-2 menu-item">
-              <a href="#" class="sidebar-menu-link">
+              <a href="referral.html" class="sidebar-menu-link">
                 <i class="fa-solid fa-chart-line"></i>
                 <span class="sidebar-item-text text-only">Referral</span>
               </a>
@@ -361,7 +361,7 @@
           </div>
           <ul class="sidebar-menu">
             <li class="sidebar-menu-item mb-2 menu-item">
-              <a href="#" class="sidebar-menu-link">
+              <a href="user-ranking.html" class="sidebar-menu-link">
                 <i class="fa-solid fa-ranking-star"></i>
                 <span class="sidebar-item-text text-only">User Ranking</span>
               </a>
@@ -375,7 +375,7 @@
           </div>
           <ul class="sidebar-menu">
             <li class="sidebar-menu-item mb-2 menu-item">
-              <a href="#" class="sidebar-menu-link">
+              <a href="investments.html" class="sidebar-menu-link">
                 <i class="fa-solid fa-money-bill-trend-up"></i>
                 <span class="sidebar-item-text text-only">Investments</span>
               </a>

@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+  <head class="">
+    <meta charset="utf-8" class="" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1"
+      class=""
+    />
+    <title class="">Plan List - Admin</title>
+    <link rel="stylesheet" href="/mlm_html//admin//style.css" />
+    <script src="https://cdn.tailwindcss.com" class=""></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+      .custom-scrollbar::-webkit-scrollbar {
+        height: 8px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background-color: #374151; /* Gray-700 */
+        border-radius: 4px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-track {
+        background-color: #1f2937; /* Gray-800 */
+      } 
+      .file-upload-area {
+            border: 2px dashed #3a3a3a;
+            transition: border-color 0.2s, background-color 0.2s;
+        }
+        .file-upload-area:hover {
+            border-color: #60a5fa; /* Blue-500 */
+        }
+        /* Style for the text editor toolbar - using light gray icons on dark background */
+        .editor-toolbar button {
+            color: #ccc;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            transition: background-color 0.1s;
+        }
+        .editor-toolbar button:hover {
+            background-color: #9f9494;
+        }
+        .editor-toolbar button:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(96, 165, 250, 0.5); /* Blue-500 shadow */
+        }
+    </style>
+  </head>
+  <body class="">
+    <!-- SIDEBAR (included dynamically) & MAIN CONTENT FLEX LAYOUT -->
+    <div class="flex h-screen pt-16">
+      <div id="sidebar-container" class="relative hidden lg:block">
+        <div data-include="components/sidebar.html"></div>
+      </div>
+      <div
+        id="main-content"
+        class="overflow-y-auto bg-[#2c2f32] text-white transition-all duration-300 ease-in-out"
+      >
+        <!-- DASHBOARD MAIN CONTENT -->
+
+        <div
+          id="main-content-wrapper"
+          class="fixed top-16 left-0 lg:left-64 right-0 bottom-0 overflow-y-auto overflow-x-hidden flex flex-col transition-all duration-300 ease-in-out"
+        >
+          <main class="bg-[#1e2022] mx-auto w-full text-white">
+            <!-- TOP BAR -->
+            <header
+              class="w-full bg-[#2c2f32] py-3 px-4 flex items-center justify-between shadow"
+            >
+              <div class="flex items-center space-x-4 flex-1">
+                <!-- HAMBURGER AND MLM - visible below desktop -->
+                <div class="flex items-center space-x-2 lg:hidden">
+                  <button
+                    id="hamburgerBtn"
+                    class="text-white p-2 hover:bg-gray-700 rounded"
+                  >
+                    <i class="fas fa-bars"></i>
+                  </button>
+                  <div class="text-xl font-bold text-red-500">MLM</div>
+                </div>
+
+                <!-- SEARCH -->
+                <div
+                  class="flex items-center flex-1 max-w-xl rounded-full px-4 py-2 space-x-3 shadow-lg"
+                >
+                  <i class="fas fa-search text-gray-400"></i>
+                  <input
+                    type="text"
+                    placeholder="Search for a menu"
+                    class="bg-transparent w-full focus:outline-none text-gray-300 placeholder-gray-400"
+                  />
+                </div>
+              </div>
+
+              <!-- RIGHT SIDE -->
+              <div class="relative ml-4">
+                <!-- AVATAR BUTTON -->
+                <button id="avatarBtn">
+                  <img
+                    src="https://i.pravatar.cc/80"
+                    class="w-10 h-10 rounded-full border border-gray-700 cursor-pointer"
+                  />
+                </button>
+
+                <!-- DROPDOWN -->
+                <div
+                  id="dropdownMenu"
+                  class="hidden absolute right-0 mt-3 w-56 bg-gray-800 rounded-xl shadow-xl border border-gray-700 z-50"
+                >
+                  <!-- PROFILE INFO -->
+                  <div class="px-4 py-3 flex items-center gap-4">
+                    <div>
+                      <img
+                        src="https://i.pravatar.cc/80"
+                        class="w-10 h-10 rounded-full border border-gray-700 cursor-pointer"
+                      />
+                    </div>
+                    <div>
+                      <p class="text-sm font-semibold">admin</p>
+                      <p class="text-xs text-gray-400">admin@gmail.com</p>
+                    </div>
+                  </div>
+
+                  <!-- MENU ITEMS -->
+                  <ul class="py-2">
+                    <li>
+                      <a
+                        href="#"
+                        class="block px-4 py-2 text-sm hover:bg-gray-700 transition"
+                        >Profile & account</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        href="#"
+                        class="block px-4 py-2 text-sm hover:bg-gray-700 transition"
+                        >Sign out</a
+                      >
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </header>
+
+            <div class="p-4 sm:p-6 min-h-screen">
+              <div class="mb-6 border-b border-gray-700">
+                <div class="flex items-end">
+                  <div class="flex-1 mb-2 sm:mb-0">
+                    <nav aria-label="breadcrumb">
+                      <ol class="flex items-center text-sm text-gray-500">
+                        <li class="flex items-center">
+                          <a
+                            class="text-gray-400 hover:text-gray-700"
+                            href="javascript:void(0);"
+                            >Dashboard</a
+                          >
+                          <span class="mx-2">/</span>
+                        </li>
+                        <li class="text-white font-medium" aria-current="page">
+                          Edit Rank
+                        </li>
+                      </ol>
+                    </nav>
+                    <h1 class="text-2xl font-bold text-white mt-2 mb-10">
+                      Edit Rank
+                    </h1>
+                  </div>
+                </div>
+              </div>
+              <div class="max-w-6xl mx-auto">
+        <form>
+
+            <!-- Ranking Information Card (Left Side) -->
+            <div class="bg-[#2c2f32] p-6 rounded-xl shadow-lg border border-gray-700 mb-8">
+                <h2 class="text-xl font-semibold mb-6 text-gray-100">Ranking Information</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Ranking Name -->
+                    <div>
+                        <label for="ranking-name" class="block text-sm font-medium text-gray-400 mb-1">Ranking Name</label>
+                        <input type="text" id="ranking-name" placeholder="e.g: hyip member" class="bg-[#2c2f32] border border-gray-600 w-full p-3 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+
+                    <!-- Ranking Level -->
+                    <div>
+                        <label for="ranking-level" class="block text-sm font-medium text-gray-400 mb-1">Ranking Level</label>
+                        <input type="text" id="ranking-level" placeholder="e.g: level 1" class="bg-[#2c2f32] border border-gray-600 w-full p-3 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+
+                    <!-- Minimum Invest -->
+                    <div class="relative">
+                        <label for="min-invest" class="block text-sm font-medium text-gray-400 mb-1">Minimum Invest</label>
+                        <input type="number" id="min-invest" placeholder="e.g: 50" class="bg-[#2c2f32] border border-gray-600 w-full p-3 pr-8 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                        <span class="absolute right-3 top-[37px] text-gray-400">$</span>
+                    </div>
+
+                    <!-- Minimum Deposit -->
+                    <div class="relative">
+                        <label for="min-deposit" class="block text-sm font-medium text-gray-400 mb-1">Minimum Deposit</label>
+                        <input type="number" id="min-deposit" placeholder="e.g: 50" class="bg-[#2c2f32] border border-gray-600 w-full p-3 pr-8 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                        <span class="absolute right-3 top-[37px] text-gray-400">$</span>
+                    </div>
+
+                    <!-- Minimum Earning -->
+                    <div class="relative">
+                        <label for="min-earning" class="block text-sm font-medium text-gray-400 mb-1">Minimum Earning</label>
+                        <input type="number" id="min-earning" placeholder="e.g: 50" class="bg-[#2c2f32] border border-gray-600 w-full p-3 pr-8 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                        <span class="absolute right-3 top-[37px] text-gray-400">$</span>
+                    </div>
+
+                    <!-- Minimum Team Invest -->
+                    <div class="relative">
+                        <label for="min-team-invest" class="block text-sm font-medium text-gray-400 mb-1">Minimum Team Invest</label>
+                        <input type="number" id="min-team-invest" placeholder="e.g: 50000" class="bg-[#2c2f32] border border-gray-600 w-full p-3 pr-8 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                        <span class="absolute right-3 top-[37px] text-gray-400">$</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Description Card (Text Editor Mockup) -->
+            <div class="bg-[#2c2f32] border border-gray-700 p-6 rounded-xl shadow-lg border border-border-dark mb-8">
+                <h2 class="text-xl font-semibold mb-4 text-gray-100">Description</h2>
+                
+                <!-- Mock Text Editor Toolbar -->
+                <div class="bg-[#2c2f32] border border-gray-600 flex flex-wrap gap-2 p-2 rounded-t-lg border-b border-border-dark bg-card-bg">
+                    <button type="button" title="Bold"><i data-lucide="bold" class="w-5 h-5 text-white"></i></button>
+                    <button type="button" title="Italic"><i data-lucide="italic" class="w-5 h-5"></i></button>
+                    <button type="button" title="Underline"><i data-lucide="underline" class="w-5 h-5"></i></button>
+                    
+                    <button type="button" title="Font Family" class="flex items-center">
+                        Inter <i data-lucide="chevron-down" class="w-4 h-4 ml-1"></i>
+                    </button>
+                    <button type="button" title="Font Color"><i data-lucide="highlighter" class="w-5 h-5"></i></button>
+                    <button type="button" title="Background Color"><i data-lucide="droplet" class="w-5 h-5"></i></button>
+
+                    <button type="button" title="Align Left"><i data-lucide="align-left" class="w-5 h-5"></i></button>
+                    <button type="button" title="Align Center"><i data-lucide="align-center" class="w-5 h-5"></i></button>
+                    <button type="button" title="Align Right"><i data-lucide="align-right" class="w-5 h-5"></i></button>
+                    <button type="button" title="Justify"><i data-lucide="align-justify" class="w-5 h-5"></i></button>
+                    <button type="button" title="Bullet List"><i data-lucide="list" class="w-5 h-5"></i></button>
+                    <button type="button" title="Numbered List"><i data-lucide="list-ordered" class="w-5 h-5"></i></button>
+                    <button type="button" title="Dropdown"><i data-lucide="chevron-down" class="w-5 h-5"></i></button>
+                    
+                    <button type="button" title="Insert Link"><i data-lucide="link" class="w-5 h-5"></i></button>
+                    <button type="button" title="Insert Image"><i data-lucide="image" class="w-5 h-5"></i></button>
+                    <button type="button" title="Insert Video"><i data-lucide="video" class="w-5 h-5"></i></button>
+                    
+                    <button type="button" title="Source Code"><i data-lucide="code" class="w-5 h-5"></i></button>
+                    <button type="button" title="Toggle"><i data-lucide="code-xml" class="w-5 h-5"></i></button>
+                    <button type="button" title="Help"><i data-lucide="help-circle" class="w-5 h-5"></i></button>
+                </div>
+                <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<script>
+  lucide.createIcons();
+</script>
+
+
+                <!-- Textarea for content -->
+                <textarea class="bg-[#2c2f32] border border-gray-600 w-full h-48 p-4 rounded-b-lg resize-y focus:ring-blue-500 focus:border-blue-500" placeholder="Type your rank description here..."></textarea>
+            </div>
+
+            <!-- Ranking Icon Card (Right Side) -->
+            <div class="bg-[#2c2f32] p-6 rounded-xl shadow-lg border border-gray-700 mb-8">
+                <h2 class="text-xl font-semibold mb-4 text-gray-100">Ranking Icon</h2>
+                
+                <div class="file-upload-area flex flex-col items-center justify-center p-12 rounded-lg text-gray-400 text-center">
+                    <i data-lucide="folder-search" class="w-16 h-16 mb-4 text-gray-500"></i>
+                    <p class="text-sm font-medium">Browse your file here</p>
+                    <input type="file" class="hidden" id="icon-upload">
+                </div>
+
+                <!-- Hidden file input triggered by a click on the area -->
+                <script>
+                    document.querySelector('.file-upload-area').addEventListener('click', () => {
+                        document.getElementById('icon-upload').click();
+                    });
+                </script>
+            </div>
+
+            <!-- Save Buttons -->
+            <div class="flex justify-end gap-3 mt-8">
+                <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition duration-150 shadow-md shadow-blue-500/50">
+                    Save & Publish
+                </button>
+                <button type="button" class="bg-teal-600 hover:bg-teal-700 text-white font-semibold py-3 px-6 rounded-lg transition duration-150 shadow-md shadow-teal-500/50">
+                    Save & Draft
+                </button>
+            </div>
+
+        </form>
+
+    </div>
+            </div>
+          </main>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("componentsLoaded", () => {
+        const hamburgerBtn = document.getElementById("hamburgerBtn");
+        const dropdownMenu = document.getElementById("dropdownMenu");
+
+        hamburgerBtn.addEventListener("click", () => {
+          dropdownMenu.classList.toggle("hidden");
+        });
+      });
+    </script>
+    <script src="./js/include.js"></script>
+    <script src="./js/admin.js"></script>
+    <script>
+      const avatarBtn = document.getElementById("avatarBtn");
+      const dropdown = document.getElementById("dropdownMenu");
+
+      // Toggle on click
+      avatarBtn.addEventListener("click", () => {
+        dropdown.classList.toggle("hidden");
+      });
+
+      // Close when clicking outside
+      document.addEventListener("click", (e) => {
+        if (!avatarBtn.contains(e.target) && !dropdown.contains(e.target)) {
+          dropdown.classList.add("hidden");
+        }
+      });
+    </script>
+  </body>
+</html>

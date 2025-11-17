@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+  <head class="">
+    <meta charset="utf-8" class="" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1"
+      class=""
+    />
+    <title class="">Plan List - Admin</title>
+    <link rel="stylesheet" href="/mlm_html//admin//style.css" />
+    <script src="https://cdn.tailwindcss.com" class=""></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      .custom-scrollbar::-webkit-scrollbar {
+        height: 8px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background-color: #374151; /* Gray-700 */
+        border-radius: 4px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-track {
+        background-color: #1f2937; /* Gray-800 */
+      }
+      .toggle-switch {
+        /* Input checkbox is visually hidden */
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        cursor: pointer;
+        width: 40px;
+        height: 20px;
+        background-color: #4b5563; /* Gray-600 (Off state) */
+        border-radius: 9999px; /* Fully rounded */
+        position: relative;
+        transition: background-color 0.3s;
+        outline: none;
+      }
+
+      /* The circular handle */
+      .toggle-switch::before {
+        content: "";
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        width: 16px;
+        height: 16px;
+        background-color: #f3f4f6; /* White */
+        border-radius: 50%;
+        transition: transform 0.3s;
+      }
+
+      /* Checked (On) state styles */
+      .toggle-switch:checked {
+        background-color: #3b82f6; /* Blue-500 (On state) */
+      }
+
+      .toggle-switch:checked::before {
+        transform: translateX(20px);
+      }
+
+      /* Focus styles for accessibility */
+      .toggle-switch:focus {
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.5); /* Blue-500 ring */
+      }
+    </style>
+  </head>
+  <body class="">
+    <!-- SIDEBAR (included dynamically) & MAIN CONTENT FLEX LAYOUT -->
+    <div class="flex h-screen pt-16">
+      <div id="sidebar-container" class="relative hidden lg:block">
+        <div data-include="components/sidebar.html"></div>
+      </div>
+      <div
+        id="main-content"
+        class="overflow-y-auto bg-[#2c2f32] text-white transition-all duration-300 ease-in-out"
+      >
+        <!-- DASHBOARD MAIN CONTENT -->
+
+        <div
+          id="main-content-wrapper"
+          class="fixed top-16 left-0 lg:left-64 right-0 bottom-0 overflow-y-auto overflow-x-hidden flex flex-col transition-all duration-300 ease-in-out"
+        >
+          <main class="bg-[#1e2022] mx-auto w-full text-white">
+            <!-- TOP BAR -->
+            <header
+              class="w-full bg-[#2c2f32] py-3 px-4 flex items-center justify-between shadow"
+            >
+              <div class="flex items-center space-x-4 flex-1">
+                <!-- HAMBURGER AND MLM - visible below desktop -->
+                <div class="flex items-center space-x-2 lg:hidden">
+                  <button
+                    id="hamburgerBtn"
+                    class="text-white p-2 hover:bg-gray-700 rounded"
+                  >
+                    <i class="fas fa-bars"></i>
+                  </button>
+                  <div class="text-xl font-bold text-red-500">MLM</div>
+                </div>
+
+                <!-- SEARCH -->
+                <div
+                  class="flex items-center flex-1 max-w-xl rounded-full px-4 py-2 space-x-3 shadow-lg"
+                >
+                  <i class="fas fa-search text-gray-400"></i>
+                  <input
+                    type="text"
+                    placeholder="Search for a menu"
+                    class="bg-transparent w-full focus:outline-none text-gray-300 placeholder-gray-400"
+                  />
+                </div>
+              </div>
+
+              <!-- RIGHT SIDE -->
+              <div class="relative ml-4">
+                <!-- AVATAR BUTTON -->
+                <button id="avatarBtn">
+                  <img
+                    src="https://i.pravatar.cc/80"
+                    class="w-10 h-10 rounded-full border border-gray-700 cursor-pointer"
+                  />
+                </button>
+
+                <!-- DROPDOWN -->
+                <div
+                  id="dropdownMenu"
+                  class="hidden absolute right-0 mt-3 w-56 bg-gray-800 rounded-xl shadow-xl border border-gray-700 z-50"
+                >
+                  <!-- PROFILE INFO -->
+                  <div class="px-4 py-3 flex items-center gap-4">
+                    <div>
+                      <img
+                        src="https://i.pravatar.cc/80"
+                        class="w-10 h-10 rounded-full border border-gray-700 cursor-pointer"
+                      />
+                    </div>
+                    <div>
+                      <p class="text-sm font-semibold">admin</p>
+                      <p class="text-xs text-gray-400">admin@gmail.com</p>
+                    </div>
+                  </div>
+
+                  <!-- MENU ITEMS -->
+                  <ul class="py-2">
+                    <li>
+                      <a
+                        href="#"
+                        class="block px-4 py-2 text-sm hover:bg-gray-700 transition"
+                        >Profile & account</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        href="#"
+                        class="block px-4 py-2 text-sm hover:bg-gray-700 transition"
+                        >Sign out</a
+                      >
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </header>
+
+            <div class="p-4 sm:p-6 min-h-screen">
+              <div class="mb-6 border-b border-gray-700">
+                <div class="flex items-end">
+                  <div class="flex-1 mb-2 sm:mb-0">
+                    <nav aria-label="breadcrumb">
+                      <ol class="flex items-center text-sm text-gray-500">
+                        <li class="flex items-center">
+                          <a
+                            class="text-gray-400 hover:text-gray-700"
+                            href="javascript:void(0);"
+                            >Dashboard</a
+                          >
+                          <span class="mx-2">/</span>
+                        </li>
+                        <li class="text-white font-medium" aria-current="page">
+                          Referral Commission
+                        </li>
+                      </ol>
+                    </nav>
+                    <h1 class="text-2xl font-bold text-white mt-2 mb-10">
+                      Referral Commission
+                    </h1>
+                  </div>
+                </div>
+              </div>
+
+              <div class=" mx-auto space-y-8">
+                <!-- Top Section: Commission Toggles and Level Generator -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                  <!-- Left Card: Commission Toggles (Col Span 1 for large screens) -->
+                   <div class="flex flex-col gap-6">
+                    <div
+                    class="lg:col-span-1 bg-[#2c2f32] p-6 rounded-xl shadow-2xl space-y-6"
+                  >
+                    <h2 class="text-xl font-semibold text-white">
+                      Commission Control
+                    </h2>
+
+                    <!-- Toggle 1: Investment Commission -->
+                    <div
+                      class="flex items-start justify-between border-b border-gray-700 pb-4"
+                    >
+                      <div class="pr-2">
+                        <label
+                          for="toggle-investment"
+                          class="block text-sm font-medium text-gray-300"
+                          >Investment Commission</label
+                        >
+                        <p class="text-xs text-gray-500 mt-1">
+                          To activate the investment commission, please switch
+                          on this button.
+                        </p>
+                      </div>
+                      <input
+                        type="checkbox"
+                        id="toggle-investment"
+                        class="toggle-switch"
+                        checked
+                      />
+                    </div>
+
+                    <!-- Toggle 2: Deposit Bonus -->
+                    <div
+                      class="flex items-start justify-between border-b border-gray-700 pb-4"
+                    >
+                      <div class="pr-2">
+                        <label
+                          for="toggle-deposit"
+                          class="block text-sm font-medium text-gray-300"
+                          >Deposit Bonus</label
+                        >
+                        <p class="text-xs text-gray-500 mt-1">
+                          To activate the deposit Commission, please switch on
+                          this button.
+                        </p>
+                      </div>
+                      <input
+                        type="checkbox"
+                        id="toggle-deposit"
+                        class="toggle-switch"
+                        checked
+                      />
+                    </div>
+
+                    <!-- Toggle 3: Profit Commission -->
+                    <div class="flex items-start justify-between">
+                      <div class="pr-2">
+                        <label
+                          for="toggle-profit"
+                          class="block text-sm font-medium text-gray-300"
+                          >Profit Commission</label
+                        >
+                        <p class="text-xs text-gray-500 mt-1">
+                          To activate the profit commission, please switch on
+                          this button.
+                        </p>
+                      </div>
+                      <input
+                        type="checkbox"
+                        id="toggle-profit"
+                        class="toggle-switch"
+                        checked
+                      />
+                    </div>
+
+                    <div class="pt-4">
+                      <button
+                        class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 px-4 rounded-lg transition duration-150 text-sm shadow-md"
+                      >
+                        Save Changes
+                      </button>
+                    </div>
+                  </div>
+
+                  <div class="bg-[#2c2f32] p-6 rounded-xl shadow-2xl">
+                    <h2
+                      class="text-xl font-semibold border-b border-gray-700 pb-4 mb-4"
+                    >
+                      Investment Bonus
+                    </h2>
+
+                    <div class="overflow-x-auto">
+                      <table class="min-w-full divide-y divide-gray-700">
+                        <thead
+                          class="bg-gray-700/50 text-gray-400 uppercase text-xs tracking-wider"
+                        >
+                          <tr>
+                            <th
+                              scope="col"
+                              class="py-3 px-4 text-left font-medium"
+                            >
+                              LEVEL
+                            </th>
+                            <th
+                              scope="col"
+                              class="py-3 px-4 text-left font-medium"
+                            >
+                              BONUS
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-700 text-sm">
+                          <tr class="hover:bg-gray-700 transition duration-150">
+                            <td
+                              class="py-3 px-4 whitespace-nowrap text-white font-medium"
+                            >
+                              LEVEL# 4
+                            </td>
+                            <td
+                              class="py-3 px-4 whitespace-nowrap text-gray-300"
+                            >
+                              10%
+                            </td>
+                          </tr>
+                          <tr class="hover:bg-gray-700 transition duration-150">
+                            <td
+                              class="py-3 px-4 whitespace-nowrap text-white font-medium"
+                            >
+                              LEVEL# 1
+                            </td>
+                            <td
+                              class="py-3 px-4 whitespace-nowrap text-gray-300"
+                            >
+                              50%
+                            </td>
+                          </tr>
+                          <tr class="hover:bg-gray-700 transition duration-150">
+                            <td
+                              class="py-3 px-4 whitespace-nowrap text-white font-medium"
+                            >
+                              LEVEL# 2
+                            </td>
+                            <td
+                              class="py-3 px-4 whitespace-nowrap text-gray-300"
+                            >
+                              30%
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                   </div>
+                  
+
+                  <!-- Right Card: Level Generator (Col Span 2 for large screens) -->
+                  <div
+                    class="lg:col-span-2 bg-[#2c2f32] p-6 rounded-xl shadow-2xl h-fit"
+                  >
+                    <h2
+                      class="text-xl font-semibold text-white mb-4 border-b border-gray-700 pb-4"
+                    >
+                      Level Generation
+                    </h2>
+
+                    <div
+                      class="grid grid-cols-1 sm:grid-cols-3 gap-4 items-end"
+                    >
+                      <!-- Commission Type Selector -->
+                      <div>
+                        <label
+                          for="commission-type"
+                          class="block text-sm font-medium text-gray-300 mb-1"
+                          >Select commission type</label
+                        >
+                        <div class="relative">
+                          <select
+                            id="commission-type"
+                            class="w-full bg-[#2c2f32] text-white py-2.5 px-3 rounded-lg border border-gray-700 appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150"
+                          >
+                            <option
+                              value=""
+                              disabled
+                              selected
+                              class="text-gray-500"
+                            >
+                              Select Type
+                            </option>
+                            <option value="investment">
+                              Investment Commission
+                            </option>
+                            <option value="deposit">Deposit Bonus</option>
+                            <option value="profit">Profit Commission</option>
+                          </select>
+                          <!-- Dropdown arrow icon -->
+                          <div
+                            class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-500"
+                          >
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="20"
+                              height="20"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            >
+                              <path d="m6 9 6 6 6-6" />
+                            </svg>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Number of Levels Input -->
+                      <div>
+                        <label
+                          for="num-levels"
+                          class="block text-sm font-medium text-gray-300 mb-1"
+                          >Number Of Level</label
+                        >
+                        <input
+                          type="number"
+                          id="num-levels"
+                          placeholder="e.g.: 10"
+                          value="10"
+                          class="w-full bg-[#2c2f32] text-white placeholder-gray-500 py-2.5 px-3 rounded-lg border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150"
+                        />
+                      </div>
+
+                      <!-- Generate Button -->
+                      <div class="col-span-1">
+                        <button
+                          class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 px-4 rounded-lg transition duration-150 shadow-md"
+                        >
+                          Generate
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Bottom Section: Bonus Tables (3 Cards) -->
+                <div class="flex flex-col gap-6">
+                  <!-- Card 2: Deposit Bonus Table (from image 52a585.png) -->
+                  <div class="bg-[#2c2f32] p-6 rounded-xl shadow-2xl max-w-sm">
+                    <h2
+                      class="text-xl font-semibold border-b border-gray-700 pb-4 mb-4"
+                    >
+                      Deposit Bonus
+                    </h2>
+
+                    <div class="overflow-x-auto">
+                      <table class="min-w-full divide-y divide-gray-700">
+                        <thead
+                          class="bg-gray-700/50 text-gray-400 uppercase text-xs tracking-wider"
+                        >
+                          <tr>
+                            <th
+                              scope="col"
+                              class="py-3 px-4 text-left font-medium"
+                            >
+                              LEVEL
+                            </th>
+                            <th
+                              scope="col"
+                              class="py-3 px-4 text-left font-medium"
+                            >
+                              BONUS
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-700 text-sm">
+                          <tr class="hover:bg-gray-700 transition duration-150">
+                            <td
+                              class="py-3 px-4 whitespace-nowrap text-white font-medium"
+                            >
+                              LEVEL# 1
+                            </td>
+                            <td
+                              class="py-3 px-4 whitespace-nowrap text-gray-300"
+                            >
+                              60%
+                            </td>
+                          </tr>
+                          <tr class="hover:bg-gray-700 transition duration-150">
+                            <td
+                              class="py-3 px-4 whitespace-nowrap text-white font-medium"
+                            >
+                              LEVEL# 2
+                            </td>
+                            <td
+                              class="py-3 px-4 whitespace-nowrap text-gray-300"
+                            >
+                              30%
+                            </td>
+                          </tr>
+                          <tr class="hover:bg-gray-700 transition duration-150">
+                            <td
+                              class="py-3 px-4 whitespace-nowrap text-white font-medium"
+                            >
+                              LEVEL# 3
+                            </td>
+                            <td
+                              class="py-3 px-4 whitespace-nowrap text-gray-300"
+                            >
+                              15%
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+
+                  <!-- Card 3: Profit Bonus Table (from image 52a585.png) -->
+                  <div class="bg-[#2c2f32] p-6 rounded-xl shadow-2xl max-w-sm">
+                    <h2
+                      class="text-xl font-semibold border-b border-gray-700 pb-4 mb-4"
+                    >
+                      Profit Bonus
+                    </h2>
+
+                    <div class="overflow-x-auto">
+                      <table class="min-w-full divide-y divide-gray-700">
+                        <thead
+                          class="bg-gray-700/50 text-gray-400 uppercase text-xs tracking-wider"
+                        >
+                          <tr>
+                            <th
+                              scope="col"
+                              class="py-3 px-4 text-left font-medium"
+                            >
+                              LEVEL
+                            </th>
+                            <th
+                              scope="col"
+                              class="py-3 px-4 text-left font-medium"
+                            >
+                              BONUS
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-700 text-sm">
+                          <tr class="hover:bg-gray-700 transition duration-150">
+                            <td
+                              class="py-3 px-4 whitespace-nowrap text-white font-medium"
+                            >
+                              LEVEL# 1
+                            </td>
+                            <td
+                              class="py-3 px-4 whitespace-nowrap text-gray-300"
+                            >
+                              10%
+                            </td>
+                          </tr>
+                          <tr class="hover:bg-gray-700 transition duration-150">
+                            <td
+                              class="py-3 px-4 whitespace-nowrap text-white font-medium"
+                            >
+                              LEVEL# 2
+                            </td>
+                            <td
+                              class="py-3 px-4 whitespace-nowrap text-gray-300"
+                            >
+                              5%
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </main>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("componentsLoaded", () => {
+        const hamburgerBtn = document.getElementById("hamburgerBtn");
+        const dropdownMenu = document.getElementById("dropdownMenu");
+
+        hamburgerBtn.addEventListener("click", () => {
+          dropdownMenu.classList.toggle("hidden");
+        });
+      });
+    </script>
+    <script src="./js/include.js"></script>
+    <script src="./js/admin.js"></script>
+    <script>
+      const avatarBtn = document.getElementById("avatarBtn");
+      const dropdown = document.getElementById("dropdownMenu");
+
+      // Toggle on click
+      avatarBtn.addEventListener("click", () => {
+        dropdown.classList.toggle("hidden");
+      });
+
+      // Close when clicking outside
+      document.addEventListener("click", (e) => {
+        if (!avatarBtn.contains(e.target) && !dropdown.contains(e.target)) {
+          dropdown.classList.add("hidden");
+        }
+      });
+    </script>
+  </body>
+</html>

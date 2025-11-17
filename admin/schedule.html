@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+  <head class="">
+    <meta charset="utf-8" class="" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1"
+      class=""
+    />
+    <title class="">Schedule List - Admin</title>
+    <link rel="stylesheet" href="/mlm_html//admin//style.css" />
+    <script src="https://cdn.tailwindcss.com" class=""></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      .custom-scrollbar::-webkit-scrollbar {
+        height: 8px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background-color: #374151; /* Gray-700 */
+        border-radius: 4px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-track {
+        background-color: #1f2937; /* Gray-800 */
+      }
+
+      /* Ensure smooth opening/closing of modal */
+      .modal-transition {
+        transition: opacity 0.3s ease-out;
+      }
+    </style>
+  </head>
+  <body class="">
+    <!-- SIDEBAR (included dynamically) & MAIN CONTENT FLEX LAYOUT -->
+    <div class="flex h-screen pt-16">
+      <div id="sidebar-container" class="relative hidden lg:block">
+        <div data-include="components/sidebar.html"></div>
+      </div>
+      <div
+        id="main-content"
+        class="overflow-y-auto bg-[#2c2f32] text-white transition-all duration-300 ease-in-out"
+      >
+        <!-- DASHBOARD MAIN CONTENT -->
+
+        <div
+          id="main-content-wrapper"
+          class="fixed top-16 left-0 lg:left-64 right-0 bottom-0 overflow-y-auto overflow-x-hidden flex flex-col transition-all duration-300 ease-in-out"
+        >
+          <main class="bg-[#1e2022] mx-auto w-full text-white">
+            <!-- TOP BAR -->
+            <header
+              class="w-full bg-[#2c2f32] py-3 px-4 flex items-center justify-between shadow"
+            >
+              <div class="flex items-center space-x-4 flex-1">
+                <!-- HAMBURGER AND MLM - visible below desktop -->
+                <div class="flex items-center space-x-2 lg:hidden">
+                  <button
+                    id="hamburgerBtn"
+                    class="text-white p-2 hover:bg-gray-700 rounded"
+                  >
+                    <i class="fas fa-bars"></i>
+                  </button>
+                  <div class="text-xl font-bold text-red-500">MLM</div>
+                </div>
+
+                <!-- SEARCH -->
+                <div
+                  class="flex items-center flex-1 max-w-xl rounded-full px-4 py-2 space-x-3 shadow-lg"
+                >
+                  <i class="fas fa-search text-gray-400"></i>
+                  <input
+                    type="text"
+                    placeholder="Search for a menu"
+                    class="bg-transparent w-full focus:outline-none text-gray-300 placeholder-gray-400"
+                  />
+                </div>
+              </div>
+
+              <!-- RIGHT SIDE -->
+              <div class="relative ml-4">
+                <!-- AVATAR BUTTON -->
+                <button id="avatarBtn">
+                  <img
+                    src="https://i.pravatar.cc/80"
+                    class="w-10 h-10 rounded-full border border-gray-700 cursor-pointer"
+                  />
+                </button>
+
+                <!-- DROPDOWN -->
+                <div
+                  id="dropdownMenu"
+                  class="hidden absolute right-0 mt-3 w-56 bg-gray-800 rounded-xl shadow-xl border border-gray-700 z-50"
+                >
+                  <!-- PROFILE INFO -->
+                  <div class="px-4 py-3 flex items-center gap-4">
+                    <div>
+                      <img
+                        src="https://i.pravatar.cc/80"
+                        class="w-10 h-10 rounded-full border border-gray-700 cursor-pointer"
+                      />
+                    </div>
+                    <div>
+                      <p class="text-sm font-semibold">admin</p>
+                      <p class="text-xs text-gray-400">admin@gmail.com</p>
+                    </div>
+                  </div>
+
+                  <!-- MENU ITEMS -->
+                  <ul class="py-2">
+                    <li>
+                      <a
+                        href="#"
+                        class="block px-4 py-2 text-sm hover:bg-gray-700 transition"
+                        >Profile & account</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        href="#"
+                        class="block px-4 py-2 text-sm hover:bg-gray-700 transition"
+                        >Sign out</a
+                      >
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </header>
+
+            <div class="p-4 sm:p-6 min-h-screen">
+              <div class="mb-6 border-b border-gray-700">
+                <div class="flex items-end">
+                  <div class="flex-1 mb-2 sm:mb-0">
+                    <nav aria-label="breadcrumb">
+                      <ol class="flex items-center text-sm text-gray-500">
+                        <li class="flex items-center">
+                          <a
+                            class="text-gray-400 hover:text-gray-700"
+                            href="javascript:void(0);"
+                            >Dashboard</a
+                          >
+                          <span class="mx-2">/</span>
+                        </li>
+                        <li class="text-white font-medium" aria-current="page">
+                          Schedule List
+                        </li>
+                      </ol>
+                    </nav>
+                    <h1 class="text-2xl font-bold text-white mt-2 mb-10">
+                      Schedule List
+                    </h1>
+                  </div>
+                </div>
+              </div>
+
+              <div class="max-w-6xl mx-auto">
+                <!-- Header: Search and Add New Button -->
+
+                <!-- Main Content Card & Responsive Table -->
+                <div class="bg-[#25282a] p-2 sm:p-6 rounded-xl shadow-2xl">
+                  <div
+                    class="flex flex-col sm:flex-row justify-between items-center mb-6 gap-4"
+                  >
+                    <!-- Search Input -->
+                    <div class="relative w-full sm:max-w-xs">
+                      <input
+                        type="text"
+                        placeholder="Search schedule"
+                        class="w-full bg-[#25282a] text-gray-300 placeholder-gray-500 py-3 pl-10 pr-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 border border-gray-700"
+                      />
+                      <!-- Search Icon (Lucide) -->
+                      <div
+                        class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="20"
+                          height="20"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          class="text-gray-400"
+                        >
+                          <circle cx="11" cy="11" r="8"></circle>
+                          <path d="m21 21-4.3-4.3" />
+                        </svg>
+                      </div>
+                    </div>
+
+                    <!-- Add New Button -->
+                    <button
+                      id="openAddModalBtn"
+                      class="w-full sm:w-auto flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg shadow-lg transition duration-300 ease-in-out transform hover:scale-[1.02]"
+                    >
+                      <!-- Add Icon (Lucide) -->
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="mr-2"
+                      >
+                        <path d="M5 12h14" />
+                        <path d="M12 5v14" />
+                      </svg>
+                      Add New
+                    </button>
+                  </div>
+
+                  <div class="overflow-x-auto custom-scrollbar">
+                    <table class="min-w-full divide-y divide-gray-700">
+                      <thead
+                        class="bg-gray-600 text-gray-400 uppercase text-xs tracking-wider"
+                      >
+                        <tr>
+                          <th
+                            scope="col"
+                            class="py-3 px-4 text-left font-medium"
+                          >
+                            SL
+                          </th>
+                          <th
+                            scope="col"
+                            class="py-3 px-4 text-left font-medium"
+                          >
+                            NAME
+                          </th>
+                          <th
+                            scope="col"
+                            class="py-3 px-4 text-left font-medium"
+                          >
+                            DURATION
+                          </th>
+                          <th
+                            scope="col"
+                            class="py-3 px-4 text-left font-medium"
+                          >
+                            ACTION
+                          </th>
+                        </tr>
+                      </thead>
+
+                      <tbody class="divide-y divide-gray-700 text-sm">
+                        <!-- Each row includes data attributes (data-name, data-time) for the Edit functionality -->
+
+                        <!-- Sample Row 1: Hour -->
+                        <tr class="hover:bg-gray-700 transition duration-150">
+                          <td class="py-4 px-4 whitespace-nowrap text-gray-300">
+                            1
+                          </td>
+                          <td
+                            class="py-4 px-4 whitespace-nowrap text-white font-medium"
+                          >
+                            Hour
+                          </td>
+                          <td class="py-4 px-4 whitespace-nowrap text-gray-300">
+                            Time: 1 Hours
+                          </td>
+                          <td class="py-4 px-4 whitespace-nowrap">
+                            <button
+                              class="editBtn flex items-center text-sm font-medium bg-gray-700 hover:bg-gray-600 text-gray-300 py-1.5 px-3 rounded-md transition duration-150"
+                              data-name="Hour"
+                              data-time="1"
+                            >
+                              <!-- Edit Icon (Lucide) -->
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="16"
+                                height="16"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                class="mr-1 w-4 h-4"
+                              >
+                                <path
+                                  d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"
+                                />
+                              </svg>
+                              Edit
+                            </button>
+                          </td>
+                        </tr>
+
+                        <!-- Sample Row 2: Day -->
+                        <tr class="hover:bg-gray-700 transition duration-150">
+                          <td class="py-4 px-4 whitespace-nowrap text-gray-300">
+                            2
+                          </td>
+                          <td
+                            class="py-4 px-4 whitespace-nowrap text-white font-medium"
+                          >
+                            Day
+                          </td>
+                          <td class="py-4 px-4 whitespace-nowrap text-gray-300">
+                            Time: 24 Hours
+                          </td>
+                          <td class="py-4 px-4 whitespace-nowrap">
+                            <button
+                              class="editBtn flex items-center text-sm font-medium bg-gray-700 hover:bg-gray-600 text-gray-300 py-1.5 px-3 rounded-md transition duration-150"
+                              data-name="Day"
+                              data-time="24"
+                            >
+                              <!-- Edit Icon -->
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="16"
+                                height="16"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                class="mr-1 w-4 h-4"
+                              >
+                                <path
+                                  d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"
+                                />
+                              </svg>
+                              Edit
+                            </button>
+                          </td>
+                        </tr>
+
+                        <!-- Sample Row 3: Week -->
+                        <tr class="hover:bg-gray-700 transition duration-150">
+                          <td class="py-4 px-4 whitespace-nowrap text-gray-300">
+                            3
+                          </td>
+                          <td
+                            class="py-4 px-4 whitespace-nowrap text-white font-medium"
+                          >
+                            Week
+                          </td>
+                          <td class="py-4 px-4 whitespace-nowrap text-gray-300">
+                            Time: 168 Hours
+                          </td>
+                          <td class="py-4 px-4 whitespace-nowrap">
+                            <button
+                              class="editBtn flex items-center text-sm font-medium bg-gray-700 hover:bg-gray-600 text-gray-300 py-1.5 px-3 rounded-md transition duration-150"
+                              data-name="Week"
+                              data-time="168"
+                            >
+                              <!-- Edit Icon -->
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="16"
+                                height="16"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                class="mr-1 w-4 h-4"
+                              >
+                                <path
+                                  d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"
+                                />
+                              </svg>
+                              Edit
+                            </button>
+                          </td>
+                        </tr>
+
+                        <!-- Sample Row 4: Month -->
+                        <tr class="hover:bg-gray-700 transition duration-150">
+                          <td class="py-4 px-4 whitespace-nowrap text-gray-300">
+                            4
+                          </td>
+                          <td
+                            class="py-4 px-4 whitespace-nowrap text-white font-medium"
+                          >
+                            Month
+                          </td>
+                          <td class="py-4 px-4 whitespace-nowrap text-gray-300">
+                            Time: 720 Hours
+                          </td>
+                          <td class="py-4 px-4 whitespace-nowrap">
+                            <button
+                              class="editBtn flex items-center text-sm font-medium bg-gray-700 hover:bg-gray-600 text-gray-300 py-1.5 px-3 rounded-md transition duration-150"
+                              data-name="Month"
+                              data-time="720"
+                            >
+                              <!-- Edit Icon -->
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="16"
+                                height="16"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                class="mr-1 w-4 h-4"
+                              >
+                                <path
+                                  d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"
+                                />
+                              </svg>
+                              Edit
+                            </button>
+                          </td>
+                        </tr>
+
+                        <!-- Sample Row 5: Year -->
+                        <tr class="hover:bg-gray-700 transition duration-150">
+                          <td class="py-4 px-4 whitespace-nowrap text-gray-300">
+                            5
+                          </td>
+                          <td
+                            class="py-4 px-4 whitespace-nowrap text-white font-medium"
+                          >
+                            Year
+                          </td>
+                          <td class="py-4 px-4 whitespace-nowrap text-gray-300">
+                            Time: 8760 Hours
+                          </td>
+                          <td class="py-4 px-4 whitespace-nowrap">
+                            <button
+                              class="editBtn flex items-center text-sm font-medium bg-gray-700 hover:bg-gray-600 text-gray-300 py-1.5 px-3 rounded-md transition duration-150"
+                              data-name="Year"
+                              data-time="8760"
+                            >
+                              <!-- Edit Icon -->
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="16"
+                                height="16"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                class="mr-1 w-4 h-4"
+                              >
+                                <path
+                                  d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"
+                                />
+                              </svg>
+                              Edit
+                            </button>
+                          </td>
+                        </tr>
+
+                        <!-- Sample Row 6: Day -->
+                        <tr class="hover:bg-gray-700 transition duration-150">
+                          <td class="py-4 px-4 whitespace-nowrap text-gray-300">
+                            6
+                          </td>
+                          <td
+                            class="py-4 px-4 whitespace-nowrap text-white font-medium"
+                          >
+                            Day
+                          </td>
+                          <td class="py-4 px-4 whitespace-nowrap text-gray-300">
+                            Time: 24 Hours
+                          </td>
+                          <td class="py-4 px-4 whitespace-nowrap">
+                            <button
+                              class="editBtn flex items-center text-sm font-medium bg-gray-700 hover:bg-gray-600 text-gray-300 py-1.5 px-3 rounded-md transition duration-150"
+                              data-name="Day"
+                              data-time="24"
+                            >
+                              <!-- Edit Icon -->
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="16"
+                                height="16"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                class="mr-1 w-4 h-4"
+                              >
+                                <path
+                                  d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"
+                                />
+                              </svg>
+                              Edit
+                            </button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+
+                  <!-- Table Footer/Pagination Indicator -->
+                  <div class="mt-6 flex justify-end text-sm text-gray-400">
+                    Showing:
+                    <span class="inline-flex items-center mx-2 text-white">
+                      20
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="12"
+                        height="12"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="ml-1"
+                      >
+                        <path d="m6 9 6 6 6-6" />
+                      </svg>
+                    </span>
+                    of 6
+                  </div>
+                </div>
+              </div>
+
+              <!-- Modal Backdrop and Content (Single Modal, Dynamically Used for Add/Edit) -->
+              <div
+                id="scheduleModal"
+                class="fixed inset-0 z-50 backdrop-blur flex items-center justify-center opacity-0 pointer-events-none modal-transition"
+              >
+                <!-- Modal Container -->
+                <div
+                  class="bg-gray-800 p-6 rounded-xl w-full max-w-sm m-4 shadow-2xl transform scale-95 transition-all duration-300 ease-out"
+                >
+                  <!-- Modal Header -->
+                  <div
+                    class="flex justify-between items-center pb-4 border-b border-gray-700"
+                  >
+                    <h3
+                      id="modalTitle"
+                      class="text-xl font-semibold text-white"
+                    >
+                      Add New Schedule
+                    </h3>
+                    <button
+                      id="closeModalBtnX"
+                      class="text-gray-400 hover:text-white transition duration-150"
+                    >
+                      <!-- Close Icon (Lucide) -->
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="w-6 h-6"
+                      >
+                        <path d="M18 6 6 18" />
+                        <path d="m6 6 12 12" />
+                      </svg>
+                    </button>
+                  </div>
+
+                  <!-- Modal Body (Form) -->
+                  <div class="mt-4 space-y-4">
+                    <!-- Name Field -->
+                    <div>
+                      <label
+                        for="schedule-name"
+                        class="block text-sm font-medium text-gray-300 mb-1"
+                        >Name</label
+                      >
+                      <input
+                        type="text"
+                        id="schedule-name"
+                        placeholder="e.g : day"
+                        class="w-full bg-gray-900 text-white placeholder-gray-500 py-2.5 px-3 rounded-lg border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150"
+                      />
+                    </div>
+
+                    <!-- Time Field (with appended label) -->
+                    <div>
+                      <label
+                        for="schedule-time"
+                        class="block text-sm font-medium text-gray-300 mb-1"
+                        >Time</label
+                      >
+                      <div
+                        class="flex rounded-lg border border-gray-700 focus-within:ring-2 focus-within:ring-blue-500 transition duration-150"
+                      >
+                        <input
+                          type="number"
+                          id="schedule-time"
+                          placeholder="e.g : 24"
+                          class="flex-1 min-w-0 bg-gray-900 text-white placeholder-gray-500 py-2.5 px-3 rounded-l-lg focus:outline-none"
+                        />
+                        <span
+                          class="inline-flex items-center px-4 rounded-r-lg bg-gray-700 text-gray-300 font-medium"
+                        >
+                          Hour
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Modal Footer (Actions) -->
+                  <div class="mt-6 flex justify-end space-x-3">
+                    <button
+                      id="modalCloseBtn"
+                      class="bg-gray-700 hover:bg-gray-600 text-white font-semibold py-2 px-4 rounded-lg transition duration-150"
+                    >
+                      Close
+                    </button>
+                    <button
+                      class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition duration-150"
+                    >
+                      Save
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </main>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("componentsLoaded", () => {
+        const hamburgerBtn = document.getElementById("hamburgerBtn");
+        const dropdownMenu = document.getElementById("dropdownMenu");
+
+        hamburgerBtn.addEventListener("click", () => {
+          dropdownMenu.classList.toggle("hidden");
+        });
+      });
+    </script>
+    <script src="./js/include.js"></script>
+    <script src="./js/admin.js"></script>
+    <script>
+      const avatarBtn = document.getElementById("avatarBtn");
+      const dropdown = document.getElementById("dropdownMenu");
+
+      // Toggle on click
+      avatarBtn.addEventListener("click", () => {
+        dropdown.classList.toggle("hidden");
+      });
+
+      // Close when clicking outside
+      document.addEventListener("click", (e) => {
+        if (!avatarBtn.contains(e.target) && !dropdown.contains(e.target)) {
+          dropdown.classList.add("hidden");
+        }
+      });
+    </script>
+    <script>
+      // Get elements
+      const modal = document.getElementById("scheduleModal");
+      const modalContent = modal.querySelector("div");
+      const modalTitle = document.getElementById("modalTitle");
+      const scheduleNameInput = document.getElementById("schedule-name");
+      const scheduleTimeInput = document.getElementById("schedule-time");
+
+      const openAddBtn = document.getElementById("openAddModalBtn");
+      // Select all elements with the class 'editBtn'
+      const editBtns = document.querySelectorAll(".editBtn");
+
+      const closeModalBtnX = document.getElementById("closeModalBtnX");
+      const modalCloseBtn = document.getElementById("modalCloseBtn");
+
+      function openModal(isEdit, name = "", time = "") {
+        if (isEdit) {
+          modalTitle.textContent = "Edit Schedule";
+          scheduleNameInput.value = name;
+          scheduleTimeInput.value = time;
+          // Update placeholder to reflect current data
+          scheduleNameInput.placeholder = name;
+          scheduleTimeInput.placeholder = time;
+        } else {
+          modalTitle.textContent = "Add New Schedule";
+          // Clear fields for a new entry
+          scheduleNameInput.value = "";
+          scheduleTimeInput.value = "";
+          // Reset placeholders to default
+          scheduleNameInput.placeholder = "e.g : day";
+          scheduleTimeInput.placeholder = "e.g : 24";
+        }
+
+        // Show the modal with transition effects
+        modal.classList.remove("pointer-events-none", "opacity-0");
+        modalContent.classList.remove("scale-95");
+        modalContent.classList.add("scale-100");
+      }
+
+      // Function to hide the modal
+      function hideModal() {
+        // Hide the modal with transition effects
+        modal.classList.add("pointer-events-none", "opacity-0");
+        modalContent.classList.remove("scale-100");
+        modalContent.classList.add("scale-95");
+      }
+
+      // --- Event Listeners ---
+
+      // 1. Open for ADD (Add New button)
+      openAddBtn.addEventListener("click", () => {
+        openModal(false);
+      });
+
+      // 2. Open for EDIT (All Edit buttons)
+      editBtns.forEach((button) => {
+        button.addEventListener("click", (e) => {
+          // Read the data stored in the button's data attributes
+          const name = e.currentTarget.getAttribute("data-name");
+          const time = e.currentTarget.getAttribute("data-time");
+          openModal(true, name, time);
+        });
+      });
+
+      // 3. Close Modal handlers
+      closeModalBtnX.addEventListener("click", hideModal); // X button
+      modalCloseBtn.addEventListener("click", hideModal); // 'Close' button in footer
+
+      // Close modal when clicking outside (on the backdrop)
+      modal.addEventListener("click", (e) => {
+        if (e.target === modal) {
+          hideModal();
+        }
+      });
+
+      // Close modal with 'Escape' key
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && !modal.classList.contains("opacity-0")) {
+          hideModal();
+        }
+      });
+    </script>
+  </body>
+</html>

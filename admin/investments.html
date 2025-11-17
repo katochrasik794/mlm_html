@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+  <head class="">
+    <meta charset="utf-8" class="" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1"
+      class=""
+    />
+    <title class="">Plan List - Admin</title>
+    <link rel="stylesheet" href="/mlm_html//admin//style.css" />
+    <script src="https://cdn.tailwindcss.com" class=""></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+      .custom-scrollbar::-webkit-scrollbar {
+        height: 8px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background-color: #374151; /* Gray-700 */
+        border-radius: 4px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-track {
+        background-color: #1f2937; /* Gray-800 */
+      } 
+      .row-hover:hover {
+            background-color: #333333;
+        }
+        .pagination-btn.active {
+            background-color: #3b82f6; /* Blue-500 */
+            color: white;
+            font-weight: 600;
+        }
+    </style>
+    <script>
+         const ITEMS_PER_PAGE = 5;
+        let currentPage = 1;
+        
+        // Mock Data for the table (15 entries for 3 full pages)
+        const mockData = [
+            { sl: 1, name: "MOSHARAF HOSSAIN", username: "@demouser", plan: "Starter Pack", amount: 400.00, return: 4.00, received: 0, payment: "Time has passed", status: "Terminate" },
+            { sl: 2, name: "MOSHARAF HOSSAIN", username: "@demouser", plan: "Hatchling Plan", amount: 120.00, return: 7.20, received: 0, payment: "Time has passed", status: "Terminate" },
+            { sl: 3, name: "MOSHARAF HOSSAIN", username: "@demouser", plan: "Business Plan", amount: 69.00, return: 4.14, received: 0, payment: "Time has passed", status: "Terminate" },
+            { sl: 4, name: "MOSHARAF HOSSAIN", username: "@demouser", plan: "Business Plan", amount: 300.00, return: 18.00, received: 0, payment: "Time has passed", status: "Terminate" },
+            { sl: 5, name: "MOSHARAF HOSSAIN", username: "@demouser", plan: "Business Plan", amount: 60.00, return: 3.60, received: 0, payment: "Upcoming in 5 days", status: "Terminate" }, // Page 1 ends
+            
+            { sl: 6, name: "ALEXANDER SMITH", username: "@ale_x", plan: "Hatchling Plan", amount: 120.00, return: 7.20, received: 0, payment: "Time has passed", status: "Terminate" },
+            { sl: 7, name: "JESSICA JONES", username: "@jess_j", plan: "Secondary Pack", amount: 89.00, return: 3.00, received: 0, payment: "Upcoming in 2 days", status: "Terminate" },
+            { sl: 8, name: "DAVID LEE", username: "@dlee", plan: "Business Plan", amount: 100.00, return: 6.00, received: 0, payment: "Upcoming in 1 day", status: "Terminate" },
+            { sl: 9, name: "SARAH CONNOR", username: "@sc_88", plan: "Business Plan", amount: 69.00, return: 4.14, received: 0, payment: "Time has passed", status: "Terminate" },
+            { sl: 10, name: "MARCO POLO", username: "@marco7", plan: "Business Plan", amount: 900.00, return: 54.00, received: 0, payment: "Time has passed", status: "Terminate" }, // Page 2 ends
+            
+            { sl: 11, name: "LINDA JOHNSON", username: "@linda_j", plan: "Starter Pack", amount: 100.00, return: 1.00, received: 0, payment: "Upcoming in 10 days", status: "Terminate" },
+            { sl: 12, name: "ROBERT DOWNEY", username: "@rd_jr", plan: "Hatchling Plan", amount: 120.00, return: 7.20, received: 0, payment: "Time has passed", status: "Terminate" },
+            { sl: 13, name: "EMILY BLUNT", username: "@em_blunt", plan: "Business Plan", amount: 250.00, return: 15.00, received: 0, payment: "Time has passed", status: "Terminate" },
+            { sl: 14, name: "SAMUEL L. JACKSON", username: "@sam_j", plan: "Starter Pack", amount: 50.00, return: 0.50, received: 0, payment: "Upcoming in 3 days", status: "Terminate" },
+            { sl: 15, name: "CHRIS EVANS", username: "@capt_e", plan: "Secondary Pack", amount: 75.00, return: 2.50, received: 0, payment: "Time has passed", status: "Terminate" } // Page 3 ends
+        ];
+        
+        const totalPages = Math.ceil(mockData.length / ITEMS_PER_PAGE);
+
+        function renderTable(data) {
+            const tableBody = document.getElementById('investment-table-body');
+            tableBody.innerHTML = ''; // Clear existing rows
+
+            data.forEach(item => {
+                const row = document.createElement('tr');
+                row.className = 'border-t border-border-dark row-hover';
+                
+                // Helper to create table cell content with optional classes
+                const createCell = (content, className = '') => `<td class="p-4 ${className} text-gray-300 align-middle">${content}</td>`;
+
+                const nameCellContent = `
+                    <div class="flex items-center space-x-3">
+                        <div class="w-8 h-8 rounded-full bg-gray-600 flex items-center justify-center overflow-hidden">
+                            <!-- Placeholder for user avatar -->
+                            <i data-lucide="user" class="w-5 h-5 text-gray-300"></i>
+                        </div>
+                        <div>
+                            <div class="text-white font-medium">${item.name}</div>
+                            <div class="text-xs text-gray-400">${item.username}</div>
+                        </div>
+                    </div>
+                `;
+                
+                // Calculate received info (Mock: 0x4.00 = $0)
+                const receivedInfo = `0 x $${item.return.toFixed(2)} = $${item.received.toFixed(2)}`;
+
+                row.innerHTML = `
+                    ${createCell(item.sl, 'text-center')}
+                    ${createCell(nameCellContent)}
+                    ${createCell(`
+                        <div class="font-medium">${item.plan}</div>
+                        <div class="text-sm text-gray-400">$${item.amount.toFixed(2)}</div>
+                    `)}
+                    ${createCell(`$${item.return.toFixed(2)} Per Day`)}
+                    ${createCell(receivedInfo)}
+                    ${createCell(item.payment)}
+                    ${createCell(`
+                        <button class="bg-red-600 hover:bg-red-700 text-white text-sm font-medium py-2 px-4 rounded-lg transition duration-150">
+    ${item.status}
+</button>
+
+                    `, 'text-right')}
+                `;
+                tableBody.appendChild(row);
+            });
+            
+            // Re-render Lucide icons after adding new HTML
+            lucide.createIcons();
+        }
+
+        function renderPagination() {
+            const paginationContainer = document.getElementById('pagination-container');
+            const infoText = document.getElementById('pagination-info');
+            
+            const start = (currentPage - 1) * ITEMS_PER_PAGE;
+            const end = Math.min(start + ITEMS_PER_PAGE, mockData.length);
+
+            infoText.textContent = `Showing: ${start + 1}-${end} of ${mockData.length}`;
+
+            // Create pagination buttons
+            let paginationHtml = '';
+            
+            // Previous button
+            paginationHtml += `
+                <button onclick="goToPage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}
+                    class="pagination-btn px-4 py-2 rounded-lg bg-card-bg text-gray-300 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-600 transition duration-150 mr-2">
+                    Prev
+                </button>
+            `;
+
+            // Page buttons (display up to 5 buttons, centered around current page)
+            const maxVisiblePages = 5;
+            let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
+            let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+
+            if (endPage - startPage + 1 < maxVisiblePages) {
+                startPage = Math.max(1, endPage - maxVisiblePages + 1);
+            }
+
+            for (let i = startPage; i <= endPage; i++) {
+                paginationHtml += `
+                    <button onclick="goToPage(${i})" 
+                        class="pagination-btn px-4 py-2 rounded-lg transition duration-150 ${i === currentPage ? 'active' : 'bg-card-bg hover:bg-gray-600'}">
+                        ${i}
+                    </button>
+                `;
+            }
+
+            // Next button
+            paginationHtml += `
+                <button onclick="goToPage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}
+                    class="pagination-btn px-4 py-2 rounded-lg bg-card-bg text-gray-300 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-600 transition duration-150 ml-2">
+                    Next
+                </button>
+            `;
+
+            paginationContainer.innerHTML = paginationHtml;
+        }
+
+        function goToPage(page) {
+            if (page >= 1 && page <= totalPages) {
+                currentPage = page;
+                const start = (currentPage - 1) * ITEMS_PER_PAGE;
+                const end = start + ITEMS_PER_PAGE;
+                const dataToShow = mockData.slice(start, end);
+                
+                renderTable(dataToShow);
+                renderPagination();
+            }
+        }
+
+        // Initial load
+        window.onload = () => {
+            goToPage(1);
+        };
+
+    </script>
+    </script>
+  </head>
+  <body class="">
+    <!-- SIDEBAR (included dynamically) & MAIN CONTENT FLEX LAYOUT -->
+    <div class="flex h-screen pt-16">
+      <div id="sidebar-container" class="relative hidden lg:block">
+        <div data-include="components/sidebar.html"></div>
+      </div>
+      <div
+        id="main-content"
+        class="overflow-y-auto bg-[#2c2f32] text-white transition-all duration-300 ease-in-out"
+      >
+        <!-- DASHBOARD MAIN CONTENT -->
+
+        <div
+          id="main-content-wrapper"
+          class="fixed top-16 left-0 lg:left-64 right-0 bottom-0 overflow-y-auto overflow-x-hidden flex flex-col transition-all duration-300 ease-in-out"
+        >
+          <main class="bg-[#1e2022] mx-auto w-full text-white">
+            <!-- TOP BAR -->
+            <header
+              class="w-full bg-[#2c2f32] py-3 px-4 flex items-center justify-between shadow"
+            >
+              <div class="flex items-center space-x-4 flex-1">
+                <!-- HAMBURGER AND MLM - visible below desktop -->
+                <div class="flex items-center space-x-2 lg:hidden">
+                  <button
+                    id="hamburgerBtn"
+                    class="text-white p-2 hover:bg-gray-700 rounded"
+                  >
+                    <i class="fas fa-bars"></i>
+                  </button>
+                  <div class="text-xl font-bold text-red-500">MLM</div>
+                </div>
+
+                <!-- SEARCH -->
+                <div
+                  class="flex items-center flex-1 max-w-xl rounded-full px-4 py-2 space-x-3 shadow-lg"
+                >
+                  <i class="fas fa-search text-gray-400"></i>
+                  <input
+                    type="text"
+                    placeholder="Search for a menu"
+                    class="bg-transparent w-full focus:outline-none text-gray-300 placeholder-gray-400"
+                  />
+                </div>
+              </div>
+
+              <!-- RIGHT SIDE -->
+              <div class="relative ml-4">
+                <!-- AVATAR BUTTON -->
+                <button id="avatarBtn">
+                  <img
+                    src="https://i.pravatar.cc/80"
+                    class="w-10 h-10 rounded-full border border-gray-700 cursor-pointer"
+                  />
+                </button>
+
+                <!-- DROPDOWN -->
+                <div
+                  id="dropdownMenu"
+                  class="hidden absolute right-0 mt-3 w-56 bg-gray-800 rounded-xl shadow-xl border border-gray-700 z-50"
+                >
+                  <!-- PROFILE INFO -->
+                  <div class="px-4 py-3 flex items-center gap-4">
+                    <div>
+                      <img
+                        src="https://i.pravatar.cc/80"
+                        class="w-10 h-10 rounded-full border border-gray-700 cursor-pointer"
+                      />
+                    </div>
+                    <div>
+                      <p class="text-sm font-semibold">admin</p>
+                      <p class="text-xs text-gray-400">admin@gmail.com</p>
+                    </div>
+                  </div>
+
+                  <!-- MENU ITEMS -->
+                  <ul class="py-2">
+                    <li>
+                      <a
+                        href="#"
+                        class="block px-4 py-2 text-sm hover:bg-gray-700 transition"
+                        >Profile & account</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        href="#"
+                        class="block px-4 py-2 text-sm hover:bg-gray-700 transition"
+                        >Sign out</a
+                      >
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </header>
+
+            <div class="p-4 sm:p-6 min-h-screen">
+              <div class="mb-6 border-b border-gray-700">
+                <div class="flex items-end">
+                  <div class="flex-1 mb-2 sm:mb-0">
+                    <nav aria-label="breadcrumb">
+                      <ol class="flex items-center text-sm text-gray-500">
+                        <li class="flex items-center">
+                          <a
+                            class="text-gray-400 hover:text-gray-700"
+                            href="javascript:void(0);"
+                            >Dashboard</a
+                          >
+                          <span class="mx-2">/</span>
+                        </li>
+                        <li class="text-white font-medium" aria-current="page">
+                          Invest Log
+                        </li>
+                      </ol>
+                    </nav>
+                    <h1 class="text-2xl font-bold text-white mt-2 mb-10">
+                      Invest Log
+                    </h1>
+                  </div>
+                </div>
+              </div>
+              <div class="max-w-7xl mx-auto">
+
+        <!-- Table Container -->
+        <div class="card-bg rounded-xl bg-[#2c2f32] shadow-lg border border-gray-700 overflow-x-auto py-4">
+                    <!-- Header and Search Bar -->
+        <div class="mb-6 flex  items-center justify-between">
+            <div class="relative w-full max-w-sm px-4">
+                <input type="text" placeholder="Search Investment" class="w-full pl-12 pr-4 py-3 rounded-xl bg-[#2c2f32] border border-gray-700 text-white focus:ring-blue-500 focus:border-blue-500">
+                <i data-lucide="search" class="w-5 h-5 text-gray-400 absolute left-8 top-1/2 transform -translate-y-1/2"></i>
+            </div>
+            <!-- Empty space for the "Add New" button which is not present in this screenshot -->
+        </div>
+            <table class="min-w-full">
+                <thead class="table-header bg-gray-600">
+                    <tr>
+                        <th class="px-4 py-3 text-center text-xs font-medium uppercase tracking-wider">SL.</th>
+                        <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider">NAME</th>
+                        <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider">PLAN</th>
+                        <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider">RETURN INTEREST</th>
+                        <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider">RECEIVED AMOUNT</th>
+                        <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider">UPCOMING PAYMENT</th>
+                        <th class="px-4 py-3 text-right text-xs font-medium uppercase tracking-wider">ACTION</th>
+                    </tr>
+                </thead>
+                <tbody id="investment-table-body" class="">
+                    <!-- Table rows will be inserted here by JavaScript -->
+                </tbody>
+            </table>
+             <!-- Pagination Footer -->
+        <div class="mt-4 p-4 flex flex-col sm:flex-row items-center justify-between text-sm text-gray-400">
+            <div id="pagination-info" class="mb-3 sm:mb-0">
+                <!-- Showing X-Y of Z will be injected here -->
+            </div>
+            
+            <div class="flex items-center space-x-1" id="pagination-container">
+                <!-- Pagination buttons will be injected here by JavaScript -->
+            </div>
+        </div>
+        </div>
+
+<!-- Terminate Confirmation Popup -->
+<div id="terminateModal" class="fixed inset-0 hidden bg-black bg-opacity-60 flex items-center justify-center z-50">
+  <div class="bg-[#2c2f32] w-96 p-6 rounded-lg shadow-lg border border-gray-700">
+    <h2 class="text-xl font-semibold mb-4">Confirmation?</h2>
+    <p class="text-gray-300 mb-4">Are you sure you want to terminate this investment?</p>
+    <p class="text-gray-400 mb-6">
+      Terminate Charge is 10.00%. If you want to change terminate charge then click here
+    </p>
+
+    <div class="flex justify-end gap-3">
+      <button onclick="closeModal()" class="px-4 py-2 bg-gray-600 hover:bg-gray-700 rounded text-white">
+        Close
+      </button>
+      <button class="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded text-white">
+        Confirm
+      </button>
+    </div>
+  </div>
+</div>
+
+
+    </div>
+            </div>
+          </main>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("componentsLoaded", () => {
+        const hamburgerBtn = document.getElementById("hamburgerBtn");
+        const dropdownMenu = document.getElementById("dropdownMenu");
+
+        hamburgerBtn.addEventListener("click", () => {
+          dropdownMenu.classList.toggle("hidden");
+        });
+      });
+    </script>
+    <script src="./js/include.js"></script>
+    <script src="./js/admin.js"></script>
+    <script>
+      const avatarBtn = document.getElementById("avatarBtn");
+      const dropdown = document.getElementById("dropdownMenu");
+
+      // Toggle on click
+      avatarBtn.addEventListener("click", () => {
+        dropdown.classList.toggle("hidden");
+      });
+
+      // Close when clicking outside
+      document.addEventListener("click", (e) => {
+        if (!avatarBtn.contains(e.target) && !dropdown.contains(e.target)) {
+          dropdown.classList.add("hidden");
+        }
+      });
+    </script>
+    <script>
+function openModal() {
+    document.getElementById("terminateModal").classList.remove("hidden");
+}
+
+function closeModal() {
+    document.getElementById("terminateModal").classList.add("hidden");
+}
+
+document.addEventListener("click", function (e) {
+    if (e.target.classList.contains("terminate-btn")) {
+        openModal();
+    }
+});
+</script>
+
+  </body>
+</html>
