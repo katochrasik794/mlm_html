@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+  <head class="">
+    <meta charset="utf-8" class="" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1"
+      class=""
+    />
+    <title class="">Plan List - Admin</title>
+    <link rel="stylesheet" href="/mlm_html//admin//style.css" />
+    <script src="https://cdn.tailwindcss.com" class=""></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+      .custom-scrollbar::-webkit-scrollbar {
+        height: 8px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background-color: #374151; /* Gray-700 */
+        border-radius: 4px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-track {
+        background-color: #1f2937; /* Gray-800 */
+      }
+      .row-hover:hover {
+            background-color: #333333;
+        }
+        .pagination-btn {
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            transition: background-color 0.15s, color 0.15s;
+        }
+        .pagination-btn.active {
+            background-color: #3b82f6; /* Blue-500 */
+            color: white;
+            font-weight: 600;
+        }
+        /* Modal backdrop for the filter */
+        .modal-backdrop {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+        
+        // Function to replace lucide icon names with SVG elements
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+        });
+
+        // --- Core Pagination and Data Logic ---
+        const ITEMS_PER_PAGE = 5;
+        let currentPage = 1;
+        
+        // Mock Data for the table (15 entries for 3 full pages)
+        const mockData = [
+            // Page 1
+            { sl: 1, id: "T292395526859", user: { name: "Samir M. Badescu", username: "@MLKSamir", initial: 'S', color: 'bg-blue-500' }, amount: 10, charge: 0, remarks: "Joining bonus", time: "14 Nov 2025 10:44 PM", type: 'credit' },
+            { sl: 2, id: "T292395526858", user: { name: "PNG MONERO", username: "@Png237", initial: 'P', color: 'bg-red-500' }, amount: 10, charge: 0, remarks: "Joining bonus", time: "11 Nov 2025 03:40 PM", type: 'credit' },
+            { sl: 3, id: "T292395526857", user: { name: "Mark Ogen", username: "@Markogen", initial: 'M', color: 'bg-purple-500' }, amount: 10, charge: 0, remarks: "Joining bonus", time: "11 Nov 2025 03:00 PM", type: 'credit' },
+            { sl: 4, id: "T292395526856", user: { name: "Taryl Williams", username: "@williamswise24", initial: 'T', color: 'bg-teal-500' }, amount: 10, charge: 0, remarks: "Joining bonus", time: "11 Nov 2025 02:59 PM", type: 'credit' },
+            { sl: 5, id: "T292395526855", user: { name: "ahsan raza", username: "@oklast", initial: 'A', color: 'bg-amber-500' }, amount: 10, charge: 0, remarks: "Joining bonus", time: "09 Nov 2025 12:31 AM", type: 'credit' }, 
+            
+            // Page 2
+            { sl: 6, id: "INV292395525483", user: { name: "MOSHARAF HOSSAIN", username: "@demouser", initial: 'M', color: 'bg-gray-500' }, amount: -400, charge: 0, remarks: "Invested On Starter Pack", time: "08 Nov 2025 09:54 AM", type: 'debit' },
+            { sl: 7, id: "INV292395525482", user: { name: "MOSHARAF HOSSAIN", username: "@demouser", initial: 'M', color: 'bg-gray-500' }, amount: -120, charge: 0, remarks: "Invested On Hatchling Plan", time: "08 Nov 2025 04:59 AM", type: 'debit' },
+            { sl: 8, id: "D132418743811", user: { name: "MOSHARAF HOSSAIN", username: "@demouser", initial: 'M', color: 'bg-gray-500' }, amount: 500, charge: 3, remarks: "Deposit Via Stripe", time: "08 Nov 2025 04:58 AM", type: 'credit' },
+            { sl: 9, id: "D132418743809", user: { name: "MOSHARAF HOSSAIN", username: "@demouser", initial: 'M', color: 'bg-gray-500' }, amount: 20, charge: 0.6, remarks: "Deposit Via Stripe", time: "08 Nov 2025 04:58 AM", type: 'credit' },
+            { sl: 10, id: "W345678901234", user: { name: "JANE DOE", username: "@janedoe", initial: 'J', color: 'bg-pink-500' }, amount: -50, charge: 2, remarks: "Withdrawal Fee", time: "07 Nov 2025 08:30 PM", type: 'debit' }, 
+            
+            // Page 3
+            { sl: 11, id: "D111111111111", user: { name: "ALICE JOHNSON", username: "@alicej", initial: 'A', color: 'bg-green-500' }, amount: 150, charge: 1, remarks: "Deposit Via PayPal", time: "07 Nov 2025 09:00 AM", type: 'credit' },
+            { sl: 12, id: "T987654321098", user: { name: "BOB SMITH", username: "@bobsmith", initial: 'B', color: 'bg-orange-500' }, amount: 25, charge: 0, remarks: "Referral Bonus", time: "06 Nov 2025 05:15 PM", type: 'credit' },
+            { sl: 13, id: "INV543210987654", user: { name: "CHARLIE BROWN", username: "@charlieb", initial: 'C', color: 'bg-indigo-500' }, amount: -500, charge: 0, remarks: "Invested On Premium Plan", time: "05 Nov 2025 11:20 AM", type: 'debit' },
+            { sl: 14, id: "D222222222222", user: { name: "DAISY MILLER", username: "@daisym", initial: 'D', color: 'bg-fuchsia-500' }, amount: 75, charge: 0.5, remarks: "Deposit Via Card", time: "04 Nov 2025 02:45 PM", type: 'credit' },
+            { sl: 15, id: "W123456789012", user: { name: "EDGAR WRIGHT", username: "@edgarw", initial: 'E', color: 'bg-lime-500' }, amount: -100, charge: 1, remarks: "Withdrawal Request", time: "03 Nov 2025 07:00 AM", type: 'debit' } 
+        ];
+        
+        const totalPages = Math.ceil(mockData.length / ITEMS_PER_PAGE);
+
+        function renderTable(data) {
+            const tableBody = document.getElementById('transaction-table-body');
+            tableBody.innerHTML = ''; // Clear existing rows
+
+            data.forEach(item => {
+                const row = document.createElement('tr');
+                row.className = 'border-t border-border-dark row-hover text-sm';
+                
+                // Helper to create table cell content with optional classes
+                const createCell = (content, className = '') => `<td class="p-4 ${className} text-gray-300 align-middle">${content}</td>`;
+
+                const amountText = item.amount > 0 ? 
+                    `<span class="text-green-400 font-medium"> +$${item.amount}</span>` : 
+                    `<span class="text-red-400 font-medium"> -$${Math.abs(item.amount)}</span>`;
+                
+                const userCellContent = `
+                    <div class="flex items-center space-x-3">
+                        <div class="w-8 h-8 rounded-full ${item.user.color} flex items-center justify-center font-bold text-white text-base">
+                            ${item.user.initial}
+                        </div>
+                        <div>
+                            <div class="text-white font-medium">${item.user.name}</div>
+                            <div class="text-xs text-gray-400">${item.user.username}</div>
+                        </div>
+                    </div>
+                `;
+                
+                row.innerHTML = `
+                    ${createCell(item.sl, 'text-center text-gray-400')}
+                    ${createCell(item.id, 'font-mono text-gray-400')}
+                    ${createCell(userCellContent)}
+                    ${createCell(amountText, 'font-bold')}
+                    ${createCell(`$${item.charge.toFixed(2)}`, 'text-gray-400')}
+                    ${createCell(item.remarks, 'text-gray-400')}
+                    ${createCell(item.time, 'text-right text-gray-400')}
+                `;
+                tableBody.appendChild(row);
+            });
+            
+            // Re-render Lucide icons
+            lucide.createIcons();
+        }
+
+        function renderPagination() {
+            const paginationContainer = document.getElementById('pagination-container');
+            const infoText = document.getElementById('pagination-info');
+            
+            const start = (currentPage - 1) * ITEMS_PER_PAGE;
+            const end = Math.min(start + ITEMS_PER_PAGE, mockData.length);
+
+            infoText.textContent = `Showing: ${start + 1}-${end} of ${mockData.length}`;
+
+            // Create pagination buttons
+            let paginationHtml = '';
+            
+            // Previous button
+            paginationHtml += `
+                <button onclick="goToPage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}
+                    class="pagination-btn bg-card-bg text-gray-300 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-600 transition duration-150 mr-2">
+                    Prev
+                </button>
+            `;
+
+            // Page buttons (display up to 5 buttons, centered around current page)
+            const maxVisiblePages = 5;
+            let startPage = Math.max(1, currentPage - 2);
+            let endPage = Math.min(totalPages, currentPage + 2);
+
+            // Adjust start/end to ensure 5 buttons are shown if possible
+            if (endPage - startPage + 1 < maxVisiblePages) {
+                if (startPage === 1) {
+                    endPage = Math.min(totalPages, maxVisiblePages);
+                } else if (endPage === totalPages) {
+                    startPage = Math.max(1, totalPages - maxVisiblePages + 1);
+                }
+            }
+            
+            // Add ellipsis if needed at the start
+            if (startPage > 1) {
+                paginationHtml += `<span class="mx-1 text-gray-500">...</span>`;
+            }
+
+
+            for (let i = startPage; i <= endPage; i++) {
+                paginationHtml += `
+                    <button onclick="goToPage(${i})" 
+                        class="pagination-btn ${i === currentPage ? 'active' : 'bg-card-bg hover:bg-gray-600 text-gray-300'}">
+                        ${i}
+                    </button>
+                `;
+            }
+            
+            // Add ellipsis if needed at the end
+            if (endPage < totalPages) {
+                paginationHtml += `<span class="mx-1 text-gray-500">...</span>`;
+            }
+
+            // Next button
+            paginationHtml += `
+                <button onclick="goToPage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}
+                    class="pagination-btn bg-card-bg text-gray-300 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-600 transition duration-150 ml-2">
+                    Next
+                </button>
+            `;
+
+            paginationContainer.innerHTML = paginationHtml;
+        }
+
+        function goToPage(page) {
+            if (page >= 1 && page <= totalPages) {
+                currentPage = page;
+                const start = (currentPage - 1) * ITEMS_PER_PAGE;
+                const end = start + ITEMS_PER_PAGE;
+                const dataToShow = mockData.slice(start, end);
+                
+                renderTable(dataToShow);
+                renderPagination();
+            }
+        }
+        
+        // --- Modal Logic ---
+        function toggleFilterModal(show) {
+            const modal = document.getElementById('filter-modal');
+            modal.classList.toggle('hidden', !show);
+        }
+
+        // Event listener for filter button
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('filter-button').addEventListener('click', () => {
+                toggleFilterModal(true);
+            });
+            document.getElementById('modal-close-button').addEventListener('click', () => {
+                toggleFilterModal(false);
+            });
+            document.getElementById('modal-cancel-button').addEventListener('click', () => {
+                toggleFilterModal(false);
+            });
+            
+            // Prevent modal close on click inside
+            document.getElementById('filter-dialog').addEventListener('click', (e) => {
+                e.stopPropagation();
+            });
+
+            // Initial load
+            goToPage(1);
+        });
+
+    </script>
+  </head>
+  <body class="">
+    <!-- SIDEBAR (included dynamically) & MAIN CONTENT FLEX LAYOUT -->
+    <div class="flex h-screen pt-16">
+      <div id="sidebar-container" class="relative hidden lg:block">
+        <div data-include="components/sidebar.html"></div>
+      </div>
+      <div
+        id="main-content"
+        class="overflow-y-auto bg-[#2c2f32] text-white transition-all duration-300 ease-in-out"
+      >
+        <!-- DASHBOARD MAIN CONTENT -->
+
+        <div
+          id="main-content-wrapper"
+          class="fixed top-16 left-0 lg:left-64 right-0 bottom-0 overflow-y-auto overflow-x-hidden flex flex-col transition-all duration-300 ease-in-out"
+        >
+          <main class="bg-[#1e2022] mx-auto w-full text-white">
+            <!-- TOP BAR -->
+            <header
+              class="w-full bg-[#2c2f32] py-3 px-4 flex items-center justify-between shadow"
+            >
+              <div class="flex items-center space-x-4 flex-1">
+                <!-- HAMBURGER AND MLM - visible below desktop -->
+                <div class="flex items-center space-x-2 lg:hidden">
+                  <button
+                    id="hamburgerBtn"
+                    class="text-white p-2 hover:bg-gray-700 rounded"
+                  >
+                    <i class="fas fa-bars"></i>
+                  </button>
+                  <div class="text-xl font-bold text-red-500">MLM</div>
+                </div>
+
+                <!-- SEARCH -->
+                <div
+                  class="flex items-center flex-1 max-w-xl rounded-full px-4 py-2 space-x-3 shadow-lg"
+                >
+                  <i class="fas fa-search text-gray-400"></i>
+                  <input
+                    type="text"
+                    placeholder="Search for a menu"
+                    class="bg-transparent w-full focus:outline-none text-gray-300 placeholder-gray-400"
+                  />
+                </div>
+              </div>
+
+              <!-- RIGHT SIDE -->
+              <div class="relative ml-4">
+                <!-- AVATAR BUTTON -->
+                <button id="avatarBtn">
+                  <img
+                    src="https://i.pravatar.cc/80"
+                    class="w-10 h-10 rounded-full border border-gray-700 cursor-pointer"
+                  />
+                </button>
+
+                <!-- DROPDOWN -->
+                <div
+                  id="dropdownMenu"
+                  class="hidden absolute right-0 mt-3 w-56 bg-gray-800 rounded-xl shadow-xl border border-gray-700 z-50"
+                >
+                  <!-- PROFILE INFO -->
+                  <div class="px-4 py-3 flex items-center gap-4">
+                    <div>
+                      <img
+                        src="https://i.pravatar.cc/80"
+                        class="w-10 h-10 rounded-full border border-gray-700 cursor-pointer"
+                      />
+                    </div>
+                    <div>
+                      <p class="text-sm font-semibold">admin</p>
+                      <p class="text-xs text-gray-400">admin@gmail.com</p>
+                    </div>
+                  </div>
+
+                  <!-- MENU ITEMS -->
+                  <ul class="py-2">
+                    <li>
+                      <a
+                        href="#"
+                        class="block px-4 py-2 text-sm hover:bg-gray-700 transition"
+                        >Profile & account</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        href="#"
+                        class="block px-4 py-2 text-sm hover:bg-gray-700 transition"
+                        >Sign out</a
+                      >
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </header>
+
+            <div class="p-4 sm:p-6 min-h-screen">
+              <div class="mb-6 border-b border-gray-700">
+                <div class="flex items-end">
+                  <div class="flex-1 mb-2 sm:mb-0">
+                    <nav aria-label="breadcrumb">
+                      <ol class="flex items-center text-sm text-gray-500">
+                        <li class="flex items-center">
+                          <a
+                            class="text-gray-400 hover:text-gray-700"
+                            href="javascript:void(0);"
+                            >Dashboard</a
+                          >
+                          <span class="mx-2">/</span>
+                        </li>
+                        <li class="text-white font-medium" aria-current="page">
+                          Transactions
+                        </li>
+                      </ol>
+                    </nav>
+                    <h1 class="text-2xl font-bold text-white mt-2 mb-10">
+                      Transactions
+                    </h1>
+                  </div>
+                </div>
+              </div>
+
+              <div class="max-w-7xl mx-auto">
+
+        <!-- Table Container -->
+        <div class="card-bg rounded-xl shadow-lg border border-gray-700 overflow-x-auto bg-[#2c2f32]">
+            <!-- Header, Search, and Filter Button -->
+        <div class="mb-2 flex items-center justify-between py-4 px-4">
+            <div class="relative w-full max-w-sm ">
+                <input type="text" placeholder="Search transaction" class="w-full pl-14 pr-4 py-3 rounded-xl bg-[#2c2f32] border border-gray-700 text-white focus:ring-blue-500 focus:border-blue-500">
+                <i data-lucide="search" class="w-5 h-5 text-gray-400 absolute left-6 top-1/2 transform -translate-y-1/2"></i>
+            </div>
+            <button id="filter-button" class="flex items-center space-x-2 bg-[#2c2f32] hover:bg-gray-600 text-white font-medium py-3 px-4 rounded-xl transition duration-150 border border-gray-700 ml-4">
+                <i data-lucide="filter" class="w-5 h-5"></i>
+                <span>Filter</span>
+            </button>
+        </div>
+            <table class="min-w-full divide-y divide-border-dark">
+                <thead class="table-header">
+                    <tr class="bg-gray-600">
+                        <th class="px-4 py-3 text-center text-xs font-medium uppercase tracking-wider">NO.</th>
+                        <th class="px-4 py-4 text-left text-xs font-medium uppercase tracking-wider">TRANSACTION ID</th>
+                        <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider">USER</th>
+                        <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider">AMOUNT</th>
+                        <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider">CHARGE</th>
+                        <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider">REMARKS</th>
+                        <th class="px-4 py-3 text-right text-xs font-medium uppercase tracking-wider">DATE/TIME</th>
+                    </tr>
+                </thead>
+                <tbody id="transaction-table-body" class="">
+                    <!-- Table rows will be inserted here by JavaScript -->
+                </tbody>
+            </table>
+            <!-- Pagination Footer -->
+        <div class="mt-4 p-4 flex flex-col sm:flex-row items-center justify-between text-sm text-gray-400">
+            <div id="pagination-info" class="mb-3 sm:mb-0">
+                <!-- Showing X-Y of Z will be injected here -->
+            </div>
+            
+            <div class="flex items-center space-x-1" id="pagination-container">
+                <!-- Pagination buttons will be injected here by JavaScript -->
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <!-- Filter Modal -->
+    <div id="filter-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center backdrop-blur duration-300" onclick="toggleFilterModal(false)">
+        <div id="filter-dialog" class="bg-[#2c2f32] w-full max-w-sm rounded-xl shadow-2xl transform transition-all duration-300">
+            
+            <!-- Modal Header -->
+            <div class="flex justify-between items-center p-5 border-b border-border-dark">
+                <h3 class="text-lg font-semibold text-white">Filter</h3>
+                <button id="modal-close-button" class="text-gray-400 hover:text-white" aria-label="Close">
+                    <i data-lucide="x" class="w-6 h-6"></i>
+                </button>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="p-5 space-y-5">
+                
+                <!-- Transaction ID Field -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-300 mb-2">TRANSACTION ID</label>
+                    <input type="text" class="w-full px-4 py-3 rounded-lg bg-[#2c2f32] border border-gray-700 text-white placeholder-gray-500 focus:ring-blue-500 focus:border-blue-500" placeholder="Enter Transaction ID">
+                </div>
+
+                <!-- Date Range Field -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-300 mb-2">DATE RANGE</label>
+                    <div class="flex space-x-2">
+                        <input type="date" class="w-full px-4 py-3 rounded-lg bg-[#2c2f32] border border-gray-700 text-white placeholder-gray-500 focus:ring-blue-500 focus:border-blue-500 appearance-none" placeholder="Select start date">
+                        <span class="text-gray-400 py-3">-</span>
+
+                        <input type="date" class="w-full px-4 py-3 rounded-lg bg-[#2c2f32] border border-gray-700 text-white placeholder-gray-500 focus:ring-blue-500 focus:border-blue-500 appearance-none" placeholder="Select end date">
+
+                        <button class="bg-[#1a1a1a] p-3 rounded-lg border border-border-dark text-gray-400 hover:bg-gray-600 transition duration-150">
+                            <i data-lucide="rotate-ccw" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Example of a Select field (Type) -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-300 mb-2">TRANSACTION TYPE</label>
+                    <select class="w-full px-4 py-3 rounded-lg bg-[#2c2f32] border border-gray-700 text-white focus:ring-blue-500 focus:border-blue-500 appearance-none">
+                        <option value="">All Types</option>
+                        <option value="credit">Credit</option>
+                        <option value="debit">Debit</option>
+                        <option value="invest">Investment</option>
+                        <option value="withdraw">Withdrawal</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="flex justify-between bg-[#2c2f32] border border-gray-700 items-center p-5 ">
+                <button id="modal-cancel-button" class="px-5 py-2 rounded-lg text-white font-medium hover:text-red-400 transition duration-150">
+                    Clear Filters
+                </button>
+                <button class="flex items-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-5 rounded-lg transition duration-150">
+                    <i data-lucide="search" class="w-5 h-5"></i>
+                    <span>Apply</span>
+                </button>
+            </div>
+
+        </div>
+    </div>
+            </div>
+          </main>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("componentsLoaded", () => {
+        const hamburgerBtn = document.getElementById("hamburgerBtn");
+        const dropdownMenu = document.getElementById("dropdownMenu");
+
+        hamburgerBtn.addEventListener("click", () => {
+          dropdownMenu.classList.toggle("hidden");
+        });
+      });
+    </script>
+    <script src="./js/include.js"></script>
+    <script src="./js/admin.js"></script>
+    <script>
+      const avatarBtn = document.getElementById("avatarBtn");
+      const dropdown = document.getElementById("dropdownMenu");
+
+      // Toggle on click
+      avatarBtn.addEventListener("click", () => {
+        dropdown.classList.toggle("hidden");
+      });
+
+      // Close when clicking outside
+      document.addEventListener("click", (e) => {
+        if (!avatarBtn.contains(e.target) && !dropdown.contains(e.target)) {
+          dropdown.classList.add("hidden");
+        }
+      });
+    </script>
+  </body>
+</html>

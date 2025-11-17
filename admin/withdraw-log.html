@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+  <head class="">
+    <meta charset="utf-8" class="" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1"
+      class=""
+    />
+    <title class="">Plan List - Admin</title>
+    <link rel="stylesheet" href="/mlm_html//admin//style.css" />
+    <script src="https://cdn.tailwindcss.com" class=""></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+      .custom-scrollbar::-webkit-scrollbar {
+        height: 8px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background-color: #374151; /* Gray-700 */
+        border-radius: 4px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-track {
+        background-color: #1f2937; /* Gray-800 */
+      }
+      .row-hover:hover {
+            background-color: #333333;
+        }
+        .pagination-btn {
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            transition: background-color 0.15s, color 0.15s;
+        }
+        .pagination-btn.active {
+            background-color: #3b82f6; /* Blue-500 */
+            color: white;
+            font-weight: 600;
+        }
+        /* Modal backdrop for the filter/edit */
+        .modal-backdrop {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+        /* Custom status badges */
+        .status-pending { background-color: #4a4023; color: #ffeb3b; padding: 2px 8px; border-radius: 6px; font-weight: 500;}
+        .status-approved { background-color: #1c4532; color: #68d391; padding: 2px 8px; border-radius: 6px; font-weight: 500;}
+    </style>
+        <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+        
+        // Function to replace lucide icon names with SVG elements
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+        });
+
+        // --- Mock Data ---
+        const ITEMS_PER_PAGE = 5;
+        let currentPage = 1;
+        
+        // Mock Data for the table (15 entries for 3 full pages)
+        const mockData = [
+            // Page 1
+            { sl: 1, trx: "P807964037246", user: { name: "MOSHARAF HOSSAIN", username: "@demouser", initial: 'M', color: 'bg-yellow-500' }, method: "Coinbase", amount: 1000, currency: 'BNB', payout: 14705.88, status: 'Pending', date: "01 Oct 2025 04:42 PM", cryptoAddress: "clxcg.hxxrfkyzmx.hfx", paymentLogo: "https://placehold.co/40x40/000000/cccccc?text=CB" },
+            { sl: 2, trx: "P807964037241", user: { name: "MOSHARAF HOSSAIN", username: "@demouser", initial: 'M', color: 'bg-yellow-500' }, method: "Paystack", amount: 50, currency: 'NGN', payout: 6.76, status: 'Pending', date: "25 Sep 2025 02:47 PM", cryptoAddress: "N/A", paymentLogo: "https://placehold.co/40x40/000000/cccccc?text=PS" },
+            { sl: 3, trx: "P807964037238", user: { name: "MOSHARAF HOSSAIN", username: "@demouser", initial: 'M', color: 'bg-yellow-500' }, method: "Razorpay", amount: 5000, currency: 'INR', payout: 6578.95, status: 'Pending', date: "25 Sep 2025 07:49 AM", cryptoAddress: "N/A", paymentLogo: "https://placehold.co/40x40/000000/cccccc?text=RP" },
+            { sl: 4, trx: "P807964037232", user: { name: "MOSHARAF HOSSAIN", username: "@demouser", initial: 'M', color: 'bg-yellow-500' }, method: "Razorpay", amount: 15000, currency: 'INR', payout: 19736.84, status: 'Pending', date: "24 Sep 2025 11:36 AM", cryptoAddress: "N/A", paymentLogo: "https://placehold.co/40x40/000000/cccccc?text=RP" },
+            { sl: 5, trx: "P807964037231", user: { name: "MOSHARAF HOSSAIN", username: "@demouser", initial: 'M', color: 'bg-yellow-500' }, method: "Razorpay", amount: 15000, currency: 'INR', payout: 19736.84, status: 'Pending', date: "24 Sep 2025 11:35 AM", cryptoAddress: "N/A", paymentLogo: "https://placehold.co/40x40/000000/cccccc?text=RP" }, 
+            
+            // Page 2
+            { sl: 6, trx: "P807964037230", user: { name: "JOHN DOE", username: "@johndoe", initial: 'J', color: 'bg-red-500' }, method: "PayPal", amount: 200, currency: 'USD', payout: 198.00, status: 'Approved', date: "23 Sep 2025 09:10 AM", cryptoAddress: "N/A", paymentLogo: "https://placehold.co/40x40/000000/cccccc?text=PP" },
+            { sl: 7, trx: "P807964037229", user: { name: "JANE SMITH", username: "@janesmith", initial: 'J', color: 'bg-pink-500' }, method: "Bitcoin", amount: 0.5, currency: 'BTC', payout: 25000.00, status: 'Approved', date: "22 Sep 2025 05:22 PM", cryptoAddress: "1BvBMSEYstWetqTFn5Au4m4GFf7xT9x", paymentLogo: "https://placehold.co/40x40/000000/cccccc?text=BC" },
+            { sl: 8, trx: "P807964037228", user: { name: "ALICE JOHNSON", username: "@alicej", initial: 'A', color: 'bg-green-500' }, method: "Mollie", amount: 100, currency: 'EUR', payout: 105.00, status: 'Approved', date: "21 Sep 2025 10:00 AM", cryptoAddress: "N/A", paymentLogo: "https://placehold.co/40x40/000000/cccccc?text=ML" },
+            { sl: 9, trx: "P807964037227", user: { name: "BOB BROWN", username: "@bobb", initial: 'B', color: 'bg-blue-500' }, method: "Coinbase", amount: 50, currency: 'ETH', payout: 15000.00, status: 'Pending', date: "20 Sep 2025 01:15 PM", cryptoAddress: "0x742d35Cc6634C0532925a3b844Bc45", paymentLogo: "https://placehold.co/40x40/000000/cccccc?text=CB" },
+            { sl: 10, trx: "P807964037226", user: { name: "CHRIS LEE", username: "@chrisl", initial: 'C', color: 'bg-teal-500' }, method: "Paystack", amount: 10000, currency: 'NGN', payout: 13.52, status: 'Approved', date: "19 Sep 2025 08:30 AM", cryptoAddress: "N/A", paymentLogo: "https://placehold.co/40x40/000000/cccccc?text=PS" }, 
+            
+            // Page 3
+            { sl: 11, trx: "P807964037225", user: { name: "DAVID KING", username: "@davidk", initial: 'D', color: 'bg-indigo-500' }, method: "Razorpay", amount: 20000, currency: 'INR', payout: 26315.79, status: 'Pending', date: "18 Sep 2025 03:00 PM", cryptoAddress: "N/A", paymentLogo: "https://placehold.co/40x40/000000/cccccc?text=RP" },
+            { sl: 12, trx: "P807964037224", user: { name: "EMILY WRIGHT", username: "@emilyw", initial: 'E', color: 'bg-fuchsia-500' }, method: "PayPal", amount: 150, currency: 'USD', payout: 148.50, status: 'Approved', date: "17 Sep 2025 11:55 AM", cryptoAddress: "N/A", paymentLogo: "https://placehold.co/40x40/000000/cccccc?text=PP" },
+            { sl: 13, trx: "P807964037223", user: { name: "FRANK MOORE", username: "@frankm", initial: 'F', color: 'bg-orange-500' }, method: "Bitcoin", amount: 0.1, currency: 'BTC', payout: 5000.00, status: 'Approved', date: "16 Sep 2025 04:20 PM", cryptoAddress: "3J98t1WpEZ73CNmQviecrnyiWrnqRhWN", paymentLogo: "https://placehold.co/40x40/000000/cccccc?text=BC" },
+            { sl: 14, trx: "P807964037222", user: { name: "GRACE HALL", username: "@graceh", initial: 'G', color: 'bg-lime-500' }, method: "Mollie", amount: 50, currency: 'EUR', payout: 52.50, status: 'Pending', date: "15 Sep 2025 09:00 AM", cryptoAddress: "N/A", paymentLogo: "https://placehold.co/40x40/000000/cccccc?text=ML" },
+            { sl: 15, trx: "P807964037221", user: { name: "HARRY EVANS", username: "@harrye", initial: 'H', color: 'bg-gray-500' }, method: "Coinbase", amount: 500, currency: 'ETH', payout: 150000.00, status: 'Approved', date: "14 Sep 2025 06:10 PM", cryptoAddress: "0xAb5801a7D398351b8bE11C439e05C5b3259AeDa", paymentLogo: "https://placehold.co/40x40/000000/cccccc?text=CB" } 
+        ];
+        
+        const totalPages = Math.ceil(mockData.length / ITEMS_PER_PAGE);
+        let selectedWithdrawalItem = null; // To hold the data for the currently open popup
+
+        // --- UI Functions ---
+
+        function getStatusBadge(status) {
+            const className = status === 'Approved' ? 'status-approved' : 'status-pending';
+            return `<span class="${className}">${status}</span>`;
+        }
+
+        function renderTable(data) {
+            const tableBody = document.getElementById('withdrawal-table-body');
+            tableBody.innerHTML = ''; // Clear existing rows
+
+            data.forEach((item, index) => {
+                const globalIndex = (currentPage - 1) * ITEMS_PER_PAGE + index;
+                const row = document.createElement('tr');
+                row.className = 'border-t border-border-dark row-hover text-sm';
+                
+                // Helper to create table cell content with optional classes
+                const createCell = (content, className = '') => `<td class="px-4 py-3 ${className} text-gray-300 align-middle whitespace-nowrap">${content}</td>`;
+                
+                const userCellContent = `
+                    <div class="flex items-center space-x-3">
+                        <img src="https://placehold.co/32x32/${item.user.color.replace('bg-', '')}/ffffff?text=${item.user.initial}" class="w-8 h-8 rounded-full object-cover border border-border-dark" onerror="this.onerror=null; this.src='https://placehold.co/32x32/${item.user.color.replace('bg-', '')}/ffffff?text=${item.user.initial}';" alt="User Avatar">
+                        <div>
+                            <div class="text-white font-medium">${item.user.name}</div>
+                            <div class="text-xs text-gray-400">${item.user.username}</div>
+                        </div>
+                    </div>
+                `;
+                
+                const methodCellContent = `
+                    <div class="flex items-center space-x-2">
+                        <img src="${item.paymentLogo}" class="w-5 h-5 rounded-full" onerror="this.onerror=null; this.src='https://placehold.co/20x20/cccccc/000000?text=?';" alt="${item.method} Logo">
+                        <span class="text-white">${item.method}</span>
+                    </div>
+                `;
+
+                const actionButton = `
+                    <button onclick="showWithdrawalDetails(${globalIndex})" class="text-blue-500 hover:text-blue-400 transition duration-150">
+                        <i data-lucide="pencil" class="w-4 h-4"></i>
+                    </button>
+                `;
+
+                row.innerHTML = `
+                    ${createCell(item.trx, 'font-mono text-gray-400')}
+                    ${createCell(userCellContent)}
+                    ${createCell(methodCellContent)}
+                    ${createCell(`${item.amount.toLocaleString()} ${item.currency}`, 'font-medium text-red-400')}
+                    ${createCell(`0.5 ${item.currency}`, 'text-gray-400')}
+                    ${createCell(`$${item.payout.toFixed(2)}`, 'font-medium text-green-400')}
+                    ${createCell(getStatusBadge(item.status))}
+                    ${createCell(item.date, 'text-gray-400')}
+                    ${createCell(actionButton, 'text-center')}
+                `;
+                tableBody.appendChild(row);
+            });
+            
+            // Re-render Lucide icons
+            lucide.createIcons();
+        }
+
+        // --- Pagination Logic ---
+
+        function renderPagination() {
+            const paginationContainer = document.getElementById('pagination-container');
+            const infoText = document.getElementById('pagination-info');
+            
+            const start = (currentPage - 1) * ITEMS_PER_PAGE;
+            const end = Math.min(start + ITEMS_PER_PAGE, mockData.length);
+
+            infoText.textContent = `Showing: ${start + 1}-${end} of ${mockData.length}`;
+
+            let paginationHtml = '';
+            
+            // Previous button
+            paginationHtml += `
+                <button onclick="goToPage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}
+                    class="pagination-btn bg-card-bg text-gray-300 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-600 transition duration-150 mr-2">
+                    <i data-lucide="chevron-left" class="w-4 h-4"></i>
+                </button>
+            `;
+
+            // Page buttons (display up to 5 buttons, centered around current page)
+            const maxVisiblePages = 5;
+            let startPage = Math.max(1, currentPage - 2);
+            let endPage = Math.min(totalPages, currentPage + 2);
+
+            if (endPage - startPage + 1 < maxVisiblePages) {
+                if (startPage === 1) {
+                    endPage = Math.min(totalPages, maxVisiblePages);
+                } else if (endPage === totalPages) {
+                    startPage = Math.max(1, totalPages - maxVisiblePages + 1);
+                }
+            }
+
+            for (let i = startPage; i <= endPage; i++) {
+                paginationHtml += `
+                    <button onclick="goToPage(${i})" 
+                        class="pagination-btn ${i === currentPage ? 'active' : 'bg-card-bg hover:bg-gray-600 text-gray-300'}">
+                        ${i}
+                    </button>
+                `;
+            }
+
+            // Next button
+            paginationHtml += `
+                <button onclick="goToPage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}
+                    class="pagination-btn bg-card-bg text-gray-300 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-600 transition duration-150 ml-2">
+                    <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                </button>
+            `;
+
+            paginationContainer.innerHTML = paginationHtml;
+            lucide.createIcons();
+        }
+
+        function goToPage(page) {
+            if (page >= 1 && page <= totalPages) {
+                currentPage = page;
+                const start = (currentPage - 1) * ITEMS_PER_PAGE;
+                const end = start + ITEMS_PER_PAGE;
+                const dataToShow = mockData.slice(start, end);
+                
+                renderTable(dataToShow);
+                renderPagination();
+            }
+        }
+        
+        // --- Modal Logic (Filter and Withdrawal Details) ---
+        
+        function toggleModal(modalId, show) {
+            const modal = document.getElementById(modalId);
+            modal.classList.toggle('hidden', !show);
+        }
+
+        // 1. Filter Modal handlers
+        const toggleFilterModal = (show) => toggleModal('filter-modal', show);
+
+        // 2. Withdrawal Details Modal handlers
+        function showWithdrawalDetails(dataIndex) {
+            selectedWithdrawalItem = mockData[dataIndex];
+            if (!selectedWithdrawalItem) return;
+
+            // Fill the modal content dynamically
+            document.getElementById('wd-sender-name').textContent = selectedWithdrawalItem.user.name;
+            document.getElementById('wd-trx-id').textContent = selectedWithdrawalItem.trx;
+            document.getElementById('wd-method').textContent = selectedWithdrawalItem.method;
+            document.getElementById('wd-amount-paid').textContent = `$${(selectedWithdrawalItem.amount / 10).toFixed(2)}`; // Mock Paid Amount
+            document.getElementById('wd-date-paid').textContent = selectedWithdrawalItem.date.split(' ')[0];
+            document.getElementById('wd-status-badge').innerHTML = getStatusBadge(selectedWithdrawalItem.status);
+
+            // Summary details
+            document.getElementById('wd-crypto-address-key').textContent = selectedWithdrawalItem.cryptoAddress === "N/A" ? "Account ID" : "Crypto Address";
+            document.getElementById('wd-crypto-address-value').textContent = selectedWithdrawalItem.cryptoAddress === "N/A" ? "user-acc-12345" : selectedWithdrawalItem.cryptoAddress;
+            document.getElementById('wd-amount-value').textContent = `$${selectedWithdrawalItem.payout.toFixed(2)}`;
+
+            toggleModal('withdrawal-modal', true);
+            lucide.createIcons();
+        }
+
+        // --- Event Listeners and Initialization ---
+        document.addEventListener('DOMContentLoaded', () => {
+            // Filter Modal setup
+            document.getElementById('filter-button').addEventListener('click', () => toggleFilterModal(true));
+            document.getElementById('filter-modal-close').addEventListener('click', () => toggleFilterModal(false));
+            document.getElementById('filter-modal-cancel').addEventListener('click', () => toggleFilterModal(false));
+            
+            // Withdrawal Modal setup
+            document.getElementById('withdrawal-modal-close-x').addEventListener('click', () => toggleModal('withdrawal-modal', false));
+            document.getElementById('withdrawal-modal-close-btn').addEventListener('click', () => toggleModal('withdrawal-modal', false));
+
+            // Prevent modal close on click inside dialogs
+            document.getElementById('filter-dialog').addEventListener('click', (e) => e.stopPropagation());
+            document.getElementById('withdrawal-dialog').addEventListener('click', (e) => e.stopPropagation());
+
+
+            // Initial load
+            goToPage(1);
+        });
+
+    </script>
+  </head>
+  <body class="">
+    <!-- SIDEBAR (included dynamically) & MAIN CONTENT FLEX LAYOUT -->
+    <div class="flex h-screen pt-16">
+      <div id="sidebar-container" class="relative hidden lg:block">
+        <div data-include="components/sidebar.html"></div>
+      </div>
+      <div
+        id="main-content"
+        class="overflow-y-auto bg-[#2c2f32] text-white transition-all duration-300 ease-in-out"
+      >
+        <!-- DASHBOARD MAIN CONTENT -->
+
+        <div
+          id="main-content-wrapper"
+          class="fixed top-16 left-0 lg:left-64 right-0 bottom-0 overflow-y-auto overflow-x-hidden flex flex-col transition-all duration-300 ease-in-out"
+        >
+          <main class="bg-[#1e2022] mx-auto w-full text-white">
+            <!-- TOP BAR -->
+            <header
+              class="w-full bg-[#2c2f32] py-3 px-4 flex items-center justify-between shadow"
+            >
+              <div class="flex items-center space-x-4 flex-1">
+                <!-- HAMBURGER AND MLM - visible below desktop -->
+                <div class="flex items-center space-x-2 lg:hidden">
+                  <button
+                    id="hamburgerBtn"
+                    class="text-white p-2 hover:bg-gray-700 rounded"
+                  >
+                    <i class="fas fa-bars"></i>
+                  </button>
+                  <div class="text-xl font-bold text-red-500">MLM</div>
+                </div>
+
+                <!-- SEARCH -->
+                <div
+                  class="flex items-center flex-1 max-w-xl rounded-full px-4 py-2 space-x-3 shadow-lg"
+                >
+                  <i class="fas fa-search text-gray-400"></i>
+                  <input
+                    type="text"
+                    placeholder="Search for a menu"
+                    class="bg-transparent w-full focus:outline-none text-gray-300 placeholder-gray-400"
+                  />
+                </div>
+              </div>
+
+              <!-- RIGHT SIDE -->
+              <div class="relative ml-4">
+                <!-- AVATAR BUTTON -->
+                <button id="avatarBtn">
+                  <img
+                    src="https://i.pravatar.cc/80"
+                    class="w-10 h-10 rounded-full border border-gray-700 cursor-pointer"
+                  />
+                </button>
+
+                <!-- DROPDOWN -->
+                <div
+                  id="dropdownMenu"
+                  class="hidden absolute right-0 mt-3 w-56 bg-gray-800 rounded-xl shadow-xl border border-gray-700 z-50"
+                >
+                  <!-- PROFILE INFO -->
+                  <div class="px-4 py-3 flex items-center gap-4">
+                    <div>
+                      <img
+                        src="https://i.pravatar.cc/80"
+                        class="w-10 h-10 rounded-full border border-gray-700 cursor-pointer"
+                      />
+                    </div>
+                    <div>
+                      <p class="text-sm font-semibold">admin</p>
+                      <p class="text-xs text-gray-400">admin@gmail.com</p>
+                    </div>
+                  </div>
+
+                  <!-- MENU ITEMS -->
+                  <ul class="py-2">
+                    <li>
+                      <a
+                        href="#"
+                        class="block px-4 py-2 text-sm hover:bg-gray-700 transition"
+                        >Profile & account</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        href="#"
+                        class="block px-4 py-2 text-sm hover:bg-gray-700 transition"
+                        >Sign out</a
+                      >
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </header>
+
+            <div class="p-4 sm:p-6 min-h-screen">
+              <div class="mb-6 border-b border-gray-700">
+                <div class="flex items-end">
+                  <div class="flex-1 mb-2 sm:mb-0">
+                    <nav aria-label="breadcrumb">
+                      <ol class="flex items-center text-sm text-gray-500">
+                        <li class="flex items-center">
+                          <a
+                            class="text-gray-400 hover:text-gray-700"
+                            href="javascript:void(0);"
+                            >Dashboard</a
+                          >
+                          <span class="mx-2">/</span>
+                        </li>
+                        <li class="text-white font-medium" aria-current="page">
+                          withdraw log
+                        </li>
+                      </ol>
+                    </nav>
+                    <h1 class="text-2xl font-bold text-white mt-2 mb-10">
+                      withdraw log
+                    </h1>
+                  </div>
+                </div>
+              </div>
+              <div class="max-w-7xl mx-auto">
+        
+        <!-- Top Cards/Summary (Simplified from image) -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+            <div class="bg-[#2c2f32] border border-gray-700 p-4 rounded-xl shadow-lg  text-center">
+                <p class="text-sm text-gray-400">TOTAL WITHDRAWAL</p>
+                <p class="text-2xl font-bold mt-1">325</p>
+            </div>
+            <div class="bg-[#2c2f32] border border-gray-700 p-4 rounded-xl shadow-lg  text-center">
+                <p class="text-sm text-gray-400">SUCCESS WITHDRAW</p>
+                <p class="text-2xl font-bold mt-1 text-green-400">8</p>
+            </div>
+            <div class="bg-[#2c2f32] border border-gray-700 p-4 rounded-xl shadow-lg  text-center">
+                <p class="text-sm text-gray-400">PENDING WITHDRAW</p>
+                <p class="text-2xl font-bold mt-1 text-yellow-400">68</p>
+            </div>
+            <div class="bg-[#2c2f32] border border-gray-700 p-4 rounded-xl shadow-lg text-center">
+                <p class="text-sm text-gray-400">CANCEL WITHDRAW</p>
+                <p class="text-2xl font-bold mt-1 text-red-400">0</p>
+            </div>
+        </div>
+
+
+       
+
+        <!-- Table Container -->
+        <div class="bg-[#2c2f32] border border-gray-700 rounded-xl shadow-lg overflow-x-auto">
+             <!-- Header, Search, and Filter Button -->
+        <div class="flex items-center justify-between">
+            <div class="relative w-full max-w-sm py-4 px-4">
+                <input type="text" placeholder="Search here" class="w-full pl-10 pr-4 py-3 rounded-xl bg-[#2c2f32] border border-gray-700 text-white focus:ring-blue-500 focus:border-blue-500">
+                <i data-lucide="search" class="w-5 h-5 text-gray-400 absolute left-7 top-1/2 transform -translate-y-1/2"></i>
+            </div>
+            <button id="filter-button" class="flex items-center space-x-2 bg-[#2c2f32] border border-gray-700 hover:bg-gray-600 text-white font-medium py-3 px-4 rounded-xl transition duration-150  mr-4">
+                <i data-lucide="filter" class="w-5 h-5"></i>
+                <span>Filter</span>
+            </button>
+        </div>
+            <table class="min-w-full">
+                <thead class="table-header">
+                    <tr class="bg-gray-600">
+                        <th class="px-4 py-4 text-left text-xs font-medium uppercase tracking-wider">TRX NUMBER</th>
+                        <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider">USER</th>
+                        <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider">METHOD</th>
+                        <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider">AMOUNT</th>
+                        <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider">CHARGE</th>
+                        <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider">PAYOUT AMOUNT</th>
+                        <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider">STATUS</th>
+                        <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider">DATE</th>
+                        <th class="px-4 py-3 text-center text-xs font-medium uppercase tracking-wider">ACTION</th>
+                    </tr>
+                </thead>
+                <tbody id="withdrawal-table-body" class="">
+                    <!-- Table rows will be inserted here by JavaScript -->
+                </tbody>
+            </table>
+                    <!-- Pagination Footer -->
+        <div class="mt-4 p-4 flex flex-col sm:flex-row items-center justify-between text-sm text-gray-400">
+            <div id="pagination-info" class="mb-3 sm:mb-0">
+                <!-- Showing X-Y of Z will be injected here -->
+            </div>
+            
+            <div class="flex items-center space-x-1" id="pagination-container">
+                <!-- Pagination buttons will be injected here by JavaScript -->
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <!-- 1. Filter Modal -->
+    <div id="filter-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center  backdrop-blur transition-opacity duration-300" onclick="toggleFilterModal(false)">
+        <div id="filter-dialog" class="card-bg w-full max-w-sm rounded-xl shadow-2xl bg-[#2c2f32] transform transition-all duration-300">
+            
+            <!-- Modal Header -->
+            <div class="flex justify-between items-center p-5 border-b border-border-dark">
+                <h3 class="text-lg font-semibold text-white">Filter</h3>
+                <button id="filter-modal-close" class="text-gray-400 hover:text-white" aria-label="Close">
+                    <i data-lucide="x" class="w-6 h-6"></i>
+                </button>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="p-5 space-y-5">
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-300 mb-2">TRX NUMBER</label>
+                    <input type="text" class="w-full px-4 py-3 rounded-lg bg-[#2c2f32] border border-gray-700 text-white placeholder-gray-500 focus:ring-blue-500 focus:border-blue-500" placeholder="Enter Transaction ID">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-300 mb-2">DATE RANGE</label>
+                    <div class="flex space-x-2 items-center">
+                        <input type="date" class="w-full px-4 py-3 rounded-lg bg-[#2c2f32] border border-gray-700 text-white placeholder-gray-500 focus:ring-blue-500 focus:border-blue-500 appearance-none">
+                        <span class="text-gray-400">-</span>
+
+                        <input type="date" class="w-full px-4 py-3 rounded-lg bg-[#2c2f32] border border-gray-700 text-white placeholder-gray-500 focus:ring-blue-500 focus:border-blue-500 appearance-none">
+
+                        <button class="bg-[#1a1a1a] p-3 rounded-lg border border-border-dark text-gray-400 hover:bg-gray-600 transition duration-150">
+                            <i data-lucide="rotate-ccw" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-300 mb-2">STATUS</label>
+                    <select class="w-full px-4 py-3 rounded-lg bg-[#2c2f32] border border-gray-700 text-white focus:ring-blue-500 focus:border-blue-500 appearance-none">
+                        <option value="">All Statuses</option>
+                        <option value="pending">Pending</option>
+                        <option value="approved">Approved</option>
+                        <option value="cancelled">Cancelled</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="flex justify-between items-center p-5 border-t border-border-dark">
+                <button id="filter-modal-cancel" class="px-5 py-2 rounded-lg text-white font-medium hover:text-red-400 transition duration-150">
+                    Clear Filters
+                </button>
+                <button class="flex items-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-5 rounded-lg transition duration-150">
+                    <i data-lucide="search" class="w-5 h-5"></i>
+                    <span>Apply</span>
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- 2. Withdrawal Information Modal (Action Popup) -->
+    <div id="withdrawal-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center backdrop-blur transition-opacity duration-300" onclick="toggleModal('withdrawal-modal', false)">
+        <div id="withdrawal-dialog" class="card-bg w-full max-w-md rounded-xl shadow-2xl transform transition-all duration-300 bg-[#2c2f32] border border-gray-700">
+            
+            <!-- Modal Header -->
+            <div class="flex justify-between items-center p-5 border-b border-border-dark">
+                <h3 class="text-lg font-semibold text-white">Withdraw Information</h3>
+                <button id="withdrawal-modal-close-x" class="text-gray-400 hover:text-white" aria-label="Close">
+                    <i data-lucide="x" class="w-6 h-6"></i>
+                </button>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="p-6 space-y-6">
+                
+                <!-- Key Information Grid -->
+                <div class="grid grid-cols-3 gap-y-4 text-sm font-medium">
+                    <div>
+                        <p class="text-gray-400">SENDER NAME:</p>
+                        <p id="wd-sender-name" class="text-white">Loading...</p>
+                    </div>
+                    <div>
+                        <p class="text-gray-400">TRANSACTION ID:</p>
+                        <p id="wd-trx-id" class="text-white">Loading...</p>
+                    </div>
+                    <div class="flex flex-col items-end text-right">
+                        <p class="text-gray-400">PAYMENT METHOD:</p>
+                        <p id="wd-method" class="text-white">Loading...</p>
+                    </div>
+
+                    <div>
+                        <p class="text-gray-400">AMOUNT PAID:</p>
+                        <p id="wd-amount-paid" class="text-white font-bold">$1000</p>
+                    </div>
+                    <div>
+                        <p class="text-gray-400">DATE PAID:</p>
+                        <p id="wd-date-paid" class="text-white">01 Oct 2025</p>
+                    </div>
+                    <div class="flex flex-col items-end text-right">
+                        <p class="text-gray-400">STATUS:</p>
+                        <p id="wd-status-badge">Pending</p>
+                    </div>
+                </div>
+
+                <hr class="border-border-dark">
+                
+                <!-- Summary Section -->
+                <h4 class="text-base font-semibold text-gray-300 uppercase">Summary</h4>
+                <div class="space-y-3">
+                    <div class="flex justify-between text-sm">
+                        <span id="wd-crypto-address-key" class="text-gray-400">Crypto Address</span>
+                        <span id="wd-crypto-address-value" class="text-white font-mono break-all text-right">clxcg.hxxrfkyzmx.hfx</span>
+                    </div>
+                    <div class="flex justify-between text-base font-bold">
+                        <span class="text-gray-400">Amount</span>
+                        <span id="wd-amount-value" class="text-white">$68</span>
+                    </div>
+                </div>
+
+                <hr class="border-border-dark">
+
+                <!-- Feedback Section -->
+                <h4 class="text-base font-semibold text-gray-300 uppercase">Send You Feedback</h4>
+                <textarea class="w-full h-24 p-3 rounded-lg bg-[#2c2f32] border border-gray-700 text-white placeholder-gray-500 focus:ring-blue-500 focus:border-blue-500" placeholder="Feedback"></textarea>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="flex justify-end items-center p-5 border-t border-border-dark space-x-3">
+                <button id="withdrawal-modal-close-btn" class="px-5 py-2 rounded-lg text-white font-medium hover:text-gray-400 transition duration-150">
+                    Close
+                </button>
+                <button class="bg-green-500 hover:bg-green-600 text-white font-medium py-2 px-5 rounded-lg transition duration-150">
+                    Approved
+                </button>
+                <button class="bg-red-500 hover:bg-red-600 text-white font-medium py-2 px-5 rounded-lg transition duration-150">
+                    Rejected
+                </button>
+            </div>
+        </div>
+    </div>
+            </div>
+          </main>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("componentsLoaded", () => {
+        const hamburgerBtn = document.getElementById("hamburgerBtn");
+        const dropdownMenu = document.getElementById("dropdownMenu");
+
+        hamburgerBtn.addEventListener("click", () => {
+          dropdownMenu.classList.toggle("hidden");
+        });
+      });
+    </script>
+    <script src="./js/include.js"></script>
+    <script src="./js/admin.js"></script>
+    <script>
+      const avatarBtn = document.getElementById("avatarBtn");
+      const dropdown = document.getElementById("dropdownMenu");
+
+      // Toggle on click
+      avatarBtn.addEventListener("click", () => {
+        dropdown.classList.toggle("hidden");
+      });
+
+      // Close when clicking outside
+      document.addEventListener("click", (e) => {
+        if (!avatarBtn.contains(e.target) && !dropdown.contains(e.target)) {
+          dropdown.classList.add("hidden");
+        }
+      });
+    </script>
+  </body>
+</html>

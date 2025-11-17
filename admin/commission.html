@@ -29,91 +29,99 @@
       }
       .custom-scrollbar::-webkit-scrollbar-track {
         background-color: #1f2937; /* Gray-800 */
-      } 
+      }
       .row-hover:hover {
             background-color: #333333;
+        }
+        .pagination-btn {
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            transition: background-color 0.15s, color 0.15s;
         }
         .pagination-btn.active {
             background-color: #3b82f6; /* Blue-500 */
             color: white;
             font-weight: 600;
-        }
+        } 
     </style>
-    <script>
-         const ITEMS_PER_PAGE = 5;
+        <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+        
+        // Function to replace lucide icon names with SVG elements
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+        });
+
+        // --- Core Pagination and Data Logic ---
+        const ITEMS_PER_PAGE = 5;
         let currentPage = 1;
         
         // Mock Data for the table (15 entries for 3 full pages)
         const mockData = [
-            { sl: 1, name: "MOSHARAF HOSSAIN", username: "@demouser", plan: "Starter Pack", amount: 400.00, return: 4.00, received: 0, payment: "Time has passed", status: "Terminate" },
-            { sl: 2, name: "MOSHARAF HOSSAIN", username: "@demouser", plan: "Hatchling Plan", amount: 120.00, return: 7.20, received: 0, payment: "Time has passed", status: "Terminate" },
-            { sl: 3, name: "MOSHARAF HOSSAIN", username: "@demouser", plan: "Business Plan", amount: 69.00, return: 4.14, received: 0, payment: "Time has passed", status: "Terminate" },
-            { sl: 4, name: "MOSHARAF HOSSAIN", username: "@demouser", plan: "Business Plan", amount: 300.00, return: 18.00, received: 0, payment: "Time has passed", status: "Terminate" },
-            { sl: 5, name: "MOSHARAF HOSSAIN", username: "@demouser", plan: "Business Plan", amount: 60.00, return: 3.60, received: 0, payment: "Upcoming in 5 days", status: "Terminate" }, // Page 1 ends
+            { sl: 1, user: { name: "MOSHARAF HOSSAIN", username: "@demouser", initial: 'M', color: 'bg-yellow-500' }, bonusFrom: "Aaron Smith", amount: 3.00, remarks: "Level 1 Referral Bonus From aaron smith", time: "01 Nov 2024" },
+            { sl: 2, user: { name: "MOSHARAF HOSSAIN", username: "@demouser", initial: 'M', color: 'bg-yellow-500' }, bonusFrom: "Roman Novikov", amount: 0.05, remarks: "Level 1 Referral Bonus From Roman Novikov", time: "01 Nov 2024" },
+            { sl: 3, user: { name: "appexin2 appexin2", username: "@appexin2", initial: 'A', color: 'bg-blue-500' }, bonusFrom: "appexin3 appexin3", amount: 0.38, remarks: "Level 1 Referral Bonus From appexin3", time: "01 Nov 2024" },
+            { sl: 4, user: { name: "NH SuMoN", username: "@Nhsumon0038", initial: 'N', color: 'bg-teal-500' }, bonusFrom: "Md Rasel Shekh", amount: 3.12, remarks: "Level 1 Referral Bonus From Rasel01", time: "01 Nov 2024" },
+            { sl: 5, user: { name: "MOSHARAF HOSSAIN", username: "@demouser", initial: 'M', color: 'bg-yellow-500' }, bonusFrom: "Aaron Smith", amount: 3.00, remarks: "Level 2 Deposit Commission From Aaron", time: "01 Nov 2024" }, // Page 1 ends
             
-            { sl: 6, name: "ALEXANDER SMITH", username: "@ale_x", plan: "Hatchling Plan", amount: 120.00, return: 7.20, received: 0, payment: "Time has passed", status: "Terminate" },
-            { sl: 7, name: "JESSICA JONES", username: "@jess_j", plan: "Secondary Pack", amount: 89.00, return: 3.00, received: 0, payment: "Upcoming in 2 days", status: "Terminate" },
-            { sl: 8, name: "DAVID LEE", username: "@dlee", plan: "Business Plan", amount: 100.00, return: 6.00, received: 0, payment: "Upcoming in 1 day", status: "Terminate" },
-            { sl: 9, name: "SARAH CONNOR", username: "@sc_88", plan: "Business Plan", amount: 69.00, return: 4.14, received: 0, payment: "Time has passed", status: "Terminate" },
-            { sl: 10, name: "MARCO POLO", username: "@marco7", plan: "Business Plan", amount: 900.00, return: 54.00, received: 0, payment: "Time has passed", status: "Terminate" }, // Page 2 ends
+            { sl: 6, user: { name: "test2 test2", username: "@test2", initial: 'T', color: 'bg-red-500' }, bonusFrom: "test3 test3", amount: 0.72, remarks: "Level 1 Referral Bonus From test3", time: "31 Oct 2024" },
+            { sl: 7, user: { name: "Ervin Howell", username: "@Antoinette", initial: 'E', color: 'bg-indigo-500' }, bonusFrom: "Clementine Bauch", amount: 0.72, remarks: "Level 3 Profit Commission From Samantha", time: "31 Oct 2024" },
+            { sl: 8, user: { name: "appexin1 appexin1", username: "@appexin1", initial: 'A', color: 'bg-blue-500' }, bonusFrom: "appexin23 appexin23", amount: 3.00, remarks: "Level 1 Referral Bonus From appexin23", time: "31 Oct 2024" },
+            { sl: 9, user: { name: "appexin1 appexin1", username: "@appexin1", initial: 'A', color: 'bg-blue-500' }, bonusFrom: "appexin3 appexin3", amount: 0.19, remarks: "Level 2 Referral Bonus From appexin3", time: "31 Oct 2024" },
+            { sl: 10, user: { name: "LEANNE GRAHAM", username: "@Bret", initial: 'L', color: 'bg-pink-500' }, bonusFrom: "John Doe", amount: 15.00, remarks: "Level 1 Investment Bonus From John Doe", time: "30 Oct 2024" }, // Page 2 ends
             
-            { sl: 11, name: "LINDA JOHNSON", username: "@linda_j", plan: "Starter Pack", amount: 100.00, return: 1.00, received: 0, payment: "Upcoming in 10 days", status: "Terminate" },
-            { sl: 12, name: "ROBERT DOWNEY", username: "@rd_jr", plan: "Hatchling Plan", amount: 120.00, return: 7.20, received: 0, payment: "Time has passed", status: "Terminate" },
-            { sl: 13, name: "EMILY BLUNT", username: "@em_blunt", plan: "Business Plan", amount: 250.00, return: 15.00, received: 0, payment: "Time has passed", status: "Terminate" },
-            { sl: 14, name: "SAMUEL L. JACKSON", username: "@sam_j", plan: "Starter Pack", amount: 50.00, return: 0.50, received: 0, payment: "Upcoming in 3 days", status: "Terminate" },
-            { sl: 15, name: "CHRIS EVANS", username: "@capt_e", plan: "Secondary Pack", amount: 75.00, return: 2.50, received: 0, payment: "Time has passed", status: "Terminate" } // Page 3 ends
+            { sl: 11, user: { name: "Nicholas Runolfsdottir", username: "@Maxime_Nienow", initial: 'N', color: 'bg-green-500' }, bonusFrom: "Kurtis Weissnat", amount: 2.50, remarks: "Level 1 Investment Bonus From Kurtis", time: "30 Oct 2024" },
+            { sl: 12, user: { name: "Glenna Reichert", username: "@Delphine", initial: 'G', color: 'bg-purple-500' }, bonusFrom: "Clementina DuBuque", amount: 0.45, remarks: "Level 4 Deposit Commission From Clementina", time: "30 Oct 2024" },
+            { sl: 13, user: { name: "Kurtis Weissnat", username: "@Elwyn.Skiles", initial: 'K', color: 'bg-orange-500' }, bonusFrom: "Patricia Lebsack", amount: 1.00, remarks: "Level 1 Referral Bonus From Patricia Lebsack", time: "29 Oct 2024" },
+            { sl: 14, user: { name: "Clementina DuBuque", username: "@Moriah.Stanton", initial: 'C', color: 'bg-red-500' }, bonusFrom: "Chelsey Dietrich", amount: 0.99, remarks: "Level 1 Referral Bonus From Chelsey", time: "29 Oct 2024" },
+            { sl: 15, user: { name: "Patricia Lebsack", username: "@Karianne", initial: 'P', color: 'bg-teal-500' }, bonusFrom: "Mrs. Dennis Schulist", amount: 5.00, remarks: "Level 2 Profit Commission From Mrs. Dennis", time: "28 Oct 2024" } // Page 3 ends
         ];
         
         const totalPages = Math.ceil(mockData.length / ITEMS_PER_PAGE);
 
         function renderTable(data) {
-            const tableBody = document.getElementById('investment-table-body');
+            const tableBody = document.getElementById('commission-table-body');
             tableBody.innerHTML = ''; // Clear existing rows
 
             data.forEach(item => {
                 const row = document.createElement('tr');
-                row.className = 'border-t border-border-dark row-hover';
+                row.className = 'border-t border-border-dark row-hover text-sm';
                 
                 // Helper to create table cell content with optional classes
                 const createCell = (content, className = '') => `<td class="p-4 ${className} text-gray-300 align-middle">${content}</td>`;
 
-                const nameCellContent = `
+                const userCellContent = `
                     <div class="flex items-center space-x-3">
-                        <div class="w-8 h-8 rounded-full bg-gray-600 flex items-center justify-center overflow-hidden">
-                            <!-- Placeholder for user avatar -->
-                            <i data-lucide="user" class="w-5 h-5 text-gray-300"></i>
+                        <div class="w-8 h-8 rounded-full ${item.user.color} flex items-center justify-center font-bold text-white text-base">
+                            ${item.user.initial}
                         </div>
                         <div>
-                            <div class="text-white font-medium">${item.name}</div>
-                            <div class="text-xs text-gray-400">${item.username}</div>
+                            <div class="text-white font-medium">${item.user.name}</div>
+                            <div class="text-xs text-gray-400">${item.user.username}</div>
                         </div>
                     </div>
                 `;
                 
-                // Calculate received info (Mock: 0x4.00 = $0)
-                const receivedInfo = `0 x $${item.return.toFixed(2)} = $${item.received.toFixed(2)}`;
-
                 row.innerHTML = `
-                    ${createCell(item.sl, 'text-center')}
-                    ${createCell(nameCellContent)}
-                    ${createCell(`
-                        <div class="font-medium">${item.plan}</div>
-                        <div class="text-sm text-gray-400">$${item.amount.toFixed(2)}</div>
-                    `)}
-                    ${createCell(`$${item.return.toFixed(2)} Per Day`)}
-                    ${createCell(receivedInfo)}
-                    ${createCell(item.payment)}
-                    ${createCell(`
-                        <button class="terminate-btn bg-red-600 hover:bg-red-700 text-white text-sm font-medium py-2 px-4 rounded-lg transition duration-150">
-    ${item.status}
-</button>
-
-                    `, 'text-right')}
+                    ${createCell(item.sl, 'text-center text-gray-400')}
+                    ${createCell(userCellContent)}
+                    ${createCell(item.bonusFrom, 'font-medium')}
+                    ${createCell(`$${item.amount.toFixed(2)}`, 'font-bold text-green-400')}
+                    ${createCell(item.remarks, 'text-gray-400')}
+                    ${createCell(item.time, 'text-right text-gray-400')}
                 `;
                 tableBody.appendChild(row);
             });
             
-            // Re-render Lucide icons after adding new HTML
+            // Re-render Lucide icons if any were used (only search icon used here)
             lucide.createIcons();
         }
 
@@ -139,17 +147,22 @@
 
             // Page buttons (display up to 5 buttons, centered around current page)
             const maxVisiblePages = 5;
-            let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
-            let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+            let startPage = Math.max(1, currentPage - 2);
+            let endPage = Math.min(totalPages, currentPage + 2);
 
+            // Adjust start/end to ensure 5 buttons are shown if possible
             if (endPage - startPage + 1 < maxVisiblePages) {
-                startPage = Math.max(1, endPage - maxVisiblePages + 1);
+                if (startPage === 1) {
+                    endPage = Math.min(totalPages, maxVisiblePages);
+                } else if (endPage === totalPages) {
+                    startPage = Math.max(1, totalPages - maxVisiblePages + 1);
+                }
             }
 
             for (let i = startPage; i <= endPage; i++) {
                 paginationHtml += `
                     <button onclick="goToPage(${i})" 
-                        class="pagination-btn px-4 py-2 rounded-lg transition duration-150 ${i === currentPage ? 'active' : 'bg-card-bg hover:bg-gray-600'}">
+                        class="pagination-btn ${i === currentPage ? 'active' : 'bg-card-bg hover:bg-gray-600 text-gray-300'}">
                         ${i}
                     </button>
                 `;
@@ -183,7 +196,6 @@
             goToPage(1);
         };
 
-    </script>
     </script>
   </head>
   <body class="">
@@ -297,45 +309,44 @@
                           <span class="mx-2">/</span>
                         </li>
                         <li class="text-white font-medium" aria-current="page">
-                          Invest Log
+                          Commission
                         </li>
                       </ol>
                     </nav>
                     <h1 class="text-2xl font-bold text-white mt-2 mb-10">
-                      Invest Log
+                      Commission
                     </h1>
                   </div>
                 </div>
               </div>
+
               <div class="max-w-7xl mx-auto">
 
         <!-- Table Container -->
-        <div class="card-bg rounded-xl bg-[#2c2f32] shadow-lg border border-gray-700 overflow-x-auto py-4">
-                    <!-- Header and Search Bar -->
-        <div class="mb-6 flex  items-center justify-between">
-            <div class="relative w-full max-w-sm px-4">
-                <input type="text" placeholder="Search Investment" class="w-full pl-12 pr-4 py-3 rounded-xl bg-[#2c2f32] border border-gray-700 text-white focus:ring-blue-500 focus:border-blue-500">
-                <i data-lucide="search" class="w-5 h-5 text-gray-400 absolute left-8 top-1/2 transform -translate-y-1/2"></i>
+        <div class="card-bg rounded-xl shadow-lg border border-gray-700 bg-[#2c2f32] overflow-x-auto">
+            <!-- Header and Search Bar -->
+        <div class="mb-6 flex items-center justify-between py-4 px-4">
+            <div class="relative w-full max-w-sm">
+                <input type="text" placeholder="Search Commission" class="w-full pl-10 pr-4 py-3 rounded-xl bg-[#2c2f32] border border-gray-700 text-white focus:ring-blue-500 focus:border-blue-500">
+                <i data-lucide="search" class="w-5 h-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2"></i>
             </div>
-            <!-- Empty space for the "Add New" button which is not present in this screenshot -->
         </div>
             <table class="min-w-full">
-                <thead class="table-header bg-gray-600">
-                    <tr>
-                        <th class="px-4 py-3 text-center text-xs font-medium uppercase tracking-wider">SL.</th>
-                        <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider">NAME</th>
-                        <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider">PLAN</th>
-                        <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider">RETURN INTEREST</th>
-                        <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider">RECEIVED AMOUNT</th>
-                        <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider">UPCOMING PAYMENT</th>
-                        <th class="px-4 py-3 text-right text-xs font-medium uppercase tracking-wider">ACTION</th>
+                <thead class="table-header">
+                    <tr class="bg-gray-600">
+                        <th class="px-4 py-4 text-center text-xs font-medium uppercase tracking-wider">SL.</th>
+                        <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider">USER</th>
+                        <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider">BONUS FROM</th>
+                        <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider">AMOUNT</th>
+                        <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider">REMARKS</th>
+                        <th class="px-4 py-3 text-right text-xs font-medium uppercase tracking-wider">TIME</th>
                     </tr>
                 </thead>
-                <tbody id="investment-table-body" class="">
+                <tbody id="commission-table-body" class="">
                     <!-- Table rows will be inserted here by JavaScript -->
                 </tbody>
             </table>
-             <!-- Pagination Footer -->
+            <!-- Pagination Footer -->
         <div class="mt-4 p-4 flex flex-col sm:flex-row items-center justify-between text-sm text-gray-400">
             <div id="pagination-info" class="mb-3 sm:mb-0">
                 <!-- Showing X-Y of Z will be injected here -->
@@ -347,26 +358,7 @@
         </div>
         </div>
 
-<!-- Terminate Confirmation Popup -->
-<div id="terminateModal" class="fixed inset-0 hidden backdrop-blur flex items-center justify-center z-50">
-  <div class="bg-[#2c2f32] w-96 p-6 rounded-lg shadow-lg border border-gray-700">
-    <h2 class="text-xl font-semibold mb-4">Confirmation?</h2>
-    <p class="text-gray-300 mb-4">Are you sure you want to terminate this investment?</p>
-    <p class="text-gray-400 mb-6">
-      Terminate Charge is 10.00%. If you want to change terminate charge then click here
-    </p>
-
-    <div class="flex justify-end gap-3">
-      <button onclick="closeModal()" class="px-4 py-2 bg-gray-600 hover:bg-gray-700 rounded text-white">
-        Close
-      </button>
-      <button class="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded text-white">
-        Confirm
-      </button>
-    </div>
-  </div>
-</div>
-
+        
 
     </div>
             </div>
@@ -403,21 +395,5 @@
         }
       });
     </script>
-    <script>
-function openModal() {
-    document.getElementById("terminateModal").classList.remove("hidden");
-}
-
-function closeModal() {
-    document.getElementById("terminateModal").classList.add("hidden");
-}
-
-document.addEventListener("click", function (e) {
-    if (e.target.classList.contains("terminate-btn")) {
-        openModal();
-    }
-});
-</script>
-
   </body>
 </html>
