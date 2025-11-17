@@ -14,7 +14,28 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
     />
-    <style></style>
+    <style>
+      .row-hover:hover {
+            background-color: #333333;
+        }
+        /* Custom status badges */
+        .status-active { 
+            background-color: #1c4532; 
+            color: #68d391; 
+            padding: 2px 8px; 
+            border-radius: 6px; 
+            font-size: 0.75rem; /* text-xs */
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+        }
+        .status-active::before {
+            content: '•';
+            margin-right: 4px;
+            font-size: 1rem;
+            line-height: 0.75rem;
+        }
+    </style>
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
       rel="stylesheet"
@@ -22,21 +43,12 @@
   </head>
   <body class="">
     <!-- SIDEBAR (included dynamically) & MAIN CONTENT FLEX LAYOUT -->
-    <div class="flex h-screen pt-16">
+    <div class="flex h-screen">
       <div id="sidebar-container" class="relative hidden lg:block">
         <div data-include="components/sidebar.html"></div>
       </div>
-      <div id="main-content" class="overflow-y-auto bg-[#2c2f32] text-white transition-all duration-300 ease-in-out">
-        <!-- DASHBOARD MAIN CONTENT -->
-         
-         
-        <div
-          id="main-content-wrapper"
-          class="fixed top-16 left-0 lg:left-64 right-0 bottom-0 overflow-y-auto overflow-x-hidden flex flex-col transition-all duration-300 ease-in-out"
-        >
-          <main class="bg-[#2c2f32] mx-auto w-full text-white">
-             <!-- TOP BAR -->
-  <header class="w-full bg-[#2c2f32] py-3 px-4 flex items-center justify-between shadow">
+      <!-- TOP BAR -->
+      <header class="fixed top-0 left-0 lg:left-64 right-0 z-40 w-full bg-[#2c2f32] py-3 px-4 pt-4 flex items-center justify-between shadow">
     <div class="flex items-center space-x-4 flex-1">
       <!-- HAMBURGER AND MLM - visible below desktop -->
       <div class="flex items-center space-x-2 lg:hidden">
@@ -93,8 +105,15 @@
     </div>
   </header>
 
+      <div id="main-content" class="overflow-y-auto bg-[#2c2f32] text-white transition-all duration-300 ease-in-out">
+        <!-- DASHBOARD MAIN CONTENT -->
 
 
+        <div
+          id="main-content-wrapper"
+          class="fixed top-16 left-0 lg:left-64 right-0 bottom-0 overflow-y-auto overflow-x-hidden flex flex-col transition-all duration-300 ease-in-out "
+        >
+          <main class="bg-[#25282a] mx-auto w-full text-white pb-4">
             <div class="p-4 sm:p-6">
               <div
                 class="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-lg flex items-start justify-between shadow-md"
@@ -157,7 +176,7 @@
 
               <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-6">
                 <div
-                  class="lg:col-span-2 xl:col-span-2 bg-[#25282a] p-6 rounded-xl shadow-lg text-white border-b border-blue-500"
+                  class="lg:col-span-2 xl:col-span-2 bg-[#2c2f32] p-6 rounded-xl shadow-lg text-white border-b border-blue-500"
                 >
                   <div class="flex justify-between items-center mb-4 ">
                     <h2 class="text-xl font-semibold">Recent Transaction</h2>
@@ -279,7 +298,7 @@
                 <div
                   class="lg:col-span-2 xl:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-6"
                 >
-                  <div class="p-6 rounded-xl shadow-lg flex flex-col bg-[#25282a] border-b border-blue-500">
+                  <div class="p-6 rounded-xl shadow-lg flex flex-col bg-[#2c2f32] border-b border-blue-500">
                     <div class="flex justify-between items-center mb-3 ">
                       <div class="p-2 bg-purple-100 rounded-full">
                         <svg
@@ -322,7 +341,7 @@
                     </p>
                   </div>
 
-                  <div class="bg-[#25282a] p-6 rounded-xl shadow-lg flex flex-col border-b border-blue-500">
+                  <div class="bg-[#2c2f32] p-6 rounded-xl shadow-lg flex flex-col border-b border-blue-500">
                     <div class="flex justify-between items-center mb-3">
                       <div class="p-2 bg-purple-100 rounded-full">
                         <svg
@@ -351,7 +370,7 @@
                     </p>
                   </div>
 
-                  <div class="bg-[#25282a] p-6 rounded-xl shadow-lg flex flex-col border-b border-blue-500">
+                  <div class="bg-[#2c2f32] p-6 rounded-xl shadow-lg flex flex-col border-b border-blue-500">
                     <div class="flex justify-between items-center mb-3">
                       <div class="p-2 bg-amber-100 rounded-full">
                         <svg
@@ -380,7 +399,7 @@
                     </p>
                   </div>
 
-                  <div class="bg-[#25282a] p-6 rounded-xl shadow-lg flex flex-col border-b border-blue-500">
+                  <div class="bg-[#2c2f32] p-6 rounded-xl shadow-lg flex flex-col border-b border-blue-500">
                     <div class="flex justify-between items-center mb-3">
                       <div class="p-2 bg-blue-100 rounded-full">
                         <svg
@@ -428,17 +447,17 @@
             
         <div class="p-4 sm:p-6">
           <div
-            class="bg-white p-6 rounded-xl shadow-lg mb-6 flex flex-col lg:flex-row"
+            class="bg-[#2c2f32] p-6 rounded-xl shadow-lg mb-6 flex flex-col lg:flex-row"
           >
             <div class="flex-grow lg:w-3/4 pr-4">
-              <h2 class="text-xl font-semibold text-gray-800 mb-4">
+              <h2 class="text-xl font-semibold mb-4">
                 This Month's Summary
               </h2>
 
               <div class="relative h-64 w-full">
                 <div class="absolute inset-0 flex">
                   <div
-                    class="w-10 flex flex-col justify-between text-right text-xs text-gray-500 pr-2 pt-2 pb-6"
+                    class="w-10 flex flex-col justify-between text-right text-xs text-gray-500 pr-2 pt-2"
                   >
                     <span>600</span>
                     <span>500</span>
@@ -483,7 +502,7 @@
                       </svg>
                     </div>
                     <div
-                      class="absolute bottom-0 left-0 right-0 flex justify-between text-xs text-gray-500 pt-1 px-1"
+                      class="absolute -bottom-10 left-0 right-0 flex justify-between text-xs text-gray-500 pt-1 px-1"
                     >
                       <span class="w-1/32 text-center">Day 01</span>
                       <span class="w-1/32 text-center">Day 04</span>
@@ -499,7 +518,7 @@
               </div>
 
               <div
-                class="flex justify-center space-x-6 text-sm mt-4 pt-4 border-t border-gray-200"
+                class="flex justify-center space-x-6 text-sm mt-4 pt-8 border-t border-gray-200"
               >
                 <div class="flex items-center space-x-2">
                   <span
@@ -523,19 +542,19 @@
             </div>
 
             <div
-              class="lg:w-1/4 lg:border-l border-gray-200 lg:pl-6 pt-4 lg:pt-10 mt-6 lg:mt-0"
+              class="lg:w-1/4 lg:border-l border-gray-700 lg:pl-6 pt-4 lg:pt-10 mt-6 lg:mt-0"
             >
               <div class="mb-8">
                 <p class="text-sm font-medium text-gray-500 uppercase">
                   Invest
                 </p>
-                <p class="text-4xl font-bold text-gray-900 mt-1">$959</p>
+                <p class="text-4xl font-bold mt-1">$959</p>
               </div>
               <div>
                 <p class="text-sm font-medium text-gray-500 uppercase">
                   Return Profit
                 </p>
-                <p class="text-4xl font-bold text-gray-900 mt-1">$0</p>
+                <p class="text-4xl font-bold mt-1">$0</p>
               </div>
             </div>
           </div>
@@ -544,7 +563,7 @@
             <div class="grid grid-cols-1 gap-4 xl:col-span-1">
               <a
                 href="#"
-                class="bg-white p-6 rounded-xl shadow-lg flex items-center justify-between hover:shadow-xl transition duration-200"
+                class="bg-[#2c2f32] p-6 rounded-xl shadow-lg flex items-center justify-between hover:shadow-xl transition duration-200"
               >
                 <div class="flex items-center space-x-4">
                   <div class="p-3 bg-blue-100 rounded-lg">
@@ -564,7 +583,7 @@
                     </svg>
                   </div>
                   <div>
-                    <p class="text-lg font-semibold text-gray-800">
+                    <p class="text-lg font-semibold ">
                       Investment Plan
                     </p>
                     <p class="text-sm text-gray-500">Create a new plan</p>
@@ -588,7 +607,7 @@
 
               <a
                 href="#"
-                class="bg-white p-6 rounded-xl shadow-lg flex items-center justify-between hover:shadow-xl transition duration-200"
+                class="bg-[#2c2f32] p-6 rounded-xl shadow-lg flex items-center justify-between hover:shadow-xl transition duration-200"
               >
                 <div class="flex items-center space-x-4">
                   <div class="p-3 bg-orange-100 rounded-lg">
@@ -608,7 +627,7 @@
                     </svg>
                   </div>
                   <div>
-                    <p class="text-lg font-semibold text-gray-800">Schedule</p>
+                    <p class="text-lg font-semibold">Schedule</p>
                     <p class="text-sm text-gray-500">Manage Schedule</p>
                   </div>
                 </div>
@@ -630,7 +649,7 @@
 
               <a
                 href="#"
-                class="bg-white p-6 rounded-xl shadow-lg flex items-center justify-between hover:shadow-xl transition duration-200"
+                class="bg-[#2c2f32] p-6 rounded-xl shadow-lg flex items-center justify-between hover:shadow-xl transition duration-200"
               >
                 <div class="flex items-center space-x-4">
                   <div class="p-3 bg-purple-100 rounded-lg">
@@ -650,7 +669,7 @@
                     </svg>
                   </div>
                   <div>
-                    <p class="text-lg font-semibold text-gray-800">Referral</p>
+                    <p class="text-lg font-semibold">Referral</p>
                     <p class="text-sm text-gray-500">Manage Referral</p>
                   </div>
                 </div>
@@ -671,23 +690,23 @@
               </a>
             </div>
 
-            <div class="xl:col-span-2 bg-white p-6 rounded-xl shadow-lg">
+            <div class="xl:col-span-2 bg-[#2c2f32] p-6 rounded-xl shadow-lg">
               <div class="flex justify-between items-center mb-4">
-                <h2 class="text-xl font-semibold text-gray-800">
+                <h2 class="text-xl font-semibold">
                   Top Investment Plan
                 </h2>
                 <a
                   href="#"
-                  class="text-sm font-medium text-blue-600 hover:text-blue-700"
+                  class="text-sm font-medium  hover:text-blue-700"
                   >View all</a
                 >
               </div>
 
               <div class="overflow-x-auto">
-                <table class="min-w-full divide-y divide-gray-200">
+                <table class="min-w-full">
                   <thead>
                     <tr
-                      class="text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                      class="text-left text-xs font-medium bg-gray-600 text-gray-400 uppercase tracking-wider"
                     >
                       <th class="py-3 pr-3">Plan Name</th>
                       <th class="py-3 px-3">Price</th>
@@ -695,50 +714,50 @@
                       <th class="py-3 pl-3 text-right">Invest Amount</th>
                     </tr>
                   </thead>
-                  <tbody class="divide-y divide-gray-200 text-sm text-gray-700">
+                  <tbody class="">
                     <tr>
                       <td class="py-3 pr-3 font-semibold">Business Plan</td>
-                      <td class="py-3 px-3 text-gray-600">$69 - $999</td>
-                      <td class="py-3 px-3 text-right">
+                      <td class="py-3 px-3 text-gray-400">$69 - $999</td>
+                      <td class="py-3 px-3 text-gray-400 text-right">
                         1475 <span class="text-xs text-gray-400">(times)</span>
                       </td>
-                      <td class="py-3 pl-3 text-right font-medium">
+                      <td class="py-3 pl-3 text-right font-medium text-gray-400">
                         $54,463.63
                       </td>
                     </tr>
                     <tr>
                       <td class="py-3 pr-3 font-semibold">Baby Plan</td>
-                      <td class="py-3 px-3 text-gray-600">$99 - $888</td>
-                      <td class="py-3 px-3 text-right">
+                      <td class="py-3 px-3 text-gray-400">$99 - $888</td>
+                      <td class="py-3 px-3 text-gray-400 text-right">
                         357 <span class="text-xs text-gray-400">(times)</span>
                       </td>
-                      <td class="py-3 pl-3 text-right font-medium">
+                      <td class="py-3 pl-3 text-right text-gray-400 font-medium">
                         $10,671.97
                       </td>
                     </tr>
                     <tr>
                       <td class="py-3 pr-3 font-semibold">Starter Pack</td>
-                      <td class="py-3 px-3 text-gray-600">$50 - $400</td>
-                      <td class="py-3 px-3 text-right">
+                      <td class="py-3 px-3 text-gray-400">$50 - $400</td>
+                      <td class="py-3 px-3 text-gray-400 text-right">
                         198 <span class="text-xs text-gray-400">(times)</span>
                       </td>
-                      <td class="py-3 pl-3 text-right font-medium">$3,355.9</td>
+                      <td class="py-3 pl-3 text-right text-gray-400 font-medium">$3,355.9</td>
                     </tr>
                     <tr>
                       <td class="py-3 pr-3 font-semibold">Secondary Pack</td>
-                      <td class="py-3 px-3 text-gray-600">$89 - $666</td>
-                      <td class="py-3 px-3 text-right">
+                      <td class="py-3 px-3 text-gray-400">$89 - $666</td>
+                      <td class="py-3 px-3 text-right text-gray-400">
                         116 <span class="text-xs text-gray-400">(times)</span>
                       </td>
-                      <td class="py-3 pl-3 text-right font-medium">$3,197.3</td>
+                      <td class="py-3 pl-3 text-right text-gray-400 font-medium">$3,197.3</td>
                     </tr>
                     <tr>
                       <td class="py-3 pr-3 font-semibold">Hatchling Plan</td>
-                      <td class="py-3 px-3 text-gray-600">$120</td>
-                      <td class="py-3 px-3 text-right">
+                      <td class="py-3 px-3 text-gray-400">$120</td>
+                      <td class="py-3 px-3 text-gray-400 text-right">
                         199 <span class="text-xs text-gray-400">(times)</span>
                       </td>
-                      <td class="py-3 pl-3 text-right font-medium">$2,386.0</td>
+                      <td class="py-3 pl-3 text-right text-gray-400 font-medium">$2,386.0</td>
                     </tr>
                   </tbody>
                 </table>
@@ -746,309 +765,41 @@
             </div>
           </div>
         </div>
-        <div class="p-4 sm:p-6">
-          <div class="bg-white p-6 rounded-xl shadow-lg mb-6">
-            <div class="flex justify-between items-center mb-4">
-              <h2 class="text-xl font-semibold text-gray-800">Latest Users</h2>
-              <a
-                href="#"
-                class="text-sm font-medium text-blue-600 hover:text-blue-700"
-                >View all</a
-              >
-            </div>
+        <div class="mx-6 bg-[#2c2f32]">
+        
+        <!-- Header Section -->
+        <div class="flex justify-between items-baseline mb-6 px-4 py-4">
+            <h2 class="text-xl font-bold text-white">Latest Users</h2>
+            <a href="#" class="text-blue-400 hover:text-blue-300 text-sm font-medium">View All</a>
+        </div>
 
-            <div class="overflow-x-auto">
-              <table class="min-w-full divide-y divide-gray-200">
-                <thead>
-                  <tr
-                    class="text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                  >
-                    <th class="py-3 pr-4 w-1/5">Full Name</th>
-                    <th class="py-3 px-2 w-1/5">Email-Phone</th>
-                    <th class="py-3 px-2">Balance</th>
-                    <th class="py-3 px-2">Interest Balance</th>
-                    <th class="py-3 px-2">Total Invest</th>
-                    <th class="py-3 px-2">Status</th>
-                    <th class="py-3 px-2">Last Login</th>
-                    <th class="py-3 pl-4 text-right">Action</th>
-                  </tr>
+        <!-- Table Container -->
+        <div class="card-bg overflow-x-auto px-4">
+            <table class="min-w-full divide-y divide-border-dark">
+                <thead class="table-header">
+                    <tr class="bg-gray-600">
+                        <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider">FULL NAME</th>
+                        <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider">EMAIL/PHONE</th>
+                        <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider">BALANCE</th>
+                        <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider">INTEREST BALANCE</th>
+                        <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider">TOTAL INVEST</th>
+                        <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider">STATUS</th>
+                        <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider">LAST LOGIN</th>
+                        <th class="px-4 py-3 text-right text-xs font-medium uppercase tracking-wider">ACTION</th>
+                    </tr>
                 </thead>
-                <tbody class="divide-y divide-gray-200 text-sm text-gray-700">
-                  <tr>
-                    <td class="py-4 pr-4 flex items-center">
-                      <span
-                        class="w-8 h-8 flex items-center justify-center rounded-full bg-blue-100 text-blue-600 font-bold text-xs mr-3"
-                        >U</span
-                      >
-                      <div>
-                        <p class="font-medium">umesh kumar</p>
-                        <p class="text-xs text-gray-400">@umeshkumarppp</p>
-                      </div>
-                    </td>
-                    <td class="py-4 px-2">
-                      <p>umeshkumarhataak@gmail.com</p>
-                      <p class="text-xs text-gray-400">+919813675128</p>
-                    </td>
-                    <td class="py-4 px-2">$0</td>
-                    <td class="py-4 px-2">$0</td>
-                    <td class="py-4 px-2">$0</td>
-                    <td class="py-4 px-2">
-                      <span class="flex items-center text-green-500">
-                        <span
-                          class="inline-block w-2 h-2 mr-1 bg-green-500 rounded-full"
-                        ></span>
-                        Active
-                      </span>
-                    </td>
-                    <td class="py-4 px-2">0 seconds ago</td>
-                    <td class="py-4 pl-4 text-right">
-                      <div class="flex justify-end items-center space-x-2">
-                        <button
-                          class="text-gray-500 hover:text-gray-700 text-xs"
-                        >
-                          Edit
-                        </button>
-                        <button class="text-gray-400 hover:text-gray-600">
-                          <svg
-                            class="w-4 h-4"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              stroke-width="2"
-                              d="M19 9l-7 7-7-7"
-                            ></path>
-                          </svg>
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="py-4 pr-4 flex items-center">
-                      <span
-                        class="w-8 h-8 flex items-center justify-center rounded-full bg-blue-100 text-blue-600 font-bold text-xs mr-3"
-                        >P</span
-                      >
-                      <div>
-                        <p class="font-medium">PNG MONERO</p>
-                        <p class="text-xs text-gray-400">@Png237</p>
-                      </div>
-                    </td>
-                    <td class="py-4 px-2">
-                      <p>violatucker34@gmail.com</p>
-                      <p class="text-xs text-gray-400">674455868</p>
-                    </td>
-                    <td class="py-4 px-2">$10</td>
-                    <td class="py-4 px-2">$0</td>
-                    <td class="py-4 px-2">$0</td>
-                    <td class="py-4 px-2">
-                      <span class="flex items-center text-green-500">
-                        <span
-                          class="inline-block w-2 h-2 mr-1 bg-green-500 rounded-full"
-                        ></span>
-                        Active
-                      </span>
-                    </td>
-                    <td class="py-4 px-2">3 days ago</td>
-                    <td class="py-4 pl-4 text-right">
-                      <div class="flex justify-end items-center space-x-2">
-                        <button
-                          class="text-gray-500 hover:text-gray-700 text-xs"
-                        >
-                          Edit
-                        </button>
-                        <button class="text-gray-400 hover:text-gray-600">
-                          <svg
-                            class="w-4 h-4"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              stroke-width="2"
-                              d="M19 9l-7 7-7-7"
-                            ></path>
-                          </svg>
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="py-4 pr-4 flex items-center">
-                      <span
-                        class="w-8 h-8 flex items-center justify-center rounded-full bg-blue-100 text-blue-600 font-bold text-xs mr-3"
-                        >M</span
-                      >
-                      <div>
-                        <p class="font-medium">Mark Ogen</p>
-                        <p class="text-xs text-gray-400">@Markogen</p>
-                      </div>
-                    </td>
-                    <td class="py-4 px-2">
-                      <p>acceptnew06@gmail.com</p>
-                      <p class="text-xs text-gray-400">676862940</p>
-                    </td>
-                    <td class="py-4 px-2">$10</td>
-                    <td class="py-4 px-2">$0</td>
-                    <td class="py-4 px-2">$0</td>
-                    <td class="py-4 px-2">
-                      <span class="flex items-center text-green-500">
-                        <span
-                          class="inline-block w-2 h-2 mr-1 bg-green-500 rounded-full"
-                        ></span>
-                        Active
-                      </span>
-                    </td>
-                    <td class="py-4 px-2">1 day ago</td>
-                    <td class="py-4 pl-4 text-right">
-                      <div class="flex justify-end items-center space-x-2">
-                        <button
-                          class="text-gray-500 hover:text-gray-700 text-xs"
-                        >
-                          Edit
-                        </button>
-                        <button class="text-gray-400 hover:text-gray-600">
-                          <svg
-                            class="w-4 h-4"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              stroke-width="2"
-                              d="M19 9l-7 7-7-7"
-                            ></path>
-                          </svg>
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="py-4 pr-4 flex items-center">
-                      <span
-                        class="w-8 h-8 flex items-center justify-center rounded-full bg-blue-100 text-blue-600 font-bold text-xs mr-3"
-                        >T</span
-                      >
-                      <div>
-                        <p class="font-medium">Tanyi Williams</p>
-                        <p class="text-xs text-gray-400">@williamswise24</p>
-                      </div>
-                    </td>
-                    <td class="py-4 px-2">
-                      <p>ryannk447@gmail.com</p>
-                      <p class="text-xs text-gray-400">674274204</p>
-                    </td>
-                    <td class="py-4 px-2">$10</td>
-                    <td class="py-4 px-2">$0</td>
-                    <td class="py-4 px-2">$0</td>
-                    <td class="py-4 px-2">
-                      <span class="flex items-center text-green-500">
-                        <span
-                          class="inline-block w-2 h-2 mr-1 bg-green-500 rounded-full"
-                        ></span>
-                        Active
-                      </span>
-                    </td>
-                    <td class="py-4 px-2">2 days ago</td>
-                    <td class="py-4 pl-4 text-right">
-                      <div class="flex justify-end items-center space-x-2">
-                        <button
-                          class="text-gray-500 hover:text-gray-700 text-xs"
-                        >
-                          Edit
-                        </button>
-                        <button class="text-gray-400 hover:text-gray-600">
-                          <svg
-                            class="w-4 h-4"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              stroke-width="2"
-                              d="M19 9l-7 7-7-7"
-                            ></path>
-                          </svg>
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="py-4 pr-4 flex items-center">
-                      <span
-                        class="w-8 h-8 flex items-center justify-center rounded-full bg-blue-100 text-blue-600 font-bold text-xs mr-3"
-                        >A</span
-                      >
-                      <div>
-                        <p class="font-medium">ahsan raza</p>
-                        <p class="text-xs text-gray-400">@oklast</p>
-                      </div>
-                    </td>
-                    <td class="py-4 px-2">
-                      <p>oklast@gmail.com</p>
-                      <p class="text-xs text-gray-400">3272381662</p>
-                    </td>
-                    <td class="py-4 px-2">$10</td>
-                    <td class="py-4 px-2">$0</td>
-                    <td class="py-4 px-2">$0</td>
-                    <td class="py-4 px-2">
-                      <span class="flex items-center text-green-500">
-                        <span
-                          class="inline-block w-2 h-2 mr-1 bg-green-500 rounded-full"
-                        ></span>
-                        Active
-                      </span>
-                    </td>
-                    <td class="py-4 px-2">5 days ago</td>
-                    <td class="py-4 pl-4 text-right">
-                      <div class="flex justify-end items-center space-x-2">
-                        <button
-                          class="text-gray-500 hover:text-gray-700 text-xs"
-                        >
-                          Edit
-                        </button>
-                        <button class="text-gray-400 hover:text-gray-600">
-                          <svg
-                            class="w-4 h-4"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              stroke-width="2"
-                              d="M19 9l-7 7-7-7"
-                            ></path>
-                          </svg>
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
+                <tbody id="users-table-body" class="divide-y divide-border-dark">
+                    <!-- Table rows will be inserted here by JavaScript -->
                 </tbody>
-              </table>
-            </div>
-          </div>
+            </table>
+        </div>
 
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6 px-6">
             <div
-              class="bg-white p-6 rounded-xl shadow-lg flex flex-col items-center"
+              class="bg-[#2c2f32] p-6 rounded-xl shadow-lg flex flex-col items-center"
             >
-              <h3 class="text-lg font-semibold text-gray-800 mb-4">
+              <h3 class="text-lg font-semibold mb-4">
                 Browser History
               </h3>
               <div class="relative w-40 h-40">
@@ -1114,9 +865,9 @@
             </div>
 
             <div
-              class="bg-white p-6 rounded-xl shadow-lg flex flex-col items-center"
+              class="bg-[#2c2f32] p-6 rounded-xl shadow-lg flex flex-col items-center"
             >
-              <h3 class="text-lg font-semibold text-gray-800 mb-4">
+              <h3 class="text-lg font-semibold mb-4">
                 Operating System History
               </h3>
               <div class="relative w-40 h-40">
@@ -1180,9 +931,9 @@
             </div>
 
             <div
-              class="bg-white p-6 rounded-xl shadow-lg flex flex-col items-center"
+              class="bg-[#2c2f32] p-6 rounded-xl shadow-lg flex flex-col items-center"
             >
-              <h3 class="text-lg font-semibold text-gray-800 mb-4">
+              <h3 class="text-lg font-semibold  mb-4">
                 Device History
               </h3>
               <div class="relative w-40 h-40">
@@ -1247,14 +998,13 @@
               </p>
             </div>
           </div>
-        </div>
-          </main>
-        </div>
-        
-      </div>
-    </div>
+         </main>
+       </div>
 
-    <script>
+     </div>
+   </div>
+
+   <script>
       document.addEventListener("DOMContentLoaded", () => {
         const thisMonthBtn = document.getElementById("this-month-btn");
         const lastMonthBtn = document.getElementById("last-month-btn");
@@ -1341,10 +1091,11 @@
     <script>
       document.addEventListener("componentsLoaded", () => {
         const hamburgerBtn = document.getElementById("hamburgerBtn");
-        const dropdownMenu = document.getElementById("dropdownMenu");
+        const sidebarContainer = document.getElementById("sidebar-container");
 
-        hamburgerBtn.addEventListener("click", () => {
-          dropdownMenu.classList.toggle("hidden");
+        hamburgerBtn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          sidebarContainer.classList.toggle("hidden");
         });
       });
     </script>
@@ -1366,5 +1117,131 @@
       }
     });
   </script>
+<script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+        
+        // Function to replace lucide icon names with SVG elements
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+        });
+        
+        // --- Mock Data ---
+        const mockUsers = [
+            { id: 1, initial: 'S', color: 'bg-blue-600', fullName: "Samir M. Badescu", username: "@MLKSamir", emailPhone: "samirmbadescu27@gmail.com\n743473495", balance: 10, interest: 0, totalInvest: 0, status: 'Active', lastLogin: "2 days ago" },
+            { id: 2, initial: 'U', color: 'bg-indigo-600', fullName: "umesh kumar", username: "@umeshkumarppp", emailPhone: "umeshkumarxhatak@gmail.com\n+919813675129", balance: 0, interest: 0, totalInvest: 0, status: 'Active', lastLogin: "0 seconds ago" },
+            { id: 3, initial: 'P', color: 'bg-purple-600', fullName: "PNG MONERO", username: "@Png237", emailPhone: "violatucker34@gmail.com\n674455868", balance: 10, interest: 0, totalInvest: 0, status: 'Active', lastLogin: "6 days ago" },
+            { id: 4, initial: 'M', color: 'bg-teal-600', fullName: "Mark Ogen", username: "@Markogen", emailPhone: "acceptnew36@gmail.com\n676862940", balance: 10, interest: 0, totalInvest: 0, status: 'Active', lastLogin: "4 days ago" },
+            { id: 5, initial: 'T', color: 'bg-red-600', fullName: "Tanyi Williams", username: "@williamswise24", emailPhone: "ryannk447@gmail.com\n674274204", balance: 10, interest: 0, totalInvest: 0, status: 'Active', lastLogin: "5 days ago" },
+            { id: 6, initial: 'A', color: 'bg-green-600', fullName: "Ahsan Raza", username: "@oklast", emailPhone: "ahsanraza@gmail.com\n7778889990", balance: 5, interest: 10, totalInvest: 100, status: 'Active', lastLogin: "1 day ago" },
+        ];
+
+        // --- UI Functions ---
+
+        function getStatusBadge(status) {
+            const className = status === 'Active' ? 'status-active' : 'status-inactive';
+            return `<span class="${className} flex items-center">${status}</span>`;
+        }
+        
+        function renderTable(data) {
+            const tableBody = document.getElementById('users-table-body');
+            tableBody.innerHTML = ''; // Clear existing rows
+
+            data.forEach((user) => {
+                const row = document.createElement('tr');
+                row.className = 'border-t border-border-dark row-hover text-sm';
+                
+                // Helper to create table cell content with optional classes
+                const createCell = (content, className = '') => `<td class="px-4 py-3 ${className} text-gray-300 align-middle whitespace-nowrap">${content}</td>`;
+                
+                const userCellContent = `
+                    <div class="flex items-start space-x-3">
+                        <!-- User Initial Circle -->
+                        <div class="w-8 h-8 rounded-full flex items-center justify-center text-white font-semibold flex-shrink-0 mt-1 ${user.color}" 
+                            style="border: 2px solid #5a5a5a; font-size: 0.875rem;">
+                            ${user.initial}
+                        </div>
+                        <!-- User Details -->
+                        <div>
+                            <div class="text-white font-semibold">${user.fullName}</div>
+                            <div class="text-xs text-gray-400">${user.username}</div>
+                        </div>
+                    </div>
+                `;
+
+                const emailPhoneContent = `
+                    <div class="flex flex-col">
+                        <span class="text-white">${user.emailPhone.split('\n')[0]}</span>
+                        <span class="text-gray-400 text-xs">${user.emailPhone.split('\n')[1] || ''}</span>
+                    </div>
+                `;
+                
+                const actionDropdown = `
+                    <div class="relative inline-block text-left">
+                        <button type="button" onclick="toggleDropdown(this)" class="flex items-center space-x-1 text-gray-300 bg-gray-700 hover:bg-gray-600 py-1.5 px-3 rounded-lg text-xs font-medium transition duration-150">
+                            <span>Edit</span>
+                            <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                        </button>
+                        <!-- Dropdown Menu (Placeholder) -->
+                    </div>
+                `;
+
+                row.innerHTML = `
+                    ${createCell(userCellContent)}
+                    ${createCell(emailPhoneContent)}
+                    ${createCell(`$${user.balance.toFixed(2)}`, 'font-medium')}
+                    ${createCell(`$${user.interest.toFixed(2)}`)}
+                    ${createCell(`$${user.totalInvest.toFixed(2)}`)}
+                    ${createCell(getStatusBadge(user.status))}
+                    ${createCell(user.lastLogin)}
+                    ${createCell(actionDropdown, 'text-right')}
+                `;
+                tableBody.appendChild(row);
+            });
+            
+            // Re-render Lucide icons
+            lucide.createIcons();
+        }
+
+        function toggleDropdown(button) {
+            const dropdown = button.nextElementSibling;
+            // Close all other open dropdowns
+            document.querySelectorAll('tbody .relative > div').forEach(d => {
+                if (d !== dropdown) {
+                    d.classList.add('hidden');
+                }
+            });
+            // Toggle the current dropdown
+            dropdown.classList.toggle('hidden');
+        }
+
+        function closeDropdown(dropdown) {
+            dropdown.classList.add('hidden');
+        }
+
+        // Global click listener to close dropdowns when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.relative.inline-block')) {
+                document.querySelectorAll('tbody .relative > div').forEach(d => {
+                    d.classList.add('hidden');
+                });
+            }
+        });
+
+
+        // --- Initialization ---
+        document.addEventListener('DOMContentLoaded', () => {
+            renderTable(mockUsers);
+        });
+
+    </script>
+
   </body>
 </html>
