@@ -31,6 +31,29 @@
         background-color: #1f2937; /* Gray-800 */
       }
     </style>
+    <style>
+        /* Custom styles to ensure the modal covers the entire screen */
+        .modal-overlay {
+            /* Fixed position to stay over everything */
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0; 
+            /* High z-index to appear on top */
+            z-index: 50; 
+            /* Flex to center the modal content */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /* Start hidden */
+            display: none;
+        }
+        /* Style for when the modal is active (visible) */
+        .modal-overlay.active {
+            display: flex;
+        }
+    </style>
   </head>
   <body class="">
     <!-- SIDEBAR (included dynamically) & MAIN CONTENT FLEX LAYOUT -->
@@ -149,7 +172,7 @@
                 </div>
 
                 <div class="mt-4 border-b border-gray-600">
-                    <nav class="flex overflow-x-auto whitespace-nowrap -mb-px">
+                    <nav class="relative flex whitespace-nowrap -mb-px overflow-visible">
                         <button class="tab-button tab-active p-3 sm:p-4 text-sm sm:text-base font-medium" data-tab="profile-content">Profile</button>
                         <button class="tab-button p-3 sm:p-4 text-sm sm:text-base font-medium hover:text-red-400 transition duration-150 ease-in-out" data-tab="transaction-content">Transaction</button>
                         <button class="tab-button p-3 sm:p-4 text-sm sm:text-base font-medium hover:text-red-400 transition duration-150 ease-in-out" data-tab="payment-history-content">Payment History</button>
@@ -159,17 +182,25 @@
                         <button id="menu-btn" class="p-2 rounded-full hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-red-400">
                             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 6a2 2 0 110-4 2 2 0 010 4zm0 6a2 2 0 110-4 2 2 0 010 4zm0 6a2 2 0 110-4 2 2 0 010 4z"/></svg>
                         </button>
-                        <div id="dropdown-menu" class="hidden absolute right-0 mt-2 w-48 bg-gray-700 rounded-md shadow-lg py-1 z-20">
+                        </div>
+                        <div id="dropdown-menu" class="hidden absolute -top-20 right-0 mt-2 w-48 h-56 bg-gray-700 rounded-md shadow-lg py-1 z-5000">
                             <a href="#" id="send-mail-btn" class="flex items-center px-4 py-2 text-sm text-gray-200 hover:bg-gray-600">
                                 <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/></svg>
                                 Send Mail
                             </a>
                             <a href="#" class="flex items-center px-4 py-2 text-sm text-gray-200 hover:bg-gray-600">
+                                <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/></svg>
+                                Login as User
+                            </a>
+                            <a href="#" id="manageBtn" class="flex items-center px-4 py-2 text-sm text-gray-200 hover:bg-gray-600">
+                                <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20"><path d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10v2a2 2 0 002-2V6a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h4a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm2 0v4h4v-4H8z"/></svg>
+                                Manage Balance
+                            </a>
+                            <a href="#" id="block-profile-btn" class="flex items-center px-4 py-2 text-sm text-gray-200 hover:bg-gray-600">
                                 <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20"><path d="M13.5 10a.5.5 0 000-1H4a.5.5 0 000 1h9.5z"/><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-5a.5.5 0 00-1 0v1h1V5zm-1 9a.5.5 0 011 0v1h-1v-1zm-4-4a.5.5 0 000 1h1V9H5zm10 0a.5.5 0 000 1h1V9h-1z" clip-rule="evenodd"/></svg>
                                 Block Profile
                             </a>
                             </div>
-                    </div>
                     </nav>
                 </div>
             </div>
@@ -335,12 +366,12 @@
             </div>
 
             <div id="send-mail-view" class="hidden lg:col-span-3">
-                <div class="card rounded-lg p-6 shadow-2xl">
+                <div class="card rounded-lg p-6 shadow-2xl bg-[#2c2f32]">
                     <h2 class="text-2xl font-semibold mb-6 border-b border-gray-600 pb-3">Send Email To Abel Morillo</h2>
                     <form action="#" method="POST">
                         <div class="mb-4">
                             <label for="subject" class="block text-sm font-medium text-gray-200 mb-1">Subject</label>
-                            <input type="text" id="subject" name="subject" placeholder="Subject" class="w-full p-2.5 rounded-md bg-gray-800 border border-gray-600 focus:ring-red-400 focus:border-red-400" required>
+                            <input type="text" id="subject" name="subject" placeholder="Subject" class="w-full p-2.5 rounded-md bg-[#2c2f32] border border-gray-600 focus:ring-red-400 focus:border-red-400" required>
                         </div>
                         <div class="mb-6">
                             <label for="email-body" class="block text-sm font-medium text-gray-200 mb-1">Email Body</label>
@@ -351,7 +382,7 @@
                                 <button type="button" class="flex items-center p-1 rounded bg-gray-700 hover:bg-gray-800 text-yellow-400">A</button>
                                 <button type="button" class="flex items-center p-1 rounded bg-gray-700 hover:bg-gray-800 text-sm">Remove Font Style (CTRL+\)</button>
                             </div>
-                            <textarea id="email-body" name="email-body" rows="10" class="w-full p-3 rounded-b-md bg-gray-800 border border-t-0 border-gray-600 focus:ring-red-400 focus:border-red-400 resize-y" required></textarea>
+                            <textarea id="email-body" name="email-body" rows="10" class="w-full p-3 rounded-b-md bg-[#2c2f32] border border-t-0 border-gray-60 focus:ring-red-400 focus:border-red-400 resize-y" required></textarea>
                         </div>
                         <button type="submit" class="py-2 px-6 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-md transition duration-150">Send</button>
                         <button type="button" id="cancel-mail-btn" class="py-2 px-6 ml-4 bg-gray-600 hover:bg-gray-700 text-white font-semibold rounded-md transition duration-150">Cancel</button>
@@ -367,6 +398,87 @@
         </div>
       </div>
     </div>
+
+    <!-- Confirmation Modal for Block Profile -->
+    <div id="block-confirm-modal" class="hidden fixed inset-0 z-50 overflow-y-auto backdrop-blur flex items-center justify-center p-4">
+        <div class="bg-[#2c2f32] rounded-xl shadow-2xl w-full max-w-md transform transition-all scale-95 duration-300">
+            <div class="p-6">
+                <h3 class="text-xl font-bold text-white mb-4">Confirm Block Profile</h3>
+                <p class="text-gray-300 mb-6">Are you sure you want to block this user's profile? This action cannot be undone.</p>
+                <div class="flex justify-end space-x-3">
+                    <button id="cancel-block-btn" class="px-4 py-2 bg-gray-600 hover:bg-gray-500 text-white rounded-lg transition duration-150">No</button>
+                    <button id="confirm-block-btn" class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition duration-150">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="manageModal" class="modal-overlay backdrop-blur">
+
+        <div class="bg-gray-800 text-gray-100 w-full max-w-lg rounded-lg shadow-2xl p-6 relative">
+            
+            <div class="flex justify-between items-center pb-4 border-b border-gray-700">
+                <div class="flex items-center space-x-2">
+                    <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <h3 class="text-xl font-semibold">Manage Balance</h3>
+                </div>
+                <button id="closeBtn" class="text-gray-400 hover:text-white transition">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center space-x-2">
+                    <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path></svg>
+                    <span class="text-lg">Balance</span>
+                </div>
+                <span class="text-xl font-bold text-green-400">$10.00</span>
+            </div>
+            
+            <hr class="border-gray-700 my-2">
+
+            <div class="mt-4">
+                <label for="amount" class="block text-sm font-medium text-gray-400 mb-2">Enter Amount</label>
+                <input type="text" id="amount" placeholder="Enter Amount" 
+                       class="w-full p-3 rounded bg-gray-900 text-white border border-gray-700 focus:ring-blue-500 focus:border-blue-500 placeholder-gray-500">
+            </div>
+
+            <div class="flex justify-between mt-4 space-x-4">
+                <label class="flex items-center space-x-2 p-3 w-1/2 rounded-lg cursor-pointer transition"
+                       style="background-color: #1f2937;"> <input type="radio" name="balanceType" value="balance" checked 
+                           class="form-radio h-4 w-4 text-blue-500 bg-gray-700 border-gray-600 focus:ring-blue-500">
+                    <span class="text-white">Balance</span>
+                </label>
+                <label class="flex items-center space-x-2 p-3 w-1/2 rounded-lg cursor-pointer transition"
+                       style="background-color: #1f2937;">
+                    <input type="radio" name="balanceType" value="interest" 
+                           class="form-radio h-4 w-4 text-blue-500 bg-gray-700 border-gray-600 focus:ring-blue-500">
+                    <span class="text-gray-400">Interest Balance</span>
+                </label>
+            </div>
+            <div class="flex justify-between mt-4 space-x-4">
+                <label class="flex items-center space-x-2 p-3 w-1/2 rounded-lg cursor-pointer transition"
+                       style="background-color: #1f2937;"> <input type="radio" name="balanceType" value="balance" checked 
+                           class="form-radio h-4 w-4 text-blue-500 bg-gray-700 border-gray-600 focus:ring-blue-500">
+                    <span class="text-white">+ Add Balance</span>
+                </label>
+                <label class="flex items-center space-x-2 p-3 w-1/2 rounded-lg cursor-pointer transition"
+                       style="background-color: #1f2937;">
+                    <input type="radio" name="balanceType" value="interest" 
+                           class="form-radio h-4 w-4 text-blue-500 bg-gray-700 border-gray-600 focus:ring-blue-500">
+                    <span class="text-gray-400">- Subtract Balance</span>
+                </label>
+            </div>
+            <div class="flex justify-end mt-6 space-x-3">
+                <button id="closeBtnFooter" class="px-4 py-2 text-white rounded hover:bg-gray-700 transition">
+                    Close
+                </button>
+                <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 py-2 rounded transition">
+                    Confirm
+                </button>
+            </div>
+
+        </div>
+        </div>
 
     <script>
       document.addEventListener("componentsLoaded", () => {
@@ -463,8 +575,65 @@
                 switchTab(activeTabId);
             });
 
+            // --- Block Profile Confirmation Modal ---
+            const blockProfileBtn = document.getElementById('block-profile-btn');
+            const blockConfirmModal = document.getElementById('block-confirm-modal');
+            const cancelBlockBtn = document.getElementById('cancel-block-btn');
+            const confirmBlockBtn = document.getElementById('confirm-block-btn');
+
+            blockProfileBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                dropdownMenu.classList.add('hidden'); // Close dropdown
+                blockConfirmModal.classList.remove('hidden');
+            });
+
+            cancelBlockBtn.addEventListener('click', () => {
+                blockConfirmModal.classList.add('hidden');
+            });
+
+            confirmBlockBtn.addEventListener('click', () => {
+                // Perform block action here
+                alert('User profile blocked!');
+                blockConfirmModal.classList.add('hidden');
+            });
+
             // Initialize to the correct tab in case of a refresh
             switchTab(activeTabId);
+        });
+    </script>
+        <script>
+        const manageBtn = document.getElementById('manageBtn');
+        const manageModal = document.getElementById('manageModal');
+        const closeBtn = document.getElementById('closeBtn');
+        const closeBtnFooter = document.getElementById('closeBtnFooter');
+
+        // Function to open the modal
+        function openModal() {
+            manageModal.classList.add('active');
+        }
+
+        // Function to close the modal
+        function closeModal() {
+            manageModal.classList.remove('active');
+        }
+
+        // Event listeners
+        manageBtn.addEventListener('click', openModal);
+        closeBtn.addEventListener('click', closeModal);
+        closeBtnFooter.addEventListener('click', closeModal);
+
+        // Optional: Close modal when clicking outside the content box
+        manageModal.addEventListener('click', (e) => {
+            if (e.target === manageModal) {
+                closeModal();
+            }
+        });
+
+        // Optional: Close modal with the ESC key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && manageModal.classList.contains('active')) {
+                closeModal();
+            }
         });
     </script>
  

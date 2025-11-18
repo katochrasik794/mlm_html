@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+  <head class="">
+    <meta charset="utf-8" class="" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1"
+      class=""
+    />
+    <title class="">CRM - Layout (Sidebar + Topbar + Content + Footer)</title>
+    <link rel="stylesheet" href="/mlm_html//admin//style.css" />
+    <script src="https://cdn.tailwindcss.com" class=""></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <style>
+      .row-hover:hover {
+            background-color: #333333;
+        }
+        /* Custom status badges */
+        .status-active { 
+            background-color: #1c4532; 
+            color: #68d391; 
+            padding: 2px 8px; 
+            border-radius: 6px; 
+            font-size: 0.75rem; /* text-xs */
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+        }
+        .status-active::before {
+            content: '•';
+            margin-right: 4px;
+            font-size: 1rem;
+            line-height: 0.75rem;
+        }
+        .toggle-switch {
+            width: 48px;
+            height: 24px;
+            background-color: #4a4d51;
+            border-radius: 9999px;
+            position: relative;
+            transition: background-color 0.3s;
+        }
+
+        .toggle-switch::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 20px;
+            height: 20px;
+            background-color: #fff;
+            border-radius: 50%;
+            transition: transform 0.3s;
+        }
+
+        .toggle-checkbox:checked + .toggle-switch {
+            background-color: var(--accent-blue);
+        }
+
+        .toggle-checkbox:checked + .toggle-switch::after {
+            transform: translateX(24px);
+        }
+        
+        /* Custom styling for the select dropdown arrow */
+        select {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+        }
+    </style>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="">
+    <!-- SIDEBAR (included dynamically) & MAIN CONTENT FLEX LAYOUT -->
+    <div class="flex h-screen">
+      <div id="sidebar-container" class="relative hidden lg:block">
+        <div data-include="components/sidebar.html"></div>
+      </div>
+      <!-- TOP BAR -->
+      <header class="fixed top-0 left-0 lg:left-64 right-0 z-40 w-full bg-[#2c2f32] py-3 px-4 pt-4 flex items-center justify-between shadow">
+    <div class="flex items-center space-x-4 flex-1">
+      <!-- HAMBURGER AND MLM - visible below desktop -->
+      <div class="flex items-center space-x-2 lg:hidden">
+        <button id="hamburgerBtn" class="text-white p-2 hover:bg-gray-700 rounded">
+          <i class="fas fa-bars"></i>
+        </button>
+        <div class="text-xl font-bold text-red-500">MLM</div>
+      </div>
+
+      <!-- SEARCH -->
+      <div class="flex items-center flex-1 max-w-xl rounded-full px-4 py-2 space-x-3 shadow-lg">
+        <i class="fas fa-search text-gray-400"></i>
+        <input type="text" placeholder="Search for a menu"
+          class="bg-transparent w-full focus:outline-none text-gray-300 placeholder-gray-400">
+      </div>
+    </div>
+
+    <!-- RIGHT SIDE -->
+    <div class="relative ml-4">
+
+      <!-- AVATAR BUTTON -->
+      <button id="avatarBtn">
+        <img src="https://i.pravatar.cc/80" class="w-10 h-10 rounded-full border border-gray-700 cursor-pointer" />
+      </button>
+
+      <!-- DROPDOWN -->
+      <div id="dropdownMenu"
+        class="hidden absolute right-0 mt-3 w-56 bg-gray-800 rounded-xl shadow-xl border border-gray-700 z-50">
+
+        <!-- PROFILE INFO -->
+        <div class="px-4 py-3 flex items-center gap-4">
+          <div>
+            <img src="https://i.pravatar.cc/80" class="w-10 h-10 rounded-full border border-gray-700 cursor-pointer" />
+          </div>
+          <div>
+            <p class="text-sm font-semibold">admin</p>
+          <p class="text-xs text-gray-400">admin@gmail.com</p>
+          </div>
+        </div>
+
+        <!-- MENU ITEMS -->
+        <ul class="py-2">
+          <li>
+            <a href="#"
+              class="block px-4 py-2 text-sm hover:bg-gray-700 transition">Profile & account</a>
+          </li>
+          <li>
+            <a href="#"
+              class="block px-4 py-2 text-sm hover:bg-gray-700 transition">Sign out</a>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </header>
+
+      <div id="main-content" class="overflow-y-auto bg-[#2c2f32] text-white transition-all duration-300 ease-in-out">
+        <!-- DASHBOARD MAIN CONTENT -->
+
+
+        <div
+          id="main-content-wrapper"
+          class="fixed top-16 left-0 lg:left-64 right-0 bottom-0 overflow-y-auto overflow-x-hidden flex flex-col transition-all duration-300 ease-in-out "
+        >
+          <main class="bg-[#25282a] mx-auto w-full text-white pb-4">
+            <div class="p-4 sm:p-6 min-h-screen">
+                <div class="max-w-4xl mx-auto  shadow-xl rounded-xl p-0 overflow-hidden bg-[#2c2f32]">
+        
+        <header class="flex justify-between items-center px-4 py-5 sm:px-6 border-b border-gray-700">
+            <div id="step-1-indicator" class="flex items-center space-x-2 text-accent-blue transition-colors duration-300">
+                <span class="w-6 h-6 flex items-center justify-center rounded-full border-2 border-accent-blue text-xs font-bold">1</span>
+                <span class="text-sm font-medium">Profile</span>
+            </div>
+            <div id="step-2-indicator" class="flex items-center space-x-2 text-text-secondary transition-colors duration-300">
+                <span class="w-6 h-6 flex items-center justify-center rounded-full border-2 border-gray-600 text-xs font-bold">2</span>
+                <span class="text-sm font-medium">Confirmation</span>
+            </div>
+        </header>
+
+        <main class="p-4 sm:p-6 lg:p-8">
+
+            <div id="step-1" class="transition-opacity duration-500 ease-in-out">
+                <form id="profile-form" class="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8">
+                    
+                    <div class="sm:col-span-2 space-y-4">
+                        <label class="block text-sm font-medium text-text-primary">Profile Image</label>
+                        <div class="flex items-center space-x-4">
+                            <div class="w-16 h-16 rounded-full bg-gray-600 flex items-center justify-center border-4 border-gray-500">
+                                <i data-lucide="user" class="w-8 h-8 text-white"></i>
+                            </div>
+                            <button type="button" class="px-4 py-2 bg-gray-700 hover:bg-gray-600 text-sm font-medium rounded-lg transition-colors">
+                                Upload Photo
+                            </button>
+                             <input type="file" id="profile-upload" class="hidden" accept="image/*">
+                        </div>
+                    </div>
+
+                    <div class="sm:col-span-1">
+                        <label for="first-name" class="block text-sm font-medium text-text-primary mb-1">First name</label>
+                        <input type="text" id="first-name" name="firstName" value="John" class="w-full bg-[#2c2f32] border border-gray-600 rounded-lg p-3 text-text-primary focus:ring-accent-blue focus:border-accent-blue transition-colors" required>
+                    </div>
+                    <div class="sm:col-span-1">
+                        <label for="last-name" class="block text-sm font-medium text-text-primary mb-1">Last name</label>
+                        <input type="text" id="last-name" name="lastName" value="Doe" class="w-full bg-[#2c2f32] border border-gray-600 rounded-lg p-3 text-text-primary focus:ring-accent-blue focus:border-accent-blue transition-colors" required>
+                    </div>
+                    
+                    <div class="sm:col-span-2">
+                        <label for="username" class="block text-sm font-medium text-text-primary mb-1">Username</label>
+                        <input type="text" id="username" name="username" value="johndoe123" class="w-full bg-[#2c2f32] border border-gray-600 rounded-lg p-3 text-text-primary focus:ring-accent-blue focus:border-accent-blue transition-colors" required>
+                    </div>
+                    
+                    <div class="sm:col-span-2">
+                        <label for="email" class="block text-sm font-medium text-text-primary mb-1">Email</label>
+                        <div class="relative">
+                            <input type="email" id="email" name="email" value="john.doe@example.com" class="w-full bg-[#2c2f32] border border-gray-600 rounded-lg p-3 text-text-primary focus:ring-accent-blue focus:border-accent-blue transition-colors pr-10" required>
+                            <span class="absolute right-3 top-1/2 transform -translate-y-1/2 text-green-500">
+                                <i data-lucide="mail-check" class="w-5 h-5"></i>
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div class="sm:col-span-2">
+                        <label for="phone" class="block text-sm font-medium text-text-primary mb-1">Phone</label>
+                        <div class="flex space-x-2">
+                            <select id="country-code" name="countryCode" class="bg-[#2c2f32] border border-gray-600 rounded-lg p-3 text-text-primary focus:ring-accent-blue focus:border-accent-blue transition-colors">
+                                <option value="+93">+93</option>
+                                <option value="+1" selected>+1 (USA/Canada)</option>
+                                <option value="+44">+44 (UK)</option>
+                            </select>
+                            <input type="tel" id="phone" name="phone" value="555-123-4567" class="flex-grow bg-[#2c2f32] border border-gray-600 rounded-lg p-3 text-text-primary focus:ring-accent-blue focus:border-accent-blue transition-colors" required>
+                        </div>
+                    </div>
+
+                    <div class="sm:col-span-2">
+                        <label for="country" class="block text-sm font-medium text-text-primary mb-1">Country</label>
+                        <div class="relative">
+                            <select id="country" name="country" class="w-full bg-[#2c2f32] border border-gray-600 rounded-lg p-3 text-text-primary focus:ring-accent-blue focus:border-accent-blue transition-colors pr-10" required>
+                                <option value="" disabled>Select Country</option>
+                                <option value="Afghanistan">Afghanistan</option>
+                                <option value="USA" selected>USA</option>
+                                <option value="Canada">Canada</option>
+                            </select>
+                            <span class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none">
+                                <i data-lucide="chevron-down" class="w-5 h-5"></i>
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div class="sm:col-span-2 grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <div>
+                            <label for="city" class="block text-sm font-medium text-text-primary mb-1">City</label>
+                            <input type="text" id="city" name="city" value="New York" class="w-full bg-[#2c2f32] border border-gray-600 rounded-lg p-3 text-text-primary focus:ring-accent-blue focus:border-accent-blue transition-colors" required>
+                        </div>
+                        <div>
+                            <label for="state" class="block text-sm font-medium text-text-primary mb-1">State</label>
+                            <input type="text" id="state" name="state" value="NY" class="w-full bg-[#2c2f32] border border-gray-600 rounded-lg p-3 text-text-primary focus:ring-accent-blue focus:border-accent-blue transition-colors" required>
+                        </div>
+                        <div>
+                            <label for="zip-code" class="block text-sm font-medium text-text-primary mb-1">Zip code</label>
+                            <input type="text" id="zip-code" name="zipCode" value="10001" class="w-full bg-[#2c2f32] border border-gray-600 rounded-lg p-3 text-text-primary focus:ring-accent-blue focus:border-accent-blue transition-colors" required>
+                        </div>
+                    </div>
+
+                    <div class="sm:col-span-2">
+                        <label for="address-1" class="block text-sm font-medium text-text-primary mb-1">Address line 1</label>
+                        <input type="text" id="address-1" name="address1" value="123 Main St" class="w-full bg-[#2c2f32] border border-gray-600 rounded-lg p-3 text-text-primary focus:ring-accent-blue focus:border-accent-blue transition-colors" required>
+                    </div>
+
+                    <div class="sm:col-span-2">
+                        <label for="address-2" class="block text-sm font-medium text-text-primary mb-1">Address line 2 (Optional)</label>
+                        <input type="text" id="address-2" name="address2" value="Apt 4B" class="w-full bg-[#2c2f32] border border-gray-600 rounded-lg p-3 text-text-primary focus:ring-accent-blue focus:border-accent-blue transition-colors">
+                    </div>
+
+                    <div class="sm:col-span-2 flex justify-between items-center pt-2">
+                        <label for="status" class="block text-sm font-medium text-text-primary">Active Status</label>
+                        <div class="relative inline-block w-12 mr-2 align-middle select-none transition duration-200 ease-in">
+                            <input type="checkbox" name="status" id="status" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer opacity-0" checked>
+                            <label for="status" class="toggle-switch cursor-pointer block h-6 overflow-hidden rounded-full"></label>
+                        </div>
+                    </div>
+                    
+                </form>
+            </div>
+
+            <div id="step-2" class="hidden transition-opacity duration-500 ease-in-out">
+                
+                <div class="relative h-32 md:h-48 rounded-t-xl overflow-hidden mb-16 sm:mb-20" style="background: linear-gradient(135deg, #3b82f6 0%, #10b981 33%, #ef4444 66%, #f59e0b 100%);">
+                    <div class="absolute inset-x-0 bottom-0 flex justify-center translate-y-1/2">
+                        <div class="w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-gray-500 flex items-center justify-center border-4 border-dark-card">
+                            <i data-lucide="user" class="w-12 h-12 sm:w-16 sm:h-16 text-white"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pt-8 sm:pt-10 px-4 sm:px-10 grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-8 text-sm md:text-base">
+                    
+                    <div class="space-y-4 text-text-secondary">
+                        <p>Full name:</p>
+                        <p>Username:</p>
+                        <p>Email:</p>
+                        <p>Phone:</p>
+                        <p>Status:</p> 
+                    </div>
+
+                    <div class="space-y-4 font-medium">
+                        <p id="confirm-full-name" class="text-text-primary">-</p>
+                        <p id="confirm-username" class="text-text-primary">-</p>
+                        <p id="confirm-email" class="text-text-primary">-</p>
+                        <p id="confirm-phone" class="text-text-primary">-</p>
+                        <p id="confirm-status" class="text-text-primary">-</p>
+                    </div>
+                    
+                    <div class="md:col-span-2 pt-6 border-t border-gray-700 mt-4 md:mt-8">
+                        <h3 class="text-lg font-semibold text-text-primary mb-4">Address Details</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-8">
+                            <div class="space-y-4 text-text-secondary">
+                                <p>Country/City/State:</p>
+                                <p>Address line 1:</p>
+                                <p>Address line 2:</p>
+                                <p>Zip code:</p>
+                            </div>
+                            <div class="space-y-4 font-medium">
+                                <p id="confirm-location" class="text-text-primary">-</p>
+                                <p id="confirm-address-1" class="text-text-primary">-</p>
+                                <p id="confirm-address-2" class="text-text-primary">-</p>
+                                <p id="confirm-zip-code" class="text-text-primary">-</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            
+        </main>
+
+        <footer class="flex justify-between items-center p-4 sm:p-6 border-t border-gray-700 mt-4">
+            <button id="prev-btn" class="flex items-center space-x-1 text-text-secondary hover:text-text-primary transition-colors hidden" onclick="navigateStep(-1)">
+                <i data-lucide="chevron-left" class="w-5 h-5"></i>
+                <span class="text-sm font-medium">Previous step</span>
+            </button>
+            
+            <div id="spacer" class="w-full"></div>
+
+            <button id="next-btn" class="px-6 py-2 bg-accent-blue hover:bg-blue-600 text-white text-sm font-semibold rounded-lg shadow-lg transition-colors">
+                Next
+            </button>
+        </footer>
+
+    </div>
+            </div>
+         </main>
+       </div>
+
+     </div>
+   </div>
+
+    <script>
+      document.addEventListener("componentsLoaded", () => {
+        const hamburgerBtn = document.getElementById("hamburgerBtn");
+        const sidebarContainer = document.getElementById("sidebar-container");
+
+        hamburgerBtn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          sidebarContainer.classList.toggle("hidden");
+        });
+      });
+    </script>
+    <script src="./js/include.js"></script>
+    <script src="./js/admin.js"></script>
+      <script>
+    const avatarBtn = document.getElementById("avatarBtn");
+    const dropdown = document.getElementById("dropdownMenu");
+
+    // Toggle on click
+    avatarBtn.addEventListener("click", () => {
+      dropdown.classList.toggle("hidden");
+    });
+
+    // Close when clicking outside
+    document.addEventListener("click", (e) => {
+      if (!avatarBtn.contains(e.target) && !dropdown.contains(e.target)) {
+        dropdown.classList.add("hidden");
+      }
+    });
+  </script>
+  <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        let currentStep = 1;
+        const totalSteps = 2;
+
+        // DOM elements
+        const step1Div = document.getElementById('step-1');
+        const step2Div = document.getElementById('step-2');
+        const nextBtn = document.getElementById('next-btn');
+        const prevBtn = document.getElementById('prev-btn');
+        const step1Indicator = document.getElementById('step-1-indicator');
+        const step2Indicator = document.getElementById('step-2-indicator');
+        const profileForm = document.getElementById('profile-form');
+        const spacer = document.getElementById('spacer');
+        const uploadButton = document.querySelector('.flex.items-center.space-x-4 button');
+        const fileInput = document.getElementById('profile-upload');
+
+        // Handle Image Upload button click (for file input)
+        uploadButton.addEventListener('click', () => {
+             fileInput.click();
+        });
+
+
+        // Function to check form validity (basic check for required fields)
+        function validateStep1() {
+            let isValid = true;
+            const requiredInputs = profileForm.querySelectorAll('[required]');
+            
+            requiredInputs.forEach(input => {
+                if (!input.value.trim()) {
+                    input.classList.add('border-red-500', 'focus:border-red-500');
+                    isValid = false;
+                } else {
+                    input.classList.remove('border-red-500', 'focus:border-red-500');
+                }
+            });
+            
+            if (!isValid) {
+                alert('Please fill out all required fields.');
+            }
+            return isValid;
+        }
+
+
+        // Function to update the UI based on the current step
+        function updateUI() {
+            // 1. Show/Hide Steps and Footer buttons
+            if (currentStep === 1) {
+                step1Div.classList.remove('hidden');
+                step2Div.classList.add('hidden');
+                prevBtn.classList.add('hidden');
+                spacer.classList.remove('hidden');
+            } else if (currentStep === 2) {
+                step1Div.classList.add('hidden');
+                step2Div.classList.remove('hidden');
+                prevBtn.classList.remove('hidden');
+                spacer.classList.add('hidden');
+            }
+
+            // 2. Update Step Indicators
+            // Step 1: Always done or active
+            step1Indicator.classList.add('text-accent-blue');
+            step1Indicator.classList.remove('text-text-secondary');
+            step1Indicator.querySelector('span:first-child').classList.add('border-accent-blue');
+            step1Indicator.querySelector('span:first-child').classList.remove('border-gray-600');
+
+            // Step 2
+            if (currentStep >= 2) {
+                step2Indicator.classList.add('text-accent-blue');
+                step2Indicator.classList.remove('text-text-secondary');
+                step2Indicator.querySelector('span:first-child').classList.add('border-accent-blue');
+                step2Indicator.querySelector('span:first-child').classList.remove('border-gray-600');
+            } else {
+                step2Indicator.classList.remove('text-accent-blue');
+                step2Indicator.classList.add('text-text-secondary');
+                step2Indicator.querySelector('span:first-child').classList.remove('border-accent-blue');
+                step2Indicator.querySelector('span:first-child').classList.add('border-gray-600');
+            }
+
+            // 3. Update Button Text
+            if (currentStep === totalSteps) {
+                nextBtn.textContent = 'Add user';
+            } else {
+                nextBtn.textContent = 'Next';
+            }
+        }
+
+        // Function to gather data and populate the confirmation screen
+        function populateConfirmation() {
+            const formData = new FormData(profileForm);
+            const data = Object.fromEntries(formData.entries());
+
+            // Full Name
+            const fullName = `${data.firstName || ''} ${data.lastName || ''}`.trim();
+            document.getElementById('confirm-full-name').textContent = fullName || 'N/A';
+            document.getElementById('confirm-username').textContent = data.username || 'N/A';
+            document.getElementById('confirm-email').textContent = data.email || 'N/A';
+            
+            // Phone
+            const fullPhone = `${data.countryCode || ''} ${data.phone || ''}`.trim();
+            document.getElementById('confirm-phone').textContent = fullPhone || 'N/A';
+            
+            // Status (Checked or Unchecked)
+            const statusValue = data.status === 'on' ? 'Active' : 'Inactive';
+            document.getElementById('confirm-status').textContent = statusValue;
+            
+            // Location
+            const location = `${data.country || 'N/A'}, ${data.city || 'N/A'}, ${data.state || 'N/A'}`;
+            document.getElementById('confirm-location').textContent = location;
+
+            // Address details
+            document.getElementById('confirm-address-1').textContent = data.address1 || 'N/A';
+            document.getElementById('confirm-address-2').textContent = data.address2 || 'N/A';
+            document.getElementById('confirm-zip-code').textContent = data.zipCode || 'N/A';
+        }
+
+        // Navigation function
+        function navigateStep(direction) {
+            let nextStep = currentStep + direction;
+
+            if (nextStep < 1) return; // Cannot go back before step 1
+
+            if (currentStep === 1 && direction === 1) {
+                // Moving from Step 1 to Step 2: Validate first
+                if (!validateStep1()) {
+                    return; // Stop navigation if validation fails
+                }
+                populateConfirmation();
+            } else if (currentStep === totalSteps && direction === 1) {
+                // Final action (Step 2 -> Submit)
+                alert(`User ${document.getElementById('confirm-full-name').textContent} added successfully! (In a real app, this submits to the backend)`);
+                // Optional: Reset to step 1 after submission
+                currentStep = 0; 
+            }
+
+            currentStep = nextStep;
+            updateUI();
+        }
+
+        // Event Listeners
+        nextBtn.addEventListener('click', () => navigateStep(1));
+        // prevBtn has inline click handler: navigateStep(-1)
+
+        // Initial UI load
+        window.onload = updateUI;
+    </script>
+
+  </body>
+</html>
