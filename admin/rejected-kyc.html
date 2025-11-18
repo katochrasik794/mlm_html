@@ -459,21 +459,7 @@
     <script>
         // Sample data for tickets (15 entries = 3 pages of 5)
         const tickets = [
-            { id: 1, user: 'MOSHARAF HOSSAIN', username: '@moshi', subject: 'testing platform features', status: 'closed', lastReply: '2025-10-21 13:18:53', avatar: 'M' },
-            { id: 2, user: 'ARJUN VERMA', username: '@arjun', subject: 'Inquiry about refund policy', status: 'customer-reply', lastReply: '2025-10-06 21:40:20', avatar: 'A' },
-            { id: 3, user: 'ANA RUIZ', username: '@anar', subject: 'Payment confirmation issue', status: 'customer-reply', lastReply: '2025-09-26 03:21:36', avatar: 'R' },
-            { id: 4, user: 'VIJAY SINGH', username: '@vijays', subject: 'Probando el sistema 17/10/2024', status: 'customer-reply', lastReply: '2025-08-28 07:41:51', avatar: 'V' },
-            { id: 5, user: 'JESSICA LEE', username: '@jessl', subject: 'Subscription cancellation request', status: 'customer-reply', lastReply: '2025-07-30 14:35:17', avatar: 'J' },
-            { id: 6, user: 'DAVID SMITH', username: '@dsmith', subject: 'How can I withdraw my funds?', status: 'customer-reply', lastReply: '2025-08-06 05:37:46', avatar: 'D' },
-            { id: 7, user: 'CHLOE BROWN', username: '@chloe', subject: 'ASKING ABOUT HOW I CAN INVEST', status: 'closed', lastReply: '2025-03-28 08:56:11', avatar: 'C' },
-            { id: 8, user: 'ROBERT GREEN', username: '@robg', subject: 'Testing login credentials', status: 'closed', lastReply: '2025-03-22 22:52:39', avatar: 'R' },
-            { id: 9, user: 'EMILY WANG', username: '@emilyw', subject: 'Asking about Inquire', status: 'customer-reply', lastReply: '2025-03-08 20:09:17', avatar: 'E' },
-            { id: 10, user: 'MARK ZHAO', username: '@markz', subject: 'General Hello and greeting', status: 'closed', lastReply: '2025-01-13 13:24:01', avatar: 'M' },
-            { id: 11, user: 'New User 1', username: '@testuser1', subject: 'Critical Login issue reported', status: 'open', lastReply: '2025-11-01 10:00:00', avatar: 'N' },
-            { id: 12, user: 'Jane Doe', username: '@janedoe', subject: 'Payment not processed successfully', status: 'open', lastReply: '2025-11-02 11:30:00', avatar: 'J' },
-            { id: 13, user: 'Admin User', username: '@admin', subject: 'Suggestion for site feedback', status: 'customer-reply', lastReply: '2025-11-03 14:00:00', avatar: 'A' },
-            { id: 14, user: 'Guest User', username: '@guest42', subject: 'Question about pricing plan', status: 'closed', lastReply: '2025-11-04 09:15:00', avatar: 'G' },
-            { id: 15, user: 'Tech Support', username: '@techlead', subject: 'Technical error report v2', status: 'open', lastReply: '2025-11-05 16:22:00', avatar: 'T' },
+            { id: 1, user: 'MOSHARAF HOSSAIN', username: '@moshi', subject: 'testing platform features', status: 'Rejected', lastReply: '2025-10-21 13:18:53', avatar: 'M' },
         ];
 
         const ENTRIES_PER_PAGE = 5;
@@ -562,7 +548,7 @@
                     </td>
                     <td class="px-4 sm:px-6 py-3 text-sm text-gray-400">${ticket.lastReply}</td>
                     <td class="px-4 sm:px-6 py-3 whitespace-nowrap text-right text-sm font-medium">
-                        <a href="view-kyc.html" class="view-btn inline-flex items-center justify-center w-20 py-1.5 text-xs font-semibold rounded-lg bg-gray-700 text-text-light hover:bg-gray-600 transition duration-150" data-id="${ticket.id}">
+                        <a href="view-kyc-rejected.html" class="view-btn inline-flex items-center justify-center w-20 py-1.5 text-xs font-semibold rounded-lg bg-gray-700 text-text-light hover:bg-gray-600 transition duration-150" data-id="${ticket.id}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
                             View
                         </a>

@@ -217,12 +217,13 @@
                         </li>
                         <span class="mx-2">/</span>
                         <li class="text-white font-medium" aria-current="page">
-                          NID Verification informationt
-                        </li>
+                        Address Verification information
+
+ </li>
                       </ol>
                     </nav>
                     <h1 class="text-2xl font-bold text-white mt-2 mb-10">
-                      UNID Verification information
+                      Address Verification information 
                     </h1>
                   </div>
                 </div>
@@ -251,58 +252,48 @@
             <div class="flex items-center gap-2"><svg class="w-4 h-4 text-slate-300" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M22 16.92V21a1 1 0 01-1.11 1A19 19 0 013 5.11 1 1 0 014 4h4.09a1 1 0 01.99.86c.12 1.05.38 2.07.75 3.03a1 1 0 01-.24 1.02L9.3 11.7a15 15 0 006.99 6.99l1.79-1.29a1 1 0 011.02-.24c.96.37 1.98.63 3.03.75a1 1 0 01.86.99z" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/></svg><span>+185585858555</span></div>
           </div>
         </div>
+
+        <div class="rounded-md p-4 bg-white/2">
+          <h3 class="text-sm uppercase text-slate-300 tracking-wide mb-2">Address</h3>
+          <div class="text-sm text-slate-100 space-y-2">
+            <div class="flex items-center gap-2">
+    <svg class="w-4 h-4 text-slate-300" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <path d="M12 21s-6-5.14-6-10a6 6 0 1112 0c0 4.86-6 10-6 10z" 
+              stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="12" cy="11" r="2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <span>Anything</span>
+</div>
+
+          </div>
+        </div>
       </div>
     </aside>
 
     <!-- RIGHT: NID Verification Panel -->
     <section class="bg-[#2c2f32] md:col-span-2 card rounded-2xl p-6 shadow-lg">
       <div class="flex items-start justify-between mb-4">
-        <h2 class="text-lg font-semibold">NID Verification Information</h2>
+        <h2 class="text-lg font-semibold">Address Verification Information</h2>
 
         <!-- status badge -->
         <div id="statusBadge" class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-sm bg-amber-700/90">
           <span class="w-2 h-2 rounded-full bg-amber-300 block"></span>
-          <span class="font-medium">Pending</span>
+          <span class="font-medium">verified</span>
         </div>
       </div>
 
       <div class=" gap-6">
         <!-- left content (info fields) -->
         <div class="lg:col-span-2 space-y-4">
-          <div class="border-b border-white/6 pb-3">
-            <label class="text-sm muted block mb-1">Full Name</label>
-            <div class="text-sm text-slate-100">fjjffjfjfjfgj</div>
+          <div class="flex items-center justify-between">
+            <label class="text-sm muted block mb-1">Address</label>
+            <div class="text-sm text-gray-300">Anything</div>
           </div>
 
-          <div class="border-b border-white/6 pb-3">
-            <label class="text-sm muted block mb-1">Nid Number</label>
-            <div class="text-sm text-slate-100">5454659595959</div>
+          <div class="flex items-center justify-between">
+            <label class="text-sm muted block mb-1">phone</label>
+            <div class="text-sm text-gray-300">54451236019</div>
           </div>
-
-          <div class="border-b border-white/6 pb-3">
-            <label class="text-sm muted block mb-1">Date Of Birth</label>
-            <div class="text-sm text-slate-100">11/06/2025</div>
-          </div>
-
-          <div class="border-b border-white/6 pb-3">
-            <label class="text-sm muted block mb-1">Additional Notes</label>
-            <div class="text-sm text-slate-100">—</div>
-          </div>
-        </div>
-
-        <!-- right content (image + actions) -->
-        <div class="lg:col-span-1 flex flex-col items-stretch gap-4">
-          <div class="bg-white/3 rounded-md p-3 flex items-center justify-center h-44 md:h-56">
-            <!-- image placeholder -->
-            <img id="nidImage" src="https://hyip-pro.bugfinder.app/assets/admin/img/default.png" alt="NID document" class="object-cover max-h-full lg:pl-[70%] rounded-md" />
-          </div>
-
-          <div class="flex items-center gap-3">
-            <button id="approveBtn" class="flex-1 px-4 py-2 rounded-md bg-emerald-500 hover:bg-emerald-600 text-white font-semibold">Approved</button>
-            <button id="rejectBtn" class="flex-1 px-4 py-2 rounded-md bg-rose-500 hover:bg-rose-600 text-white font-semibold">Rejected</button>
-          </div>
-
-          <div class="text-xs text-slate-400 text-center">Reviewed by <span class="text-slate-200 font-medium">admin</span></div>
         </div>
       </div>
     </section>

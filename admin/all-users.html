@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+  <head class="">
+    <meta charset="utf-8" class="" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1"
+      class=""
+    />
+    <title class="">Plan List - Admin</title>
+    <link rel="stylesheet" href="/mlm_html//admin//style.css" />
+    <script src="https://cdn.tailwindcss.com" class=""></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+      .custom-scrollbar::-webkit-scrollbar {
+        height: 8px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background-color: #374151; /* Gray-700 */
+        border-radius: 4px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-track {
+        background-color: #1f2937; /* Gray-800 */
+      }
+      .row-hover:hover {
+            background-color: #333333;
+        }
+        .pagination-btn {
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            transition: background-color 0.15s, color 0.15s;
+        }
+        .pagination-btn.active {
+            background-color: #3b82f6; /* Blue-500 */
+            color: white;
+            font-weight: 600;
+        }
+        /* Modal backdrop for the filter/edit */
+        .modal-backdrop {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+        /* Custom status badges */
+        .status-pending { background-color: #4a4023; color: #ffeb3b; padding: 2px 8px; border-radius: 6px; font-weight: 500;}
+        .status-approved { background-color: #1c4532; color: #68d391; padding: 2px 8px; border-radius: 6px; font-weight: 500;}
+        .percent-box {
+            display: inline-flex;
+            align-items: center;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.75rem; /* text-xs */
+            font-weight: 500;
+        }
+        .percent-box.green {
+            background-color: rgba(104, 211, 145, 0.15); /* Light green background */
+            color: #68d391; /* Tailwind green-300/400 */
+        }
+        .percent-box.orange {
+            background-color: rgba(255, 165, 0, 0.15); /* Orange background */
+            color: #f6ad55; /* Tailwind orange-400 */
+        }
+        .percent-box.pink {
+            background-color: rgba(237, 100, 166, 0.15); /* Pink background */
+            color: #ed64a6; /* Tailwind pink-400 */
+        }
+        .status-success {
+            background-color: rgba(104, 211, 145, 0.15); /* light green bg */
+            color: #68d391; /* text-green-400 */
+        }
+        .status-pending {
+            background-color: rgba(246, 173, 85, 0.15); /* light orange bg */
+            color: #f6ad55; /* text-orange-400 */
+        }
+        .text-green-amount { color: #68d391; }
+        .text-red-amount { color: #ed64a6; }
+        .modal-bg { background-color: rgba(0, 0, 0, 0.75); }
+        .modal-card { background-color: #2b2b2b; }
+        .status-closed {
+            color: #ec4899; /* Pink/Red dot */
+        }
+        .status-customer-reply {
+            color: #3b82f6; /* Blue dot */
+        }
+        .status-open {
+            color: #22c55e; /* Green dot */
+        }
+        .status-in-progress {
+            color: #f59e0b; /* Yellow dot */
+        }
+        
+        .status-dot::before {
+            content: '•';
+            margin-right: 0.5rem;
+            font-size: 1.5rem;
+            line-height: 1;
+            vertical-align: middle;
+        }
+
+        /* Utility for simulated pages */
+        .simulated-page {
+            display: none;
+        }
+        .active-page {
+            display: block;
+        }
+         /* Custom scrollbar styling for the table container */
+        .table-container::-webkit-scrollbar {
+            height: 6px;
+        }
+        .table-container::-webkit-scrollbar-thumb {
+            background-color: #4b5563; /* gray-600 */
+            border-radius: 3px;
+        }
+        .table-container::-webkit-scrollbar-track {
+            background: #374151; /* card-bg */
+        }
+    </style>
+    <style>
+        /* Custom scrollbar for aesthetics */
+        .table-container::-webkit-scrollbar {
+            height: 6px;
+        }
+
+        .table-container::-webkit-scrollbar-thumb {
+            background-color: #3a3a3a;
+            border-radius: 3px;
+        }
+
+        /* Responsive table cell padding adjustment for mobile */
+        @media (max-width: 640px) {
+            .table-cell {
+                padding: 10px 8px; /* Slightly smaller padding on mobile */
+            }
+        }
+        /* Custom checkbox styling for better visibility in dark theme */
+        input[type="checkbox"] {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            height: 1.25rem;
+            width: 1.25rem;
+            border: 1px solid var(--tw-dark-border);
+            border-radius: 0.25rem;
+            background-color: var(--tw-dark-bg);
+            transition: all 0.15s ease-in-out;
+            cursor: pointer;
+        }
+        input[type="checkbox"]:checked {
+            background-color: var(--tw-hover-blue);
+            border-color: var(--tw-hover-blue);
+        }
+        input[type="checkbox"]:checked::after {
+            content: '\2713'; /* Checkmark icon */
+            display: block;
+            color: white;
+            font-size: 0.75rem;
+            line-height: 1.25rem;
+            text-align: center;
+        }
+        </style>
+  </head>
+  <body class="">
+    <!-- SIDEBAR (included dynamically) & MAIN CONTENT FLEX LAYOUT -->
+    <div class="flex h-screen">
+      <div id="sidebar-container" class="relative hidden lg:block">
+        <div data-include="components/sidebar.html"></div>
+      </div>
+      <!-- TOP BAR -->
+      <header class="fixed top-0 left-0 lg:left-64 right-0 z-40 w-full bg-[#2c2f32] py-3 px-4 flex items-center justify-between shadow">
+        <div class="flex items-center space-x-4 flex-1">
+          <!-- HAMBURGER AND MLM - visible below desktop -->
+          <div class="flex items-center space-x-2 lg:hidden">
+            <button
+              id="hamburgerBtn"
+              class="text-white p-2 hover:bg-gray-700 rounded"
+            >
+              <i class="fas fa-bars"></i>
+            </button>
+            <div class="text-xl font-bold text-red-500">MLM</div>
+          </div>
+
+          <!-- SEARCH -->
+          <div
+            class="flex items-center flex-1 max-w-xl rounded-full px-4 py-2 space-x-3 shadow-lg"
+          >
+            <i class="fas fa-search text-gray-400"></i>
+            <input
+              type="text"
+              placeholder="Search for a menu"
+              class="bg-transparent w-full focus:outline-none text-gray-300 placeholder-gray-400"
+            />
+          </div>
+        </div>
+
+        <!-- RIGHT SIDE -->
+        <div class="relative ml-4">
+          <!-- AVATAR BUTTON -->
+          <button id="avatarBtn">
+            <img
+              src="https://i.pravatar.cc/80"
+              class="w-10 h-10 rounded-full border border-gray-700 cursor-pointer"
+            />
+          </button>
+
+          <!-- DROPDOWN -->
+          <div
+            id="dropdownMenu"
+            class="hidden absolute right-0 mt-3 w-56 bg-gray-800 rounded-xl shadow-xl border border-gray-700 z-50"
+          >
+            <!-- PROFILE INFO -->
+            <div class="px-4 py-3 flex items-center gap-4">
+              <div>
+                <img
+                  src="https://i.pravatar.cc/80"
+                  class="w-10 h-10 rounded-full border border-gray-700 cursor-pointer"
+                />
+              </div>
+              <div>
+                <p class="text-sm font-semibold">admin</p>
+                <p class="text-xs text-gray-400">admin@gmail.com</p>
+              </div>
+            </div>
+
+            <!-- MENU ITEMS -->
+            <ul class="py-2">
+              <li>
+                <a
+                  href="#"
+                  class="block px-4 py-2 text-sm hover:bg-gray-700 transition"
+                  >Profile & account</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="block px-4 py-2 text-sm hover:bg-gray-700 transition"
+                  >Sign out</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div
+        id="main-content"
+        class="overflow-y-auto bg-[#2c2f32] text-white transition-all duration-300 ease-in-out"
+      >
+        <!-- DASHBOARD MAIN CONTENT -->
+
+        <div
+          id="main-content-wrapper"
+          class="fixed top-16 left-0 lg:left-64 right-0 bottom-0 overflow-y-auto overflow-x-hidden flex flex-col transition-all duration-300 ease-in-out"
+        >
+          <main class="bg-[#1e2022] mx-auto w-full text-white">
+
+            <div class="p-4 sm:p-6 min-h-screen">
+              <div class="mb-6 border-b border-gray-700">
+                <div class="flex items-end">
+                  <div class="flex-1 mb-2 sm:mb-0">
+                    <nav aria-label="breadcrumb">
+                      <ol class="flex items-center text-sm text-gray-500">
+                        <li class="flex items-center">
+                          <a
+                            class="text-gray-400 hover:text-gray-700"
+                            href="javascript:void(0);"
+                            >Dashboard</a
+                          >
+                          <span class="mx-2">/</span>
+                        </li>
+                        <li class="text-white font-medium" aria-current="page">
+                          Users
+                        </li>
+                        <span class="mx-2">/</span>
+                        <li class="text-white font-medium" aria-current="page">
+                          Users List
+                        </li>
+                      </ol>
+                    </nav>
+                    <h1 class="text-2xl font-bold text-white mt-2 mb-10">
+                      Users List
+                    </h1>
+                  </div>
+                </div>
+              </div>
+              <div class="max-w-7xl mx-auto">
+        
+        <!-- Statistics Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+            
+            <!-- Card 1: TOTAL PAYMENT LOG -->
+             <div class="bg-[#2c2f32] p-6 rounded-xl shadow-xl">
+                <p class="text-sm font-medium text-gray-400 mb-4">TOTAL KYC</p>
+                <div class="flex flex-col">
+                    <div class="flex items-baseline space-x-2">
+                        <span class="text-4xl font-bold">0</span>
+                        <span class="text-gray-400 text-base">From 23</span>
+                        <span class="percent-box green">
+                            <span class="font-mono text-sm">⎱</span> 3.81%
+                        </span>
+                    </div>
+                    <p class="text-sm font-medium text-gray-500 mt-0.5">&nbsp;</p> <!-- Placeholder for alignment -->
+                </div>
+            </div>
+
+            <!-- Card 2: PAYMENT SUCCESS -->
+            <div class="bg-[#2c2f32] p-6 rounded-xl shadow-xl">
+                <p class="text-sm font-medium text-gray-400 mb-4">PENDING KYC</p>
+                <div class="flex flex-col">
+                    <div class="flex items-baseline space-x-2">
+                        <span class="text-4xl font-bold">100</span>
+                        <span class="text-gray-400 text-base">From 203</span>
+                        <span class="percent-box green">
+                            <span class="font-mono text-sm">⎱</span> 3.81%
+                        </span>
+                    </div>
+                    <p class="text-sm font-medium text-gray-500 mt-0.5">&nbsp;</p> <!-- Placeholder for alignment -->
+                </div>
+            </div>
+            
+            <!-- Card 3: PENDING PAYMENT -->
+            <div class="bg-[#2c2f32] p-6 rounded-xl shadow-xl">
+                <p class="text-sm font-medium text-gray-400 mb-4">APRROVED KYC</p>
+                <div class="flex flex-col">
+                    <div class="flex items-baseline space-x-2">
+                        <span class="text-4xl font-bold">79</span>
+                        <span class="text-gray-400 text-base">From 2283</span>
+                        <span class="percent-box orange">
+                            <span class="font-mono text-sm">⎱</span> 3.46%
+                        </span>
+                    </div>
+                    <p class="text-sm font-medium text-gray-500 mt-0.5">&nbsp;</p> <!-- Placeholder for alignment -->
+                </div>
+            </div>
+
+            <!-- Card 4: CANCEL PAYMENT -->
+            <div class="bg-[#2c2f32] p-6 rounded-xl shadow-xl">
+                <p class="text-sm font-medium text-gray-400 mb-4">REJECTED KYC</p>
+                <div class="flex flex-col">
+                    <div class="flex items-baseline space-x-2">
+                        <span class="text-4xl font-bold">1</span>
+                        <span class="text-gray-400 text-base">From 27</span>
+                        <span class="percent-box pink">
+                            <span class="font-mono text-sm">⎱</span> 0.78%
+                        </span>
+                    </div>
+                    <p class="text-sm font-medium text-gray-500 mt-0.5">&nbsp;</p> <!-- Placeholder for alignment -->
+                </div>
+            </div>
+
+        </div>
+        <!-- End of Statistics Grid -->
+
+        <div class="max-w-7xl mx-auto">
+
+        <!-- Table Container (Responsive Scroll) -->
+        <div class="bg-[#2c2f32] rounded-xl shadow-2xl overflow-x-auto table-container">
+             <!-- Header and Search Bar -->
+        <div class="flex flex-col sm:flex-row justify-between items-center my-4 mx-4 gap-4">
+            <!-- Search Input -->
+            <div class="relative w-full sm:max-w-sm">
+                <input
+                    type="text"
+                    placeholder="Search users"
+                    id="search-input"
+                    class="w-full bg-[#2c2f32] border border-gray-700 text-dark-text rounded-lg py-3 pl-12 pr-4 focus:ring-hover-blue focus:border-hover-blue transition duration-150"
+                />
+                <!-- Search Icon (Magnifying Glass) -->
+                <svg class="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-dark-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+            </div>
+
+            <!-- Filter Button -->
+            <!-- ADDED onclick to toggle the modal -->
+            <button onclick="toggleFilterModal()" class="flex items-center gap-2 bg-[#2c2f32] border border-gray-700 text-dark-text font-medium rounded-lg py-3 px-6 hover:bg-dark-border transition duration-150 w-full sm:w-auto justify-center">
+                <!-- Filter Icon -->
+                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707v7l-4 2v-7a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+                </svg>
+                Filter
+            </button>
+        </div>
+            <table class="min-w-full">
+                <!-- Table Head -->
+                <thead class="bg-gray-600">
+                    <tr>
+                        <th scope="col" class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-dark-muted whitespace-nowrap">FULL NAME</th>
+                        <th scope="col" class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-dark-muted whitespace-nowrap">EMAIL-PHONE</th>
+                        <th scope="col" class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-dark-muted whitespace-nowrap">BALANCE</th>
+                        <th scope="col" class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-dark-muted whitespace-nowrap">INTEREST BALANCE</th>
+                        <th scope="col" scope="col" class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-dark-muted whitespace-nowrap">TOTAL DEPOSIT</th>
+                        <th scope="col" class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-dark-muted whitespace-nowrap">STATUS</th>
+                        <th scope="col" class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-dark-muted whitespace-nowrap">LAST LOGIN</th>
+                        <th scope="col" class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-dark-muted whitespace-nowrap">ACTION</th>
+                    </tr>
+                </thead>
+
+                <!-- Table Body -->
+                <tbody class="divide-y divide-dark-border">
+                    <!-- Row 1 -->
+                    <tr class="hover:bg-dark-border transition duration-150">
+                        <td class="table-cell px-6 py-4 whitespace-nowrap">
+                            <div class="flex items-center">
+                                <!-- Avatar -->
+                                <div class="w-8 h-8 rounded-full flex items-center justify-center bg-blue-600 text-xs font-bold mr-3">A</div>
+                                <div>
+                                    <div class="text-sm font-medium text-dark-text">Abel Morillo</div>
+                                    <div class="text-xs text-dark-muted">@TrodeX</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="table-cell px-6 py-4 whitespace-nowrap">
+                            <div class="text-sm font-medium text-dark-text">elminiviclox@gmail.com</div>
+                            <div class="text-xs text-dark-muted">809465953</div>
+                        </td>
+                        <td class="table-cell px-6 py-4 whitespace-nowrap text-sm text-dark-text">$10</td>
+                        <td class="table-cell px-6 py-4 whitespace-nowrap text-sm text-dark-text">$0</td>
+                        <td class="table-cell px-6 py-4 whitespace-nowrap text-sm text-dark-text">$0</td>
+                        <td class="table-cell px-6 py-4 whitespace-nowrap">
+                            <div class="flex items-center text-active-green text-sm">
+                                <div class="w-2 h-2 rounded-full bg-active-dot mr-2"></div>
+                                Active
+                            </div>
+                        </td>
+                        <td class="table-cell px-6 py-4 whitespace-nowrap text-sm text-dark-muted">6 hours ago</td>
+                        <td class="table-cell px-6 py-4 whitespace-nowrap">
+                            <a href="#" class="inline-flex items-center gap-1.5 text-hover-blue hover:text-blue-400 transition duration-150 font-medium group">
+                                <!-- Edit Icon (Pencil) -->
+                                <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                                </svg>
+                                <span class="group-hover:underline">Edit</span>
+                            </a>
+                        </td>
+                    </tr>
+
+                    <!-- Row 2 -->
+                    <tr class="hover:bg-dark-border transition duration-150">
+                        <td class="table-cell px-6 py-4 whitespace-nowrap">
+                            <div class="flex items-center">
+                                <!-- Avatar -->
+                                <div class="w-8 h-8 rounded-full flex items-center justify-center bg-teal-600 text-xs font-bold mr-3">T</div>
+                                <div>
+                                    <div class="text-sm font-medium text-dark-text">TANYl nyenty Williams</div>
+                                    <div class="text-xs text-dark-muted">@Williamswise4</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="table-cell px-6 py-4 whitespace-nowrap">
+                            <div class="text-sm font-medium text-dark-text">lancermiller6@gmail.com</div>
+                            <div class="text-xs text-dark-muted">658102798</div>
+                        </td>
+                        <td class="table-cell px-6 py-4 whitespace-nowrap text-sm text-dark-text">$10</td>
+                        <td class="table-cell px-6 py-4 whitespace-nowrap text-sm text-dark-text">$0</td>
+                        <td class="table-cell px-6 py-4 whitespace-nowrap text-sm text-dark-text">$0</td>
+                        <td class="table-cell px-6 py-4 whitespace-nowrap">
+                            <div class="flex items-center text-active-green text-sm">
+                                <div class="w-2 h-2 rounded-full bg-active-dot mr-2"></div>
+                                Active
+                            </div>
+                        </td>
+                        <td class="table-cell px-6 py-4 whitespace-nowrap text-sm text-dark-muted">2 days ago</td>
+                        <td class="table-cell px-6 py-4 whitespace-nowrap">
+                            <a href="#" class="inline-flex items-center gap-1.5 text-hover-blue hover:text-blue-400 transition duration-150 font-medium group">
+                                <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                                </svg>
+                                <span class="group-hover:underline">Edit</span>
+                            </a>
+                        </td>
+                    </tr>
+
+                    <!-- Row 3 -->
+                    <tr class="hover:bg-dark-border transition duration-150">
+                        <td class="table-cell px-6 py-4 whitespace-nowrap">
+                            <div class="flex items-center">
+                                <!-- Avatar -->
+                                <div class="w-8 h-8 rounded-full flex items-center justify-center bg-indigo-600 text-xs font-bold mr-3">S</div>
+                                <div>
+                                    <div class="text-sm font-medium text-dark-text">Samir M. Badescu</div>
+                                    <div class="text-xs text-dark-muted">@MLKSamir</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="table-cell px-6 py-4 whitespace-nowrap">
+                            <div class="text-sm font-medium text-dark-text">samirmbadescu27@gmail.com</div>
+                            <div class="text-xs text-dark-muted">743473495</div>
+                        </td>
+                        <td class="table-cell px-6 py-4 whitespace-nowrap text-sm text-dark-text">$0</td>
+                        <td class="table-cell px-6 py-4 whitespace-nowrap text-sm text-dark-text">$0</td>
+                        <td class="table-cell px-6 py-4 whitespace-nowrap text-sm text-dark-text">$0</td>
+                        <td class="table-cell px-6 py-4 whitespace-nowrap">
+                            <div class="flex items-center text-active-green text-sm">
+                                <div class="w-2 h-2 rounded-full bg-active-dot mr-2"></div>
+                                Active
+                            </div>
+                        </td>
+                        <td class="table-cell px-6 py-4 whitespace-nowrap text-sm text-dark-muted">1 hour ago</td>
+                        <td class="table-cell px-6 py-4 whitespace-nowrap">
+                            <a href="#" class="inline-flex items-center gap-1.5 text-hover-blue hover:text-blue-400 transition duration-150 font-medium group">
+                                <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                                </svg>
+                                <span class="group-hover:underline">Edit</span>
+                            </a>
+                        </td>
+                    </tr>
+
+                    <!-- Row 4 -->
+                    <tr class="hover:bg-dark-border transition duration-150">
+                        <td class="table-cell px-6 py-4 whitespace-nowrap">
+                            <div class="flex items-center">
+                                <!-- Avatar -->
+                                <div class="w-8 h-8 rounded-full flex items-center justify-center bg-yellow-600 text-xs font-bold mr-3">U</div>
+                                <div>
+                                    <div class="text-sm font-medium text-dark-text">umesh kumar</div>
+                                    <div class="text-xs text-dark-muted">@umeshkumarrpp</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="table-cell px-6 py-4 whitespace-nowrap">
+                            <div class="text-sm font-medium text-dark-text">umeshkumarhatak@gmail.com</div>
+                            <div class="text-xs text-dark-muted">+919813675129</div>
+                        </td>
+                        <td class="table-cell px-6 py-4 whitespace-nowrap text-sm text-dark-text">$0</td>
+                        <td class="table-cell px-6 py-4 whitespace-nowrap text-sm text-dark-text">$0</td>
+                        <td class="table-cell px-6 py-4 whitespace-nowrap text-sm text-dark-text">$0</td>
+                        <td class="table-cell px-6 py-4 whitespace-nowrap">
+                            <div class="flex items-center text-active-green text-sm">
+                                <div class="w-2 h-2 rounded-full bg-active-dot mr-2"></div>
+                                Active
+                            </div>
+                        </td>
+                        <td class="table-cell px-6 py-4 whitespace-nowrap text-sm text-dark-muted">1 month ago</td>
+                        <td class="table-cell px-6 py-4 whitespace-nowrap">
+                            <a href="#" class="inline-flex items-center gap-1.5 text-hover-blue hover:text-blue-400 transition duration-150 font-medium group">
+                                <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                                </svg>
+                                <span class="group-hover:underline">Edit</span>
+                            </a>
+                        </td>
+                    </tr>
+
+                    <!-- Row 5 -->
+                    <tr class="hover:bg-dark-border transition duration-150">
+                        <td class="table-cell px-6 py-4 whitespace-nowrap">
+                            <div class="flex items-center">
+                                <!-- Avatar -->
+                                <div class="w-8 h-8 rounded-full flex items-center justify-center bg-purple-600 text-xs font-bold mr-3">P</div>
+                                <div>
+                                    <div class="text-sm font-medium text-dark-text">PNG MONERO</div>
+                                    <div class="text-xs text-dark-muted">@PNG237</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="table-cell px-6 py-4 whitespace-nowrap">
+                            <div class="text-sm font-medium text-dark-text">violatucker34@gmail.com</div>
+                            <div class="text-xs text-dark-muted">874455868</div>
+                        </td>
+                        <td class="table-cell px-6 py-4 whitespace-nowrap text-sm text-dark-text">$10</td>
+                        <td class="table-cell px-6 py-4 whitespace-nowrap text-sm text-dark-text">$0</td>
+                        <td class="table-cell px-6 py-4 whitespace-nowrap text-sm text-dark-text">$0</td>
+                        <td class="table-cell px-6 py-4 whitespace-nowrap">
+                            <div class="flex items-center text-active-green text-sm">
+                                <div class="w-2 h-2 rounded-full bg-active-dot mr-2"></div>
+                                Active
+                            </div>
+                        </td>
+                        <td class="table-cell px-6 py-4 whitespace-nowrap text-sm text-dark-muted">3 minutes ago</td>
+                        <td class="table-cell px-6 py-4 whitespace-nowrap">
+                            <a href="#" class="inline-flex items-center gap-1.5 text-hover-blue hover:text-blue-400 transition duration-150 font-medium group">
+                                <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                                </svg>
+                                <span class="group-hover:underline">Edit</span>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="py-4 px-6 flex flex-col sm:flex-row justify-between items-center text-dark-muted text-sm bg-[#2c2f32]">
+            <!-- Showing Entries -->
+            <div class="flex items-center mb-4 sm:mb-0">
+                <span>Showing:</span>
+                <select class="bg-dark-card border border-dark-border rounded-lg mx-2 py-1.5 px-3 text-dark-text focus:ring-hover-blue focus:border-hover-blue appearance-none cursor-pointer">
+                    <option>5</option>
+                    <option>10</option>
+                    <option>25</option>
+                </select>
+                <span>of 4393</span>
+            </div>
+
+            <!-- Pagination Controls -->
+            <div class="flex items-center space-x-1">
+                <button class="px-3 py-1.5 rounded-lg text-dark-muted hover:bg-dark-border transition duration-150" disabled>
+                    Prev
+                </button>
+                
+                <!-- Page 1 (Active) -->
+                <button class="px-3 py-1.5 rounded-lg bg-hover-blue text-white font-semibold transition duration-150">
+                    1
+                </button>
+                
+                <!-- Page 2 -->
+                <button class="px-3 py-1.5 rounded-lg text-dark-text hover:bg-dark-border transition duration-150">
+                    2
+                </button>
+                
+                <!-- Page 3 -->
+                <button class="px-3 py-1.5 rounded-lg text-dark-text hover:bg-dark-border transition duration-150">
+                    3
+                </button>
+
+                <!-- Ellipsis -->
+                <span class="px-3 py-1.5">...</span>
+
+                <!-- Last Page -->
+                <button class="px-3 py-1.5 rounded-lg text-dark-text hover:bg-dark-border transition duration-150">
+                    293
+                </button>
+
+                <button class="px-3 py-1.5 rounded-lg text-dark-muted hover:bg-dark-border transition duration-150">
+                    Next
+                </button>
+            </div>
+        </div>
+        </div>
+
+        <!-- Pagination Section -->
+        
+    </div>
+
+    <!-- START: Filter Modal Section -->
+
+    <!-- Modal Background Overlay (Initially hidden) -->
+    <div id="filter-modal-overlay" class="fixed inset-0 backdrop-blur z-40 hidden opacity-0 transition-opacity duration-300" onclick="toggleFilterModal()"></div>
+
+    <!-- Filter Modal Card (Initially hidden and scaled down) -->
+    <div id="filter-modal" class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-sm mx-4 sm:max-w-md bg-[#2c2f32] rounded-xl shadow-2xl z-50 p-6 hidden opacity-0 scale-90 transition-all duration-300">
+        <!-- Modal Header -->
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="text-xl font-semibold text-dark-text">Filter users</h2>
+            <!-- Close Button (X) -->
+            <button onclick="toggleFilterModal()" class="text-dark-muted hover:text-dark-text transition duration-150 p-1">
+                <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+
+        <!-- Filter Form Content -->
+        <form id="filter-form" class="space-y-6">
+            <!-- USER STATUS -->
+            <div>
+                <label for="user-status" class="block text-xs font-semibold uppercase mb-2 text-dark-muted">USER STATUS</label>
+                <div class="relative">
+                    <select id="user-status" class="w-full bg-[#2c2f32] border border-dark-border text-dark-text rounded-lg py-2.5 px-4 pr-10 appearance-none focus:ring-hover-blue focus:border-hover-blue cursor-pointer">
+                        <option value="all">All Status</option>
+                        <option value="active">Active</option>
+                        <option value="inactive">Inactive</option>
+                        <option value="pending">Pending</option>
+                    </select>
+                    <!-- Custom Arrow Icon for Select -->
+                    <svg class="absolute right-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-dark-muted pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Verification Checkboxes -->
+            <div class="space-y-3">
+                <!-- Email Verification -->
+                <div class="flex items-center justify-between">
+                    <label for="email-verified" class="text-dark-text text-sm">EMAIL VERIFICATION</label>
+                    <input type="checkbox" id="email-verified" name="email-verified" class="custom-checkbox">
+                </div>
+                <!-- SMS Verification -->
+                <div class="flex items-center justify-between">
+                    <label for="sms-verified" class="text-dark-text text-sm">SMS VERIFICATION</label>
+                    <input type="checkbox" id="sms-verified" name="sms-verified" class="custom-checkbox">
+                </div>
+                <!-- 2FA Security -->
+                <div class="flex items-center justify-between">
+                    <label for="2fa-security" class="text-dark-text text-sm">2FA SECURITY</label>
+                    <input type="checkbox" id="2fa-security" name="2fa-security" class="custom-checkbox">
+                </div>
+            </div>
+
+            <!-- Name Input -->
+            <div>
+                <label for="filter-name" class="block text-xs font-semibold uppercase mb-2 text-dark-muted">NAME</label>
+                <input
+                    type="text"
+                    id="filter-name"
+                    name="filter-name"
+                    placeholder="Enter name"
+                    class="w-full bg-[#2c2f32] border border-dark-border text-dark-text rounded-lg py-2.5 px-4 focus:ring-hover-blue focus:border-hover-blue transition duration-150"
+                />
+            </div>
+
+            <!-- Apply Button -->
+            <div class="pt-2">
+                <button type="submit" class="w-full bg-hover-blue text-white font-bold py-3 rounded-lg hover:bg-blue-600 transition duration-150 shadow-lg">
+                    Apply
+                </button>
+            </div>
+        </form>
+    </div>
+
+            </div>
+          </main>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("componentsLoaded", () => {
+        const hamburgerBtn = document.getElementById("hamburgerBtn");
+        const sidebarContainer = document.getElementById("sidebar-container");
+
+        hamburgerBtn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          sidebarContainer.classList.toggle("hidden");
+        });
+      });
+    </script>
+    <script src="./js/include.js"></script>
+    <script src="./js/admin.js"></script>
+    <script>
+      const avatarBtn = document.getElementById("avatarBtn");
+      const dropdown = document.getElementById("dropdownMenu");
+
+      // Toggle on click
+      avatarBtn.addEventListener("click", () => {
+        dropdown.classList.toggle("hidden");
+      });
+
+      // Close when clicking outside
+      document.addEventListener("click", (e) => {
+        if (!avatarBtn.contains(e.target) && !dropdown.contains(e.target)) {
+          dropdown.classList.add("hidden");
+        }
+      });
+    </script>
+    <script>
+        // Custom Tailwind Configuration to define CSS variables for use in <style>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'dark-bg': '#1e1e1e',
+                        'dark-card': '#282c34',
+                        'dark-border': '#3a3a3a',
+                        'dark-text': '#f0f0f0',
+                        'dark-muted': '#a0a0a0',
+                        'active-green': '#10b981',
+                        'active-dot': '#059669',
+                        'hover-blue': '#3b82f6',
+                    },
+                }
+            }
+        }
+        
+        // Define CSS variables for custom styling (like checkboxes)
+        document.documentElement.style.setProperty('--tw-dark-bg', '#1e1e1e');
+        document.documentElement.style.setProperty('--tw-dark-border', '#3a3a3a');
+        document.documentElement.style.setProperty('--tw-hover-blue', '#3b82f6');
+
+
+        // --- JAVASCRIPT FOR MODAL AND SIMULATED FILTERING ---
+        const filterModal = document.getElementById('filter-modal');
+        const filterOverlay = document.getElementById('filter-modal-overlay');
+        const filterForm = document.getElementById('filter-form');
+
+        /**
+         * Toggles the visibility of the filter modal using Tailwind transition classes.
+         */
+        function toggleFilterModal() {
+            const isHidden = filterModal.classList.contains('hidden');
+
+            if (isHidden) {
+                // Show modal: remove 'hidden' immediately, then transition opacity/scale
+                filterOverlay.classList.remove('hidden');
+                filterModal.classList.remove('hidden');
+
+                setTimeout(() => {
+                    filterOverlay.classList.remove('opacity-0');
+                    filterModal.classList.remove('scale-90', 'opacity-0');
+                }, 10);
+            } else {
+                // Hide modal: transition opacity/scale first, then add 'hidden'
+                filterOverlay.classList.add('opacity-0');
+                filterModal.classList.add('scale-90', 'opacity-0');
+
+                setTimeout(() => {
+                    filterOverlay.classList.add('hidden');
+                    filterModal.classList.add('hidden');
+                }, 300); // 300ms matches the transition duration in CSS
+            }
+        }
+
+        /**
+         * Simulates filtering logic when the Apply button is clicked.
+         * @param {Event} event - The form submission event.
+         */
+        filterForm.addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            // --- Collect Filter Data ---
+            const status = document.getElementById('user-status').value;
+            const name = document.getElementById('filter-name').value;
+            const emailVerified = document.getElementById('email-verified').checked;
+            const smsVerified = document.getElementById('sms-verified').checked;
+            const twoFaSecurity = document.getElementById('2fa-security').checked;
+
+            console.log('--- Applying Filter (Simulation) ---');
+            console.log('Status:', status);
+            console.log('Name:', name);
+            console.log('Email Verified:', emailVerified);
+            console.log('SMS Verified:', smsVerified);
+            console.log('2FA Security:', twoFaSecurity);
+            
+            // In a real application, you would now send this data to your server
+            // to fetch the filtered list of users and update the table rows.
+
+            // Since this is static HTML, we just close the modal.
+            toggleFilterModal();
+        });
+
+    </script>
+  </body>
+</html>
