@@ -48,7 +48,64 @@
         <div data-include="components/sidebar.html"></div>
       </div>
       <!-- TOP BAR -->
-      <header class="fixed top-0 left-0 lg:left-64 right-0 z-40 w-full bg-[#2c2f32] py-3 px-4 pt-4 flex items-center justify-between shadow">
+      <!-- <header class="fixed top-0 left-0 lg:left-64 right-0 z-40 w-full bg-[#2c2f32] py-3 px-4 pt-4 flex items-center justify-between shadow">
+    <div class="flex items-center space-x-4 flex-1">
+
+      <div class="flex items-center space-x-2 lg:hidden">
+        <button id="hamburgerBtn" class="text-white p-2 hover:bg-gray-700 rounded">
+          <i class="fas fa-bars"></i>
+        </button>
+        <div class="text-xl font-bold text-red-500">MLM</div>
+      </div>
+
+
+      <div class="flex items-center flex-1 max-w-xl rounded-full px-4 py-2 space-x-3 shadow-lg">
+        <i class="fas fa-search text-gray-400"></i>
+        <input type="text" placeholder="Search for a menu"
+          class="bg-transparent w-full focus:outline-none text-gray-300 placeholder-gray-400">
+      </div>
+    </div>
+
+
+    <div class="relative ml-4">
+
+
+      <button id="avatarBtn" class="w-10 h-10 z-50">
+        <img src="https://i.pravatar.cc/80" class="w-10 h-10 rounded-full border border-gray-700 cursor-pointer" />
+      </button>
+
+
+      <div id="dropdownMenu"
+        class="hidden fixed top-16 right-4 w-56 bg-gray-800 rounded-xl shadow-xl border border-gray-700 z-50">
+
+        <div class="px-4 py-3 flex items-center gap-4">
+          <div>
+            <img src="https://i.pravatar.cc/80" class="w-10 h-10 rounded-full border border-gray-700 cursor-pointer" />
+          </div>
+          <div>
+            <p class="text-sm font-semibold">admin</p>
+          <p class="text-xs text-gray-400">admin@gmail.com</p>
+          </div>
+        </div>
+
+
+        <ul class="py-2">
+          <li>
+            <a href="#"
+              class="block px-4 py-2 text-sm hover:bg-gray-700 transition">Profile & account</a>
+          </li>
+          <li>
+            <a href="#"
+              class="block px-4 py-2 text-sm hover:bg-gray-700 transition">Sign out</a>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </header> -->
+
+  <header class="fixed top-0 left-0 lg:left-64 right-0 z-50 bg-[#2c2f32] py-3 px-4 pt-4 flex items-center justify-between shadow">
+
     <div class="flex items-center space-x-4 flex-1">
       <!-- HAMBURGER AND MLM - visible below desktop -->
       <div class="flex items-center space-x-2 lg:hidden">
@@ -66,44 +123,34 @@
       </div>
     </div>
 
-    <!-- RIGHT SIDE -->
-    <div class="relative ml-4">
+  <div class="relative ml-4">
+    <!-- AVATAR BUTTON -->
+    <button id="avatarBtn" class="w-10 h-10 relative z-50">
+      <img src="https://i.pravatar.cc/80" class="w-10 h-10 rounded-full border border-gray-700 cursor-pointer" />
+    </button>
 
-      <!-- AVATAR BUTTON -->
-      <button id="avatarBtn">
-        <img src="https://i.pravatar.cc/80" class="w-10 h-10 rounded-full border border-gray-700 cursor-pointer" />
-      </button>
-
-      <!-- DROPDOWN -->
-      <div id="dropdownMenu"
-        class="hidden absolute right-0 mt-3 w-56 bg-gray-800 rounded-xl shadow-xl border border-gray-700 z-50">
-
-        <!-- PROFILE INFO -->
-        <div class="px-4 py-3 flex items-center gap-4">
-          <div>
-            <img src="https://i.pravatar.cc/80" class="w-10 h-10 rounded-full border border-gray-700 cursor-pointer" />
-          </div>
-          <div>
-            <p class="text-sm font-semibold">admin</p>
-          <p class="text-xs text-gray-400">admin@gmail.com</p>
-          </div>
+    <!-- DROPDOWN (absolute relative to header) -->
+    <div id="dropdownMenu"
+         class="hidden bg-[#2c2f32] absolute mt-2 right-4 w-56 rounded-xl shadow-xl border border-gray-700 z-50">
+      <!-- PROFILE INFO -->
+      <div class="px-4 py-3 flex items-center gap-4">
+        <div>
+          <img src="https://i.pravatar.cc/80" class="w-10 h-10 rounded-full border border-gray-700 cursor-pointer" />
         </div>
-
-        <!-- MENU ITEMS -->
-        <ul class="py-2">
-          <li>
-            <a href="#"
-              class="block px-4 py-2 text-sm hover:bg-gray-700 transition">Profile & account</a>
-          </li>
-          <li>
-            <a href="#"
-              class="block px-4 py-2 text-sm hover:bg-gray-700 transition">Sign out</a>
-          </li>
-        </ul>
+        <div>
+          <p class="text-sm text-white font-semibold">admin</p>
+          <p class="text-xs  text-gray-300">admin@gmail.com</p>
+        </div>
       </div>
 
+      <!-- MENU ITEMS -->
+      <ul class="py-2">
+        <li><a href="#" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 transition">Profile & account</a></li>
+        <li><a href="#" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 transition">Sign out</a></li>
+      </ul>
     </div>
-  </header>
+  </div>
+</header>
 
       <div id="main-content" class="overflow-y-auto bg-[#2c2f32] text-white transition-all duration-300 ease-in-out">
         <!-- DASHBOARD MAIN CONTENT -->
@@ -1102,21 +1149,35 @@
     <script src="./js/include.js"></script>
     <script src="./js/admin.js"></script>
       <script>
-    const avatarBtn = document.getElementById("avatarBtn");
-    const dropdown = document.getElementById("dropdownMenu");
-
-    // Toggle on click
-    avatarBtn.addEventListener("click", () => {
-      dropdown.classList.toggle("hidden");
-    });
-
-    // Close when clicking outside
-    document.addEventListener("click", (e) => {
-      if (!avatarBtn.contains(e.target) && !dropdown.contains(e.target)) {
-        dropdown.classList.add("hidden");
-      }
-    });
-  </script>
+       const avatarBtn = document.getElementById("avatarBtn");
+       const dropdown = document.getElementById("dropdownMenu");
+   
+       // Debug logs
+       console.log('avatarBtn:', avatarBtn);
+       if (avatarBtn) {
+         console.log('avatarBtn style.display:', avatarBtn.style.display);
+         console.log('avatarBtn computed display:', getComputedStyle(avatarBtn).display);
+         console.log('avatarBtn visibility:', getComputedStyle(avatarBtn).visibility);
+         console.log('avatarBtn opacity:', getComputedStyle(avatarBtn).opacity);
+         console.log('avatarBtn parent:', avatarBtn.parentElement);
+         console.log('parent overflow:', getComputedStyle(avatarBtn.parentElement).overflow);
+         console.log('parent position:', getComputedStyle(avatarBtn.parentElement).position);
+         console.log('header:', document.querySelector('header'));
+         console.log('header display:', getComputedStyle(document.querySelector('header')).display);
+       }
+   
+       // Toggle on click
+       avatarBtn.addEventListener("click", () => {
+         dropdown.classList.toggle("hidden");
+       });
+   
+       // Close when clicking outside
+       document.addEventListener("click", (e) => {
+         if (!avatarBtn.contains(e.target) && !dropdown.contains(e.target)) {
+           dropdown.classList.add("hidden");
+         }
+       });
+     </script>
 <script>
         tailwind.config = {
             theme: {
