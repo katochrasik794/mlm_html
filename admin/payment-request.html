@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+  <head class="">
+    <meta charset="utf-8" class="" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1"
+      class=""
+    />
+    <title class="">Plan List - Admin</title>
+    <link rel="stylesheet" href="/mlm_html//admin//style.css" />
+    <script src="https://cdn.tailwindcss.com" class=""></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+      .custom-scrollbar::-webkit-scrollbar {
+        height: 8px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background-color: #374151; /* Gray-700 */
+        border-radius: 4px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-track {
+        background-color: #1f2937; /* Gray-800 */
+      }
+      .row-hover:hover {
+            background-color: #333333;
+        }
+        .pagination-btn {
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            transition: background-color 0.15s, color 0.15s;
+        }
+        .pagination-btn.active {
+            background-color: #3b82f6; /* Blue-500 */
+            color: white;
+            font-weight: 600;
+        }
+        .text-green-amount { color: #2ecc71; } /* Slightly more vibrant green */
+        .text-red-amount { color: #e74c3c; } /* Vibrant red */
+        
+        .status-successful {
+            background-color: rgba(46, 204, 113, 0.15); 
+            color: #2ecc71; 
+        }
+        .status-pending {
+            background-color: rgba(243, 156, 18, 0.15); 
+            color: #f39c12; 
+        }
+        .status-cancel {
+            background-color: rgba(231, 76, 60, 0.15); 
+            color: #e74c3c; 
+        }
+    </style>
+  </head>
+  <body class="">
+    <!-- SIDEBAR (included dynamically) & MAIN CONTENT FLEX LAYOUT -->
+    <div class="flex h-screen">
+      <div id="sidebar-container" class="relative hidden lg:block">
+        <div data-include="components/sidebar.html"></div>
+      </div>
+      <!-- TOP BAR -->
+      <header class="fixed top-0 left-0 lg:left-64 right-0 z-40 w-full bg-[#2c2f32] py-3 px-4 flex items-center justify-between shadow">
+        <div class="flex items-center space-x-4 flex-1">
+          <!-- HAMBURGER AND MLM - visible below desktop -->
+          <div class="flex items-center space-x-2 lg:hidden">
+            <button
+              id="hamburgerBtn"
+              class="text-white p-2 hover:bg-gray-700 rounded"
+            >
+              <i class="fas fa-bars"></i>
+            </button>
+            <div class="text-xl font-bold text-red-500">MLM</div>
+          </div>
+
+          <!-- SEARCH -->
+          <div
+            class="flex items-center flex-1 max-w-xl rounded-full px-4 py-2 space-x-3 shadow-lg"
+          >
+            <i class="fas fa-search text-gray-400"></i>
+            <input
+              type="text"
+              placeholder="Search for a menu"
+              class="bg-transparent w-full focus:outline-none text-gray-300 placeholder-gray-400"
+            />
+          </div>
+        </div>
+
+        <!-- RIGHT SIDE -->
+        <div class="relative ml-4">
+          <!-- AVATAR BUTTON -->
+          <button id="avatarBtn">
+            <img
+              src="https://i.pravatar.cc/80"
+              class="w-10 h-10 rounded-full border border-gray-700 cursor-pointer"
+            />
+          </button>
+
+          <!-- DROPDOWN -->
+          <div
+            id="dropdownMenu"
+            class="hidden absolute right-0 mt-3 w-56 bg-gray-800 rounded-xl shadow-xl border border-gray-700 z-50"
+          >
+            <!-- PROFILE INFO -->
+            <div class="px-4 py-3 flex items-center gap-4">
+              <div>
+                <img
+                  src="https://i.pravatar.cc/80"
+                  class="w-10 h-10 rounded-full border border-gray-700 cursor-pointer"
+                />
+              </div>
+              <div>
+                <p class="text-sm font-semibold">admin</p>
+                <p class="text-xs text-gray-400">admin@gmail.com</p>
+              </div>
+            </div>
+
+            <!-- MENU ITEMS -->
+            <ul class="py-2">
+              <li>
+                <a
+                  href="#"
+                  class="block px-4 py-2 text-sm hover:bg-gray-700 transition"
+                  >Profile & account</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="block px-4 py-2 text-sm hover:bg-gray-700 transition"
+                  >Sign out</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div
+        id="main-content"
+        class="overflow-y-auto bg-[#2c2f32] text-white transition-all duration-300 ease-in-out"
+      >
+        <!-- DASHBOARD MAIN CONTENT -->
+
+        <div
+          id="main-content-wrapper"
+          class="fixed top-16 left-0 lg:left-64 right-0 bottom-0 overflow-y-auto overflow-x-hidden flex flex-col transition-all duration-300 ease-in-out"
+        >
+          <main class="bg-[#1e2022] mx-auto w-full text-white">
+
+            <div class="p-4 sm:p-6 min-h-screen">
+              <div class="mb-6 border-b border-gray-700">
+                <div class="flex items-end">
+                  <div class="flex-1 mb-2 sm:mb-0">
+                    <nav aria-label="breadcrumb">
+                      <ol class="flex items-center text-sm text-gray-500">
+                        <li class="flex items-center">
+                          <a
+                            class="text-gray-400 hover:text-gray-700"
+                            href="javascript:void(0);"
+                            >Dashboard</a
+                          >
+                          <span class="mx-2">/</span>
+                        </li>
+                        <li class="text-white font-medium" aria-current="page">
+                          Payment Request
+                        </li>
+                      </ol>
+                    </nav>
+                    <h1 class="text-2xl font-bold text-white mt-2 mb-10">
+                      Payment Request
+                    </h1>
+                  </div>
+                </div>
+              </div>
+              <div class="main-card rounded-xl shadow-2xl p-6">
+            
+            <!-- Search and Filter Bar -->
+            <div class="flex flex-col sm:flex-row items-center justify-between space-y-4 sm:space-y-0 sm:space-x-4 pb-6">
+                <div class="relative w-full sm:w-80">
+                    <i class="fa fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500"></i>
+                    <input type="text" placeholder="Search here" id="searchInput" oninput="applyFilters()" class="w-full bg-[#1e1e1e] border border-[#3a3a3a] text-gray-300 rounded-lg py-2 pl-12 pr-4 focus:ring-blue-500 focus:border-blue-500" />
+                </div>
+                <button id="filterBtn" onclick="toggleModal('filterModal', true)" class="bg-gray-700 text-gray-300 hover:bg-gray-600 px-4 py-2 rounded-lg transition duration-150 flex items-center space-x-2">
+                    <i class="fa-solid fa-filter"></i>
+                    <span>Filter</span>
+                </button>
+            </div>
+              <div class="overflow-x-auto rounded-lg shadow-lg">
+                <table class="min-w-full divide-y divide-gray-700">
+                    <thead class="table-header text-xs uppercase tracking-wider text-gray-400 sticky top-0">
+                        <tr>
+                            <th class="px-4 py-3 text-left">Transaction ID</th>
+                            <th class="px-4 py-3 text-left">Name</th>
+                            <th class="px-4 py-3 text-left">Method</th>
+                            <th class="px-4 py-3 text-right">Amount</th>
+                            <th class="px-4 py-3 text-right">Charge</th>
+                            <th class="px-4 py-3 text-right">Payable Amount</th>
+                            <th class="px-4 py-3 text-center">Status</th>
+                            <th class="px-4 py-3 text-left">Date</th>
+                            <th class="px-4 py-3 text-center">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="transactionTableBody" class="divide-y divide-gray-800 text-sm">
+                        <!-- Data rows will be injected here by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Pagination Controls -->
+            <div id="paginationContainer" class="flex flex-col sm:flex-row items-center justify-between pt-4 text-sm text-gray-400">
+                <!-- Pagination Info and buttons will be inserted here by JavaScript -->
+            </div>
+        </div>
+
+    </div>
+    
+    <!-- MODALS SECTION -->
+    
+    <!-- 1. Filter Modal -->
+    <div id="filterModal" class="fixed inset-0 z-50 hidden items-center justify-center modal-bg transition-opacity duration-300">
+        <div class="modal-card w-full max-w-sm p-6 rounded-xl shadow-2xl transition-transform duration-300 transform scale-95 opacity-0">
+            <div class="flex justify-between items-center pb-3 border-b border-gray-700">
+                <h3 class="text-xl font-semibold text-white">Filter</h3>
+                <button onclick="toggleModal('filterModal', false)" class="text-gray-400 hover:text-white transition duration-150">
+                    <i class="fa-solid fa-xmark text-xl"></i>
+                </button>
+            </div>
+            <div class="mt-4 space-y-4">
+                <div>
+                    <label class="block text-gray-400 text-sm font-medium mb-1">TRANSACTION ID</label>
+                    <input type="text" id="filterTrxId" class="w-full bg-[#1e1e1e] border border-[#3a3a3a] text-gray-300 rounded-lg p-2.5 focus:ring-blue-500 focus:border-blue-500" placeholder="e.g. D132418743811">
+                </div>
+                <div>
+                    <label class="block text-gray-400 text-sm font-medium mb-1">DATE RANGE</label>
+                    <div class="flex space-x-2">
+                         <input type="date" id="filterStartDate" class="w-full bg-[#1e1e1e] border border-[#3a3a3a] text-gray-300 rounded-lg p-2.5 focus:ring-blue-500 focus:border-blue-500" title="Start Date">
+                         <input type="date" id="filterEndDate" class="w-full bg-[#1e1e1e] border border-[#3a3a3a] text-gray-300 rounded-lg p-2.5 focus:ring-blue-500 focus:border-blue-500" title="End Date">
+                    </div>
+                </div>
+            </div>
+            <div class="flex justify-between space-x-3 mt-6">
+                <button onclick="clearFilters()" class="text-white bg-gray-600 hover:bg-gray-500 px-4 py-2 rounded-lg transition duration-150">
+                    Clear Filters
+                </button>
+                <button onclick="applyFilters()" class="bg-blue-600 text-white hover:bg-blue-700 px-6 py-2 rounded-lg transition duration-150 flex items-center space-x-2">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <span>Apply</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 2. Payment Information (Edit) Modal -->
+    <div id="editModal" class="fixed inset-0 z-50 hidden items-center justify-center modal-bg transition-opacity duration-300">
+        <div class="modal-card w-full max-w-lg p-6 rounded-xl shadow-2xl transition-transform duration-300 transform scale-95 opacity-0">
+            <div class="flex justify-between items-center pb-4 border-b border-gray-700">
+                <h3 class="text-xl font-bold text-white">Payment Information</h3>
+                <button onclick="toggleModal('editModal', false)" class="text-gray-400 hover:text-white transition duration-150">
+                    <i class="fa-solid fa-xmark text-xl"></i>
+                </button>
+            </div>
+
+            <!-- Header Info -->
+            <div id="modalHeaderInfo" class="grid grid-cols-3 gap-y-4 gap-x-6 text-sm mt-4 border-b border-gray-700 pb-4">
+                <!-- Info will be dynamically loaded here -->
+            </div>
+            
+            <!-- Summary Details -->
+            <div class="mt-4">
+                <h4 class="text-sm font-semibold text-gray-400 uppercase mb-3">SUMMARY</h4>
+                <div id="modalSummary" class="space-y-3 text-white">
+                    <!-- Summary data will be dynamically loaded here -->
+                </div>
+            </div>
+
+            <!-- Feedback Section -->
+            <div class="mt-6">
+                <h4 class="text-sm font-semibold text-gray-400 uppercase mb-3">SEND YOUR FEEDBACK</h4>
+                <textarea class="w-full bg-[#1e1e1e] border border-[#3a3a3a] text-gray-300 rounded-lg p-3 h-24 focus:ring-blue-500 focus:border-blue-500" placeholder="Feedback"></textarea>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex justify-end space-x-3 pt-6 border-t border-gray-700 mt-6">
+                <button onclick="toggleModal('editModal', false)" class="bg-gray-700 text-white hover:bg-gray-600 px-4 py-2 rounded-lg transition duration-150">
+                    Close
+                </button>
+                <button onclick="alertCustom('Transaction Approved!')" class="bg-green-500 text-white hover:bg-green-600 px-4 py-2 rounded-lg transition duration-150 font-semibold">
+                    Approved
+                </button>
+                <button onclick="alertCustom('Transaction Rejected!')" class="bg-red-500 text-white hover:bg-red-600 px-4 py-2 rounded-lg transition duration-150 font-semibold">
+                    Rejected
+                </button>
+            </div>
+        </div>
+          </main>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("componentsLoaded", () => {
+        const hamburgerBtn = document.getElementById("hamburgerBtn");
+        const sidebarContainer = document.getElementById("sidebar-container");
+
+        hamburgerBtn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          sidebarContainer.classList.toggle("hidden");
+        });
+      });
+    </script>
+    <script src="./js/include.js"></script>
+    <script src="./js/admin.js"></script>
+    <script>
+      const avatarBtn = document.getElementById("avatarBtn");
+      const dropdown = document.getElementById("dropdownMenu");
+
+      // Toggle on click
+      avatarBtn.addEventListener("click", () => {
+        dropdown.classList.toggle("hidden");
+      });
+
+      // Close when clicking outside
+      document.addEventListener("click", (e) => {
+        if (!avatarBtn.contains(e.target) && !dropdown.contains(e.target)) {
+          dropdown.classList.add("hidden");
+        }
+      });
+    </script>
+<script>
+        // --- Dummy Data ---
+        // Simulating data across 3 pages (15 entries total)
+        const allTransactions = [
+            { id: 'D132418743811', name: 'MOSHARAF HOSSAIN', username: '@demouser', method: 'Stripe', methodIcon: 'fa-brands fa-stripe-s', amount: '500', charge: '3', payable: '500.00', status: 'Successful', date: '08 Nov 2025', methodDetails: { AccountNumber: '2542452542', BeneficiaryName: 'ngfbbgfbgfb', Address: 'gfbjfdfgf', NID: 'placeholder_nid.png', amountPaid: '999', datePaid: '24 Oct 2025' } },
+            { id: 'D132418743809', name: 'MOSHARAF HOSSAIN', username: '@demouser', method: 'Stripe', methodIcon: 'fa-brands fa-stripe-s', amount: '20', charge: '0.6', payable: '20.00', status: 'Successful', date: '08 Nov 2025', methodDetails: { AccountNumber: '548485548', BeneficiaryName: 'Sarah Smith', Address: '123 Main St, USA', NID: 'placeholder_nid.png', amountPaid: '50', datePaid: '25 Oct 2025' } },
+            { id: 'D132418743790', name: 'MOSHARAF HOSSAIN', username: '@demouser', method: 'Bank Transfer', methodIcon: 'fa-solid fa-building-columns', amount: '250', charge: '0.5', payable: '250.00', status: 'Pending', date: '05 Nov 2025', methodDetails: { AccountNumber: '365768687g', BeneficiaryName: 'vhvjhfchgjh', Address: 'jhghghgyu', NID: 'placeholder_nid.png', amountPaid: '250.00000000', datePaid: '05 Nov 2025' } },
+            { id: 'D132418743754', name: 'MOSHARAF HOSSAIN', username: '@demouser', method: 'Bank Transfer', methodIcon: 'fa-solid fa-building-columns', amount: '999.5', charge: '0.5', payable: '999.50', status: 'Pending', date: '30 Oct 2025', methodDetails: { AccountNumber: '5877841234', BeneficiaryName: 'Test Name', Address: 'Test Address', NID: 'placeholder_nid.png', amountPaid: '1000', datePaid: '30 Oct 2025' } },
+            { id: 'D132418743748', name: 'MOSHARAF HOSSAIN', username: '@demouser', method: 'Stripe', methodIcon: 'fa-brands fa-stripe-s', amount: '5,000', charge: '25.5', payable: '5000.00', status: 'Successful', date: '27 Oct 2025', methodDetails: { AccountNumber: '2542452542', BeneficiaryName: 'ngfbbgfbgfb', Address: 'gfbjfdfgf', NID: 'placeholder_nid.png', amountPaid: '5000', datePaid: '27 Oct 2025' } },
+            
+            // Page 2
+            { id: 'D132418743746', name: 'AHMAD JALAL', username: '@ahmad_j', method: 'Bank Transfer', methodIcon: 'fa-solid fa-building-columns', amount: '100', charge: '0.5', payable: '100.00', status: 'Pending', date: '26 Oct 2025', methodDetails: { AccountNumber: '548485548', BeneficiaryName: 'Ahmed Ali', Address: 'Dubai', NID: 'placeholder_nid.png', amountPaid: '100', datePaid: '26 Oct 2025' } },
+            { id: 'D132418743732', name: 'SARA KHAN', username: '@sarah_k', method: 'Bank Transfer', methodIcon: 'fa-solid fa-building-columns', amount: '999', charge: '0.5', payable: '999.00', status: 'Pending', date: '24 Oct 2025', methodDetails: { AccountNumber: '548485548', BeneficiaryName: 'Sara Khan', Address: 'Karachi', NID: 'placeholder_nid.png', amountPaid: '999', datePaid: '24 Oct 2025' } },
+            { id: 'D132418743718', name: 'LEENA ALI', username: '@leena_a', method: 'Bank Transfer', methodIcon: 'fa-solid fa-building-columns', amount: '1000', charge: '0.5', payable: '1000.00', status: 'Pending', date: '23 Oct 2025', methodDetails: { AccountNumber: '548485548', BeneficiaryName: 'Leena Ali', Address: 'Riyadh', NID: 'placeholder_nid.png', amountPaid: '1000', datePaid: '23 Oct 2025' } },
+            { id: 'D132418743710', name: 'MOHAMMED R.', username: '@mo_r', method: 'Stripe', methodIcon: 'fa-brands fa-stripe-s', amount: '150', charge: '1.2', payable: '150.00', status: 'Successful', date: '20 Oct 2025', methodDetails: { AccountNumber: '2542452542', BeneficiaryName: 'ngfbbgfbgfb', Address: 'gfbjfdfgf', NID: 'placeholder_nid.png', amountPaid: '150', datePaid: '20 Oct 2025' } },
+            { id: 'D132418743699', name: 'JESSICA CHEN', username: '@jess_c', method: 'Bank Transfer', methodIcon: 'fa-solid fa-building-columns', amount: '2000', charge: '10', payable: '2000.00', status: 'Pending', date: '15 Oct 2025', methodDetails: { AccountNumber: '548485548', BeneficiaryName: 'Jessica Chen', Address: 'Shanghai', NID: 'placeholder_nid.png', amountPaid: '2000', datePaid: '15 Oct 2025' } },
+
+            // Page 3
+            { id: 'D132418743679', name: 'DAVID LEE', username: '@david_l', method: 'Bank Transfer', methodIcon: 'fa-solid fa-building-columns', amount: '100', charge: '0.5', payable: '100.00', status: 'Pending', date: '12 Oct 2025', methodDetails: { AccountNumber: '548485548', BeneficiaryName: 'David Lee', Address: 'Seoul', NID: 'placeholder_nid.png', amountPaid: '100', datePaid: '12 Oct 2025' } },
+            { id: 'D132418743657', name: 'PRIYA SINGH', username: '@priya_s', method: 'Bank Transfer', methodIcon: 'fa-solid fa-building-columns', amount: '445', charge: '0.5', payable: '445.00', status: 'Pending', date: '08 Oct 2025', methodDetails: { AccountNumber: '548485548', BeneficiaryName: 'Priya Singh', Address: 'Mumbai', NID: 'placeholder_nid.png', amountPaid: '445', datePaid: '08 Oct 2025' } },
+            { id: 'D132418743639', name: 'CHLOE GOMEZ', username: '@chloe_g', method: 'Bank Transfer', methodIcon: 'fa-solid fa-building-columns', amount: '8.6', charge: '0.5', payable: '1000.50000000', status: 'Pending', date: '03 Oct 2025', methodDetails: { AccountNumber: '548485548', BeneficiaryName: 'Chloe Gomez', Address: 'Mexico City', NID: 'placeholder_nid.png', amountPaid: '8.6', datePaid: '03 Oct 2025' } },
+            { id: 'D132418743612', name: 'MASON BLACK', username: '@mason_b', method: 'Bank Transfer', methodIcon: 'fa-solid fa-building-columns', amount: '100', charge: '0.5', payable: '100.00', status: 'Pending', date: '25 Sep 2025', methodDetails: { AccountNumber: '548485548', BeneficiaryName: 'Mason Black', Address: 'London', NID: 'placeholder_nid.png', amountPaid: '100', datePaid: '25 Sep 2025' } },
+            { id: 'D132418743581', name: 'EMILY WANG', username: '@emily_w', method: 'Bank Transfer', methodIcon: 'fa-solid fa-building-columns', amount: '600', charge: '0.5', payable: '89767.44000000', status: 'Pending', date: '16 Sep 2025', methodDetails: { AccountNumber: '548485548', BeneficiaryName: 'Emily Wang', Address: 'Vancouver', NID: 'placeholder_nid.png', amountPaid: '600', datePaid: '16 Sep 2025' } },
+            
+             // Page 4 (Partial page)
+            { id: 'D132418743578', name: 'MARK ZHAO', username: '@mark_z', method: 'Bank Transfer', methodIcon: 'fa-solid fa-building-columns', amount: '700', charge: '0.5', payable: '700.00', status: 'Pending', date: '16 Sep 2025', methodDetails: { AccountNumber: '548485548', BeneficiaryName: 'Mark Zhao', Address: 'Boston', NID: 'placeholder_nid.png', amountPaid: '700', datePaid: '16 Sep 2025' } },
+            { id: 'D132418743555', name: 'ALEX RUIZ', username: '@alex_r', method: 'Bank Transfer', methodIcon: 'fa-solid fa-building-columns', amount: '10', charge: '0.5', payable: '10.00', status: 'Pending', date: '11 Sep 2025', methodDetails: { AccountNumber: '548485548', BeneficiaryName: 'Alex Ruiz', Address: 'Madrid', NID: 'placeholder_nid.png', amountPaid: '10', datePaid: '11 Sep 2025' } },
+
+        ];
+
+        const initialStats = {
+            total: 2283,
+            success: 87,
+            pending: 79,
+            cancel: 0
+        };
+
+        let currentPage = 1;
+        const entriesPerPage = 5;
+        let filteredTransactions = [...allTransactions];
+        
+        // --- Utility Functions ---
+
+        function getMethodHtml(methodIconClass, method) {
+            let bgColor = method === 'Stripe' ? 'bg-indigo-600' : 'bg-gray-600';
+            return `
+                <div class="flex items-center space-x-2">
+                    <div class="w-8 h-8 ${bgColor} flex items-center justify-center rounded-full text-white">
+                        <i class="${methodIconClass} text-sm"></i>
+                    </div>
+                    <span>${method}</span>
+                </div>
+            `;
+        }
+
+        function getProfileImageHtml(name) {
+            const initials = name.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2);
+            const bgColor = ['bg-red-500', 'bg-blue-500', 'bg-green-500', 'bg-yellow-500', 'bg-purple-500'][Math.floor(Math.random() * 5)];
+            return `
+                <div class="w-8 h-8 ${bgColor} flex items-center justify-center rounded-full text-white text-sm font-bold">
+                    ${initials}
+                </div>
+            `;
+        }
+
+        // Custom alert function to replace window.alert
+        function alertCustom(message) {
+            const existingAlert = document.getElementById('customAlert');
+            if (existingAlert) existingAlert.remove();
+
+            const alertHtml = document.createElement('div');
+            alertHtml.id = 'customAlert';
+            alertHtml.className = 'fixed top-4 right-4 z-[9999] bg-blue-600 text-white p-4 rounded-lg shadow-xl flex items-center space-x-3 transition-opacity duration-300';
+            alertHtml.innerHTML = `
+                <i class="fa-solid fa-bell"></i>
+                <span>${message}</span>
+                <button onclick="document.getElementById('customAlert').remove()" class="ml-4 text-white hover:text-gray-200">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            `;
+            document.body.appendChild(alertHtml);
+            
+            setTimeout(() => {
+                const alertElement = document.getElementById('customAlert');
+                if (alertElement) alertElement.style.opacity = '0';
+                setTimeout(() => {
+                    if (alertElement) alertElement.remove();
+                }, 300);
+            }, 3000);
+        }
+        
+        // --- Modal Control ---
+
+        function toggleModal(modalId, show) {
+            const modal = document.getElementById(modalId);
+            const content = modal.children[0];
+            
+            if (show) {
+                modal.classList.remove('hidden');
+                modal.classList.add('flex', 'opacity-0');
+                // Ensure initial position is set before transition starts
+                content.classList.remove('scale-100', 'opacity-100');
+                content.classList.add('scale-95', 'opacity-0');
+
+                // Start transition
+                setTimeout(() => {
+                    modal.classList.remove('opacity-0');
+                    content.classList.remove('scale-95');
+                    content.classList.add('scale-100', 'opacity-100');
+                }, 10);
+            } else {
+                modal.classList.add('opacity-0');
+                content.classList.remove('scale-100', 'opacity-100');
+                content.classList.add('scale-95');
+                setTimeout(() => {
+                    modal.classList.remove('flex');
+                    modal.classList.add('hidden');
+                }, 300); // Wait for transition to finish
+            }
+        }
+
+        function openEditModal(trxId) {
+            const transaction = allTransactions.find(t => t.id === trxId);
+            if (!transaction) return;
+
+            // Populate Modal Header
+            const headerHtml = `
+                <div class="col-span-1">
+                    <p class="text-gray-500 font-medium">AMOUNT PAID:</p>
+                    <p class="text-white text-lg font-bold">${transaction.methodDetails.amountPaid} ${transaction.amount.includes('EUR') ? 'EUR' : 'USD'}</p>
+                </div>
+                <div class="col-span-1">
+                    <p class="text-gray-500 font-medium">DATE PAID:</p>
+                    <p class="text-white text-lg font-bold">${transaction.methodDetails.datePaid}</p>
+                </div>
+                <div class="col-span-1 text-right">
+                    <p class="text-gray-500 font-medium">PAYMENT METHOD:</p>
+                    <div class="flex items-center justify-end">
+                        <div class="text-white text-lg font-bold">${transaction.method}</div>
+                        <div class="w-6 h-6 bg-gray-600 flex items-center justify-center rounded-full ml-2">
+                            <i class="${transaction.methodIcon} text-white text-xs"></i>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.getElementById('modalHeaderInfo').innerHTML = headerHtml;
+
+            // Populate Modal Summary
+            const summaryData = [
+                { label: 'AccountNumber', value: transaction.methodDetails.AccountNumber },
+                { label: 'BeneficiaryName', value: transaction.methodDetails.BeneficiaryName },
+                { label: 'Address', value: transaction.methodDetails.Address },
+            ];
+
+            const summaryHtml = summaryData.map(item => `
+                <div class="flex justify-between items-start">
+                    <span class="text-gray-400 w-1/3">${item.label}</span>
+                    <span class="text-white font-medium w-2/3 text-right break-words">${item.value}</span>
+                </div>
+            `).join('');
+
+            // NID/Image Placeholder (Based on the image)
+            const nidHtml = `
+                <div class="flex justify-between items-start">
+                    <span class="text-gray-400 w-1/3">NID</span>
+                    <div class="w-24 h-20 bg-[#1e1e1e] border border-[#3a3a3a] rounded-lg flex items-center justify-center ml-auto">
+                        <i class="fa-regular fa-image text-gray-500 text-2xl"></i>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('modalSummary').innerHTML = summaryHtml + nidHtml;
+            
+            toggleModal('editModal', true);
+        }
+
+        // --- Table Rendering and Pagination ---
+
+        function renderStats() {
+            const stats = [
+                { title: 'TOTAL PAYMENT LOG', value: initialStats.total, delta: '2.283%', color: 'blue', totalRef: initialStats.total },
+                { title: 'PAYMENT SUCCESS', value: initialStats.success, delta: '3.81%', color: 'green', totalRef: initialStats.total },
+                { title: 'PENDING PAYMENT', value: initialStats.pending, delta: '3.46%', color: 'orange', totalRef: initialStats.total },
+                { title: 'CANCEL PAYMENT', value: initialStats.cancel, delta: '0%', color: 'red', totalRef: 0 },
+            ];
+
+            const container = document.getElementById('statsCards');
+            container.innerHTML = stats.map(stat => `
+                <div class="main-card stat-card rounded-xl p-5 shadow-md">
+                    <p class="text-sm font-medium text-gray-400">${stat.title}</p>
+                    <div class="flex items-end justify-between mt-1">
+                        <h2 class="text-3xl font-bold text-white">${stat.value}</h2>
+                        <span class="text-sm font-semibold text-${stat.color}-400 flex items-center">
+                            <i class="fa-solid ${stat.value > 0 ? 'fa-arrow-up' : 'fa-minus'} text-xs mr-1"></i>
+                            ${stat.delta}
+                        </span>
+                    </div>
+                    <p class="text-sm text-gray-500 mt-1">From ${stat.totalRef}</p>
+                </div>
+            `).join('');
+        }
+
+        function renderTable() {
+            const start = (currentPage - 1) * entriesPerPage;
+            const end = start + entriesPerPage;
+            const transactionsToShow = filteredTransactions.slice(start, end);
+
+            const tableBody = document.getElementById('transactionTableBody');
+            tableBody.innerHTML = ''; // Clear existing rows
+
+            if (transactionsToShow.length === 0) {
+                 tableBody.innerHTML = `
+                    <tr>
+                        <td colspan="9" class="text-center py-6 text-gray-500">No transactions found.</td>
+                    </tr>
+                `;
+            }
+
+            transactionsToShow.forEach(trx => {
+                const statusClass = `status-${trx.status.toLowerCase()}`;
+                const amountColor = trx.amount.includes('-') ? 'text-red-amount' : 'text-green-amount';
+                const actionContent = `<button onclick="openEditModal('${trx.id}')" class="text-gray-400 hover:text-blue-400 transition duration-150 p-1 rounded-full"><i class="fa-solid fa-pencil text-sm"></i></button>`;
+                
+                const row = `
+                    <tr class="table-row hover:bg-gray-800/20">
+                        <td class="px-4 py-4 text-gray-300 font-mono text-xs">${trx.id}</td>
+                        <td class="px-4 py-4">
+                            <div class="flex items-center space-x-3">
+                                ${getProfileImageHtml(trx.name)}
+                                <div>
+                                    <p class="text-white font-medium">${trx.name}</p>
+                                    <p class="text-gray-500 text-xs">${trx.username}</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="px-4 py-4 text-gray-300">${getMethodHtml(trx.methodIcon, trx.method)}</td>
+                        <td class="px-4 py-4 text-right font-semibold ${amountColor}">${trx.amount}</td>
+                        <td class="px-4 py-4 text-right text-red-amount font-semibold">${trx.charge} ${trx.charge.includes('EUR') ? 'EUR' : 'USD'}</td>
+                        <td class="px-4 py-4 text-right text-white font-semibold">${trx.payable}</td>
+                        <td class="px-4 py-4 text-center">
+                            <span class="${statusClass} text-xs font-semibold px-3 py-1 rounded-full">${trx.status}</span>
+                        </td>
+                        <td class="px-4 py-4 text-gray-400 text-sm whitespace-nowrap">${trx.date}</td>
+                        <td class="px-4 py-4 text-center">${actionContent}</td>
+                    </tr>
+                `;
+                tableBody.insertAdjacentHTML('beforeend', row);
+            });
+            
+            renderPagination();
+        }
+
+        function renderPagination() {
+            const totalEntries = filteredTransactions.length;
+            const totalPages = Math.ceil(totalEntries / entriesPerPage);
+            const container = document.getElementById('paginationContainer');
+            container.innerHTML = '';
+            
+            if (totalEntries === 0) return; 
+
+            const startEntry = Math.min((currentPage - 1) * entriesPerPage + 1, totalEntries);
+            const endEntry = Math.min(currentPage * entriesPerPage, totalEntries);
+            const info = `<p>Showing ${startEntry} to ${endEntry} of ${totalEntries}</p>`;
+            
+            let pageButtons = '';
+            
+            // Previous Button
+            pageButtons += `
+                <button onclick="changePage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''} class="px-3 py-1.5 rounded-lg border border-gray-700 ${currentPage === 1 ? 'text-gray-600 cursor-not-allowed' : 'hover:bg-gray-700 transition duration-150 text-white'}">
+                    Prev
+                </button>
+            `;
+
+            // Page Number Buttons
+            const maxVisiblePages = 5;
+            let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
+            let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+
+            if (endPage - startPage + 1 < maxVisiblePages) {
+                startPage = Math.max(1, endPage - maxVisiblePages + 1);
+            }
+
+            for (let i = startPage; i <= endPage; i++) {
+                const isActive = i === currentPage ? 'bg-blue-600 text-white' : 'hover:bg-gray-700 text-white';
+                pageButtons += `
+                    <button onclick="changePage(${i})" class="px-3 py-1.5 rounded-lg border border-gray-700 ${isActive} transition duration-150">
+                        ${i}
+                    </button>
+                `;
+            }
+            
+            // Next Button
+            pageButtons += `
+                <button onclick="changePage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''} class="px-3 py-1.5 rounded-lg border border-gray-700 ${currentPage === totalPages ? 'text-gray-600 cursor-not-allowed' : 'hover:bg-gray-700 transition duration-150 text-white'}">
+                    Next
+                </button>
+            `;
+
+            container.innerHTML = `
+                ${info}
+                <div class="flex space-x-2 mt-4 sm:mt-0">
+                    ${pageButtons}
+                </div>
+            `;
+        }
+        
+        function changePage(page) {
+            const totalPages = Math.ceil(filteredTransactions.length / entriesPerPage);
+            if (page >= 1 && page <= totalPages) {
+                currentPage = page;
+                renderTable();
+            }
+        }
+        
+        // --- Filter Logic ---
+
+        function parseDate(dateString) {
+            // Converts '08 Nov 2025' to a Date object for comparison
+            if (!dateString) return null;
+            // Handle table date format "DD MMM YYYY"
+            const parts = dateString.split(' ');
+            return new Date(`${parts[1]} ${parts[0]}, ${parts[2]}`);
+        }
+
+        function applyFilters() {
+            const searchInput = document.getElementById('searchInput').value.trim().toLowerCase();
+            const filterTrxId = document.getElementById('filterTrxId')?.value.trim().toLowerCase();
+            const filterStartDate = document.getElementById('filterStartDate')?.value;
+            const filterEndDate = document.getElementById('filterEndDate')?.value;
+            
+            const start = filterStartDate ? new Date(filterStartDate) : null;
+            const end = filterEndDate ? new Date(filterEndDate) : null;
+
+            filteredTransactions = allTransactions.filter(trx => {
+                let matches = true;
+
+                // 1. General Search (applies to both search input and filter modal ID)
+                const searchString = `${trx.id} ${trx.name} ${trx.method} ${trx.status}`.toLowerCase();
+                if (searchInput && !searchString.includes(searchInput)) {
+                    matches = false;
+                }
+
+                // 2. Transaction ID Filter (from modal, if open)
+                if (filterTrxId && !trx.id.toLowerCase().includes(filterTrxId)) {
+                    matches = false;
+                }
+
+                // 3. Date Range Filter (from modal, if open)
+                if (start || end) {
+                    const trxDate = parseDate(trx.date);
+                    if (trxDate) {
+                        // Check if transaction date is after the start date
+                        if (start && trxDate < start) {
+                            matches = false;
+                        }
+                        // Check if transaction date is before the end date (including the end date)
+                        if (end) {
+                             const endOfDay = new Date(end);
+                             endOfDay.setHours(23, 59, 59, 999);
+                             if (trxDate > endOfDay) {
+                                matches = false;
+                            }
+                        }
+                    } else {
+                        // If date is invalid, exclude it from filter result
+                        matches = false;
+                    }
+                }
+                
+                return matches;
+            });
+
+            // Reset to the first page and re-render
+            currentPage = 1;
+            renderTable();
+            // Only close modal if it's currently open
+            if (document.getElementById('filterModal').classList.contains('flex')) {
+                toggleModal('filterModal', false);
+            }
+        }
+
+        function clearFilters() {
+            document.getElementById('filterTrxId').value = '';
+            document.getElementById('filterStartDate').value = '';
+            document.getElementById('filterEndDate').value = '';
+            document.getElementById('searchInput').value = '';
+            applyFilters();
+        }
+
+        // Initialize the components when the page loads
+        window.onload = function() {
+            renderStats();
+            renderTable();
+        };
+    </script>
+  </body>
+</html>

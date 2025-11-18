@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+  <head class="">
+    <meta charset="utf-8" class="" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1"
+      class=""
+    />
+    <title class="">Plan List - Admin</title>
+    <link rel="stylesheet" href="/mlm_html//admin//style.css" />
+    <script src="https://cdn.tailwindcss.com" class=""></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+      .custom-scrollbar::-webkit-scrollbar {
+        height: 8px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background-color: #374151; /* Gray-700 */
+        border-radius: 4px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-track {
+        background-color: #1f2937; /* Gray-800 */
+      }
+      .row-hover:hover {
+            background-color: #333333;
+        }
+        .pagination-btn {
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            transition: background-color 0.15s, color 0.15s;
+        }
+        .pagination-btn.active {
+            background-color: #3b82f6; /* Blue-500 */
+            color: white;
+            font-weight: 600;
+        }
+        /* Modal backdrop for the filter/edit */
+        .modal-backdrop {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+        /* Custom status badges */
+        .status-pending { background-color: #4a4023; color: #ffeb3b; padding: 2px 8px; border-radius: 6px; font-weight: 500;}
+        .status-approved { background-color: #1c4532; color: #68d391; padding: 2px 8px; border-radius: 6px; font-weight: 500;}
+        .percent-box {
+            display: inline-flex;
+            align-items: center;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.75rem; /* text-xs */
+            font-weight: 500;
+        }
+        .percent-box.green {
+            background-color: rgba(104, 211, 145, 0.15); /* Light green background */
+            color: #68d391; /* Tailwind green-300/400 */
+        }
+        .percent-box.orange {
+            background-color: rgba(255, 165, 0, 0.15); /* Orange background */
+            color: #f6ad55; /* Tailwind orange-400 */
+        }
+        .percent-box.pink {
+            background-color: rgba(237, 100, 166, 0.15); /* Pink background */
+            color: #ed64a6; /* Tailwind pink-400 */
+        }
+        .status-success {
+            background-color: rgba(104, 211, 145, 0.15); /* light green bg */
+            color: #68d391; /* text-green-400 */
+        }
+        .status-pending {
+            background-color: rgba(246, 173, 85, 0.15); /* light orange bg */
+            color: #f6ad55; /* text-orange-400 */
+        }
+        .text-green-amount { color: #68d391; }
+        .text-red-amount { color: #ed64a6; }
+        .modal-bg { background-color: rgba(0, 0, 0, 0.75); }
+        .modal-card { background-color: #2b2b2b; }
+    </style>
+  </head>
+  <body class="">
+    <!-- SIDEBAR (included dynamically) & MAIN CONTENT FLEX LAYOUT -->
+    <div class="flex h-screen">
+      <div id="sidebar-container" class="relative hidden lg:block">
+        <div data-include="components/sidebar.html"></div>
+      </div>
+      <!-- TOP BAR -->
+      <header class="fixed top-0 left-0 lg:left-64 right-0 z-40 w-full bg-[#2c2f32] py-3 px-4 flex items-center justify-between shadow">
+        <div class="flex items-center space-x-4 flex-1">
+          <!-- HAMBURGER AND MLM - visible below desktop -->
+          <div class="flex items-center space-x-2 lg:hidden">
+            <button
+              id="hamburgerBtn"
+              class="text-white p-2 hover:bg-gray-700 rounded"
+            >
+              <i class="fas fa-bars"></i>
+            </button>
+            <div class="text-xl font-bold text-red-500">MLM</div>
+          </div>
+
+          <!-- SEARCH -->
+          <div
+            class="flex items-center flex-1 max-w-xl rounded-full px-4 py-2 space-x-3 shadow-lg"
+          >
+            <i class="fas fa-search text-gray-400"></i>
+            <input
+              type="text"
+              placeholder="Search for a menu"
+              class="bg-transparent w-full focus:outline-none text-gray-300 placeholder-gray-400"
+            />
+          </div>
+        </div>
+
+        <!-- RIGHT SIDE -->
+        <div class="relative ml-4">
+          <!-- AVATAR BUTTON -->
+          <button id="avatarBtn">
+            <img
+              src="https://i.pravatar.cc/80"
+              class="w-10 h-10 rounded-full border border-gray-700 cursor-pointer"
+            />
+          </button>
+
+          <!-- DROPDOWN -->
+          <div
+            id="dropdownMenu"
+            class="hidden absolute right-0 mt-3 w-56 bg-gray-800 rounded-xl shadow-xl border border-gray-700 z-50"
+          >
+            <!-- PROFILE INFO -->
+            <div class="px-4 py-3 flex items-center gap-4">
+              <div>
+                <img
+                  src="https://i.pravatar.cc/80"
+                  class="w-10 h-10 rounded-full border border-gray-700 cursor-pointer"
+                />
+              </div>
+              <div>
+                <p class="text-sm font-semibold">admin</p>
+                <p class="text-xs text-gray-400">admin@gmail.com</p>
+              </div>
+            </div>
+
+            <!-- MENU ITEMS -->
+            <ul class="py-2">
+              <li>
+                <a
+                  href="#"
+                  class="block px-4 py-2 text-sm hover:bg-gray-700 transition"
+                  >Profile & account</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="block px-4 py-2 text-sm hover:bg-gray-700 transition"
+                  >Sign out</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div
+        id="main-content"
+        class="overflow-y-auto bg-[#2c2f32] text-white transition-all duration-300 ease-in-out"
+      >
+        <!-- DASHBOARD MAIN CONTENT -->
+
+        <div
+          id="main-content-wrapper"
+          class="fixed top-16 left-0 lg:left-64 right-0 bottom-0 overflow-y-auto overflow-x-hidden flex flex-col transition-all duration-300 ease-in-out"
+        >
+          <main class="bg-[#1e2022] mx-auto w-full text-white">
+
+            <div class="p-4 sm:p-6 min-h-screen">
+              <div class="mb-6 border-b border-gray-700">
+                <div class="flex items-end">
+                  <div class="flex-1 mb-2 sm:mb-0">
+                    <nav aria-label="breadcrumb">
+                      <ol class="flex items-center text-sm text-gray-500">
+                        <li class="flex items-center">
+                          <a
+                            class="text-gray-400 hover:text-gray-700"
+                            href="javascript:void(0);"
+                            >Dashboard</a
+                          >
+                          <span class="mx-2">/</span>
+                        </li>
+                        <li class="text-white font-medium" aria-current="page">
+                          Payment log
+                        </li>
+                      </ol>
+                    </nav>
+                    <h1 class="text-2xl font-bold text-white mt-2 mb-10">
+                      Payment log
+                    </h1>
+                  </div>
+                </div>
+              </div>
+              <div class="max-w-7xl mx-auto">
+        
+        <!-- Statistics Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+            
+            <!-- Card 1: TOTAL PAYMENT LOG -->
+            <div class="bg-[#2c2f32] p-6 rounded-xl shadow-xl">
+                <p class="text-sm font-medium text-gray-400 mb-4">TOTAL PAYMENT LOG</p>
+                <div class="flex flex-col">
+                    <div class="flex items-baseline space-x-2">
+                        <span class="text-4xl font-bold">2,283</span>
+                        <span class="text-gray-400 text-base">From</span>
+                        <span class="percent-box green">
+                            <span class="font-mono text-sm">⎱</span> 2,283%
+                        </span>
+                    </div>
+                    <p class="text-sm font-medium text-gray-500 mt-0.5">2,283</p>
+                </div>
+            </div>
+
+            <!-- Card 2: PAYMENT SUCCESS -->
+            <div class="bg-[#2c2f32] p-6 rounded-xl shadow-xl">
+                <p class="text-sm font-medium text-gray-400 mb-4">PAYMENT SUCCESS</p>
+                <div class="flex flex-col">
+                    <div class="flex items-baseline space-x-2">
+                        <span class="text-4xl font-bold">87</span>
+                        <span class="text-gray-400 text-base">From 2283</span>
+                        <span class="percent-box green">
+                            <span class="font-mono text-sm">⎱</span> 3.81%
+                        </span>
+                    </div>
+                    <p class="text-sm font-medium text-gray-500 mt-0.5">&nbsp;</p> <!-- Placeholder for alignment -->
+                </div>
+            </div>
+            
+            <!-- Card 3: PENDING PAYMENT -->
+            <div class="bg-[#2c2f32] p-6 rounded-xl shadow-xl">
+                <p class="text-sm font-medium text-gray-400 mb-4">PENDING PAYMENT</p>
+                <div class="flex flex-col">
+                    <div class="flex items-baseline space-x-2">
+                        <span class="text-4xl font-bold">79</span>
+                        <span class="text-gray-400 text-base">From 2283</span>
+                        <span class="percent-box orange">
+                            <span class="font-mono text-sm">⎱</span> 3.46%
+                        </span>
+                    </div>
+                    <p class="text-sm font-medium text-gray-500 mt-0.5">&nbsp;</p> <!-- Placeholder for alignment -->
+                </div>
+            </div>
+
+            <!-- Card 4: CANCEL PAYMENT -->
+            <div class="bg-[#2c2f32] p-6 rounded-xl shadow-xl">
+                <p class="text-sm font-medium text-gray-400 mb-4">CANCEL PAYMENT</p>
+                <div class="flex flex-col">
+                    <div class="flex items-baseline space-x-2">
+                        <span class="text-4xl font-bold">0</span>
+                        <span class="text-gray-400 text-base">From 0</span>
+                        <span class="percent-box pink">
+                            <span class="font-mono text-sm">⎱</span> 0%
+                        </span>
+                    </div>
+                    <p class="text-sm font-medium text-gray-500 mt-0.5">&nbsp;</p> <!-- Placeholder for alignment -->
+                </div>
+            </div>
+
+        </div>
+        <!-- End of Statistics Grid -->
+
+        <div class="mx-auto main-cardp-6 bg-[#2c2f32] border border-gray-700 rounded-xl px-4 py-4">
+        <!-- Transaction Table -->
+        <div class="overflow-x-auto">
+            <!-- Search and Filter Bar -->
+        <div class="flex flex-col sm:flex-row items-center justify-between space-y-4 sm:space-y-0 sm:space-x-4 pb-4">
+            <div class="relative w-full sm:w-80">
+                <i class="fa fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500"></i>
+                <input type="text" placeholder="Search here" class="w-full bg-[#2c2f32] border border-gray-700 text-gray-300 rounded-lg py-2 pl-10 pr-4 focus:ring-blue-500 focus:border-blue-500" />
+            </div>
+            <button id="filterBtn" onclick="toggleModal('filterModal', true)" class="bg-[#2c2f32] text-gray-300 hover:bg-gray-600 px-4 py-2 rounded-lg transition duration-150 flex items-center space-x-2">
+                <i class="fa-solid fa-filter"></i>
+                <span>Filter</span>
+            </button>
+        </div>
+            <table class="min-w-full">
+                <thead class="table-header text-xs uppercase tracking-wider text-gray-400">
+                    <tr class="bg-gray-600">
+                        <th class="px-3 py-3 text-left">Transaction ID</th>
+                        <th class="px-3 py-3 text-left">Name</th>
+                        <th class="px-3 py-3 text-left">Method</th>
+                        <th class="px-3 py-3 text-right">Amount</th>
+                        <th class="px-3 py-3 text-right">Charge</th>
+                        <th class="px-3 py-3 text-right">Payable Amount</th>
+                        <th class="px-3 py-3 text-center">Status</th>
+                        <th class="px-3 py-3 text-left">Date</th>
+                        <th class="px-3 py-3 text-center">Action</th>
+                    </tr>
+                </thead>
+                <tbody id="transactionTableBody" class="divide-y divide-gray-800 text-sm">
+                    <!-- Data rows will be injected here by JavaScript -->
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- Pagination Controls -->
+        <div id="paginationContainer" class="flex flex-col sm:flex-row items-center justify-between pt-4 text-sm text-gray-400">
+            <!-- Pagination Info and buttons will be inserted here by JavaScript -->
+        </div>
+
+    </div>
+    
+    <!-- MODALS SECTION -->
+    
+    <!-- 1. Filter Modal -->
+    <div id="filterModal" class="fixed inset-0 z-50 hidden items-center justify-center backdrop-blur duration-300">
+        <div class="modal-card w-full max-w-md p-6 rounded-xl shadow-2xl transition-transform duration-300 transform scale-95 bg-[#2c2f32]">
+            <div class="flex justify-between items-center pb-3 border-b border-gray-700 ">
+                <h3 class="text-xl font-semibold text-white">Filter</h3>
+                <button onclick="toggleModal('filterModal', false)" class="text-gray-400 hover:text-white transition duration-150">
+                    <i class="fa-solid fa-xmark text-2xl"></i>
+                </button>
+            </div>
+            <div class="mt-4 space-y-4">
+                <div>
+                    <label class="block text-gray-400 text-sm font-medium mb-1">TRANSACTION ID</label>
+                    <input type="text" id="filterTrxId" class="w-full bg-[#2c2f32] border border-[#3a3a3a] text-gray-300 rounded-lg p-2.5 focus:ring-blue-500 focus:border-blue-500" placeholder="e.g. D132418743811">
+                </div>
+                <div>
+                    <label class="block text-gray-400 text-sm font-medium mb-1">DATE RANGE</label>
+                    <div class="flex space-x-2">
+                         <input type="date" id="filterStartDate" class="w-full bg-[#2c2f32] border border-[#3a3a3a] text-gray-300 rounded-lg p-2.5 focus:ring-blue-500 focus:border-blue-500" title="Start Date">
+                         <input type="date" id="filterEndDate" class="w-full bg-[#2c2f32] border border-[#3a3a3a] text-gray-300 rounded-lg p-2.5 focus:ring-blue-500 focus:border-blue-500" title="End Date">
+                        <button class="bg-gray-600 text-white p-2.5 rounded-lg hover:bg-gray-500 transition duration-150" title="Reset Dates"><i class="fa-solid fa-rotate-right"></i></button>
+                    </div>
+                </div>
+            </div>
+            <div class="flex justify-end space-x-3 mt-6">
+                <button onclick="clearFilters()" class="text-white hover:text-gray-300 px-4 py-2 rounded-lg transition duration-150">
+                    Clear Filters
+                </button>
+                <button onclick="applyFilters()" class="bg-blue-600 text-white hover:bg-blue-700 px-6 py-2 rounded-lg transition duration-150 flex items-center space-x-2">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <span>Apply</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 2. Payment Information (Edit) Modal -->
+    <div id="editModal" class="fixed inset-0 z-50 hidden items-center justify-center modal-bg transition-opacity duration-300">
+        <div class="modal-card w-full max-w-lg p-6 rounded-xl shadow-2xl transition-transform duration-300 transform scale-95 opacity-0">
+            <div class="flex justify-between items-center pb-4 border-b border-gray-700">
+                <h3 class="text-2xl font-bold text-white">Payment Information</h3>
+                <button onclick="toggleModal('editModal', false)" class="text-gray-400 hover:text-white transition duration-150">
+                    <i class="fa-solid fa-xmark text-2xl"></i>
+                </button>
+            </div>
+
+            <!-- Header Info -->
+            <div id="modalHeaderInfo" class="grid grid-cols-3 gap-y-4 gap-x-6 text-sm mt-4 border-b border-gray-700 pb-4">
+                <!-- Info will be dynamically loaded here -->
+            </div>
+            
+            <!-- Summary Details -->
+            <div class="mt-4">
+                <h4 class="text-sm font-semibold text-gray-400 uppercase mb-3">Summary</h4>
+                <div id="modalSummary" class="space-y-3">
+                    <!-- Summary data will be dynamically loaded here -->
+                </div>
+            </div>
+
+            <!-- Feedback Section -->
+            <div class="mt-6">
+                <h4 class="text-sm font-semibold text-gray-400 uppercase mb-3">SEND YOUR FEEDBACK</h4>
+                <textarea class="w-full bg-[#1e1e1e] border border-[#3a3a3a] text-gray-300 rounded-lg p-3 h-24 focus:ring-blue-500 focus:border-blue-500" placeholder="Feedback"></textarea>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex justify-end space-x-3 pt-6 border-t border-gray-700 mt-6">
+                <button onclick="toggleModal('editModal', false)" class="bg-gray-700 text-white hover:bg-gray-600 px-4 py-2 rounded-lg transition duration-150">
+                    Close
+                </button>
+                <button onclick="alert('Transaction Approved!')" class="bg-green-500 text-white hover:bg-green-600 px-4 py-2 rounded-lg transition duration-150 font-semibold">
+                    Approved
+                </button>
+                <button onclick="alert('Transaction Rejected!')" class="bg-red-500 text-white hover:bg-red-600 px-4 py-2 rounded-lg transition duration-150 font-semibold">
+                    Rejected
+                </button>
+            </div>
+        </div>
+    </div>
+            </div>
+          </main>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("componentsLoaded", () => {
+        const hamburgerBtn = document.getElementById("hamburgerBtn");
+        const sidebarContainer = document.getElementById("sidebar-container");
+
+        hamburgerBtn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          sidebarContainer.classList.toggle("hidden");
+        });
+      });
+    </script>
+    <script src="./js/include.js"></script>
+    <script src="./js/admin.js"></script>
+    <script>
+      const avatarBtn = document.getElementById("avatarBtn");
+      const dropdown = document.getElementById("dropdownMenu");
+
+      // Toggle on click
+      avatarBtn.addEventListener("click", () => {
+        dropdown.classList.toggle("hidden");
+      });
+
+      // Close when clicking outside
+      document.addEventListener("click", (e) => {
+        if (!avatarBtn.contains(e.target) && !dropdown.contains(e.target)) {
+          dropdown.classList.add("hidden");
+        }
+      });
+    </script>
+        <script>
+        // Sample data to simulate three pages of 5 entries (15 total entries)
+        const allTransactions = [
+            // Page 1 (5 entries)
+            { id: 'D132418743811', name: 'MOSHARAF HOSSAIN', username: '@demouser', method: 'Stripe', methodIcon: 'stripe', amount: '500', charge: '3', payable: '500.00', status: 'Successful', date: '08 Nov 2025', isSuccess: true, methodDetails: { AccountNumber: '2542452542', BeneficiaryName: 'ngfbbgfbgfb', Address: 'gfbjfdfgf', NID: 'placeholder_nid.png', amountPaid: '999', datePaid: '24 Oct 2025' } },
+            { id: 'D132418743809', name: 'MOSHARAF HOSSAIN', username: '@demouser', method: 'Stripe', methodIcon: 'stripe', amount: '20', charge: '0.6', payable: '20.00', status: 'Successful', date: '08 Nov 2025', isSuccess: true, methodDetails: { AccountNumber: '2542452542', BeneficiaryName: 'ngfbbgfbgfb', Address: 'gfbjfdfgf', NID: 'placeholder_nid.png', amountPaid: '999', datePaid: '24 Oct 2025' } },
+            { id: 'D132418743790', name: 'MOSHARAF HOSSAIN', username: '@demouser', method: 'Bank Transfer', methodIcon: 'bank', amount: '250', charge: '0.5', payable: '250.00', status: 'Pending', date: '05 Nov 2025', isSuccess: false },
+            { id: 'D132418743754', name: 'MOSHARAF HOSSAIN', username: '@demouser', method: 'Bank Transfer', methodIcon: 'bank', amount: '999.5', charge: '0.5', payable: '999.50', status: 'Pending', date: '30 Oct 2025', isSuccess: false },
+            { id: 'D132418743748', name: 'MOSHARAF HOSSAIN', username: '@demouser', method: 'Stripe', methodIcon: 'stripe', amount: '5,000', charge: '25.5', payable: '5000.00', status: 'Successful', date: '27 Oct 2025', isSuccess: true, methodDetails: { AccountNumber: '2542452542', BeneficiaryName: 'ngfbbgfbgfb', Address: 'gfbjfdfgf', NID: 'placeholder_nid.png', amountPaid: '999', datePaid: '24 Oct 2025' } },
+            
+            // Page 2 (5 entries)
+            { id: 'D132418743746', name: 'AHMAD JALAL', username: '@ahmad_j', method: 'Bank Transfer', methodIcon: 'bank', amount: '100', charge: '0.5', payable: '100.00', status: 'Pending', date: '26 Oct 2025', isSuccess: false },
+            { id: 'D132418743732', name: 'SARA KHAN', username: '@sarah_k', method: 'Bank Transfer', methodIcon: 'bank', amount: '999', charge: '0.5', payable: '999.00', status: 'Pending', date: '24 Oct 2025', isSuccess: false },
+            { id: 'D132418743710', name: 'LEENA ALI', username: '@leena_a', method: 'Stripe', methodIcon: 'stripe', amount: '150', charge: '1.2', payable: '150.00', status: 'Successful', date: '20 Oct 2025', isSuccess: true, methodDetails: { AccountNumber: '2542452542', BeneficiaryName: 'ngfbbgfbgfb', Address: 'gfbjfdfgf', NID: 'placeholder_nid.png', amountPaid: '999', datePaid: '24 Oct 2025' } },
+            { id: 'D132418743699', name: 'MOHAMMED R.', username: '@mo_r', method: 'Bank Transfer', methodIcon: 'bank', amount: '2000', charge: '10', payable: '2000.00', status: 'Pending', date: '15 Oct 2025', isSuccess: false },
+            { id: 'D132418743688', name: 'JESSICA CHEN', username: '@jess_c', method: 'Stripe', methodIcon: 'stripe', amount: '350', charge: '2', payable: '350.00', status: 'Successful', date: '10 Oct 2025', isSuccess: true, methodDetails: { AccountNumber: '2542452542', BeneficiaryName: 'ngfbbgfbgfb', Address: 'gfbjfdfgf', NID: 'placeholder_nid.png', amountPaid: '999', datePaid: '24 Oct 2025' } },
+
+            // Page 3 (5 entries)
+            { id: 'D132418743677', name: 'DAVID LEE', username: '@david_l', method: 'Bank Transfer', methodIcon: 'bank', amount: '500', charge: '2.5', payable: '500.00', status: 'Pending', date: '05 Oct 2025', isSuccess: false },
+            { id: 'D132418743666', name: 'PRIYA SINGH', username: '@priya_s', method: 'Stripe', methodIcon: 'stripe', amount: '120', charge: '0.8', payable: '120.00', status: 'Successful', date: '01 Oct 2025', isSuccess: true, methodDetails: { AccountNumber: '2542452542', BeneficiaryName: 'ngfbbgfbgfb', Address: 'gfbjfdfgf', NID: 'placeholder_nid.png', amountPaid: '999', datePaid: '24 Oct 2025' } },
+            { id: 'D132418743655', name: 'CHLOE GOMEZ', username: '@chloe_g', method: 'Bank Transfer', methodIcon: 'bank', amount: '75', charge: '0.3', payable: '75.00', status: 'Pending', date: '25 Sep 2025', isSuccess: false },
+            { id: 'D132418743644', name: 'MASON BLACK', username: '@mason_b', method: 'Stripe', methodIcon: 'stripe', amount: '400', charge: '4', payable: '400.00', status: 'Successful', date: '20 Sep 2025', isSuccess: true, methodDetails: { AccountNumber: '2542452542', BeneficiaryName: 'ngfbbgfbgfb', Address: 'gfbjfdfgf', NID: 'placeholder_nid.png', amountPaid: '999', datePaid: '24 Oct 2025' } },
+            { id: 'D132418743633', name: 'EMILY WANG', username: '@emily_w', method: 'Bank Transfer', methodIcon: 'bank', amount: '180', charge: '0.9', payable: '180.00', status: 'Pending', date: '15 Sep 2025', isSuccess: false },
+        ];
+
+        let currentPage = 1;
+        const entriesPerPage = 5;
+        let filteredTransactions = [...allTransactions];
+        
+        // --- Utility Functions ---
+
+        function getMethodHtml(methodIcon, method) {
+            let iconHtml = '';
+            let bgColor = '';
+            switch(methodIcon.toLowerCase()) {
+                case 'stripe':
+                    iconHtml = '<i class="fa-brands fa-stripe text-white"></i>';
+                    bgColor = 'bg-indigo-600';
+                    break;
+                case 'bank':
+                    iconHtml = '<i class="fa-solid fa-bank text-white"></i>';
+                    bgColor = 'bg-gray-600';
+                    break;
+                // Add more methods here if needed
+                default:
+                    iconHtml = '<i class="fa-solid fa-credit-card text-white"></i>';
+                    bgColor = 'bg-gray-600';
+            }
+            return `
+                <div class="flex items-center space-x-2">
+                    <div class="w-8 h-8 ${bgColor} flex items-center justify-center rounded-full">
+                        ${iconHtml}
+                    </div>
+                    <span>${method}</span>
+                </div>
+            `;
+        }
+
+        function getProfileImageHtml(name) {
+            const initials = name.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2);
+            return `
+                <div class="w-8 h-8 bg-blue-600 flex items-center justify-center rounded-full text-sm font-bold">
+                    ${initials}
+                </div>
+            `;
+        }
+        
+        // --- Modal Control ---
+
+        function toggleModal(modalId, show) {
+            const modal = document.getElementById(modalId);
+            const content = modal.children[0];
+            
+            if (show) {
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+                setTimeout(() => {
+                    modal.classList.remove('opacity-0');
+                    content.classList.remove('scale-95', 'opacity-0');
+                    content.classList.add('scale-100', 'opacity-100');
+                }, 10);
+            } else {
+                modal.classList.add('opacity-0');
+                content.classList.remove('scale-100', 'opacity-100');
+                content.classList.add('scale-95', 'opacity-0');
+                setTimeout(() => {
+                    modal.classList.remove('flex');
+                    modal.classList.add('hidden');
+                }, 300); // Wait for transition to finish
+            }
+        }
+
+        function openEditModal(transaction) {
+            // Populate Modal Header
+            const headerHtml = `
+                <div class="col-span-1">
+                    <p class="text-gray-500 font-medium">AMOUNT PAID:</p>
+                    <p class="text-white text-lg font-bold">${transaction.methodDetails.amountPaid} USD</p>
+                </div>
+                <div class="col-span-1">
+                    <p class="text-gray-500 font-medium">DATE PAID:</p>
+                    <p class="text-white text-lg font-bold">${transaction.methodDetails.datePaid}</p>
+                </div>
+                <div class="col-span-1 text-right">
+                    <p class="text-gray-500 font-medium">PAYMENT METHOD:</p>
+                    <div class="flex items-center justify-end">
+                        <div class="text-white text-lg font-bold">${transaction.method}</div>
+                        <div class="w-6 h-6 bg-gray-600 flex items-center justify-center rounded-full ml-2">
+                            <i class="fa-solid fa-${transaction.methodIcon === 'stripe' ? 'credit-card' : 'bank'} text-white text-xs"></i>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.getElementById('modalHeaderInfo').innerHTML = headerHtml;
+
+            // Populate Modal Summary
+            const summaryData = [
+                { label: 'AccountNumber', value: transaction.methodDetails.AccountNumber },
+                { label: 'BeneficiaryName', value: transaction.methodDetails.BeneficiaryName },
+                { label: 'Address', value: transaction.methodDetails.Address },
+            ];
+
+            const summaryHtml = summaryData.map(item => `
+                <div class="flex justify-between items-start">
+                    <span class="text-gray-400 w-1/3">${item.label}</span>
+                    <span class="text-white font-medium w-2/3 text-right break-words">${item.value}</span>
+                </div>
+            `).join('');
+
+            const nidHtml = `
+                <div class="flex justify-between items-start">
+                    <span class="text-gray-400 w-1/3">NID</span>
+                    <div class="w-24 h-20 bg-[#1e1e1e] border border-[#3a3a3a] rounded-lg flex items-center justify-center ml-auto">
+                        <i class="fa-regular fa-image text-gray-500 text-2xl"></i>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('modalSummary').innerHTML = summaryHtml + nidHtml;
+            
+            toggleModal('editModal', true);
+        }
+
+        // --- Table Rendering and Pagination ---
+
+        function renderTable() {
+            const start = (currentPage - 1) * entriesPerPage;
+            const end = start + entriesPerPage;
+            const transactionsToShow = filteredTransactions.slice(start, end);
+
+            const tableBody = document.getElementById('transactionTableBody');
+            tableBody.innerHTML = ''; // Clear existing rows
+
+            if (transactionsToShow.length === 0) {
+                 tableBody.innerHTML = `
+                    <tr>
+                        <td colspan="9" class="text-center py-6 text-gray-500">No transactions found for the current filter.</td>
+                    </tr>
+                `;
+            }
+
+            transactionsToShow.forEach(trx => {
+                const statusClass = trx.status === 'Successful' ? 'status-success' : 'status-pending';
+                const actionContent = trx.isSuccess 
+                    ? `<button onclick='openEditModal(${JSON.stringify(trx)})' class="text-gray-400 hover:text-blue-400 transition duration-150 p-1 rounded-full"><i class="fa-solid fa-pencil text-sm"></i></button>`
+                    : '-';
+                
+                const row = `
+                    <tr class="table-row">
+                        <td class="px-3 py-4 text-gray-300 font-mono text-xs">${trx.id}</td>
+                        <td class="px-3 py-4">
+                            <div class="flex items-center space-x-2">
+                                ${getProfileImageHtml(trx.name)}
+                                <div>
+                                    <p class="text-white font-medium">${trx.name}</p>
+                                    <p class="text-gray-500 text-xs">${trx.username}</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="px-3 py-4 text-gray-300">${getMethodHtml(trx.methodIcon, trx.method)}</td>
+                        <td class="px-3 py-4 text-right font-semibold text-green-amount">${trx.amount} USD</td>
+                        <td class="px-3 py-4 text-right text-red-amount font-semibold">${trx.charge} USD</td>
+                        <td class="px-3 py-4 text-right text-white font-semibold">${trx.payable}</td>
+                        <td class="px-3 py-4 text-center">
+                            <span class="${statusClass} text-xs font-semibold px-3 py-1 rounded-full">${trx.status}</span>
+                        </td>
+                        <td class="px-3 py-4 text-gray-400 text-sm">${trx.date}</td>
+                        <td class="px-3 py-4 text-center">${actionContent}</td>
+                    </tr>
+                `;
+                tableBody.insertAdjacentHTML('beforeend', row);
+            });
+            
+            renderPagination();
+        }
+
+        function renderPagination() {
+            const totalEntries = filteredTransactions.length;
+            const totalPages = Math.ceil(totalEntries / entriesPerPage);
+            const container = document.getElementById('paginationContainer');
+            container.innerHTML = '';
+            
+            if (totalEntries === 0) {
+                // Do not show pagination if there are no entries
+                return; 
+            }
+
+            const info = `<p>Showing ${Math.min((currentPage - 1) * entriesPerPage + 1, totalEntries)} to ${Math.min(currentPage * entriesPerPage, totalEntries)} of ${totalEntries}</p>`;
+            
+            let pageButtons = '';
+            // Previous Button
+            pageButtons += `
+                <button onclick="changePage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''} class="px-3 py-1.5 rounded-lg border border-gray-700 ${currentPage === 1 ? 'text-gray-600 cursor-not-allowed' : 'hover:bg-gray-700 transition duration-150'}">
+                    Prev
+                </button>
+            `;
+
+            // Page Number Buttons (showing a few around the current page)
+            const maxVisiblePages = 5;
+            let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
+            let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+
+            if (endPage - startPage + 1 < maxVisiblePages) {
+                startPage = Math.max(1, endPage - maxVisiblePages + 1);
+            }
+
+            for (let i = startPage; i <= endPage; i++) {
+                const isActive = i === currentPage ? 'bg-blue-600 text-white' : 'hover:bg-gray-700';
+                pageButtons += `
+                    <button onclick="changePage(${i})" class="px-3 py-1.5 rounded-lg border border-gray-700 ${isActive} transition duration-150">
+                        ${i}
+                    </button>
+                `;
+            }
+            
+            // Next Button
+            pageButtons += `
+                <button onclick="changePage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''} class="px-3 py-1.5 rounded-lg border border-gray-700 ${currentPage === totalPages ? 'text-gray-600 cursor-not-allowed' : 'hover:bg-gray-700 transition duration-150'}">
+                    Next
+                </button>
+            `;
+
+            container.innerHTML = `
+                ${info}
+                <div class="flex space-x-2 mt-4 sm:mt-0">
+                    ${pageButtons}
+                </div>
+            `;
+        }
+        
+        function changePage(page) {
+            const totalPages = Math.ceil(filteredTransactions.length / entriesPerPage);
+            if (page >= 1 && page <= totalPages) {
+                currentPage = page;
+                renderTable();
+            }
+        }
+        
+        // --- Filter Logic ---
+
+        function applyFilters() {
+            const trxId = document.getElementById('filterTrxId').value.trim().toLowerCase();
+            const startDate = document.getElementById('filterStartDate').value;
+            const endDate = document.getElementById('filterEndDate').value;
+
+            // Simple date parsing for comparison (Date objects are UTC based, this is simple and local)
+            const parseDate = (dateString) => dateString ? new Date(dateString + 'T00:00:00') : null;
+
+            const start = parseDate(startDate);
+            const end = parseDate(endDate);
+
+            filteredTransactions = allTransactions.filter(trx => {
+                // 1. Transaction ID Filter
+                if (trxId && !trx.id.toLowerCase().includes(trxId)) {
+                    return false;
+                }
+
+                // 2. Date Range Filter
+                if (start || end) {
+                    const trxDate = new Date(trx.date);
+                    // Normalize date to prevent timezone issues for simple comparison
+                    trxDate.setHours(0, 0, 0, 0); 
+                    
+                    if (start && trxDate < start) {
+                        return false;
+                    }
+                    if (end && trxDate > end) {
+                        // For the end date, include the full day
+                        const dayAfterEnd = new Date(end);
+                        dayAfterEnd.setDate(end.getDate() + 1);
+                        if (trxDate >= dayAfterEnd) {
+                             return false;
+                        }
+                    }
+                }
+                
+                return true;
+            });
+
+            // Reset to the first page and re-render the table with filtered data
+            currentPage = 1;
+            renderTable();
+            toggleModal('filterModal', false);
+        }
+
+        function clearFilters() {
+            document.getElementById('filterTrxId').value = '';
+            document.getElementById('filterStartDate').value = '';
+            document.getElementById('filterEndDate').value = '';
+            // Apply empty filters to reset the list
+            applyFilters();
+            toggleModal('filterModal', false);
+        }
+
+        // Initialize the table when the page loads
+        window.onload = function() {
+            renderTable();
+        };
+
+        // Custom alert function to replace window.alert
+        function alert(message) {
+            console.log("Custom Alert:", message); // Log it to the console
+            // In a real application, you would show a custom message box here
+            const existingAlert = document.getElementById('customAlert');
+            if (existingAlert) existingAlert.remove();
+
+            const alertHtml = document.createElement('div');
+            alertHtml.id = 'customAlert';
+            alertHtml.className = 'fixed top-4 right-4 z-[9999] bg-blue-600 text-white p-4 rounded-lg shadow-xl flex items-center space-x-3 transition-opacity duration-300';
+            alertHtml.innerHTML = `
+                <i class="fa-solid fa-bell"></i>
+                <span>${message}</span>
+                <button onclick="document.getElementById('customAlert').remove()" class="ml-4 text-white hover:text-gray-200">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            `;
+            document.body.appendChild(alertHtml);
+            
+            setTimeout(() => {
+                const alertElement = document.getElementById('customAlert');
+                if (alertElement) alertElement.style.opacity = '0';
+                setTimeout(() => {
+                    if (alertElement) alertElement.remove();
+                }, 300);
+            }, 3000);
+        }
+    </script>
+  </body>
+</html>

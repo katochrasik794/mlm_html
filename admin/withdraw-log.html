@@ -50,6 +50,26 @@
         /* Custom status badges */
         .status-pending { background-color: #4a4023; color: #ffeb3b; padding: 2px 8px; border-radius: 6px; font-weight: 500;}
         .status-approved { background-color: #1c4532; color: #68d391; padding: 2px 8px; border-radius: 6px; font-weight: 500;}
+        .percent-box {
+            display: inline-flex;
+            align-items: center;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.75rem; /* text-xs */
+            font-weight: 500;
+        }
+        .percent-box.green {
+            background-color: rgba(104, 211, 145, 0.15); /* Light green background */
+            color: #68d391; /* Tailwind green-300/400 */
+        }
+        .percent-box.orange {
+            background-color: rgba(255, 165, 0, 0.15); /* Orange background */
+            color: #f6ad55; /* Tailwind orange-400 */
+        }
+        .percent-box.pink {
+            background-color: rgba(237, 100, 166, 0.15); /* Pink background */
+            color: #ed64a6; /* Tailwind pink-400 */
+        }
     </style>
         <script>
         tailwind.config = {
@@ -400,25 +420,71 @@
               </div>
               <div class="max-w-7xl mx-auto">
         
-        <!-- Top Cards/Summary (Simplified from image) -->
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-            <div class="bg-[#2c2f32] border border-gray-700 p-4 rounded-xl shadow-lg  text-center">
-                <p class="text-sm text-gray-400">TOTAL WITHDRAWAL</p>
-                <p class="text-2xl font-bold mt-1">325</p>
+        <!-- Statistics Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+            
+            <!-- Card 1: TOTAL PAYMENT LOG -->
+            <div class="bg-[#2c2f32] p-6 rounded-xl shadow-xl">
+                <p class="text-sm font-medium text-gray-400 mb-4">TOTAL WITHDRAWAL</p>
+                <div class="flex flex-col">
+                    <div class="flex items-baseline space-x-2">
+                        <span class="text-4xl font-bold">2,283</span>
+                        <span class="text-gray-400 text-base">From</span>
+                        <span class="percent-box green">
+                            <span class="font-mono text-sm">⎱</span> 2,283%
+                        </span>
+                    </div>
+                    <p class="text-sm font-medium text-gray-500 mt-0.5">2,283</p>
+                </div>
             </div>
-            <div class="bg-[#2c2f32] border border-gray-700 p-4 rounded-xl shadow-lg  text-center">
-                <p class="text-sm text-gray-400">SUCCESS WITHDRAW</p>
-                <p class="text-2xl font-bold mt-1 text-green-400">8</p>
+
+            <!-- Card 2: PAYMENT SUCCESS -->
+            <div class="bg-[#2c2f32] p-6 rounded-xl shadow-xl">
+                <p class="text-sm font-medium text-gray-400 mb-4">SUCCESS WITHDRAWAL</p>
+                <div class="flex flex-col">
+                    <div class="flex items-baseline space-x-2">
+                        <span class="text-4xl font-bold">87</span>
+                        <span class="text-gray-400 text-base">From 2283</span>
+                        <span class="percent-box green">
+                            <span class="font-mono text-sm">⎱</span> 3.81%
+                        </span>
+                    </div>
+                    <p class="text-sm font-medium text-gray-500 mt-0.5">&nbsp;</p> <!-- Placeholder for alignment -->
+                </div>
             </div>
-            <div class="bg-[#2c2f32] border border-gray-700 p-4 rounded-xl shadow-lg  text-center">
-                <p class="text-sm text-gray-400">PENDING WITHDRAW</p>
-                <p class="text-2xl font-bold mt-1 text-yellow-400">68</p>
+            
+            <!-- Card 3: PENDING PAYMENT -->
+            <div class="bg-[#2c2f32] p-6 rounded-xl shadow-xl">
+                <p class="text-sm font-medium text-gray-400 mb-4">PENDING WITHDRAWAL</p>
+                <div class="flex flex-col">
+                    <div class="flex items-baseline space-x-2">
+                        <span class="text-4xl font-bold">79</span>
+                        <span class="text-gray-400 text-base">From 2283</span>
+                        <span class="percent-box orange">
+                            <span class="font-mono text-sm">⎱</span> 3.46%
+                        </span>
+                    </div>
+                    <p class="text-sm font-medium text-gray-500 mt-0.5">&nbsp;</p> <!-- Placeholder for alignment -->
+                </div>
             </div>
-            <div class="bg-[#2c2f32] border border-gray-700 p-4 rounded-xl shadow-lg text-center">
-                <p class="text-sm text-gray-400">CANCEL WITHDRAW</p>
-                <p class="text-2xl font-bold mt-1 text-red-400">0</p>
+
+            <!-- Card 4: CANCEL PAYMENT -->
+            <div class="bg-[#2c2f32] p-6 rounded-xl shadow-xl">
+                <p class="text-sm font-medium text-gray-400 mb-4">CANCEL WITHDRAWAL</p>
+                <div class="flex flex-col">
+                    <div class="flex items-baseline space-x-2">
+                        <span class="text-4xl font-bold">0</span>
+                        <span class="text-gray-400 text-base">From 0</span>
+                        <span class="percent-box pink">
+                            <span class="font-mono text-sm">⎱</span> 0%
+                        </span>
+                    </div>
+                    <p class="text-sm font-medium text-gray-500 mt-0.5">&nbsp;</p> <!-- Placeholder for alignment -->
+                </div>
             </div>
+
         </div>
+        <!-- End of Statistics Grid -->
 
 
        
