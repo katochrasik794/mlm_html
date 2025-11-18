@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+  <head class="">
+    <meta charset="utf-8" class="" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1"
+      class=""
+    />
+    <title class="">Plan List - Admin</title>
+    <link rel="stylesheet" href="/mlm_html//admin//style.css" />
+    <script src="https://cdn.tailwindcss.com" class=""></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+      .custom-scrollbar::-webkit-scrollbar {
+        height: 8px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background-color: #374151; /* Gray-700 */
+        border-radius: 4px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-track {
+        background-color: #1f2937; /* Gray-800 */
+      }
+      .row-hover:hover {
+            background-color: #333333;
+        }
+        .status-successful {
+            color: #2ecc71; 
+        }
+        .status-pending {
+            color: #f39c12; 
+        }
+        .status-cancel {
+            color: #e74c3c; 
+        }
+
+        /* Filter visibility class (default inline) */
+        .filter-pane-visible {
+            display: block;
+        }
+        
+        /* Utility for simulated pages */
+        .simulated-page {
+            display: none;
+        }
+        
+        /* Active page class */
+        .active-page {
+            display: block;
+        }
+
+        /* Backdrop for overlay */
+        .overlay-backdrop {
+          background-color: rgba(0,0,0,0.5);
+        }
+        
+    </style>
+
+  </head>
+  <body class="">
+    <!-- SIDEBAR (included dynamically) & MAIN CONTENT FLEX LAYOUT -->
+    <div class="flex h-screen">
+      <div id="sidebar-container" class="relative hidden lg:block">
+        <div data-include="components/sidebar.html"></div>
+      </div>
+      <!-- TOP BAR -->
+      <header class="fixed top-0 left-0 lg:left-64 right-0 z-40 w-full bg-[#2c2f32] py-3 px-4 flex items-center justify-between shadow">
+        <div class="flex items-center space-x-4 flex-1">
+          <!-- HAMBURGER AND MLM - visible below desktop -->
+          <div class="flex items-center space-x-2 lg:hidden">
+            <button
+              id="hamburgerBtn"
+              class="text-white p-2 hover:bg-gray-700 rounded"
+            >
+              <i class="fas fa-bars"></i>
+            </button>
+            <div class="text-xl font-bold text-red-500">MLM</div>
+          </div>
+
+          <!-- SEARCH -->
+          <div
+            class="flex items-center flex-1 max-w-xl rounded-full px-4 py-2 space-x-3 shadow-lg"
+          >
+            <i class="fas fa-search text-gray-400"></i>
+            <input
+              type="text"
+              placeholder="Search for a menu"
+              class="bg-transparent w-full focus:outline-none text-gray-300 placeholder-gray-400"
+            />
+
+            <!-- FILTER ICON BUTTON (always visible) -->
+            <button id="filterToggleBtn" onclick="toggleFilterPane(true)" title="Open filters"
+              class="ml-3 text-gray-300 hover:text-white p-2 rounded-lg focus:outline-none"
+            >
+              <i class="fa-solid fa-filter"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- RIGHT SIDE -->
+        <div class="relative ml-4">
+          <!-- AVATAR BUTTON -->
+          <button id="avatarBtn">
+            <img
+              src="https://i.pravatar.cc/80"
+              class="w-10 h-10 rounded-full border border-gray-700 cursor-pointer"
+            />
+          </button>
+
+          <!-- DROPDOWN -->
+          <div
+            id="dropdownMenu"
+            class="hidden absolute right-0 mt-3 w-56 bg-gray-800 rounded-xl shadow-xl border border-gray-700 z-50"
+          >
+            <!-- PROFILE INFO -->
+            <div class="px-4 py-3 flex items-center gap-4">
+              <div>
+                <img
+                  src="https://i.pravatar.cc/80"
+                  class="w-10 h-10 rounded-full border border-gray-700 cursor-pointer"
+                />
+              </div>
+              <div>
+                <p class="text-sm font-semibold">admin</p>
+                <p class="text-xs text-gray-400">admin@gmail.com</p>
+              </div>
+            </div>
+
+            <!-- MENU ITEMS -->
+            <ul class="py-2">
+              <li>
+                <a
+                  href="#"
+                  class="block px-4 py-2 text-sm hover:bg-gray-700 transition"
+                  >Profile & account</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="block px-4 py-2 text-sm hover:bg-gray-700 transition"
+                  >Sign out</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div
+        id="main-content"
+        class="overflow-y-auto bg-[#2c2f32] text-white transition-all duration-300 ease-in-out"
+      >
+        <!-- DASHBOARD MAIN CONTENT -->
+
+        <div
+          id="main-content-wrapper"
+          class="fixed top-16 left-0 lg:left-64 right-0 bottom-0 overflow-y-auto overflow-x-hidden flex flex-col transition-all duration-300 ease-in-out"
+        >
+          <main class="bg-[#1e2022] mx-auto w-full text-white">
+
+            <div class="p-4 sm:p-6 min-h-screen">
+              <div class="mb-6 border-b border-gray-700">
+                <div class="flex items-end">
+                  <div class="flex-1 mb-2 sm:mb-0">
+                    <nav aria-label="breadcrumb">
+                      <ol class="flex items-center text-sm text-gray-500">
+                        <li class="flex items-center">
+                          <a
+                            class="text-gray-400 hover:text-gray-700"
+                            href="javascript:void(0);"
+                            >Dashboard</a
+                          >
+                          <span class="mx-2">/</span>
+                        </li>
+                        <li class="text-white font-medium" aria-current="page">
+                          Support Ticket
+                        </li>
+                      </ol>
+                    </nav>
+                    <h1 class="text-2xl font-bold text-white mt-2 mb-10">
+                      Support Ticket
+                    </h1>
+                  </div>
+                </div>
+              </div>
+              <div class=" mx-auto">
+        
+        <!-- Statistics Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+            
+            <!-- Card 1: TOTAL PAYMENT LOG -->
+            <div class="bg-[#2c2f32] p-6 rounded-xl shadow-xl">
+                <p class="text-sm font-medium text-gray-400 mb-4">OPEN TICKETS</p>
+                <div class="flex flex-col">
+                    <div class="flex items-baseline space-x-2">
+                        <span class="text-4xl font-bold">3</span>
+                        <span class="text-gray-400 text-base">From 26</span>
+                        <span class="bg-green-800">
+                            <span class="font-mono text-sm">⎱</span> 11.81%
+                        </span>
+                    </div>
+                    <p class="text-sm font-medium text-gray-500 mt-0.5">&nbsp;</p>
+                </div>
+            </div>
+
+            <!-- Card 2: PAYMENT SUCCESS -->
+            <div class="bg-[#2c2f32] p-6 rounded-xl shadow-xl">
+                <p class="text-sm font-medium text-gray-400 mb-4">ANSWER TICKETS</p>
+                <div class="flex flex-col">
+                    <div class="flex items-baseline space-x-2">
+                        <span class="text-4xl font-bold">0</span>
+                        <span class="text-gray-400 text-base">From 26</span>
+                        <span class="bg-green-800">
+                            <span class="font-mono text-sm">⎱</span> 0%
+                        </span>
+                    </div>
+                    <p class="text-sm font-medium text-gray-500 mt-0.5">&nbsp;</p>
+                </div>
+            </div>
+            
+            <!-- Card 3: PENDING PAYMENT -->
+            <div class="bg-[#2c2f32] p-6 rounded-xl shadow-xl">
+                <p class="text-sm font-medium text-gray-400 mb-4">REPLIED TICKETS</p>
+                <div class="flex flex-col">
+                    <div class="flex items-baseline space-x-2">
+                        <span class="text-4xl font-bold">16</span>
+                        <span class="text-gray-400 text-base">From 26</span>
+                        <span class="bg-green-800">
+                            <span class="font-mono text-sm">⎱</span> 63.46%
+                        </span>
+                    </div>
+                    <p class="text-sm font-medium text-gray-500 mt-0.5">&nbsp;</p>
+                </div>
+            </div>
+
+            <!-- Card 4: CANCEL PAYMENT -->
+            <div class="bg-[#2c2f32] p-6 rounded-xl shadow-xl">
+                <p class="text-sm font-medium text-gray-400 mb-4">CLOSED TICKETS</p>
+                <div class="flex flex-col">
+                    <div class="flex items-baseline space-x-2">
+                        <span class="text-4xl font-bold">7</span>
+                        <span class="text-gray-400 text-base">From 26</span>
+                        <span class="bg-green-800">
+                            <span class="font-mono text-sm">⎱</span> 26.05%
+                        </span>
+                    </div>
+                    <p class="text-sm font-medium text-gray-500 mt-0.5">&nbsp;</p>
+                </div>
+            </div>
+
+        </div>
+        <!-- End of Statistics Grid -->
+
+         <!-- Simulated Detail Page Container -->
+    <div id="detailPage" class="simulated-page fixed inset-0 z-50 bg-[#1e1e1e] p-8 overflow-y-auto">
+        <h1 class="text-3xl font-bold text-white mb-6">Transaction Details</h1>
+        <div id="detailContent" class="main-card rounded-xl p-6 text-gray-300">
+            <!-- Details will be loaded here -->
+        </div>
+        <button onclick="showPage('mainPage')" class="mt-6 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition duration-150">
+            <i class="fa-solid fa-arrow-left mr-2"></i>Back to Dashboard
+        </button>
+    </div>
+
+    <!-- MAIN DASHBOARD PAGE -->
+    <div id="mainPage" class="active-page max-w-7xl mx-auto flex flex-col lg:flex-row space-y-6 lg:space-y-0 lg:space-x-6">
+        
+        <!-- Filter Pane (Left Column) - HIDDEN by default -->
+        <div id="filterBackdrop" class="hidden fixed inset-0 z-40 overlay-backdrop lg:hidden" onclick="toggleFilterPane(false)"></div>
+
+        <aside id="filterPane"
+           class="main-card rounded-xl shadow-2xl p-6 w-full lg:w-72 lg:sticky lg:top-8 self-start transition-all duration-300 hidden"
+        >
+             <div class="flex justify-between items-center pb-4 border-b border-gray-700">
+                <h3 class="text-xl font-semibold text-white">Filter</h3>
+                <button onclick="toggleFilterPane(false)" class="text-gray-400 hover:text-white transition duration-150">
+                    <i class="fa-solid fa-xmark text-xl"></i>
+                </button>
+            </div>
+            <div class="mt-4 space-y-5">
+                <!-- Transaction ID Filter -->
+                <div>
+                    <label class="block text-gray-400 text-sm font-medium mb-1">TRANSACTION ID</label>
+                    <input type="text" id="filterTrxId" oninput="applyFilters()" class="w-full bg-[#1e1e1e] border border-[#3a3a3a] text-gray-300 rounded-lg p-2.5 focus:ring-blue-500 focus:border-blue-500" placeholder="e.g. D132418743811">
+                </div>
+                
+                <!-- Status Dropdown (Simulated for aesthetics) -->
+                <div>
+                    <label class="block text-gray-400 text-sm font-medium mb-1">STATUS</label>
+                    <select id="filterStatus" onchange="applyFilters()" class="w-full bg-[#1e1e1e] border border-[#3a3a3a] text-gray-300 rounded-lg p-2.5 focus:ring-blue-500 focus:border-blue-500 appearance-none pr-8">
+                        <option value="">All Status</option>
+                        <option value="Successful">Successful</option>
+                        <option value="Pending">Pending</option>
+                        <option value="Canceled">Canceled</option>
+                    </select>
+                </div>
+                
+                <!-- Date Range Filter -->
+                <div>
+                    <label class="block text-gray-400 text-sm font-medium mb-1">DATE RANGE</label>
+                    <div class="space-y-2">
+                         <input type="date" id="filterStartDate" onchange="applyFilters()" class="w-full bg-[#1e1e1e] border border-[#3a3a3a] text-gray-300 rounded-lg p-2.5 focus:ring-blue-500 focus:border-blue-500" title="Start Date">
+                         <input type="date" id="filterEndDate" onchange="applyFilters()" class="w-full bg-[#1e1e1e] border border-[#3a3a3a] text-gray-300 rounded-lg p-2.5 focus:ring-blue-500 focus:border-blue-500" title="End Date">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flex justify-end mt-6">
+                <button onclick="clearFilters()" class="text-white bg-gray-600 hover:bg-gray-500 px-4 py-2 rounded-lg transition duration-150 w-full">
+                    Clear Filters
+                </button>
+            </div>
+        </aside>
+        
+        <!-- Transaction Table (Right Column) -->
+        <div class="flex-1 space-y-6">
+
+            <!-- Search Bar -->
+            <div class="main-card rounded-xl p-4 flex items-center justify-between shadow-2xl">
+                <div class="relative w-full">
+                    <i class="fa fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500"></i>
+                    <input type="text" placeholder="Search here" id="searchInput" oninput="applyFilters()" class="w-full bg-[#1e1e1e] border border-[#3a3a3a] text-gray-300 rounded-lg py-2 pl-12 pr-4 focus:ring-blue-500 focus:border-blue-500" />
+                </div>
+                <!-- Note: main filter button moved to header as icon-only -->
+            </div>
+
+            <!-- Transaction Table -->
+            <div class="main-card rounded-xl shadow-2xl overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-700">
+                    <thead class="table-header text-xs uppercase tracking-wider text-gray-400 sticky top-0">
+                        <tr>
+                            <th class="px-4 py-3 text-left w-12">SL</th>
+                            <th class="px-4 py-3 text-left">User</th>
+                            <th class="px-4 py-3 text-left">Transaction ID</th>
+                            <th class="px-4 py-3 text-right">Amount</th>
+                            <th class="px-4 py-3 text-right">Charge</th>
+                            <th class="px-4 py-3 text-left">Status</th>
+                            <th class="px-4 py-3 text-left">Date</th>
+                            <th class="px-4 py-3 text-center w-24">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="transactionTableBody" class="divide-y divide-gray-800 text-sm">
+                        <!-- Data rows will be injected here by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Pagination Controls -->
+            <div id="paginationContainer" class="flex flex-col sm:flex-row items-center justify-between pt-4 text-sm text-gray-400">
+                <!-- Pagination Info and buttons will be inserted here by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    </div>
+            </div>
+          </main>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("componentsLoaded", () => {
+        const hamburgerBtn = document.getElementById("hamburgerBtn");
+        const sidebarContainer = document.getElementById("sidebar-container");
+
+        hamburgerBtn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          sidebarContainer.classList.toggle("hidden");
+        });
+      });
+    </script>
+    <script src="./js/include.js"></script>
+    <script src="./js/admin.js"></script>
+    <script>
+      const avatarBtn = document.getElementById("avatarBtn");
+      const dropdown = document.getElementById("dropdownMenu");
+
+      // Toggle on click
+      avatarBtn.addEventListener("click", () => {
+        dropdown.classList.toggle("hidden");
+      });
+
+      // Close when clicking outside
+      document.addEventListener("click", (e) => {
+        if (!avatarBtn.contains(e.target) && !dropdown.contains(e.target)) {
+          dropdown.classList.add("hidden");
+        }
+      });
+    </script>
+    <script>
+        // --- Dummy Data --- (unchanged)
+        const allTransactions = [
+            { sl: 1, id: 'D132418743811', name: 'MOSHARAF HOSSAIN', username: '@demouser', method: 'Stripe', amount: '500 USD', charge: '3 USD', status: 'Successful', date: '08 Nov 2025', details: { acc: '2542452542', beneficiary: 'ngfbbgfbgfb', address: 'gfbjfdfgf', amountPaid: '500', datePaid: '08 Nov 2025' } },
+            { sl: 2, id: 'D132418743809', name: 'FATIMA ABDULLAH', username: '@fatima_a', method: 'Stripe', amount: '20 USD', charge: '0.6 USD', status: 'Successful', date: '08 Nov 2025', details: { acc: '548485548', beneficiary: 'Sarah Smith', address: '123 Main St, USA', amountPaid: '20', datePaid: '08 Nov 2025' } },
+            { sl: 3, id: 'D132418743790', name: 'ALI AL-KHALIFA', username: '@ali_k', method: 'Bank Transfer', amount: '250 USD', charge: '0.5 USD', status: 'Pending', date: '05 Nov 2025', details: { acc: '365768687g', beneficiary: 'vhvjhfchgjh', address: 'jhghghgyu', amountPaid: '250', datePaid: '05 Nov 2025' } },
+            { sl: 4, id: 'D132418743754', name: 'JAKE SMITH', username: '@jake_s', method: 'Bank Transfer', amount: '999.5 USD', charge: '0.5 USD', status: 'Pending', date: '30 Oct 2025', details: { acc: '5877841234', beneficiary: 'Test Name', address: 'Test Address', amountPaid: '999.5', datePaid: '30 Oct 2025' } },
+            { sl: 5, id: 'D132418743748', name: 'JESSICA CHEN', username: '@jess_c', method: 'Stripe', amount: '5,000 USD', charge: '25.5 USD', status: 'Successful', date: '27 Oct 2025', details: { acc: '2542452542', beneficiary: 'ngfbbgfbgfb', address: 'gfbjfdfgf', amountPaid: '5000', datePaid: '27 Oct 2025' } },
+            { sl: 6, id: 'D132418743746', name: 'AHMAD JALAL', username: '@ahmad_j', method: 'Bank Transfer', amount: '100 USD', charge: '0.5 USD', status: 'Pending', date: '26 Oct 2025', details: { acc: '548485548', beneficiary: 'Ahmed Ali', address: 'Dubai', amountPaid: '100', datePaid: '26 Oct 2025' } },
+            { sl: 7, id: 'D132418743732', name: 'SARA KHAN', username: '@sarah_k', method: 'Bank Transfer', amount: '999 USD', charge: '0.5 USD', status: 'Pending', date: '24 Oct 2025', details: { acc: '548485548', beneficiary: 'Sara Khan', address: 'Karachi', amountPaid: '999', datePaid: '24 Oct 2025' } },
+            { sl: 8, id: 'D132418743718', name: 'LEENA ALI', username: '@leena_a', method: 'Bank Transfer', amount: '1,000 USD', charge: '0.5 USD', status: 'Pending', date: '23 Oct 2025', details: { acc: '548485548', beneficiary: 'Leena Ali', address: 'Riyadh', amountPaid: '1000', datePaid: '23 Oct 2025' } },
+            { sl: 9, id: 'D132418743710', name: 'MOHAMMED R.', username: '@mo_r', method: 'Stripe', amount: '150 USD', charge: '1.2 USD', status: 'Successful', date: '20 Oct 2025', details: { acc: '2542452542', beneficiary: 'ngfbbgfbgfb', address: 'gfbjfdfgf', amountPaid: '150', datePaid: '20 Oct 2025' } },
+            { sl: 10, id: 'D132418743699', name: 'MARCO ROSSI', username: '@marco_r', method: 'Bank Transfer', amount: '2,000 USD', charge: '10 USD', status: 'Pending', date: '15 Oct 2025', details: { acc: '548485548', beneficiary: 'Jessica Chen', address: 'Shanghai', amountPaid: '2000', datePaid: '15 Oct 2025' } },
+            { sl: 11, id: 'D132418743679', name: 'DAVID LEE', username: '@david_l', method: 'Bank Transfer', amount: '100 USD', charge: '0.5 USD', status: 'Pending', date: '12 Oct 2025', details: { acc: '548485548', beneficiary: 'David Lee', address: 'Seoul', amountPaid: '100', datePaid: '12 Oct 2025' } },
+            { sl: 12, id: 'D132418743657', name: 'PRIYA SINGH', username: '@priya_s', method: 'Bank Transfer', amount: '445 USD', charge: '0.5 USD', status: 'Pending', date: '08 Oct 2025', details: { acc: '548485548', beneficiary: 'Priya Singh', address: 'Mumbai', amountPaid: '445', datePaid: '08 Oct 2025' } },
+            { sl: 13, id: 'D132418743639', name: 'CHLOE GOMEZ', username: '@chloe_g', method: 'Bank Transfer', amount: '8.6 EUR', charge: '0.5 EUR', status: 'Canceled', date: '03 Oct 2025', details: { acc: '548485548', beneficiary: 'Chloe Gomez', address: 'Mexico City', amountPaid: '8.6', datePaid: '03 Oct 2025' } },
+            { sl: 14, id: 'D132418743612', name: 'MASON BLACK', username: '@mason_b', method: 'Bank Transfer', amount: '100 USD', charge: '0.5 USD', status: 'Pending', date: '25 Sep 2025', details: { acc: '548485548', beneficiary: 'Mason Black', address: 'London', amountPaid: '100', datePaid: '25 Sep 2025' } },
+            { sl: 15, id: 'D132418743581', name: 'EMILY WANG', username: '@emily_w', method: 'Bank Transfer', amount: '600 EUR', charge: '0.5 EUR', status: 'Pending', date: '16 Sep 2025', details: { acc: '548485548', beneficiary: 'Emily Wang', address: 'Vancouver', amountPaid: '600', datePaid: '16 Sep 2025' } },
+            { sl: 16, id: 'D132418743578', name: 'MARK ZHAO', username: '@mark_z', method: 'Stripe', amount: '700 USD', charge: '0.5 USD', status: 'Successful', date: '16 Sep 2025', details: { acc: '548485548', beneficiary: 'Mark Zhao', address: 'Boston', amountPaid: '700', datePaid: '16 Sep 2025' } },
+            { sl: 17, id: 'D132418743555', name: 'ALEX RUIZ', username: '@alex_r', method: 'Stripe', amount: '10 USD', charge: '0.5 USD', status: 'Successful', date: '11 Sep 2025', details: { acc: '548485548', beneficiary: 'Alex Ruiz', address: 'Madrid', amountPaid: '10', datePaid: '11 Sep 2025' } },
+        ];
+
+        let currentPage = 1;
+        const entriesPerPage = 5;
+        let filteredTransactions = [...allTransactions];
+        
+        // --- Utility Functions & State Management ---
+        function getProfileImageHtml(name) {
+            const initials = name.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2);
+            let hash = 0;
+            for (let i = 0; i < name.length; i++) hash = name.charCodeAt(i) + ((hash << 5) - hash);
+            const colorIndex = Math.abs(hash) % 5;
+            const bgColors = ['bg-red-500', 'bg-blue-500', 'bg-green-500', 'bg-yellow-500', 'bg-purple-500'];
+            const bgColor = bgColors[colorIndex];
+            return `<div class="w-8 h-8 ${bgColor} flex items-center justify-center rounded-full text-white text-sm font-bold flex-shrink-0">${initials}</div>`;
+        }
+        
+        function showPage(pageId) {
+            const pages = document.querySelectorAll('.simulated-page, .active-page');
+            pages.forEach(page => {
+                page.classList.remove('active-page');
+                page.classList.add('simulated-page');
+            });
+            const targetPage = document.getElementById(pageId);
+            if (targetPage) {
+                targetPage.classList.remove('simulated-page');
+                targetPage.classList.add('active-page');
+            }
+        }
+
+        // NEW toggleFilterPane: hides by default; opens overlay on any screen
+        function toggleFilterPane(show) {
+            const filterPane = document.getElementById('filterPane');
+            const filterBackdrop = document.getElementById('filterBackdrop');
+
+            if (show) {
+                // Show backdrop
+                filterBackdrop.classList.remove('hidden');
+                // For desktop and mobile we'll show the pane as an overlay drawer on the right
+                filterPane.classList.remove('hidden');
+                // apply overlay drawer styles for desktop & mobile
+                filterPane.classList.add('fixed','right-0','top-16','h-[calc(100vh-4rem)]','w-80','z-50','overflow-y-auto');
+                filterPane.classList.remove('lg:sticky','lg:top-8'); // remove conflicting classes
+            } else {
+                filterBackdrop.classList.add('hidden');
+                filterPane.classList.add('hidden');
+                // remove overlay classes
+                filterPane.classList.remove('fixed','right-0','top-16','h-[calc(100vh-4rem)]','w-80','z-50','overflow-y-auto');
+                // re-add desktop inline classes for large screens (keeps layout intact if user resizes)
+                filterPane.classList.add('lg:sticky','lg:top-8');
+            }
+        }
+        
+        function openDetailView(trxId) {
+            // unchanged
+            const transaction = allTransactions.find(t => t.id === trxId);
+            if (!transaction) return;
+
+            const contentHtml = `
+                <div class="space-y-6">
+                    <h2 class="text-2xl font-bold text-white border-b border-gray-700 pb-3">Transaction ID: <span class="text-blue-400">${transaction.id}</span></h2>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 text-sm">
+                        <div>
+                            <p class="text-gray-500 font-medium">USER</p>
+                            <div class="flex items-center space-x-2 mt-1">
+                                ${getProfileImageHtml(transaction.name)}
+                                <div>
+                                    <p class="text-white font-medium">${transaction.name}</p>
+                                    <p class="text-gray-500 text-xs">${transaction.username}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="text-gray-500 font-medium">AMOUNT / CHARGE</p>
+                            <p class="text-white font-semibold mt-1">${transaction.amount} (Charge: ${transaction.charge})</p>
+                        </div>
+                        <div>
+                            <p class="text-gray-500 font-medium">DATE</p>
+                            <p class="text-white font-semibold mt-1">${transaction.date}</p>
+                        </div>
+                        <div>
+                            <p class="text-gray-500 font-medium">STATUS</p>
+                            <span class="font-semibold mt-1 status-${transaction.status.toLowerCase()}">${transaction.status}</span>
+                        </div>
+                        <div>
+                            <p class="text-gray-500 font-medium">PAYMENT METHOD</p>
+                            <p class="text-white font-semibold mt-1">${transaction.method}</p>
+                        </div>
+                    </div>
+                    <div class="pt-4 border-t border-gray-700">
+                        <h3 class="text-xl font-semibold text-white mb-3">Transaction Summary</h3>
+                        <div class="space-y-2">
+                            <div class="flex justify-between border-b border-gray-800 py-1">
+                                <span class="text-gray-400">Account Number:</span>
+                                <span class="text-white font-medium">${transaction.details.acc}</span>
+                            </div>
+                            <div class="flex justify-between border-b border-gray-800 py-1">
+                                <span class="text-gray-400">Beneficiary Name:</span>
+                                <span class="text-white font-medium">${transaction.details.beneficiary}</span>
+                            </div>
+                            <div class="flex justify-between border-b border-gray-800 py-1">
+                                <span class="text-gray-400">Address:</span>
+                                <span class="text-white font-medium">${transaction.details.address}</span>
+                            </div>
+                            <div class="flex justify-between border-b border-gray-800 py-1">
+                                <span class="text-gray-400">Amount Paid (Confirmation):</span>
+                                <span class="text-green-500 font-medium">${transaction.details.amountPaid} USD</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-gray-700">
+                        <h4 class="text-md font-semibold text-gray-400 uppercase mb-2">Internal Notes</h4>
+                        <textarea class="w-full bg-[#1e1e1e] border border-[#3a3a3a] text-gray-300 rounded-lg p-3 h-24 focus:ring-blue-500 focus:border-blue-500" placeholder="Add notes for this transaction..."></textarea>
+                    </div>
+                </div>
+            `;
+            document.getElementById('detailContent').innerHTML = contentHtml;
+            showPage('detailPage');
+        }
+
+        // --- Table Rendering and Pagination (unchanged) ---
+        function renderTable() {
+            const start = (currentPage - 1) * entriesPerPage;
+            const end = start + entriesPerPage;
+            const transactionsToShow = filteredTransactions.slice(start, end);
+            const tableBody = document.getElementById('transactionTableBody');
+            tableBody.innerHTML = ''; 
+            if (transactionsToShow.length === 0) {
+                 tableBody.innerHTML = `
+                    <tr>
+                        <td colspan="8" class="text-center py-6 text-gray-500">No transactions found matching your criteria.</td>
+                    </tr>
+                `;
+            }
+            transactionsToShow.forEach((trx, index) => {
+                const globalIndex = start + index + 1;
+                const statusClass = `status-${trx.status.toLowerCase()}`;
+                const row = `
+                    <tr class="table-row hover:bg-gray-800/20">
+                        <td class="px-4 py-4 text-gray-400 font-mono text-xs">${globalIndex}</td>
+                        <td class="px-4 py-4">
+                            <div class="flex items-center space-x-3">
+                                ${getProfileImageHtml(trx.name)}
+                                <div>
+                                    <p class="text-white font-medium">${trx.name}</p>
+                                    <p class="text-gray-500 text-xs">${trx.username}</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="px-4 py-4 text-gray-300 font-mono text-xs">${trx.id}</td>
+                        <td class="px-4 py-4 text-right text-green-500 font-semibold">${trx.amount}</td>
+                        <td class="px-4 py-4 text-right text-red-500 font-semibold">${trx.charge}</td>
+                        <td class="px-4 py-4 text-left">
+                            <span class="${statusClass} text-xs font-semibold">${trx.status}</span>
+                        </td>
+                        <td class="px-4 py-4 text-gray-400 text-sm whitespace-nowrap">${trx.date}</td>
+                        <td class="px-4 py-4 text-center">
+                            <button onclick="openDetailView('${trx.id}')" class="text-blue-500 hover:text-blue-400 font-medium transition duration-150 p-1 rounded-lg">
+                                View
+                            </button>
+                        </td>
+                    </tr>
+                `;
+                tableBody.insertAdjacentHTML('beforeend', row);
+            });
+            renderPagination();
+        }
+
+        function renderPagination() {
+            const totalEntries = filteredTransactions.length;
+            const totalPages = Math.ceil(totalEntries / entriesPerPage);
+            const container = document.getElementById('paginationContainer');
+            container.innerHTML = '';
+            if (totalEntries === 0) return; 
+            const startEntry = Math.min((currentPage - 1) * entriesPerPage + 1, totalEntries);
+            const endEntry = Math.min(currentPage * entriesPerPage, totalEntries);
+            const info = `<p class="text-gray-500">Showing <span class="text-white">${startEntry}</span> to <span class="text-white">${endEntry}</span> of <span class="text-white">${totalEntries}</span> entries</p>`;
+            let pageButtons = '';
+            pageButtons += `
+                <button onclick="changePage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''} class="px-3 py-1.5 rounded-lg border border-gray-700 text-sm ${currentPage === 1 ? 'text-gray-600 cursor-not-allowed' : 'hover:bg-gray-700 transition duration-150 text-white'}">
+                    Prev
+                </button>
+            `;
+            const maxVisiblePages = 5;
+            let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
+            let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+            if (endPage - startPage + 1 < maxVisiblePages) startPage = Math.max(1, endPage - maxVisiblePages + 1);
+            for (let i = startPage; i <= endPage; i++) {
+                const isActive = i === currentPage ? 'bg-blue-600 text-white border-blue-600' : 'hover:bg-gray-700 text-white';
+                pageButtons += `
+                    <button onclick="changePage(${i})" class="px-3 py-1.5 rounded-lg border border-gray-700 text-sm ${isActive} transition duration-150">
+                        ${i}
+                    </button>
+                `;
+            }
+            if (endPage < totalPages) {
+                pageButtons += `<span class="px-2 text-gray-500">...</span>`;
+                pageButtons += `
+                    <button onclick="changePage(${totalPages})" class="px-3 py-1.5 rounded-lg border border-gray-700 text-sm hover:bg-gray-700 text-white transition duration-150">
+                        ${totalPages}
+                    </button>
+                `;
+            }
+            pageButtons += `
+                <button onclick="changePage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''} class="px-3 py-1.5 rounded-lg border border-gray-700 text-sm ${currentPage === totalPages ? 'text-gray-600 cursor-not-allowed' : 'hover:bg-gray-700 transition duration-150 text-white'}">
+                    Next
+                </button>
+            `;
+            container.innerHTML = `${info}<div class="flex space-x-2 mt-4 sm:mt-0">${pageButtons}</div>`;
+        }
+        
+        function changePage(page) {
+            const totalPages = Math.ceil(filteredTransactions.length / entriesPerPage);
+            if (page >= 1 && page <= totalPages) {
+                currentPage = page;
+                renderTable();
+                document.querySelector('.overflow-x-auto').scrollTop = 0;
+            }
+        }
+        
+        // --- Filter Logic ---
+        function parseDate(dateString) {
+            if (!dateString) return null;
+            const parts = dateString.split(' ');
+            return new Date(`${parts[1]} ${parts[0]}, ${parts[2]}`);
+        }
+
+        function applyFilters() {
+            const searchInput = document.getElementById('searchInput').value.trim().toLowerCase();
+            const filterTrxId = document.getElementById('filterTrxId').value.trim().toLowerCase();
+            const filterStatus = document.getElementById('filterStatus').value;
+            const filterStartDate = document.getElementById('filterStartDate').value;
+            const filterEndDate = document.getElementById('filterEndDate').value;
+            const start = filterStartDate ? new Date(filterStartDate) : null;
+            const end = filterEndDate ? new Date(filterEndDate) : null;
+            filteredTransactions = allTransactions.filter(trx => {
+                let matches = true;
+                const searchString = `${trx.name} ${trx.username} ${trx.method} ${trx.id}`.toLowerCase();
+                if (searchInput && !searchString.includes(searchInput)) matches = false;
+                if (filterTrxId && !trx.id.toLowerCase().includes(filterTrxId)) matches = false;
+                if (filterStatus && filterStatus !== "" && trx.status !== filterStatus) matches = false;
+                if (start || end) {
+                    const trxDate = parseDate(trx.date);
+                    if (trxDate) {
+                        if (start && trxDate < start) matches = false;
+                        if (end) {
+                             const endOfDay = new Date(end);
+                             endOfDay.setHours(23, 59, 59, 999);
+                             if (trxDate > endOfDay) matches = false;
+                        }
+                    } else matches = false;
+                }
+                return matches;
+            });
+            currentPage = 1;
+            renderTable();
+        }
+
+        function clearFilters() {
+            document.getElementById('filterTrxId').value = '';
+            document.getElementById('filterStatus').value = '';
+            document.getElementById('filterStartDate').value = '';
+            document.getElementById('filterEndDate').value = '';
+            document.getElementById('searchInput').value = '';
+            applyFilters();
+        }
+        
+        // --- Initialization ---
+        window.onload = function() {
+            // Hide filter pane by default (desktop & mobile) — user will open via icon
+            document.getElementById('filterPane').classList.add('hidden');
+            document.getElementById('filterBackdrop').classList.add('hidden');
+            renderTable();
+        };
+
+        // Keep layout consistent on resize: ensure overlay classes are removed if collapsed
+        window.onresize = function() {
+            if (window.innerWidth >= 1024) {
+                const filterPane = document.getElementById('filterPane');
+                const filterBackdrop = document.getElementById('filterBackdrop');
+                filterPane.classList.add('hidden');
+                filterPane.classList.remove('fixed','right-0','top-16','h-[calc(100vh-4rem)]','w-80','z-50','overflow-y-auto');
+                filterPane.classList.add('lg:sticky','lg:top-8');
+                filterBackdrop.classList.add('hidden');
+            }
+        };
+    </script>
+  </body>
+</html>
