@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+  <head class="">
+    <meta charset="utf-8" class="" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1"
+      class=""
+    />
+    <title class="">Plan List - Admin</title>
+    <link rel="stylesheet" href="/mlm_html//admin//style.css" />
+    <script src="https://cdn.tailwindcss.com" class=""></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+      .custom-scrollbar::-webkit-scrollbar {
+        height: 8px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background-color: #374151; /* Gray-700 */
+        border-radius: 4px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-track {
+        background-color: #1f2937; /* Gray-800 */
+      }
+      .row-hover:hover {
+            background-color: #333333;
+        }
+        .pagination-btn {
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            transition: background-color 0.15s, color 0.15s;
+        }
+        .pagination-btn.active {
+            background-color: #3b82f6; /* Blue-500 */
+            color: white;
+            font-weight: 600;
+        }
+        /* Modal backdrop for the filter/edit */
+        .modal-backdrop {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+        /* Custom status badges */
+        .status-pending { background-color: #4a4023; color: #ffeb3b; padding: 2px 8px; border-radius: 6px; font-weight: 500;}
+        .status-approved { background-color: #1c4532; color: #68d391; padding: 2px 8px; border-radius: 6px; font-weight: 500;}
+        .percent-box {
+            display: inline-flex;
+            align-items: center;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.75rem; /* text-xs */
+            font-weight: 500;
+        }
+        .percent-box.green {
+            background-color: rgba(104, 211, 145, 0.15); /* Light green background */
+            color: #68d391; /* Tailwind green-300/400 */
+        }
+        .percent-box.orange {
+            background-color: rgba(255, 165, 0, 0.15); /* Orange background */
+            color: #f6ad55; /* Tailwind orange-400 */
+        }
+        .percent-box.pink {
+            background-color: rgba(237, 100, 166, 0.15); /* Pink background */
+            color: #ed64a6; /* Tailwind pink-400 */
+        }
+        .status-success {
+            background-color: rgba(104, 211, 145, 0.15); /* light green bg */
+            color: #68d391; /* text-green-400 */
+        }
+        .status-pending {
+            background-color: rgba(246, 173, 85, 0.15); /* light orange bg */
+            color: #f6ad55; /* text-orange-400 */
+        }
+        .text-green-amount { color: #68d391; }
+        .text-red-amount { color: #ed64a6; }
+        .modal-bg { background-color: rgba(0, 0, 0, 0.75); }
+        .modal-card { background-color: #2b2b2b; }
+        .status-closed {
+            color: #ec4899; /* Pink/Red dot */
+        }
+        .status-customer-reply {
+            color: #3b82f6; /* Blue dot */
+        }
+        .status-open {
+            color: #22c55e; /* Green dot */
+        }
+        .status-in-progress {
+            color: #f59e0b; /* Yellow dot */
+        }
+        
+        .status-dot::before {
+            content: '•';
+            margin-right: 0.5rem;
+            font-size: 1.5rem;
+            line-height: 1;
+            vertical-align: middle;
+        }
+    </style>
+  </head>
+  <body class="">
+    <!-- SIDEBAR (included dynamically) & MAIN CONTENT FLEX LAYOUT -->
+    <div class="flex h-screen">
+      <div id="sidebar-container" class="relative hidden lg:block">
+        <div data-include="components/sidebar.html"></div>
+      </div>
+      <!-- TOP BAR -->
+      <header class="fixed top-0 left-0 lg:left-64 right-0 z-40 w-full bg-[#2c2f32] py-3 px-4 flex items-center justify-between shadow">
+        <div class="flex items-center space-x-4 flex-1">
+          <!-- HAMBURGER AND MLM - visible below desktop -->
+          <div class="flex items-center space-x-2 lg:hidden">
+            <button
+              id="hamburgerBtn"
+              class="text-white p-2 hover:bg-gray-700 rounded"
+            >
+              <i class="fas fa-bars"></i>
+            </button>
+            <div class="text-xl font-bold text-red-500">MLM</div>
+          </div>
+
+          <!-- SEARCH -->
+          <div
+            class="flex items-center flex-1 max-w-xl rounded-full px-4 py-2 space-x-3 shadow-lg"
+          >
+            <i class="fas fa-search text-gray-400"></i>
+            <input
+              type="text"
+              placeholder="Search for a menu"
+              class="bg-transparent w-full focus:outline-none text-gray-300 placeholder-gray-400"
+            />
+          </div>
+        </div>
+
+        <!-- RIGHT SIDE -->
+        <div class="relative ml-4">
+          <!-- AVATAR BUTTON -->
+          <button id="avatarBtn">
+            <img
+              src="https://i.pravatar.cc/80"
+              class="w-10 h-10 rounded-full border border-gray-700 cursor-pointer"
+            />
+          </button>
+
+          <!-- DROPDOWN -->
+          <div
+            id="dropdownMenu"
+            class="hidden absolute right-0 mt-3 w-56 bg-gray-800 rounded-xl shadow-xl border border-gray-700 z-50"
+          >
+            <!-- PROFILE INFO -->
+            <div class="px-4 py-3 flex items-center gap-4">
+              <div>
+                <img
+                  src="https://i.pravatar.cc/80"
+                  class="w-10 h-10 rounded-full border border-gray-700 cursor-pointer"
+                />
+              </div>
+              <div>
+                <p class="text-sm font-semibold">admin</p>
+                <p class="text-xs text-gray-400">admin@gmail.com</p>
+              </div>
+            </div>
+
+            <!-- MENU ITEMS -->
+            <ul class="py-2">
+              <li>
+                <a
+                  href="#"
+                  class="block px-4 py-2 text-sm hover:bg-gray-700 transition"
+                  >Profile & account</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="block px-4 py-2 text-sm hover:bg-gray-700 transition"
+                  >Sign out</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div
+        id="main-content"
+        class="overflow-y-auto bg-[#2c2f32] text-white transition-all duration-300 ease-in-out"
+      >
+        <!-- DASHBOARD MAIN CONTENT -->
+
+        <div
+          id="main-content-wrapper"
+          class="fixed top-16 left-0 lg:left-64 right-0 bottom-0 overflow-y-auto overflow-x-hidden flex flex-col transition-all duration-300 ease-in-out"
+        >
+          <main class="bg-[#1e2022] mx-auto w-full text-white">
+
+            <div class="p-4 sm:p-6 min-h-screen">
+              <div class="mb-6 border-b border-gray-700">
+                <div class="flex items-end">
+                  <div class="flex-1 mb-2 sm:mb-0">
+                    <nav aria-label="breadcrumb">
+                      <ol class="flex items-center text-sm text-gray-500">
+                        <li class="flex items-center">
+                          <a
+                            class="text-gray-400 hover:text-gray-700"
+                            href="javascript:void(0);"
+                            >Dashboard</a
+                          >
+                          <span class="mx-2">/</span>
+                        </li>
+                        <li class="text-white font-medium" aria-current="page">
+                          KYC
+                        </li>
+                        <span class="mx-2">/</span>
+                        <li class="text-white font-medium" aria-current="page">
+                          NID Verification informationt
+                        </li>
+                      </ol>
+                    </nav>
+                    <h1 class="text-2xl font-bold text-white mt-2 mb-10">
+                      UNID Verification information
+                    </h1>
+                  </div>
+                </div>
+              </div>
+              <div class="mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
+    <!-- LEFT: User Profile -->
+    <aside class="card rounded-2xl p-5 shadow-lg md:col-span-1">
+      <div class="flex items-start justify-between">
+        <h2 class="text-lg font-semibold">User Profile</h2>
+        <a href="#view" class="text-sm bg-transparent border border-white/6 px-3 py-1 rounded-md hover:bg-white/3">View Profile</a>
+      </div>
+
+      <div class="mt-4 space-y-4">
+        <div class="rounded-md p-4 bg-white/2">
+          <h3 class="text-sm uppercase text-slate-300 tracking-wide mb-2">About</h3>
+          <div class="text-sm text-slate-100 leading-snug">
+            <div class="flex items-center gap-2"><svg class="w-4 h-4 text-slate-300" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4S14.21 4 12 4 8 5.79 8 8s1.79 4 4 4zM6 20v-1a4 4 0 014-4h4a4 4 0 014 4v1" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/></svg><span class="ml-1">vvvhhh bbccvvhh</span></div>
+            <div class="flex items-center gap-2 mt-1"><svg class="w-4 h-4 text-slate-300" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a1 1 0 001-1V7a1 1 0 00-1-1H5a1 1 0 00-1 1v11a1 1 0 001 1z" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/></svg><span class="ml-1">@vvccvch</span></div>
+          </div>
+        </div>
+
+        <div class="rounded-md p-4 bg-white/2">
+          <h3 class="text-sm uppercase text-slate-300 tracking-wide mb-2">Contacts</h3>
+          <div class="text-sm text-slate-100 space-y-2">
+            <div class="flex items-center gap-2"><svg class="w-4 h-4 text-slate-300" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 8v6a2 2 0 01-2 2h-3l-3 3v-3H8a2 2 0 01-2-2V8" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/></svg><span>cchtfvgxg@gmail.com</span></div>
+            <div class="flex items-center gap-2"><svg class="w-4 h-4 text-slate-300" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M22 16.92V21a1 1 0 01-1.11 1A19 19 0 013 5.11 1 1 0 014 4h4.09a1 1 0 01.99.86c.12 1.05.38 2.07.75 3.03a1 1 0 01-.24 1.02L9.3 11.7a15 15 0 006.99 6.99l1.79-1.29a1 1 0 011.02-.24c.96.37 1.98.63 3.03.75a1 1 0 01.86.99z" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/></svg><span>+185585858555</span></div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- RIGHT: NID Verification Panel -->
+    <section class="md:col-span-2 card rounded-2xl p-6 shadow-lg">
+      <div class="flex items-start justify-between mb-4">
+        <h2 class="text-lg font-semibold">NID Verification Information</h2>
+
+        <!-- status badge -->
+        <div id="statusBadge" class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-sm bg-amber-700/90">
+          <span class="w-2 h-2 rounded-full bg-amber-300 block"></span>
+          <span class="font-medium">Pending</span>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- left content (info fields) -->
+        <div class="lg:col-span-2 space-y-4">
+          <div class="border-b border-white/6 pb-3">
+            <label class="text-sm muted block mb-1">Full Name</label>
+            <div class="text-sm text-slate-100">fjjffjfjfjfgj</div>
+          </div>
+
+          <div class="border-b border-white/6 pb-3">
+            <label class="text-sm muted block mb-1">Nid Number</label>
+            <div class="text-sm text-slate-100">5454659595959</div>
+          </div>
+
+          <div class="border-b border-white/6 pb-3">
+            <label class="text-sm muted block mb-1">Date Of Birth</label>
+            <div class="text-sm text-slate-100">11/06/2025</div>
+          </div>
+
+          <div class="border-b border-white/6 pb-3">
+            <label class="text-sm muted block mb-1">Additional Notes</label>
+            <div class="text-sm text-slate-100">—</div>
+          </div>
+        </div>
+
+        <!-- right content (image + actions) -->
+        <div class="lg:col-span-1 flex flex-col items-stretch gap-4">
+          <div class="bg-white/3 rounded-md p-3 flex items-center justify-center h-44 md:h-56">
+            <!-- image placeholder -->
+            <img id="nidImage" src="https://via.placeholder.com/220x160?text=NID+Image" alt="NID document" class="object-cover max-h-full rounded-md" />
+          </div>
+
+          <div class="flex items-center gap-3">
+            <button id="approveBtn" class="flex-1 px-4 py-2 rounded-md bg-emerald-500 hover:bg-emerald-600 text-white font-semibold">Approved</button>
+            <button id="rejectBtn" class="flex-1 px-4 py-2 rounded-md bg-rose-500 hover:bg-rose-600 text-white font-semibold">Rejected</button>
+          </div>
+
+          <div class="text-xs text-slate-400 text-center">Reviewed by <span class="text-slate-200 font-medium">admin</span></div>
+        </div>
+      </div>
+    </section>
+            </div>
+          </main>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("componentsLoaded", () => {
+        const hamburgerBtn = document.getElementById("hamburgerBtn");
+        const sidebarContainer = document.getElementById("sidebar-container");
+
+        hamburgerBtn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          sidebarContainer.classList.toggle("hidden");
+        });
+      });
+    </script>
+    <script src="./js/include.js"></script>
+    <script src="./js/admin.js"></script>
+    <script>
+      const avatarBtn = document.getElementById("avatarBtn");
+      const dropdown = document.getElementById("dropdownMenu");
+
+      // Toggle on click
+      avatarBtn.addEventListener("click", () => {
+        dropdown.classList.toggle("hidden");
+      });
+
+      // Close when clicking outside
+      document.addEventListener("click", (e) => {
+        if (!avatarBtn.contains(e.target) && !dropdown.contains(e.target)) {
+          dropdown.classList.add("hidden");
+        }
+      });
+    </script>
+
+  </body>
+</html>

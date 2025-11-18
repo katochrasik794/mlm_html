@@ -261,7 +261,7 @@
         <!-- End of Statistics Grid -->
 
          <!-- Simulated Detail Page Container -->
-    <div id="detailPage" class="simulated-page fixed inset-0 z-50 bg-[#1e1e1e] p-8 overflow-y-auto">
+    <div id="detailPage" class="simulated-page fixed top-16 left-0 lg:left-64 right-0 bottom-0 z-50 bg-[#2c2f32] p-8 overflow-y-auto">
         <h1 class="text-3xl font-bold text-white mb-6">Transaction Details</h1>
         <div id="detailContent" class="main-card rounded-xl p-6 text-gray-300">
             <!-- Details will be loaded here -->
@@ -272,7 +272,7 @@
     </div>
 
     <!-- MAIN DASHBOARD PAGE -->
-    <div id="mainPage" class="active-page max-w-7xl mx-auto flex flex-col lg:flex-row space-y-6 lg:space-y-0 lg:space-x-6">
+    <div id="mainPage" class="active-page mx-auto flex flex-col lg:flex-row space-y-6 lg:space-y-0">
         
         <!-- Filter Pane (Left Column) - HIDDEN by default -->
         <div id="filterBackdrop" class="hidden fixed inset-0 z-40 overlay-backdrop lg:hidden" onclick="toggleFilterPane(false)"></div>
@@ -322,23 +322,23 @@
         </aside>
         
         <!-- Transaction Table (Right Column) -->
-        <div class="flex-1 space-y-6">
+        <div class="flex-1 space-y-6 bg-[#2c2f32] border border-gray-700 rounded-xl">
 
             <!-- Search Bar -->
-            <div class="main-card rounded-xl p-4 flex items-center justify-between shadow-2xl">
+            <div class="main-card rounded-xl p-4 flex items-center justify-between">
                 <div class="relative w-full">
                     <i class="fa fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500"></i>
-                    <input type="text" placeholder="Search here" id="searchInput" oninput="applyFilters()" class="w-full bg-[#1e1e1e] border border-[#3a3a3a] text-gray-300 rounded-lg py-2 pl-12 pr-4 focus:ring-blue-500 focus:border-blue-500" />
+                    <input type="text" placeholder="Search here" id="searchInput" oninput="applyFilters()" class="w-full bg-[#2c2f32] border border-gray-700 text-gray-300 rounded-lg py-2 pl-12 pr-4 focus:ring-blue-500 focus:border-blue-500" />
                 </div>
                 <!-- Note: main filter button moved to header as icon-only -->
             </div>
 
             <!-- Transaction Table -->
-            <div class="main-card rounded-xl shadow-2xl overflow-x-auto">
-                <table class="min-w-full divide-y divide-gray-700">
+            <div class="main-card  overflow-x-auto">
+                <table class="min-w-full">
                     <thead class="table-header text-xs uppercase tracking-wider text-gray-400 sticky top-0">
-                        <tr>
-                            <th class="px-4 py-3 text-left w-12">SL</th>
+                        <tr class="bg-gray-600">
+                            <th class="px-4 py-4 text-left w-12">SL</th>
                             <th class="px-4 py-3 text-left">User</th>
                             <th class="px-4 py-3 text-left">Transaction ID</th>
                             <th class="px-4 py-3 text-right">Amount</th>
@@ -355,7 +355,7 @@
             </div>
             
             <!-- Pagination Controls -->
-            <div id="paginationContainer" class="flex flex-col sm:flex-row items-center justify-between pt-4 text-sm text-gray-400">
+            <div id="paginationContainer" class="flex flex-col sm:flex-row items-center justify-between py-4 px-4 text-sm text-gray-400">
                 <!-- Pagination Info and buttons will be inserted here by JavaScript -->
             </div>
         </div>

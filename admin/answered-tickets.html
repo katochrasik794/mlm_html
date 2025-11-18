@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+  <head class="">
+    <meta charset="utf-8" class="" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1"
+      class=""
+    />
+    <title class="">Plan List - Admin</title>
+    <link rel="stylesheet" href="/mlm_html//admin//style.css" />
+    <script src="https://cdn.tailwindcss.com" class=""></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+      .custom-scrollbar::-webkit-scrollbar {
+        height: 8px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background-color: #374151; /* Gray-700 */
+        border-radius: 4px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-track {
+        background-color: #1f2937; /* Gray-800 */
+      }
+      .row-hover:hover {
+            background-color: #333333;
+        }
+        .pagination-btn {
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            transition: background-color 0.15s, color 0.15s;
+        }
+        .pagination-btn.active {
+            background-color: #3b82f6; /* Blue-500 */
+            color: white;
+            font-weight: 600;
+        }
+        /* Modal backdrop for the filter/edit */
+        .modal-backdrop {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+        /* Custom status badges */
+        .status-pending { background-color: #4a4023; color: #ffeb3b; padding: 2px 8px; border-radius: 6px; font-weight: 500;}
+        .status-approved { background-color: #1c4532; color: #68d391; padding: 2px 8px; border-radius: 6px; font-weight: 500;}
+        .percent-box {
+            display: inline-flex;
+            align-items: center;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.75rem; /* text-xs */
+            font-weight: 500;
+        }
+        .percent-box.green {
+            background-color: rgba(104, 211, 145, 0.15); /* Light green background */
+            color: #68d391; /* Tailwind green-300/400 */
+        }
+        .percent-box.orange {
+            background-color: rgba(255, 165, 0, 0.15); /* Orange background */
+            color: #f6ad55; /* Tailwind orange-400 */
+        }
+        .percent-box.pink {
+            background-color: rgba(237, 100, 166, 0.15); /* Pink background */
+            color: #ed64a6; /* Tailwind pink-400 */
+        }
+        .status-success {
+            background-color: rgba(104, 211, 145, 0.15); /* light green bg */
+            color: #68d391; /* text-green-400 */
+        }
+        .status-pending {
+            background-color: rgba(246, 173, 85, 0.15); /* light orange bg */
+            color: #f6ad55; /* text-orange-400 */
+        }
+        .text-green-amount { color: #68d391; }
+        .text-red-amount { color: #ed64a6; }
+        .modal-bg { background-color: rgba(0, 0, 0, 0.75); }
+        .modal-card { background-color: #2b2b2b; }
+        .status-closed {
+            color: #ec4899; /* Pink/Red dot */
+        }
+        .status-customer-reply {
+            color: #3b82f6; /* Blue dot */
+        }
+        .status-open {
+            color: #22c55e; /* Green dot */
+        }
+        .status-in-progress {
+            color: #f59e0b; /* Yellow dot */
+        }
+        
+        .status-dot::before {
+            content: '•';
+            margin-right: 0.5rem;
+            font-size: 1.5rem;
+            line-height: 1;
+            vertical-align: middle;
+        }
+
+        /* Utility for simulated pages */
+        .simulated-page {
+            display: none;
+        }
+        .active-page {
+            display: block;
+        }
+    </style>
+  </head>
+  <body class="">
+    <!-- SIDEBAR (included dynamically) & MAIN CONTENT FLEX LAYOUT -->
+    <div class="flex h-screen">
+      <div id="sidebar-container" class="relative hidden lg:block">
+        <div data-include="components/sidebar.html"></div>
+      </div>
+      <!-- TOP BAR -->
+      <header class="fixed top-0 left-0 lg:left-64 right-0 z-40 w-full bg-[#2c2f32] py-3 px-4 flex items-center justify-between shadow">
+        <div class="flex items-center space-x-4 flex-1">
+          <!-- HAMBURGER AND MLM - visible below desktop -->
+          <div class="flex items-center space-x-2 lg:hidden">
+            <button
+              id="hamburgerBtn"
+              class="text-white p-2 hover:bg-gray-700 rounded"
+            >
+              <i class="fas fa-bars"></i>
+            </button>
+            <div class="text-xl font-bold text-red-500">MLM</div>
+          </div>
+
+          <!-- SEARCH -->
+          <div
+            class="flex items-center flex-1 max-w-xl rounded-full px-4 py-2 space-x-3 shadow-lg"
+          >
+            <i class="fas fa-search text-gray-400"></i>
+            <input
+              type="text"
+              placeholder="Search for a menu"
+              class="bg-transparent w-full focus:outline-none text-gray-300 placeholder-gray-400"
+            />
+          </div>
+        </div>
+
+        <!-- RIGHT SIDE -->
+        <div class="relative ml-4">
+          <!-- AVATAR BUTTON -->
+          <button id="avatarBtn">
+            <img
+              src="https://i.pravatar.cc/80"
+              class="w-10 h-10 rounded-full border border-gray-700 cursor-pointer"
+            />
+          </button>
+
+          <!-- DROPDOWN -->
+          <div
+            id="dropdownMenu"
+            class="hidden absolute right-0 mt-3 w-56 bg-gray-800 rounded-xl shadow-xl border border-gray-700 z-50"
+          >
+            <!-- PROFILE INFO -->
+            <div class="px-4 py-3 flex items-center gap-4">
+              <div>
+                <img
+                  src="https://i.pravatar.cc/80"
+                  class="w-10 h-10 rounded-full border border-gray-700 cursor-pointer"
+                />
+              </div>
+              <div>
+                <p class="text-sm font-semibold">admin</p>
+                <p class="text-xs text-gray-400">admin@gmail.com</p>
+              </div>
+            </div>
+
+            <!-- MENU ITEMS -->
+            <ul class="py-2">
+              <li>
+                <a
+                  href="#"
+                  class="block px-4 py-2 text-sm hover:bg-gray-700 transition"
+                  >Profile & account</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="block px-4 py-2 text-sm hover:bg-gray-700 transition"
+                  >Sign out</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div
+        id="main-content"
+        class="overflow-y-auto bg-[#2c2f32] text-white transition-all duration-300 ease-in-out"
+      >
+        <!-- DASHBOARD MAIN CONTENT -->
+
+        <div
+          id="main-content-wrapper"
+          class="fixed top-16 left-0 lg:left-64 right-0 bottom-0 overflow-y-auto overflow-x-hidden flex flex-col transition-all duration-300 ease-in-out"
+        >
+          <main class="bg-[#1e2022] mx-auto w-full text-white">
+
+            <div class="p-4 sm:p-6 min-h-screen">
+              <div class="mb-6 border-b border-gray-700">
+                <div class="flex items-end">
+                  <div class="flex-1 mb-2 sm:mb-0">
+                    <nav aria-label="breadcrumb">
+                      <ol class="flex items-center text-sm text-gray-500">
+                        <li class="flex items-center">
+                          <a
+                            class="text-gray-400 hover:text-gray-700"
+                            href="javascript:void(0);"
+                            >Dashboard</a
+                          >
+                          <span class="mx-2">/</span>
+                        </li>
+                        <li class="text-white font-medium" aria-current="page">
+                          Support Ticket
+                        </li>
+                      </ol>
+                    </nav>
+                    <h1 class="text-2xl font-bold text-white mt-2 mb-10">
+                      Support Ticket
+                    </h1>
+                  </div>
+                </div>
+              </div>
+              <div class="max-w-7xl mx-auto">
+        
+        <!-- Statistics Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+            
+            <!-- Card 1: TOTAL PAYMENT LOG -->
+            <div class="bg-[#2c2f32] p-6 rounded-xl shadow-xl">
+                <p class="text-sm font-medium text-gray-400 mb-4">TOTAL PAYMENT LOG</p>
+                <div class="flex flex-col">
+                    <div class="flex items-baseline space-x-2">
+                        <span class="text-4xl font-bold">2,283</span>
+                        <span class="text-gray-400 text-base">From</span>
+                        <span class="percent-box green">
+                            <span class="font-mono text-sm">⎱</span> 2,283%
+                        </span>
+                    </div>
+                    <p class="text-sm font-medium text-gray-500 mt-0.5">2,283</p>
+                </div>
+            </div>
+
+            <!-- Card 2: PAYMENT SUCCESS -->
+            <div class="bg-[#2c2f32] p-6 rounded-xl shadow-xl">
+                <p class="text-sm font-medium text-gray-400 mb-4">PAYMENT SUCCESS</p>
+                <div class="flex flex-col">
+                    <div class="flex items-baseline space-x-2">
+                        <span class="text-4xl font-bold">87</span>
+                        <span class="text-gray-400 text-base">From 2283</span>
+                        <span class="percent-box green">
+                            <span class="font-mono text-sm">⎱</span> 3.81%
+                        </span>
+                    </div>
+                    <p class="text-sm font-medium text-gray-500 mt-0.5">&nbsp;</p> <!-- Placeholder for alignment -->
+                </div>
+            </div>
+            
+            <!-- Card 3: PENDING PAYMENT -->
+            <div class="bg-[#2c2f32] p-6 rounded-xl shadow-xl">
+                <p class="text-sm font-medium text-gray-400 mb-4">PENDING PAYMENT</p>
+                <div class="flex flex-col">
+                    <div class="flex items-baseline space-x-2">
+                        <span class="text-4xl font-bold">79</span>
+                        <span class="text-gray-400 text-base">From 2283</span>
+                        <span class="percent-box orange">
+                            <span class="font-mono text-sm">⎱</span> 3.46%
+                        </span>
+                    </div>
+                    <p class="text-sm font-medium text-gray-500 mt-0.5">&nbsp;</p> <!-- Placeholder for alignment -->
+                </div>
+            </div>
+
+            <!-- Card 4: CANCEL PAYMENT -->
+            <div class="bg-[#2c2f32] p-6 rounded-xl shadow-xl">
+                <p class="text-sm font-medium text-gray-400 mb-4">CANCEL PAYMENT</p>
+                <div class="flex flex-col">
+                    <div class="flex items-baseline space-x-2">
+                        <span class="text-4xl font-bold">0</span>
+                        <span class="text-gray-400 text-base">From 0</span>
+                        <span class="percent-box pink">
+                            <span class="font-mono text-sm">⎱</span> 0%
+                        </span>
+                    </div>
+                    <p class="text-sm font-medium text-gray-500 mt-0.5">&nbsp;</p> <!-- Placeholder for alignment -->
+                </div>
+            </div>
+
+        </div>
+        <!-- End of Statistics Grid -->
+
+        <!-- 1. Simulated Detail Page Container -->
+    <div id="detailPage" class="simulated-page fixed top-16 left-0 lg:left-64 right-0 bottom-0 z-50 bg-[#2c2f32] p-4 sm:p-8 overflow-y-auto">
+        <h1 class="text-3xl font-bold text-white mb-6">Ticket Details</h1>
+        <div id="detailContent" class="main-card rounded-xl p-6 text-gray-300 shadow-2xl">
+            <p class="text-center text-gray-500">Loading ticket content...</p>
+        </div>
+        <button onclick="showPage('mainPage')" class="mt-6 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition duration-150">
+            <i class="fa-solid fa-arrow-left mr-2"></i>Back to Ticket Log
+        </button>
+    </div>
+
+    <!-- 2. MAIN DASHBOARD PAGE -->
+    <div id="mainPage" class="active-page bg-[#2c2f32] rounded-xl border border-gray-700 mx-auto space-y-6">
+        
+        <!-- Header/Search Bar/Filter Button -->
+        <div class="main-card rounded-xl p-4 flex flex-col sm:flex-row items-center justify-between  space-y-4 sm:space-y-0">
+             <div class="relative w-full sm:max-w-md">
+                <i class="fa fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500"></i>
+                <input type="text" placeholder="Search tickets" id="searchInput" oninput="applyFilters()" class="w-full bg-[#2c2f32] border border-[#3a3a3a] text-gray-300 rounded-lg py-2 pl-12 pr-4 focus:ring-blue-500 focus:border-blue-500" />
+            </div>
+
+            <!-- Filter Button (Opens Modal) -->
+            <button onclick="toggleModal(true)" class="text-white hover:text-blue-400 font-medium px-4 py-2 bg-gray-600 rounded-lg transition duration-150 flex items-center space-x-2 w-full sm:w-auto">
+                <i class="fa-solid fa-filter"></i>
+                <span>Filter</span>
+            </button>
+        </div>
+
+        <!-- Ticket Table -->
+        <div class="main-card overflow-x-auto">
+            <table class="min-w-full">
+                <thead class="table-header text-xs uppercase tracking-wider text-gray-400 sticky top-0">
+                    <tr class="bg-gray-600">
+                        <th class="px-4 py-4 text-left w-12">SL</th>
+                        <th class="px-4 py-3 text-left">User</th>
+                        <th class="px-4 py-3 text-left">Subject</th>
+                        <th class="px-4 py-3 text-left">Status</th>
+                        <th class="px-4 py-3 text-left">Last Reply</th>
+                        <th class="px-4 py-3 text-center w-24">Action</th>
+                    </tr>
+                </thead>
+                <tbody id="ticketTableBody" class="divide-y divide-gray-800 text-sm">
+                    <!-- Data rows will be injected here by JavaScript -->
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- Pagination Controls -->
+        <div id="paginationContainer" class="flex flex-col sm:flex-row items-center justify-between py-4 px-4 text-sm text-gray-400">
+            <!-- Pagination Info and buttons will be inserted here by JavaScript -->
+        </div>
+    </div>
+    
+    <!-- 3. Filter Modal (Popup) -->
+    <div id="filterModal" class="hidden fixed inset-0 z-50 overflow-y-auto backdrop-blur flex items-center justify-center p-4">
+        <div class="main-card rounded-xl bg-[#2c2f32] shadow-2xl p-6 w-full max-w-lg">
+             <div class="flex justify-between items-center pb-4 border-b border-gray-700 bg-[#2c2f32]">
+                <h3 class="text-xl font-semibold text-white">Filter</h3>
+                <button onclick="toggleModal(false)" class="text-gray-400 hover:text-white transition duration-150">
+                    <i class="fa-solid fa-xmark text-xl"></i>
+                </button>
+            </div>
+            
+            <div class="mt-6 space-y-5">
+                <!-- Subject Filter -->
+                <div>
+                    <label for="filterSubject" class="block text-gray-400 text-sm font-medium mb-1">SUBJECT</label>
+                    <input type="text" id="filterSubject" class="w-full bg-[#2c2f32] border border-[#3a3a3a] text-gray-300 rounded-lg p-2.5 focus:ring-blue-500 focus:border-blue-500" placeholder="Enter subject keyword">
+                </div>
+                
+                <!-- Status Dropdown -->
+                <div>
+                    <label for="filterStatus" class="block text-gray-400 text-sm font-medium mb-1">STATUS</label>
+                    <select id="filterStatus" class="w-full bg-[#2c2f32] border border-[#3a3a3a] text-gray-300 rounded-lg p-2.5 focus:ring-blue-500 focus:border-blue-500 appearance-none pr-8">
+                        <option value="">All Status</option>
+                        <option value="Customer Reply">Customer Reply</option>
+                        <option value="Closed">Closed</option>
+                        <option value="Open">Open</option>
+                        <option value="In Progress">In Progress</option>
+                    </select>
+                </div>
+                
+                <!-- Date Range Filter -->
+                <div>
+                    <label class="block text-gray-400 text-sm font-medium mb-1">DATE RANGE</label>
+                    <div class="space-y-2">
+                         <input type="date" id="filterStartDate" class="w-full bg-[#2c2f32] border border-[#3a3a3a] text-gray-300 rounded-lg p-2.5 focus:ring-blue-500 focus:border-blue-500" title="Start Date">
+                         <input type="date" id="filterEndDate" class="w-full bg-[#2c2f32] border border-[#3a3a3a] text-gray-300 rounded-lg p-2.5 focus:ring-blue-500 focus:border-blue-500" title="End Date">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flex justify-between space-x-3 mt-6 pt-4 border-t border-gray-700">
+                <button onclick="clearAndCloseModal()" class="text-gray-300 bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded-lg transition duration-150">
+                    Clear Filters
+                </button>
+                 <button onclick="applyFiltersAndCloseModal()" class="text-white bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg transition duration-150 flex items-center space-x-2">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <span>Apply</span>
+                </button>
+            </div>
+        </div>
+    </div>
+            </div>
+          </main>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("componentsLoaded", () => {
+        const hamburgerBtn = document.getElementById("hamburgerBtn");
+        const sidebarContainer = document.getElementById("sidebar-container");
+
+        hamburgerBtn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          sidebarContainer.classList.toggle("hidden");
+        });
+      });
+    </script>
+    <script src="./js/include.js"></script>
+    <script src="./js/admin.js"></script>
+    <script>
+      const avatarBtn = document.getElementById("avatarBtn");
+      const dropdown = document.getElementById("dropdownMenu");
+
+      // Toggle on click
+      avatarBtn.addEventListener("click", () => {
+        dropdown.classList.toggle("hidden");
+      });
+
+      // Close when clicking outside
+      document.addEventListener("click", (e) => {
+        if (!avatarBtn.contains(e.target) && !dropdown.contains(e.target)) {
+          dropdown.classList.add("hidden");
+        }
+      });
+    </script>
+    <script>
+        // --- Dummy Data (Reflecting the Ticket Log Structure) ---
+        const allTickets = [
+            { sl: 1, id: 'T929395526859', name: 'MOSHARAF HOSSAIN', username: '@demouser', subject: 'testing', status: 'Closed', lastReply: '2025-10-21 13:18:53', detail: 'This ticket was about a simple login test issue that has been resolved.' },
+            { sl: 2, id: 'T929395526858', name: 'FATIMA ABDULLAH', username: '@fatima_a', subject: 'refund ARJUN VERMA', status: 'Customer Reply', lastReply: '2025-10-06 21:40:20', detail: 'Inquiry regarding a refund request for user ARJUN VERMA. Waiting for financial review.' },
+            { sl: 3, id: 'T929395526857', name: 'ALI AL-KHALIFA', username: '@ali_k', subject: 'No me pagan', status: 'Customer Reply', lastReply: '2025-09-26 03:21:36', detail: 'Urgent inquiry about delayed payment processing. Escalated to the operations team.' },
+            { sl: 4, id: 'T929395526856', name: 'JAKE SMITH', username: '@jake_s', subject: 'Probando el sistema 17/10/2024', status: 'Customer Reply', lastReply: '2025-08-28 07:41:51', detail: 'System test feedback submitted by user during beta phase.' },
+            { sl: 5, id: 'T929395526855', name: 'JESSICA CHEN', username: '@jess_c', subject: 'test 45', status: 'Customer Reply', lastReply: '2025-07-30 14:35:17', detail: 'Another internal test ticket. Can be ignored.' },
+            
+            // Page 2
+            { sl: 6, id: 'T929395526854', name: 'AHMAD JALAL', username: '@ahmad_j', subject: 'How can i with withdraw !!!!', status: 'Closed', lastReply: '2025-08-06 05:37:46', detail: 'User asked about the withdrawal process. Provided guide link and closed.' },
+            { sl: 7, id: 'T929395526853', name: 'SARA KHAN', username: '@sarah_k', subject: 'ASKING ABOUT HOW I CAN INVEST', status: 'Open', lastReply: '2025-03-28 08:56:11', detail: 'New user inquiry regarding investment options. Needs response from Sales team.' },
+            { sl: 8, id: 'T929395526852', name: 'LEENA ALI', username: '@leena_a', subject: 'testing', status: 'Closed', lastReply: '2025-03-22 22:52:39', detail: 'A test ticket created and then immediately closed.' },
+            { sl: 9, id: 'T929395526851', name: 'MOHAMMED R.', username: '@mo_r', subject: 'Asking about Inquire', status: 'In Progress', lastReply: '2025-03-08 20:09:17', detail: 'User needs more information on a specific product. Researching details.' },
+            { sl: 10, id: 'T929395526850', name: 'MARCO ROSSI', username: '@marco_r', subject: 'Hello', status: 'Closed', lastReply: '2025-01-13 13:24:01', detail: 'Simple greeting. Ticket closed as no action was required.' },
+
+            // Page 3
+            { sl: 11, id: 'T929395526849', name: 'DAVID LEE', username: '@david_l', subject: 'Error on login page', status: 'Open', lastReply: '2025-01-05 10:00:00', detail: 'User reported an error code 403 when trying to log in. Requires technical investigation.' },
+            { sl: 12, id: 'T929395526848', name: 'PRIYA SINGH', username: '@priya_s', subject: 'Missing commission payment', status: 'Customer Reply', lastReply: '2024-12-24 18:30:00', detail: 'User claims a recent commission was not credited to their account. Checking database records.' },
+            { sl: 13, id: 'T929395526847', name: 'CHLOE GOMEZ', username: '@chloe_g', subject: 'Suggestion for new feature', status: 'In Progress', lastReply: '2024-12-01 11:45:00', detail: 'Suggestion to add dark mode support. Passed to development team.' },
+            { sl: 14, id: 'T929395526846', name: 'MASON BLACK', username: '@mason_b', subject: 'Forgot password link broken', status: 'Closed', lastReply: '2024-11-15 09:10:00', detail: 'Reported broken link; fixed and confirmed working. Ticket closed.' },
+            { sl: 15, id: 'T929395526845', name: 'EMILY WANG', username: '@emily_w', subject: 'Account verification required', status: 'Customer Reply', lastReply: '2024-10-29 16:55:00', detail: 'Submitted KYC documents. Pending review by compliance team.' },
+            
+             // Extra Data for more pages
+            { sl: 16, id: 'T929395526844', name: 'MARK ZHAO', username: '@mark_z', subject: 'General inquiry', status: 'Open', lastReply: '2024-10-25 10:00:00', detail: 'General question about platform use. Simple reply needed.' },
+            { sl: 17, id: 'T929395526843', name: 'ALEX RUIZ', username: '@alex_r', subject: 'Upgrade plan issue', status: 'In Progress', lastReply: '2024-10-10 12:00:00', detail: 'Error when attempting to upgrade from Basic to Premium plan. Investigating.' },
+        ];
+
+        let currentPage = 1;
+        const entriesPerPage = 5;
+        let filteredTickets = [...allTickets];
+        
+        // --- Utility Functions ---
+
+        function getProfileImageHtml(name) {
+            const initials = name.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2);
+            // Consistent hashing for color based on name (to keep it stable)
+            let hash = 0;
+            for (let i = 0; i < name.length; i++) {
+                hash = name.charCodeAt(i) + ((hash << 5) - hash);
+            }
+            const colorIndex = Math.abs(hash) % 5;
+            const bgColors = ['bg-red-500', 'bg-blue-500', 'bg-green-500', 'bg-yellow-500', 'bg-purple-500'];
+            const bgColor = bgColors[colorIndex];
+            
+            return `
+                <div class="w-8 h-8 ${bgColor} flex items-center justify-center rounded-full text-white text-sm font-bold flex-shrink-0">
+                    ${initials}
+                </div>
+            `;
+        }
+        
+        function formatStatus(status) {
+            const statusClass = `status-${status.toLowerCase().replace(/\s/g, '-')}`;
+            return `<span class="${statusClass} status-dot text-white text-xs font-semibold">${status}</span>`;
+        }
+
+        // Converts YYYY-MM-DD HH:MM:SS format to Date object
+        function parseTimestamp(timestamp) {
+            if (!timestamp) return null;
+            // Replace space with 'T' and remove trailing seconds for consistent parsing
+            return new Date(timestamp.replace(' ', 'T').substring(0, 19));
+        }
+
+        function showPage(pageId) {
+            const pages = document.querySelectorAll('#detailPage, #mainPage');
+            pages.forEach(page => {
+                page.classList.remove('active-page');
+                page.classList.add('simulated-page');
+            });
+
+            const targetPage = document.getElementById(pageId);
+            if (targetPage) {
+                targetPage.classList.remove('simulated-page');
+                targetPage.classList.add('active-page');
+            }
+        }
+        
+        // --- Modal Logic ---
+
+        function toggleModal(show) {
+            const modal = document.getElementById('filterModal');
+            if (show) {
+                modal.classList.remove('hidden');
+            } else {
+                modal.classList.add('hidden');
+            }
+        }
+        
+        function clearAndCloseModal() {
+            // Clear inputs in the modal
+            document.getElementById('filterSubject').value = '';
+            document.getElementById('filterStatus').value = '';
+            document.getElementById('filterStartDate').value = '';
+            document.getElementById('filterEndDate').value = '';
+            // Re-apply filters including the main search input
+            applyFilters();
+            // Close the modal
+            toggleModal(false);
+        }
+        
+        function applyFiltersAndCloseModal() {
+            applyFilters();
+            toggleModal(false);
+        }
+
+        // --- Detail Page Logic ---
+        
+        function openDetailView(ticketId) {
+            const ticket = allTickets.find(t => t.id === ticketId);
+            if (!ticket) return;
+
+            // Simple HTML for the detail view
+            const contentHtml = `
+                <div class="space-y-6">
+                    <h2 class="text-2xl font-bold text-white border-b border-gray-700 pb-3">Ticket Subject: <span class="text-blue-400">${ticket.subject}</span></h2>
+                    
+                    <!-- Main Info Grid -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 text-sm">
+                        <div>
+                            <p class="text-gray-500 font-medium">USER</p>
+                            <div class="flex items-center space-x-2 mt-1">
+                                ${getProfileImageHtml(ticket.name)}
+                                <div>
+                                    <p class="text-white font-medium">${ticket.name}</p>
+                                    <p class="text-gray-500 text-xs">${ticket.username}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="text-gray-500 font-medium">TICKET ID</p>
+                            <p class="text-white font-semibold mt-1">${ticket.id}</p>
+                        </div>
+                         <div>
+                            <p class="text-gray-500 font-medium">STATUS</p>
+                            <div class="mt-1">${formatStatus(ticket.status)}</div>
+                        </div>
+                        <div>
+                            <p class="text-gray-500 font-medium">LAST REPLY</p>
+                            <p class="text-white font-semibold mt-1">${new Date(ticket.lastReply).toLocaleString()}</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Detail Description -->
+                    <div class="pt-4 border-t border-gray-700">
+                        <h3 class="text-xl font-semibold text-white mb-3">Ticket Summary</h3>
+                        <p class="text-gray-400">${ticket.detail}</p>
+                    </div>
+                    
+                    <!-- Simulated Reply/Action Area -->
+                    <div class="pt-4 border-t border-gray-700">
+                        <h3 class="text-xl font-semibold text-white mb-3">Action</h3>
+                        <textarea rows="5" placeholder="Type your reply or internal note here..." class="w-full bg-[#1e1e1e] border border-[#3a3a3a] text-gray-300 rounded-lg p-3 focus:ring-blue-500 focus:border-blue-500"></textarea>
+                        <div class="flex justify-end mt-3 space-x-3">
+                            <button class="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-lg transition duration-150">Close Ticket</button>
+                            <button class="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg transition duration-150">Send Reply</button>
+                        </div>
+                    </div>
+
+                </div>
+            `;
+            
+            document.getElementById('detailContent').innerHTML = contentHtml;
+            // Redirect to the detail page (simulated)
+            showPage('detailPage'); 
+        }
+
+        // --- Table Rendering and Pagination ---
+        
+        function renderTable() {
+            const start = (currentPage - 1) * entriesPerPage;
+            const end = start + entriesPerPage;
+            const ticketsToShow = filteredTickets.slice(start, end);
+
+            const tableBody = document.getElementById('ticketTableBody');
+            tableBody.innerHTML = ''; 
+
+            if (ticketsToShow.length === 0) {
+                 tableBody.innerHTML = `
+                    <tr>
+                        <td colspan="6" class="text-center py-6 text-gray-500">No tickets found matching your criteria.</td>
+                    </tr>
+                `;
+            }
+
+            ticketsToShow.forEach((ticket, index) => {
+                const globalIndex = start + index + 1;
+                const statusHtml = formatStatus(ticket.status);
+                
+                const row = `
+                    <tr class="table-row hover:bg-gray-800/20">
+                        <td class="px-4 py-4 text-gray-400 text-sm">${globalIndex}</td>
+                        <td class="px-4 py-4">
+                            <div class="flex items-center space-x-3">
+                                ${getProfileImageHtml(ticket.name)}
+                                <div>
+                                    <p class="text-white font-medium">${ticket.name}</p>
+                                    <p class="text-gray-500 text-xs">${ticket.username}</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="px-4 py-4 text-gray-300">${ticket.subject}</td>
+                        <td class="px-4 py-4 text-left">${statusHtml}</td>
+                        <td class="px-4 py-4 text-gray-400 text-sm whitespace-nowrap">${ticket.lastReply}</td>
+                        <td class="px-4 py-4 text-center">
+                            <button onclick="openDetailView('${ticket.id}')" class="text-white  hover:bg-blue-700 font-medium py-1 px-3 rounded-lg transition duration-150 flex items-center justify-center space-x-1 mx-auto text-xs">
+                                <i class="fa-solid fa-eye"></i>
+                                <span>View</span>
+                            </button>
+                        </td>
+                    </tr>
+                `;
+                tableBody.insertAdjacentHTML('beforeend', row);
+            });
+            
+            renderPagination();
+        }
+
+        function renderPagination() {
+            const totalEntries = filteredTickets.length;
+            const totalPages = Math.ceil(totalEntries / entriesPerPage);
+            const container = document.getElementById('paginationContainer');
+            container.innerHTML = '';
+            
+            if (totalEntries === 0) return; 
+
+            const startEntry = Math.min((currentPage - 1) * entriesPerPage + 1, totalEntries);
+            const endEntry = Math.min(currentPage * entriesPerPage, totalEntries);
+            
+            // This matches the "Showing 20 of 2386" style seen in the images (though we use 5)
+            const info = `<p class="text-gray-500">Showing <span class="text-white">${endEntry}</span> of <span class="text-white">${totalEntries}</span></p>`;
+            
+            let pageButtons = '';
+            
+            // Previous Button
+            pageButtons += `
+                <button onclick="changePage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''} class="px-3 py-1.5 rounded-lg border border-gray-700 text-sm ${currentPage === 1 ? 'text-gray-600 cursor-not-allowed' : 'hover:bg-gray-700 transition duration-150 text-white'}">
+                    Prev
+                </button>
+            `;
+
+            // Page Number Buttons (showing a few pages around current page)
+            const maxVisiblePages = 5;
+            let startPage = Math.max(1, currentPage - 2);
+            let endPage = Math.min(totalPages, currentPage + 2);
+            if (endPage - startPage + 1 < maxVisiblePages) {
+                if (startPage > 1) startPage = Math.max(1, totalPages - maxVisiblePages + 1);
+                else endPage = Math.min(totalPages, maxVisiblePages);
+            }
+            
+            for (let i = startPage; i <= endPage; i++) {
+                const isActive = i === currentPage ? 'bg-blue-600 text-white border-blue-600' : 'hover:bg-gray-700 text-white';
+                pageButtons += `
+                    <button onclick="changePage(${i})" class="px-3 py-1.5 rounded-lg border border-gray-700 text-sm ${isActive} transition duration-150">
+                        ${i}
+                    </button>
+                `;
+            }
+
+            if (endPage < totalPages) {
+                pageButtons += `<span class="px-2 text-gray-500">...</span>`;
+                if (endPage < totalPages) {
+                     pageButtons += `
+                        <button onclick="changePage(${totalPages})" class="px-3 py-1.5 rounded-lg border border-gray-700 text-sm hover:bg-gray-700 text-white transition duration-150">
+                            ${totalPages}
+                        </button>
+                    `;
+                }
+            }
+            
+            // Next Button
+            pageButtons += `
+                <button onclick="changePage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''} class="px-3 py-1.5 rounded-lg border border-gray-700 text-sm ${currentPage === totalPages ? 'text-gray-600 cursor-not-allowed' : 'hover:bg-gray-700 transition duration-150 text-white'}">
+                    Next
+                </button>
+            `;
+
+            container.innerHTML = `
+                ${info}
+                <div class="flex space-x-2 mt-4 sm:mt-0">
+                    ${pageButtons}
+                </div>
+            `;
+        }
+        
+        function changePage(page) {
+            const totalPages = Math.ceil(filteredTickets.length / entriesPerPage);
+            if (page >= 1 && page <= totalPages) {
+                currentPage = page;
+                renderTable();
+                // Scroll to top of the table on page change
+                const tableContainer = document.querySelector('.overflow-x-auto');
+                if(tableContainer) tableContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+        
+        // --- Filter Logic ---
+
+        function applyFilters() {
+            // Get values from main search bar and modal filters
+            const searchInput = document.getElementById('searchInput').value.trim().toLowerCase();
+            const filterSubject = document.getElementById('filterSubject').value.trim().toLowerCase();
+            const filterStatus = document.getElementById('filterStatus').value;
+            const filterStartDate = document.getElementById('filterStartDate').value;
+            const filterEndDate = document.getElementById('filterEndDate').value;
+            
+            const start = filterStartDate ? new Date(filterStartDate) : null;
+            const end = filterEndDate ? new Date(filterEndDate) : null;
+
+            filteredTickets = allTickets.filter(ticket => {
+                let matches = true;
+
+                // 1. General Search (applies to Name, Username, Subject, ID)
+                const searchString = `${ticket.name} ${ticket.username} ${ticket.subject} ${ticket.id}`.toLowerCase();
+                if (searchInput && !searchString.includes(searchInput)) {
+                    matches = false;
+                }
+
+                // 2. Subject Filter (from modal)
+                if (filterSubject && !ticket.subject.toLowerCase().includes(filterSubject)) {
+                    matches = false;
+                }
+                
+                // 3. Status Filter (from modal)
+                if (filterStatus && filterStatus !== "" && ticket.status !== filterStatus) {
+                    matches = false;
+                }
+
+                // 4. Date Range Filter (from modal - applied to 'Last Reply' date)
+                if (start || end) {
+                    const ticketDate = parseTimestamp(ticket.lastReply);
+                    if (ticketDate) {
+                        // Check if ticket date is on or after the start date
+                        if (start && ticketDate < start) {
+                            matches = false;
+                        }
+                        // Check if ticket date is before the end date (including the end date)
+                        if (end) {
+                             const endOfDay = new Date(end);
+                             // Set to end of day to include all tickets on the end date
+                             endOfDay.setHours(23, 59, 59, 999); 
+                             if (ticketDate > endOfDay) {
+                                matches = false;
+                            }
+                        }
+                    } else {
+                        // If date cannot be parsed, filter it out if a date filter is active
+                        matches = false; 
+                    }
+                }
+                
+                return matches;
+            });
+
+            // Reset to the first page and re-render
+            currentPage = 1;
+            renderTable();
+        }
+
+        // --- Initialization ---
+
+        window.onload = function() {
+            renderTable();
+            
+            // Close modal when clicking outside (on the backdrop)
+            document.getElementById('filterModal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    toggleModal(false);
+                }
+            });
+        };
+
+    </script>
+
+  </body>
+</html>

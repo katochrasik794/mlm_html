@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+  <head class="">
+    <meta charset="utf-8" class="" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1"
+      class=""
+    />
+    <title class="">Plan List - Admin</title>
+    <link rel="stylesheet" href="/mlm_html//admin//style.css" />
+    <script src="https://cdn.tailwindcss.com" class=""></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+      .custom-scrollbar::-webkit-scrollbar {
+        height: 8px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background-color: #374151; /* Gray-700 */
+        border-radius: 4px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-track {
+        background-color: #1f2937; /* Gray-800 */
+      }
+      .row-hover:hover {
+            background-color: #333333;
+        }
+        .pagination-btn {
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            transition: background-color 0.15s, color 0.15s;
+        }
+        .pagination-btn.active {
+            background-color: #3b82f6; /* Blue-500 */
+            color: white;
+            font-weight: 600;
+        }
+        /* Modal backdrop for the filter/edit */
+        .modal-backdrop {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+        /* Custom status badges */
+        .status-pending { background-color: #4a4023; color: #ffeb3b; padding: 2px 8px; border-radius: 6px; font-weight: 500;}
+        .status-approved { background-color: #1c4532; color: #68d391; padding: 2px 8px; border-radius: 6px; font-weight: 500;}
+        .percent-box {
+            display: inline-flex;
+            align-items: center;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.75rem; /* text-xs */
+            font-weight: 500;
+        }
+        .percent-box.green {
+            background-color: rgba(104, 211, 145, 0.15); /* Light green background */
+            color: #68d391; /* Tailwind green-300/400 */
+        }
+        .percent-box.orange {
+            background-color: rgba(255, 165, 0, 0.15); /* Orange background */
+            color: #f6ad55; /* Tailwind orange-400 */
+        }
+        .percent-box.pink {
+            background-color: rgba(237, 100, 166, 0.15); /* Pink background */
+            color: #ed64a6; /* Tailwind pink-400 */
+        }
+        .status-success {
+            background-color: rgba(104, 211, 145, 0.15); /* light green bg */
+            color: #68d391; /* text-green-400 */
+        }
+        .status-pending {
+            background-color: rgba(246, 173, 85, 0.15); /* light orange bg */
+            color: #f6ad55; /* text-orange-400 */
+        }
+        .text-green-amount { color: #68d391; }
+        .text-red-amount { color: #ed64a6; }
+        .modal-bg { background-color: rgba(0, 0, 0, 0.75); }
+        .modal-card { background-color: #2b2b2b; }
+        .status-closed {
+            color: #ec4899; /* Pink/Red dot */
+        }
+        .status-customer-reply {
+            color: #3b82f6; /* Blue dot */
+        }
+        .status-open {
+            color: #22c55e; /* Green dot */
+        }
+        .status-in-progress {
+            color: #f59e0b; /* Yellow dot */
+        }
+        
+        .status-dot::before {
+            content: '•';
+            margin-right: 0.5rem;
+            font-size: 1.5rem;
+            line-height: 1;
+            vertical-align: middle;
+        }
+
+        /* Utility for simulated pages */
+        .simulated-page {
+            display: none;
+        }
+        .active-page {
+            display: block;
+        }
+    </style>
+  </head>
+  <body class="">
+    <!-- SIDEBAR (included dynamically) & MAIN CONTENT FLEX LAYOUT -->
+    <div class="flex h-screen">
+      <div id="sidebar-container" class="relative hidden lg:block">
+        <div data-include="components/sidebar.html"></div>
+      </div>
+      <!-- TOP BAR -->
+      <header class="fixed top-0 left-0 lg:left-64 right-0 z-40 w-full bg-[#2c2f32] py-3 px-4 flex items-center justify-between shadow">
+        <div class="flex items-center space-x-4 flex-1">
+          <!-- HAMBURGER AND MLM - visible below desktop -->
+          <div class="flex items-center space-x-2 lg:hidden">
+            <button
+              id="hamburgerBtn"
+              class="text-white p-2 hover:bg-gray-700 rounded"
+            >
+              <i class="fas fa-bars"></i>
+            </button>
+            <div class="text-xl font-bold text-red-500">MLM</div>
+          </div>
+
+          <!-- SEARCH -->
+          <div
+            class="flex items-center flex-1 max-w-xl rounded-full px-4 py-2 space-x-3 shadow-lg"
+          >
+            <i class="fas fa-search text-gray-400"></i>
+            <input
+              type="text"
+              placeholder="Search for a menu"
+              class="bg-transparent w-full focus:outline-none text-gray-300 placeholder-gray-400"
+            />
+          </div>
+        </div>
+
+        <!-- RIGHT SIDE -->
+        <div class="relative ml-4">
+          <!-- AVATAR BUTTON -->
+          <button id="avatarBtn">
+            <img
+              src="https://i.pravatar.cc/80"
+              class="w-10 h-10 rounded-full border border-gray-700 cursor-pointer"
+            />
+          </button>
+
+          <!-- DROPDOWN -->
+          <div
+            id="dropdownMenu"
+            class="hidden absolute right-0 mt-3 w-56 bg-gray-800 rounded-xl shadow-xl border border-gray-700 z-50"
+          >
+            <!-- PROFILE INFO -->
+            <div class="px-4 py-3 flex items-center gap-4">
+              <div>
+                <img
+                  src="https://i.pravatar.cc/80"
+                  class="w-10 h-10 rounded-full border border-gray-700 cursor-pointer"
+                />
+              </div>
+              <div>
+                <p class="text-sm font-semibold">admin</p>
+                <p class="text-xs text-gray-400">admin@gmail.com</p>
+              </div>
+            </div>
+
+            <!-- MENU ITEMS -->
+            <ul class="py-2">
+              <li>
+                <a
+                  href="#"
+                  class="block px-4 py-2 text-sm hover:bg-gray-700 transition"
+                  >Profile & account</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="block px-4 py-2 text-sm hover:bg-gray-700 transition"
+                  >Sign out</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div
+        id="main-content"
+        class="overflow-y-auto bg-[#2c2f32] text-white transition-all duration-300 ease-in-out"
+      >
+        <!-- DASHBOARD MAIN CONTENT -->
+
+        <div
+          id="main-content-wrapper"
+          class="fixed top-16 left-0 lg:left-64 right-0 bottom-0 overflow-y-auto overflow-x-hidden flex flex-col transition-all duration-300 ease-in-out"
+        >
+          <main class="bg-[#1e2022] mx-auto w-full text-white">
+
+            <div class="p-4 sm:p-6 min-h-screen">
+              <div class="mb-6 border-b border-gray-700">
+                <div class="flex items-end">
+                  <div class="flex-1 mb-2 sm:mb-0">
+                    <nav aria-label="breadcrumb">
+                      <ol class="flex items-center text-sm text-gray-500">
+                        <li class="flex items-center">
+                          <a
+                            class="text-gray-400 hover:text-gray-700"
+                            href="javascript:void(0);"
+                            >Dashboard</a
+                          >
+                          <span class="mx-2">/</span>
+                        </li>
+                        <li class="text-white font-medium" aria-current="page">
+                          KYC Setting
+                        </li>
+                        <span class="mx-2">/</span>
+                        <li class="text-white font-medium" aria-current="page">
+                          KYC Form
+                        </li>
+                      </ol>
+                    </nav>
+                    <h1 class="text-2xl font-bold text-white mt-2 mb-10">
+                      KYC Form
+                    </h1>
+                  </div>
+                </div>
+              </div>
+              <div class="card rounded-2xl p-6 sm:p-8 shadow-xl bg-[#2c2f32]">
+      <header class="flex items-start justify-between gap-6 mb-6 ">
+        <div>
+          <h1 class="text-xl sm:text-2xl font-semibold">Add KYC Form</h1>
+          <p class="text-sm text-slate-400 mt-1">Create dynamic KYC forms — add custom fields and validation.</p>
+        </div>
+
+        <!-- <div class="flex items-center gap-4">
+          
+          <div class="flex items-center gap-3">
+            <div class="text-sm text-slate-400">KYC Status</div>
+            <button id="kycToggle" aria-pressed="false" class="relative inline-flex items-center h-6 w-11 rounded-full transition-colors"
+                    title="Enable / Disable KYC">
+              <span class="sr-only">Enable KYC</span>
+              <span class="dot absolute left-0 top-0 h-6 w-6 rounded-full shadow transform transition-transform bg-slate-300"></span>
+            </button>
+          </div>
+
+          <a id="saveTop" class="hidden sm:inline-flex items-center px-3 py-2 bg-blue-600 hover:bg-blue-700 rounded-md text-sm font-semibold text-white"
+             href="#save">
+            Save changes
+          </a>
+        </div> -->
+      </header>
+
+      <!-- Form -->
+      <form id="kycForm" class="space-y-6" onsubmit="return false;">
+        <!-- Name + KYC state (shown above too) -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="">
+            <label class="text-sm text-slate-300 mb-1 block">Name</label>
+            <input id="formName" class="input w-full bg-[#2c2f32] border border-gray-700 px-3 py-2 rounded-md" placeholder="Name" />
+          </div>
+
+          <div class="flex items-center">
+            <div class="text-sm text-slate-400 w-full">
+              <div class="font-medium text-slate-200">KYC Status</div>
+              <div class="text-xs text-slate-400">Enable KYC status for your user to obtain their information.</div>
+            </div>
+            <!-- small redundant toggle for mobile placement -->
+            <div class="ml-4 md:ml-6 hidden md:block border border-gray-700 rounded-2xl">
+              <button id="kycToggle2" aria-pressed="false" class="relative inline-flex items-center h-6 w-11 rounded-full transition-colors"
+                      title="Enable / Disable KYC">
+                <span class="sr-only">Enable KYC</span>
+                <span class="dot absolute left-0 top-0 h-6 w-6 rounded-full shadow transform transition-transform bg-slate-300"></span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Add Field header -->
+        <div class="flex items-center justify-between">
+          <h2 class="text-sm font-semibold">Add Field</h2>
+          <button id="addFieldBtn" type="button" class="text-sm text-slate-300 hover:text-white inline-flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+            </svg>
+            Add Field
+          </button>
+        </div>
+
+        <!-- Table header -->
+        <div class="hidden md:grid grid-cols-12 gap-4 text-xs text-slate-400 bg-transparent px-3 py-2 rounded-md border border-transparent">
+          <div class="col-span-6">FIELD NAME</div>
+          <div class="col-span-3">INPUT TYPE</div>
+          <div class="col-span-2">VALIDATION TYPE</div>
+          <div class="col-span-1 text-right"> </div>
+        </div>
+
+        <!-- Fields list -->
+        <div id="fieldsList" class="fields-list space-y-3 mt-2">
+          <!-- template row (rendered by JS) -->
+        </div>
+
+        <!-- Save button -->
+        <div class="flex items-center justify-end gap-3">
+          <button id="cancelBtn" type="button" class="px-4 py-2 rounded-md bg-transparent border border-transparent text-slate-300 hover:bg-white/3">
+            Cancel
+          </button>
+          <button id="saveBtn" type="button" class="px-4 py-2 rounded-md bg-blue-600 hover:bg-blue-700 text-white font-semibold">
+            Save changes
+          </button>
+        </div>
+      </form>
+    </div>
+          </main>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("componentsLoaded", () => {
+        const hamburgerBtn = document.getElementById("hamburgerBtn");
+        const sidebarContainer = document.getElementById("sidebar-container");
+
+        hamburgerBtn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          sidebarContainer.classList.toggle("hidden");
+        });
+      });
+    </script>
+    <script src="./js/include.js"></script>
+    <script src="./js/admin.js"></script>
+    <script>
+      const avatarBtn = document.getElementById("avatarBtn");
+      const dropdown = document.getElementById("dropdownMenu");
+
+      // Toggle on click
+      avatarBtn.addEventListener("click", () => {
+        dropdown.classList.toggle("hidden");
+      });
+
+      // Close when clicking outside
+      document.addEventListener("click", (e) => {
+        if (!avatarBtn.contains(e.target) && !dropdown.contains(e.target)) {
+          dropdown.classList.add("hidden");
+        }
+      });
+    </script>
+    <script>
+    // initial data
+    const fieldsListEl = document.getElementById('fieldsList');
+    const addFieldBtn = document.getElementById('addFieldBtn');
+    const saveBtn = document.getElementById('saveBtn');
+    const kycToggle = document.getElementById('kycToggle');
+    const kycToggle2 = document.getElementById('kycToggle2');
+    const formNameEl = document.getElementById('formName');
+
+    // keep field state in an array
+    let fields = [
+      { id: cryptoRandomId(), name: '', inputType: 'text', validation: 'required' }
+    ];
+
+    // helper: create unique ids
+    function cryptoRandomId() {
+      return Math.random().toString(36).slice(2, 9);
+    }
+
+    // Render all fields
+    function renderFields() {
+      fieldsListEl.innerHTML = '';
+      fields.forEach((f, idx) => {
+        const row = document.createElement('div');
+        row.className = 'grid grid-cols-1 md:grid-cols-12 gap-3 items-center p-3 rounded-md border bg-[#2c2f32] border border-gray-700';
+
+        // Field Name (col-span 6 md)
+        const nameWrap = document.createElement('div');
+        nameWrap.className = 'md:col-span-6';
+        const nameInput = document.createElement('input');
+        nameInput.className = 'input w-full px-3 py-2 rounded-md bg-[#2c2f32] border border-gray-700';
+        nameInput.placeholder = 'Field Name';
+        nameInput.value = f.name;
+        nameInput.addEventListener('input', (e) => { f.name = e.target.value; });
+        nameWrap.appendChild(nameInput);
+
+        // Input Type (col-span 3 md)
+        const typeWrap = document.createElement('div');
+        typeWrap.className = 'md:col-span-3';
+        const typeSelect = document.createElement('select');
+        typeSelect.className = 'select w-full px-3 py-2 rounded-md bg-[#2c2f32] border border-gray-700';
+        const types = [
+          { v: 'text', t: 'Text' },
+          { v: 'number', t: 'Number' },
+          { v: 'email', t: 'Email' },
+          { v: 'date', t: 'Date' },
+          { v: 'select', t: 'Select' }
+        ];
+        types.forEach(opt => {
+          const o = document.createElement('option'); o.value = opt.v; o.textContent = opt.t;
+          if (f.inputType === opt.v) o.selected = true;
+          typeSelect.appendChild(o);
+        });
+        typeSelect.addEventListener('change', (e) => { f.inputType = e.target.value; });
+        typeWrap.appendChild(typeSelect);
+
+        // Validation (col-span 2 md)
+        const validWrap = document.createElement('div');
+        validWrap.className = 'md:col-span-2';
+        const validSelect = document.createElement('select');
+        validSelect.className = 'select w-full px-3 py-2 rounded-md bg-[#2c2f32] border border-gray-700';
+        const vals = [
+          { v: 'required', t: 'Required' },
+          { v: 'optional', t: 'Optional' },
+          { v: 'pattern', t: 'Pattern' }
+        ];
+        vals.forEach(opt => {
+          const o = document.createElement('option'); o.value = opt.v; o.textContent = opt.t;
+          if (f.validation === opt.v) o.selected = true;
+          validSelect.appendChild(o);
+        });
+        validSelect.addEventListener('change', (e) => { f.validation = e.target.value; });
+        validWrap.appendChild(validSelect);
+
+        // Action (col-span 1 md)
+        const actionWrap = document.createElement('div');
+        actionWrap.className = 'md:col-span-1 flex justify-end md:justify-center';
+        const delBtn = document.createElement('button');
+        delBtn.type = 'button';
+        delBtn.className = 'inline-flex items-center justify-center w-9 h-9 rounded-md bg-red-600 hover:bg-red-700 text-white';
+        delBtn.title = 'Delete field';
+        delBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7L5 7M10 11v6m4-6v6M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12"/></svg>';
+        delBtn.addEventListener('click', () => {
+          fields = fields.filter(item => item.id !== f.id);
+          renderFields();
+        });
+        actionWrap.appendChild(delBtn);
+
+        // On small screens, show labels above each input (ARIA friendly)
+        const mobileLabelRow = document.createElement('div');
+        mobileLabelRow.className = 'md:hidden grid grid-cols-3 gap-2 mb-2 text-xs text-slate-400';
+        mobileLabelRow.innerHTML = '<div>Field Name</div><div>Input Type</div><div>Validation</div>';
+
+        // Build final row: on small screens we want labels, so append label row then inputs stacked
+        if (window.innerWidth < 768) {
+          const stack = document.createElement('div');
+          stack.appendChild(mobileLabelRow);
+          // inputs in flex column
+          const smallGrid = document.createElement('div');
+          smallGrid.className = 'grid grid-cols-1 gap-2';
+          smallGrid.appendChild(nameInput);
+          smallGrid.appendChild(typeSelect);
+          smallGrid.appendChild(validSelect);
+          // replace previously created wrappers with smallStack
+          row.innerHTML = '';
+          row.appendChild(stack);
+          row.appendChild(smallGrid);
+          // action button at bottom right
+          const bottomAction = document.createElement('div');
+          bottomAction.className = 'flex justify-end mt-2';
+          bottomAction.appendChild(delBtn);
+          row.appendChild(bottomAction);
+        } else {
+          // desktop layout: columns
+          row.appendChild(nameWrap);
+          row.appendChild(typeWrap);
+          row.appendChild(validWrap);
+          row.appendChild(actionWrap);
+        }
+
+        fieldsListEl.appendChild(row);
+      });
+
+      // if no fields, show placeholder
+      if (fields.length === 0) {
+        const placeholder = document.createElement('div');
+        placeholder.className = 'text-slate-400 text-sm p-4 rounded-md bg-white/2';
+        placeholder.textContent = 'No fields yet. Click "Add Field" to create one.';
+        fieldsListEl.appendChild(placeholder);
+      }
+    }
+
+    // Add new field
+    addFieldBtn.addEventListener('click', () => {
+      fields.push({ id: cryptoRandomId(), name: '', inputType: 'text', validation: 'required' });
+      renderFields();
+      // scroll to bottom to reveal the new row
+      setTimeout(() => fieldsListEl.lastElementChild?.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 50);
+    });
+
+    // Toggle handler (two toggles mirror each other)
+    function toggleKyc(button) {
+      const pressed = button.getAttribute('aria-pressed') === 'true';
+      const next = !pressed;
+      // update both toggles
+      [kycToggle, kycToggle2].forEach(btn => {
+        if (!btn) return;
+        btn.setAttribute('aria-pressed', String(next));
+        const dot = btn.querySelector('.dot');
+        if (next) {
+          btn.classList.add('bg-green-500'); btn.classList.remove('bg-slate-600');
+          dot.style.transform = 'translateX(100%)';
+          dot.style.background = '#fff';
+        } else {
+          btn.classList.remove('bg-green-500'); btn.classList.add('bg-slate-600');
+          dot.style.transform = 'translateX(0%)';
+          dot.style.background = '#cbd5e1';
+        }
+      });
+    }
+
+    kycToggle?.addEventListener('click', () => toggleKyc(kycToggle));
+    kycToggle2?.addEventListener('click', () => toggleKyc(kycToggle2));
+
+    // Save action
+    saveBtn.addEventListener('click', () => {
+      const payload = {
+        name: formNameEl.value.trim(),
+        kycEnabled: kycToggle.getAttribute('aria-pressed') === 'true',
+        fields: fields.map(f => ({ name: f.name.trim(), inputType: f.inputType, validation: f.validation }))
+      };
+
+      // Basic validation
+      if (!payload.name) {
+        alert('Please enter a form name.');
+        formNameEl.focus();
+        return;
+      }
+      if (payload.fields.length === 0) {
+        alert('Please add at least one field.');
+        return;
+      }
+      const hasEmpty = payload.fields.some(f => !f.name);
+      if (hasEmpty) {
+        alert('Please fill all field names or remove empty rows.');
+        return;
+      }
+
+      // For demo: log to console and show success toast
+      console.log('KYC form saved ->', payload);
+      showToast('KYC form saved successfully');
+    });
+
+    // small toast
+    function showToast(msg = 'Saved') {
+      const el = document.createElement('div');
+      el.className = 'fixed right-4 bottom-6 z-50 px-4 py-2 rounded-md bg-green-600 text-white shadow-lg';
+      el.textContent = msg;
+      document.body.appendChild(el);
+      setTimeout(() => el.classList.add('opacity-0'), 2000);
+      setTimeout(() => el.remove(), 2600);
+    }
+
+    // initial render
+    renderFields();
+
+    // re-render on resize to adapt small-screen layout (simple approach)
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(renderFields, 120);
+    });
+
+    // Init toggles default off
+    toggleKyc(kycToggle);
+  </script>
+
+
+  </body>
+</html>
