@@ -31,6 +31,40 @@
         background-color: #1f2937; /* Gray-800 */
       }
     </style>
+        <style>
+        /* Configure Tailwind for the Inter font */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        :root {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Custom dark theme colors for consistency */
+        body {
+            background-color: #111827; /* Main background */
+        }
+        .card-bg { background-color: #1f2937; } /* Dark Blue/Gray for cards */
+        .input-bg { background-color: #19232c; } /* Slightly lighter dark input/header */
+        .primary-blue { background-color: #3b82f6; }
+        .primary-blue:hover { background-color: #2563eb; }
+        
+        /* Custom style for the status badge */
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 8px;
+            border-radius: 9999px; /* Pill shape */
+            font-weight: 500;
+            font-size: 0.75rem; /* text-xs */
+            line-height: 1;
+        }
+        .status-inactive {
+            color: #fca5a5; /* Red-300 */
+            background-color: rgba(239, 68, 68, 0.2); /* Red-500 with opacity */
+        }
+        .status-active {
+            color: #84cc16; /* Lime-500 */
+            background-color: rgba(132, 204, 22, 0.2); /* Lime-500 with opacity */
+        }
+    </style>
     <script>
         // Custom Tailwind configuration for consistent dark theme colors
         tailwind.config = {
@@ -38,9 +72,9 @@
                 extend: {
                     colors: {
                         'primary-blue': '#3b82f6',
-                        'dark-bg': '#1f2937', /* Dark Blue/Gray for cards */
+                        'dark-bg': '#2c2f32', /* Dark Blue/Gray for cards */
                         'card-bg': '#111827', /* Main background */
-                        'header-bg': '#19232c', /* Slightly lighter dark header */
+                        'header-bg': '#2c2f32', /* Slightly lighter dark header */
                     }
                 }
             }
@@ -51,6 +85,82 @@
             const sidebar = document.getElementById('sidebar-nav');
             sidebar.classList.toggle('hidden');
             sidebar.classList.toggle('flex');
+        }
+
+        /**
+         * Toggles the visibility between the table view and the edit form view.
+         * @param {boolean} showForm - If true, shows the form and hides the table. If false, shows the table and hides the form.
+         */
+        function toggleView(showForm) {
+            const tableView = document.getElementById('tableView');
+            const editFormView = document.getElementById('editFormView');
+
+            if (showForm) {
+                // Show form, Hide table
+                tableView.classList.add('hidden');
+                editFormView.classList.remove('hidden');
+                // Optional: Scroll to the top of the form
+                editFormView.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            } else {
+                // Show table, Hide form
+                editFormView.classList.add('hidden');
+                tableView.classList.remove('hidden');
+            }
+        }
+
+        /**
+         * Shows the Edit Form and hides the Table View.
+         * @param {string} storageName The name of the storage system being edited.
+         */
+        function showEditForm(storageName) {
+            const tv = document.getElementById('tv');
+            const ev = document.getElementById('ev');
+            const eft = document.getElementById('eft');
+            console.log('showEditForm called with:', storageName);
+            console.log('tv element:', tv);
+            console.log('ev element:', ev);
+            console.log('eft element:', eft);
+            if (tv) {
+                tv.classList.add('hidden');
+            } else {
+                console.error('tv element not found');
+            }
+            if (ev) {
+                ev.classList.remove('hidden');
+            } else {
+                console.error('ev element not found');
+            }
+            if (eft) {
+                eft.textContent = `Edit File Storage: ${storageName}`;
+            } else {
+                console.error('eft element not found');
+            }
+        }
+
+        /**
+         * Shows the Table View and hides the Edit Form.
+         */
+        function showTableView() {
+            ev.classList.add('hidden');
+            tv.classList.remove('hidden');
+        }
+
+        function toggleView(showForm) {
+            // Using the new, unique IDs
+            const tableView = document.getElementById('translateApiTable');
+            const editFormView = document.getElementById('azureConfigFormView');
+
+            if (showForm) {
+                // Show form, Hide table
+                tableView.classList.add('hidden');
+                editFormView.classList.remove('hidden');
+                // Optional: Scroll to the top of the form
+                editFormView.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            } else {
+                // Show table, Hide form
+                editFormView.classList.add('hidden');
+                tableView.classList.remove('hidden');
+            }
         }
     </script>
   </head>
@@ -176,7 +286,7 @@
 
                <div class="max-w-7xl mx-auto">
         <!-- Attention Banner -->
-        <div class="bg-yellow-900/40 text-yellow-300 p-4 rounded-lg flex items-start space-x-3 mb-6 border border-yellow-700">
+        <div class="bg-[#2c2f32] text-blue-500 p-4 rounded-lg flex items-start space-x-3 mb-6 border border-gray-700">
             <i data-lucide="alert-triangle" class="h-5 w-5 flex-shrink-0 mt-0.5"></i>
             <div>
                 <strong class="font-semibold">Attention!</strong>
@@ -215,19 +325,19 @@
                         <i data-lucide="lock" class="h-4 w-4"></i>
                         <span class="text-sm">Login Settings</span>
                     </a>
-                    <a href="#" data-target="push-notification-settings" class="nav-link flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-700 transition duration-150">
+                    <a href="push-notification.html"  class="flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-700 transition duration-150">
                         <i data-lucide="bell" class="h-4 w-4"></i>
                         <span class="text-sm">Push Notification Settings</span>
                     </a>
-                    <a href="#" data-target="in-app-notification-settings" class="nav-link flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-700 transition duration-150">
+                    <a href="in-app-notification.html" data-target="in-app-notification-settings" class="flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-700 transition duration-150">
                         <i data-lucide="inbox" class="h-4 w-4"></i>
                         <span class="text-sm">In App Notification Settings</span>
                     </a>
-                    <a href="#" data-target="email-settings" class="nav-link flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-700 transition duration-150">
+                    <a href="email.html" class="flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-700 transition duration-150">
                         <i data-lucide="mail" class="h-4 w-4"></i>
                         <span class="text-sm">Email Settings</span>
                     </a>
-                    <a href="#" data-target="sms-settings" class="nav-link flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-700 transition duration-150">
+                    <a href="sms.html"  class="flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-700 transition duration-150">
                         <i data-lucide="message-square" class="h-4 w-4"></i>
                         <span class="text-sm">SMS Settings</span>
                     </a>
@@ -247,7 +357,7 @@
                         <i data-lucide="file-text" class="h-4 w-4"></i>
                         <span class="text-sm">Translate Api Settings</span>
                     </a>
-                    <a href="#" data-target="plugin-settings" class="nav-link flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-700 transition duration-150">
+                    <a href="plugin.html" data-target="plugin-settings" class="flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-700 transition duration-150">
                         <i data-lucide="plug-2" class="h-4 w-4"></i>
                         <span class="text-sm">Plugin Settings</span>
                     </a>
@@ -363,7 +473,6 @@
                                     <div>
                                         <label for="primary-color" class="block text-sm font-medium text-gray-400">Primary Color</label>
                                         <div class="flex items-center space-x-3 mt-1">
-                                            <div class="color-primary h-10 w-10 rounded-full border-2 border-white/50" style="background-color: #6DFF00;"></div>
                                             <input type="color" id="primary-color" value="#6DFF00" class="h-10 w-full bg-transparent border border-gray-600 rounded-md p-1 cursor-pointer" />
                                         </div>
                                     </div>
@@ -372,7 +481,6 @@
                                     <div>
                                         <label for="secondary-color" class="block text-sm font-medium text-gray-400">Secondary Color</label>
                                         <div class="flex items-center space-x-3 mt-1">
-                                            <div class="color-secondary h-10 w-10 rounded-full border-2 border-white/50" style="background-color: #7B29A8;"></div>
                                             <input type="color" id="secondary-color" value="#7B29A8" class="h-10 w-full bg-transparent border border-gray-600 rounded-md p-1 cursor-pointer" />
                                         </div>
                                     </div>
@@ -587,7 +695,6 @@
                                 <div>
                                     <label for="app-color" class="block text-sm font-medium text-gray-400">App Color</label>
                                     <div class="flex items-center space-x-3 mt-1">
-                                        <div class="h-10 w-10 rounded-full border-2 border-white/50" style="background-color: #7b29a8;"></div>
                                         <input type="color" id="app-color" value="#7B29A8" class="h-10 w-full bg-transparent border border-gray-600 rounded-md p-1 cursor-pointer" />
                                     </div>
                                 </div>
@@ -626,55 +733,55 @@
 
                 <!-- 4. Login Settings Section (Placeholder) -->
                 <div id="login-settings" class="settings-section hidden">
-                    <div class="max-w-5xl mx-auto bg-gray-900 text-white p-6 rounded-lg">
+                    <div class="max-w-5xl mx-auto bg-dark-bg text-white p-6 rounded-lg">
     <h2 class="text-lg font-semibold mb-6">Logo, Favicon & Breadcrumb Settings</h2>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
         
         <!-- Website Logo -->
-        <div class="bg-gray-800 p-4 rounded-lg border border-gray-700">
+        <div class="bg-dark-bg p-4 rounded-lg border border-gray-700">
             <p class="mb-3 font-medium">Website Logo</p>
-            <div class="flex items-center justify-center bg-gray-700 rounded-lg h-48">
+            <div class="flex items-center justify-center  rounded-lg h-48">
                 <img src="/mnt/data/741f81b7-368f-4091-a3d4-95505fe50285.png" 
                      alt="Dummy Image" class="h-32 object-contain opacity-80" />
             </div>
-            <button class="mt-3 w-full bg-gray-700 hover:bg-gray-600 text-sm py-2 rounded">
+            <button class="mt-3 w-full  hover:bg-gray-600 text-sm py-2 rounded">
                 Browse your file here
             </button>
         </div>
 
         <!-- Favicon -->
-        <div class="bg-gray-800 p-4 rounded-lg border border-gray-700">
+        <div class="bg-dark-bg p-4 rounded-lg border border-gray-700">
             <p class="mb-3 font-medium">Favicon</p>
-            <div class="flex items-center justify-center bg-gray-700 rounded-lg h-48">
+            <div class="flex items-center justify-center  rounded-lg h-48">
                 <img src="https://dummyimage.com/100x100/444/ccc.png&text=Favicon" 
                      alt="Favicon" class="h-20 object-contain opacity-80" />
             </div>
-            <button class="mt-3 w-full bg-gray-700 hover:bg-gray-600 text-sm py-2 rounded">
+            <button class="mt-3 w-full  hover:bg-gray-600 text-sm py-2 rounded">
                 Browse your file here
             </button>
         </div>
 
         <!-- Admin Default Logo -->
-        <div class="bg-gray-800 p-4 rounded-lg border border-gray-700">
+        <div class="bg-dark-bg p-4 rounded-lg border border-gray-700">
             <p class="mb-3 font-medium">Admin Default Logo</p>
-            <div class="flex items-center justify-center bg-gray-700 rounded-lg h-48">
+            <div class="flex items-center justify-center  rounded-lg h-48">
                 <img src="https://dummyimage.com/150x60/555/ccc.png&text=Admin+Logo" 
                      alt="Admin Logo" class="h-16 object-contain opacity-80" />
             </div>
-            <button class="mt-3 w-full bg-gray-700 hover:bg-gray-600 text-sm py-2 rounded">
+            <button class="mt-3 w-full  hover:bg-gray-600 text-sm py-2 rounded">
                 Browse your file here
             </button>
         </div>
 
         <!-- Admin Logo Dark Mode -->
-        <div class="bg-gray-800 p-4 rounded-lg border border-gray-700">
+        <div class="bg-dark-bg p-4 rounded-lg border border-gray-700">
             <p class="mb-3 font-medium">Admin Logo Dark Mode</p>
-            <div class="flex items-center justify-center bg-gray-700 rounded-lg h-48">
+            <div class="flex items-center justify-center  rounded-lg h-48">
                 <img src="https://dummyimage.com/150x60/666/eee.png&text=Dark+Logo" 
                      alt="Dark Logo" class="h-16 object-contain opacity-80" />
             </div>
-            <button class="mt-3 w-full bg-gray-700 hover:bg-gray-600 text-sm py-2 rounded">
+            <button class="mt-3 w-full  hover:bg-gray-600 text-sm py-2 rounded">
                 Browse your file here
             </button>
         </div>
@@ -741,19 +848,19 @@
 
                 <!-- 9. Language Settings Section (Placeholder) -->
                 <div id="language-settings" class="settings-section hidden">
-                    <div id="listPanel" class="max-w-5xl mx-auto bg-gray-900 p-6 rounded-lg">
+                    <div id="listPanel" class="max-w-5xl mx-auto bg-dark-bg p-6 rounded-lg">
 
     <div class="flex items-center justify-between mb-4">
         <h2 class="text-lg font-semibold">Languages</h2>
-        <button class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded text-sm">
+        <!-- <button class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded text-sm">
             Add Language
-        </button>
+        </button> -->
     </div>
 
     <div class="overflow-x-auto">
         <table class="w-full text-left border-separate border-spacing-y-3">
             <thead>
-                <tr class="bg-gray-800 text-gray-300">
+                <tr class="bg-dRK text-gray-300">
                     <th class="py-3 px-4 text-sm font-medium">NAME</th>
                     <th class="py-3 px-4 text-sm font-medium">SHORT NAME</th>
                     <th class="py-3 px-4 text-sm font-medium">STATUS</th>
@@ -764,7 +871,7 @@
             <tbody>
 
                 <!-- English Row -->
-                <tr class="bg-gray-800 rounded-lg">
+                <tr class="bg-dRK rounded-lg">
                     <td class="py-3 px-4">English</td>
                     <td class="py-3 px-4">en</td>
                     <td class="py-3 px-4">
@@ -780,7 +887,7 @@
                 </tr>
 
                 <!-- Spanish Row -->
-                <tr class="bg-gray-800 rounded-lg">
+                <tr class="bg-dRK rounded-lg">
                     <td class="py-3 px-4">Spanish</td>
                     <td class="py-3 px-4">es</td>
                     <td class="py-3 px-4">
@@ -802,7 +909,7 @@
 
 
 <!-- ░░░ EDIT VIEW (hidden by default) ░░░ -->
-<div id="editPanel" class="hidden max-w-5xl mx-auto bg-gray-900 p-6 rounded-lg">
+<div id="editPanel" class="hidden max-w-5xl mx-auto bg-dark-bg p-6 rounded-lg">
 
     <div class="flex items-center justify-between mb-6">
         <h2 class="text-lg font-semibold">Edit English Language</h2>
@@ -876,219 +983,175 @@
 
                 <!-- 10. Storage Settings Section (Placeholder) -->
                 <div id="storage-settings" class="settings-section hidden">
-                     <div class="mx-auto">
-    <!-- Card wrapper -->
-    <div id="listSection" class="space-y-6">
-      <div class="bg-gray-800 rounded-xl p-4">
-        <h2 class="text-lg font-semibold text-gray-100 mb-2">File Storage System</h2>
-        <p class="text-sm text-gray-400 mb-4">Manage storage connections — edit, enable or disable.</p>
+                  <div id="app" class="bg-[#2c2f32] mx-auto rounded-xl shadow-2xl container-card p-0 overflow-hidden">
+                    <div id="tv" class="p-6 md:p-8">
+            <h1 class="text-xl font-bold mb-6">File Storage System</h1>
+            
+            <div class="overflow-x-auto rounded-lg shadow-lg">
+                <table class="min-w-full divide-y divide-gray-700">
+                    <thead class="header-row text-xs uppercase tracking-wider text-gray-400">
+                        <tr>
+                            <th scope="col" class="px-4 py-3 text-left">SL.</th>
+                            <th scope="col" class="px-4 py-3 text-left">File Storage System</th>
+                            <th scope="col" class="px-4 py-3 text-left">Status</th>
+                            <th scope="col" class="px-4 py-3 text-right">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-700 text-sm">
+                        <!-- Data Row 1: Amazon S3 (Inactive) -->
+                        <tr class="hover:bg-gray-800 transition duration-150">
+                            <td class="px-4 py-4 whitespace-nowrap font-medium text-gray-300">1</td>
+                            <td class="px-4 py-4 whitespace-nowrap flex items-center">
+                                <div class="w-8 h-8 mr-3 rounded-full bg-blue-600 flex items-center justify-center text-xs font-bold">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" style="color: white;">
+                                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+                                    </svg>
+                                </div>
+                                <span class="font-semibold">Amazon S3</span>
+                            </td>
+                            <td class="px-4 py-4 whitespace-nowrap">
+                                <span class="flex items-center text-red-400 font-medium">
+                                    <span class="w-2.5 h-2.5 rounded-full mr-2 bg-red-400"></span>
+                                    Inactive
+                                </span>
+                            </td>
+                            <td class="px-4 py-4 whitespace-nowrap text-right">
+                                <button onclick="showEditForm('Amazon S3')" class="edit-btn inline-flex items-center px-3 py-1.5 border border-gray-600 text-sm font-medium rounded-lg shadow-sm text-white bg-gray-600 hover:bg-gray-700 transition duration-150">
+                                    Edit
+                                    <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                                </button>
+                            </td>
+                        </tr>
+                        
+                        <!-- Data Row 2: SFTP (Inactive) -->
+                        <tr class="hover:bg-gray-800 transition duration-150">
+                            <td class="px-4 py-4 whitespace-nowrap font-medium text-gray-300">2</td>
+                            <td class="px-4 py-4 whitespace-nowrap flex items-center">
+                                <div class="w-8 h-8 mr-3 rounded-full bg-gray-700 flex items-center justify-center">
+                                    <svg class="w-5 h-5 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l4-4 4 4m0 6l-4 4-4-4"></path></svg>
+                                </div>
+                                <span class="font-semibold">SFTP</span>
+                            </td>
+                            <td class="px-4 py-4 whitespace-nowrap">
+                                <span class="flex items-center text-red-400 font-medium">
+                                    <span class="w-2.5 h-2.5 rounded-full mr-2 bg-red-400"></span>
+                                    Inactive
+                                </span>
+                            </td>
+                            <td class="px-4 py-4 whitespace-nowrap text-right">
+                                <button onclick="showEditForm('SFTP')" class="edit-btn inline-flex items-center px-3 py-1.5 border border-gray-600 text-sm font-medium rounded-lg shadow-sm text-white bg-gray-600 hover:bg-gray-700 transition duration-150">
+                                    Edit
+                                    <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                                </button>
+                            </td>
+                        </tr>
 
-        <!-- Table header (desktop) -->
-        <div class="hidden sm:grid grid-cols-12 gap-4 text-xs text-gray-400 uppercase px-3 py-2 border-b border-gray-700">
-          <div class="col-span-1">SL.</div>
-          <div class="col-span-5">File Storage System</div>
-          <div class="col-span-3">Status</div>
-          <div class="col-span-3 text-right">Action</div>
+                        <!-- Data Row 5: Local Storage (Active) -->
+                        <tr class="hover:bg-gray-800 transition duration-150">
+                            <td class="px-4 py-4 whitespace-nowrap font-medium text-gray-300">5</td>
+                            <td class="px-4 py-4 whitespace-nowrap flex items-center">
+                                <div class="w-8 h-8 mr-3 rounded-full bg-gray-700 flex items-center justify-center">
+                                    <svg class="w-5 h-5 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16h16M4 8h16m-4 4h-8"></path></svg>
+                                </div>
+                                <span class="font-semibold">Local Storage</span>
+                            </td>
+                            <td class="px-4 py-4 whitespace-nowrap">
+                                <span class="flex items-center text-emerald-400 font-medium">
+                                    <span class="w-2.5 h-2.5 rounded-full mr-2 bg-emerald-400"></span>
+                                    Active
+                                </span>
+                            </td>
+                            <td class="px-4 py-4 whitespace-nowrap text-right">
+                                <button onclick="showEditForm('Local Storage')" class="edit-btn inline-flex items-center px-3 py-1.5 border border-gray-600 text-sm font-medium rounded-lg shadow-sm text-white bg-gray-600 hover:bg-gray-700 transition duration-150">
+                                    Edit
+                                    <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                                </button>
+                            </td>
+                        </tr>
+                        <!-- More data rows can be added here following the same structure -->
+                    </tbody>
+                </table>
+            </div>
         </div>
 
-        <!-- Items list -->
-        <div class="space-y-3 mt-2">
-          <!-- Example item 1 -->
-          <div
-            class="bg-gray-850/50 sm:grid sm:grid-cols-12 sm:items-center rounded-lg px-3 py-3 sm:py-2 flex items-start gap-3"
-            data-name="Amazon S3"
-            data-access="xys6"
-            data-secret="xys"
-            data-region="xys5"
-            data-bucket="xys6"
-            data-url="xysds"
-            data-status="Inactive"
-            data-logo=""
-          >
-            <!-- serial -->
-            <div class="w-6 sm:col-span-1 text-sm font-medium text-gray-300">1</div>
+        <!-- Edit Form View (Hidden by Default) -->
+        <div id="ev" class="hidden bg-[#2c2f32] p-6 md:p-8">
+            <button onclick="showTableView()" class="flex items-center text-sm font-medium text-gray-300 hover:text-white mb-6">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                Back to Table
+            </button>
+            <h1 class="text-xl font-bold mb-8" id="eft">Edit File Storage: Amazon S3</h1>
 
-            <!-- logo + name -->
-            <div class="flex items-center gap-3 sm:col-span-5">
-              <div class="w-10 h-10 rounded-full flex items-center justify-center bg-blue-600 shrink-0 text-white font-bold">S3</div>
-              <div>
-                <div class="font-semibold text-sm">Amazon S3</div>
-                <div class="text-xs text-gray-400 hidden sm:block">Object storage</div>
-              </div>
-            </div>
+            <form>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10">
+                    <!-- Column 1 & 2 for input fields -->
+                    <div class="space-y-6">
+                        <!-- Name -->
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-gray-400 mb-1">Name</label>
+                            <input type="text" id="name" value="Amazon S3" class="w-full bg-[#2c2f32] px-4 py-2 border border-gray-700 rounded-lg input-field focus:ring-brand-blue focus:border-brand-blue transition duration-150">
+                        </div>
+                        <!-- Secret Access Key -->
+                        <div>
+                            <label for="secretKey" class="block text-sm font-medium text-gray-400 mb-1">Secret Access Key</label>
+                            <input type="text" id="secretKey" value="XYS" class="w-full bg-[#2c2f32] px-4 py-2 border border-gray-700 rounded-lg input-field focus:ring-brand-blue focus:border-brand-blue transition duration-150">
+                        </div>
+                        <!-- Bucket -->
+                        <div>
+                            <label for="bucket" class="block bg-[#2c2f32] text-sm font-medium text-gray-400 mb-1">Bucket</label>
+                            <input type="text" id="bucket" value="xys6" class="w-full bg-[#2c2f32] px-4 py-2 border border-gray-700 rounded-lg input-field focus:ring-brand-blue focus:border-brand-blue transition duration-150">
+                        </div>
+                    </div>
 
-            <!-- status -->
-            <div class="sm:col-span-3 flex items-center gap-2 mt-2 sm:mt-0">
-              <span class="inline-flex items-center text-xs font-medium rounded-full px-2.5 py-1"
-                    data-badge>
-                <span class="w-2 h-2 rounded-full mr-2 bg-pink-600"></span>
-                Inactive
-              </span>
-            </div>
-
-            <!-- actions -->
-            <div class="sm:col-span-3 mt-2 sm:mt-0 flex justify-end items-center gap-2">
-              <button class="btn-edit inline-flex items-center gap-2 bg-gray-700 hover:bg-gray-700/80 text-sm px-3 py-1.5 rounded-md">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5"/></svg>
-                <span>Edit</span>
-              </button>
-            </div>
-          </div>
-
-          <!-- Example item 2 -->
-          <div
-            class="bg-gray-850/50 sm:grid sm:grid-cols-12 sm:items-center rounded-lg px-3 py-3 sm:py-2 flex items-start gap-3"
-            data-name="SFTP"
-            data-access="acc-sftp"
-            data-secret="sec-sftp"
-            data-region="region-sftp"
-            data-bucket="n/a"
-            data-url="sftp://example.com"
-            data-status="Inactive"
-            data-logo=""
-          >
-            <div class="w-6 sm:col-span-1 text-sm font-medium text-gray-300">2</div>
-
-            <div class="flex items-center gap-3 sm:col-span-5">
-              <div class="w-10 h-10 rounded-full flex items-center justify-center bg-gray-600 shrink-0 text-white">SF</div>
-              <div>
-                <div class="font-semibold text-sm">SFTP</div>
-                <div class="text-xs text-gray-400 hidden sm:block">File Transfer</div>
-              </div>
-            </div>
-
-            <div class="sm:col-span-3 flex items-center gap-2 mt-2 sm:mt-0">
-              <span class="inline-flex items-center text-xs font-medium rounded-full px-2.5 py-1">
-                <span class="w-2 h-2 rounded-full mr-2 bg-pink-600"></span>
-                Inactive
-              </span>
-            </div>
-
-            <div class="sm:col-span-3 mt-2 sm:mt-0 flex justify-end items-center gap-2">
-              <button class="btn-edit inline-flex items-center gap-2 bg-gray-700 hover:bg-gray-700/80 text-sm px-3 py-1.5 rounded-md">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5"/></svg>
-                <span>Edit</span>
-              </button>
-            </div>
-          </div>
-
-          <!-- Example item 3 (Local storage active) -->
-          <div
-            class="bg-gray-850/50 sm:grid sm:grid-cols-12 sm:items-center rounded-lg px-3 py-3 sm:py-2 flex items-start gap-3"
-            data-name="Local Storage"
-            data-access=""
-            data-secret=""
-            data-region=""
-            data-bucket=""
-            data-url=""
-            data-status="Active"
-            data-logo=""
-          >
-            <div class="w-6 sm:col-span-1 text-sm font-medium text-gray-300">5</div>
-
-            <div class="flex items-center gap-3 sm:col-span-5">
-              <div class="w-10 h-10 rounded-full flex items-center justify-center bg-green-600 shrink-0 text-white">L</div>
-              <div>
-                <div class="font-semibold text-sm">Local Storage</div>
-                <div class="text-xs text-gray-400 hidden sm:block">Local uploads</div>
-              </div>
-            </div>
-
-            <div class="sm:col-span-3 flex items-center gap-2 mt-2 sm:mt-0">
-              <span class="inline-flex items-center text-xs font-medium rounded-full px-2.5 py-1">
-                <span class="w-2 h-2 rounded-full mr-2 bg-emerald-400"></span>
-                Active
-              </span>
-            </div>
-
-            <div class="sm:col-span-3 mt-2 sm:mt-0 flex justify-end items-center gap-2">
-              <button class="btn-edit inline-flex items-center gap-2 bg-gray-700 hover:bg-gray-700/80 text-sm px-3 py-1.5 rounded-md">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5"/></svg>
-                <span>Edit</span>
-              </button>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </div>
-
-    <!-- Edit panel (hidden initially) -->
-    <div id="editSection" class="hidden">
-      <div class="bg-gray-800 rounded-xl p-6 mt-6">
-        <div class="flex items-center justify-between mb-4">
-          <h3 class="text-lg font-semibold">Edit File Storage</h3>
-          <div class="flex items-center gap-2">
-            <button id="cancelEdit" class="text-sm px-3 py-1.5 rounded-md bg-gray-700 hover:bg-gray-700/80">Cancel</button>
-          </div>
-        </div>
-
-        <form id="editForm" class="grid grid-cols-1 lg:grid-cols-2 gap-4">
-          <!-- left col -->
-          <div class="space-y-3">
-            <label class="block text-sm">Name
-              <input name="name" required class="mt-1 block w-full rounded-md bg-gray-900 border border-gray-700 px-3 py-2 text-gray-200 focus:outline-none focus:ring-1 focus:ring-indigo-500" />
-            </label>
-
-            <label class="block text-sm">Secret Access Key
-              <input name="secret" class="mt-1 block w-full rounded-md bg-gray-900 border border-gray-700 px-3 py-2 text-gray-200 focus:outline-none" />
-            </label>
-
-            <label class="block text-sm">Bucket
-              <input name="bucket" class="mt-1 block w-full rounded-md bg-gray-900 border border-gray-700 px-3 py-2 text-gray-200 focus:outline-none" />
-            </label>
-
-            <label class="block text-sm">Choose Logo
-              <div class="mt-2 dashed border-2 border-gray-700 rounded-lg p-4 flex items-start gap-4">
-                <div class="w-20 h-20 rounded bg-gray-700 flex items-center justify-center text-white font-bold" id="previewLogo">Logo</div>
-                <div class="flex-1">
-                  <input type="file" id="logoInput" accept="image/*" class="text-xs text-gray-400" />
-                  <p class="text-xs text-gray-500 mt-2">Browse your file here</p>
+                    <div class="space-y-6">
+                         <!-- Access Key ID -->
+                         <div>
+                            <label for="accessKey" class="block bg-[#2c2f32] text-sm font-medium text-gray-400 mb-1">Access Key ID</label>
+                            <input type="text" id="accessKey" value="xys6" class="w-full bg-[#2c2f32] px-4 py-2 border border-gray-700 rounded-lg input-field focus:ring-brand-blue focus:border-brand-blue transition duration-150">
+                        </div>
+                        <!-- Default Region -->
+                        <div>
+                            <label for="region" class="block text-sm font-medium text-gray-400 mb-1">Default Region</label>
+                            <input type="text" id="region" value="xys5" class="w-full bg-[#2c2f32] px-4 py-2 border border-gray-700 rounded-lg input-field focus:ring-brand-blue focus:border-brand-blue transition duration-150">
+                        </div>
+                         <!-- URL -->
+                         <div>
+                            <label for="url" class="block text-sm font-medium text-gray-400 mb-1">Url</label>
+                            <input type="text" id="url" value="xysds" class="w-full bg-[#2c2f32] px-4 py-2 border border-gray-700 rounded-lg input-field focus:ring-brand-blue focus:border-brand-blue transition duration-150">
+                        </div>
+                    </div>
                 </div>
-              </div>
-            </label>
-          </div>
 
-          <!-- right col -->
-          <div class="space-y-3">
-            <label class="block text-sm">Access Key Id
-              <input name="access" class="mt-1 block w-full rounded-md bg-gray-900 border border-gray-700 px-3 py-2 text-gray-200 focus:outline-none" />
-            </label>
+                <!-- Choose Logo Section -->
+                <div class="mt-10">
+                    <label class="block text-sm font-medium text-gray-400 mb-2">Choose Logo</label>
+                    <div class="logo-placeholder w-40 h-40 p-4 rounded-xl flex flex-col items-center justify-center cursor-pointer hover:border-brand-blue transition duration-150 relative overflow-hidden group">
+                        <!-- Simulated logo background -->
+                        <div class="absolute inset-0 bg-blue-600 flex items-center justify-center opacity-80">
+                             <!-- Placeholder image for Coinbase/Amazon S3 style -->
+                            <img src="https://placehold.co/128x128/0052FF/ffffff?text=Logo" alt="Placeholder Logo" class="w-20 h-20 object-contain">
+                        </div>
+                        <div class="relative z-10 mt-2 text-center">
+                             <p class="text-xs text-white mt-1 opacity-90">Browse your file here</p>
+                        </div>
+                        <input type="file" class="absolute inset-0 opacity-0 cursor-pointer" accept="image/*">
+                    </div>
+                </div>
 
-            <label class="block text-sm">Default Region
-              <input name="region" class="mt-1 block w-full rounded-md bg-gray-900 border border-gray-700 px-3 py-2 text-gray-200 focus:outline-none" />
-            </label>
-
-            <label class="block text-sm">Url
-              <input name="url" class="mt-1 block w-full rounded-md bg-gray-900 border border-gray-700 px-3 py-2 text-gray-200 focus:outline-none" />
-            </label>
-
-            <div class="pt-2">
-              <button type="submit" class="bg-blue-600 hover:bg-blue-700 transition inline-flex items-center gap-2 px-4 py-2 rounded text-sm font-medium">
-                Save changes
-              </button>
-            </div>
-          </div>
-
-          <!-- full width status field under form (optional) -->
-          <div class="lg:col-span-2">
-            <label class="inline-flex items-center gap-2">
-              <input type="checkbox" name="isActive" class="h-4 w-4 text-indigo-500 rounded" />
-              <span class="text-sm text-gray-300">Active</span>
-            </label>
-          </div>
-        </form>
-      </div>
-    </div>
-
-  </div>
-
-
+                <!-- Save Changes Button -->
+                <div class="mt-10">
+                    <button type="submit" class="px-6 py-2 bg-blue-600 text-white font-medium rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition duration-150">
+                        Save changes
+                    </button>
+                </div>
+            </form>
+        </div>
+                  </div>
                 </div>
 
                 <!-- 11. Exchange API Settings Section (Placeholder) -->
                 <div id="exchange-api-settings" class="settings-section hidden">
-                    <div class="mx-auto">
+                    <div class="mx-auto bg-[#2c2f32]">
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 
       <!-- Left: Main settings (span 2 on md+) -->
@@ -1104,12 +1167,12 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <label class="text-sm">
                 <div class="text-xs text-gray-400 mb-1">Access Key</div>
-                <input id="currencyAccess" class="w-full rounded-md bg-gray-800 border border-gray-700 px-3 py-2 text-gray-200 focus:outline-none focus:ring-1 focus:ring-indigo-500" value="fa7ca33920ecc8e4b620f08f93c05c26" />
+                <input id="currencyAccess" class="w-full rounded-md bg-[#2c2f32] border border-gray-700 px-3 py-2 text-gray-200 focus:outline-none focus:ring-1 focus:ring-indigo-500" value="fa7ca33920ecc8e4b620f08f93c05c26" />
               </label>
 
               <label class="text-sm">
                 <div class="text-xs text-gray-400 mb-1">Select Update Time</div>
-                <select id="currencyUpdateTime" class="w-full rounded-md bg-gray-800 border border-gray-700 px-3 py-2 text-gray-200 focus:outline-none">
+                <select id="currencyUpdateTime" class="w-full rounded-md bg-[#2c2f32] border border-gray-700 px-3 py-2 text-gray-200 focus:outline-none">
                   <option>Every Minute</option>
                   <option>Every 5 Minutes</option>
                   <option>Every 10 Minutes</option>
@@ -1144,12 +1207,12 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <label class="text-sm">
                 <div class="text-xs text-gray-400 mb-1">Coin Market Cap App Key</div>
-                <input id="cmcKey" class="w-full rounded-md bg-gray-800 border border-gray-700 px-3 py-2 text-gray-200 focus:outline-none" value="726ffba5-8523-4071-92d4-1775dbc481c4" />
+                <input id="cmcKey" class="w-full rounded-md bg-[#2c2f32] border border-gray-700 px-3 py-2 text-gray-200 focus:outline-none" value="726ffba5-8523-4071-92d4-1775dbc481c4" />
               </label>
 
               <label class="text-sm">
                 <div class="text-xs text-gray-400 mb-1">Select Update Time</div>
-                <select id="cmcUpdateTime" class="w-full rounded-md bg-gray-800 border border-gray-700 px-3 py-2 text-gray-200 focus:outline-none">
+                <select id="cmcUpdateTime" class="w-full rounded-md bg-[#2c2f32] border border-gray-700 px-3 py-2 text-gray-200 focus:outline-none">
                   <option>Every Minute</option>
                   <option>Every 5 Minutes</option>
                   <option>Every 10 Minutes</option>
@@ -1211,132 +1274,155 @@
 
                 <!-- 12. Translate Api Settings Section (Placeholder) -->
                 <div id="translate-api-settings" class="settings-section hidden">
-                    <div id="listSection" class="mx-auto">
-  <div class="bg-gray-800 rounded-xl p-4">
-    <h2 class="text-lg font-semibold mb-4">Translate API Configuration</h2>
+                    <div class="max-w-4xl mx-auto ">
+        
+        <!-- Main Card Container -->
+        <div class="card-bg p-6 rounded-xl shadow-2xl border border-gray-700 bg-[#2c2f32]">
+            
+            <div id="translateApiTable">
+                <h2 class="text-2xl  font-bold text-white mb-6">Translate API Configuration</h2>
+                
+                <div class="overflow-x-auto rounded-lg border border-gray-700">
+                    <table class="min-w-full divide-y divide-gray-700">
+                        <thead class="bg-header-bg">
+                            <tr>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider w-16">SL.</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">TRANSLATE METHOD</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">STATUS</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider w-24">ACTION</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-800">
+                            <!-- Row 1: Azure Translate -->
+                            <tr class="hover:bg-dark-bg/50 transition duration-150">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white">1</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm font-medium text-white">Azure</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="status-badge status-active">
+                                        <div class="h-2 w-2 rounded-full bg-lime-500 mr-2"></div>
+                                        Active
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                    <!-- Edit Button (Toggles to Form) -->
+                                    <button onclick="toggleView(true)" class="flex items-center text-gray-400 hover:text-primary-blue transition duration-150">
+                                        <i data-lucide="edit" class="h-4 w-4 mr-1"></i>
+                                        Edit
+                                    </button>
+                                </td>
+                            </tr>
+                            <!-- Add more rows here if needed -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
 
-    <!-- table header -->
-    <div class="hidden sm:grid grid-cols-12 text-xs uppercase text-gray-400 border-b border-gray-700 pb-2 mb-3">
-      <div class="col-span-1">SL</div>
-      <div class="col-span-5">Translate Method</div>
-      <div class="col-span-3">Status</div>
-      <div class="col-span-3 text-right">Action</div>
+            <div id="azureConfigFormView" class="hidden">
+                
+                <!-- Back Button -->
+                <button onclick="toggleView(false)" class="flex items-center text-gray-400 hover:text-white transition mb-6">
+                    <i data-lucide="arrow-left" class="h-5 w-5 mr-2"></i>
+                    Back to List
+                </button>
+                
+                <h3 class="text-2xl font-bold text-white mb-6">Azure Translate API Configuration</h3>
+                
+                <!-- Main Content Grid: Form (Left) and Instructions (Right) -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    
+                    <!-- Left Column: API Configuration Form -->
+                    <div class="space-y-6">
+                        <form onsubmit="event.preventDefault(); toggleView(false);">
+                            <!-- End Point Url - ID: azureEndpointUrlInput -->
+                            <div>
+                                <label for="azureEndpointUrlInput" class="block text-sm font-medium text-gray-400">End Point Url</label>
+                                <input type="url" id="azureEndpointUrlInput" value="https://bugfinder-admin-translator.cognitiveservices.azure.com" class="mt-1 block w-full bg-[#2c2f32]  border border-gray-600 rounded-md shadow-sm p-3 text-sm text-white focus:ring-primary-blue focus:border-primary-blue" />
+                            </div>
+
+                            <!-- Subscription Key - ID: azureSubscriptionKeyInput -->
+                            <div>
+                                <label for="azureSubscriptionKeyInput" class="block text-sm font-medium text-gray-400">Subscription Key</label>
+                                <div class="relative mt-1">
+                                    <input type="password" id="azureSubscriptionKeyInput" value="••••••••••••••••••••••••••••" class="block w-full bg-[#2c2f32] border border-gray-600 rounded-md shadow-sm p-3 text-sm text-white pr-10 focus:ring-primary-blue focus:border-primary-blue" />
+                                    <!-- Eye Icon to Toggle Visibility -->
+                                    <button type="button" class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500 hover:text-white" onclick="document.getElementById('azureSubscriptionKeyInput').type = document.getElementById('azureSubscriptionKeyInput').type === 'password' ? 'text' : 'password'">
+                                        <i data-lucide="eye" class="h-5 w-5"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Subscription Region - ID: azureSubscriptionRegionInput -->
+                            <div>
+                                <label for="azureSubscriptionRegionInput" class="block text-sm font-medium text-gray-400">Subscription Region</label>
+                                <input type="text" id="azureSubscriptionRegionInput" value="southeastasia" class="mt-1 block w-full bg-[#2c2f32] border border-gray-600 rounded-md shadow-sm p-3 text-sm text-white focus:ring-primary-blue focus:border-primary-blue" />
+                            </div>
+                            
+                            <!-- Action Buttons -->
+                            <div class="flex space-x-4 pt-6">
+                                <button type="submit" class="px-6 py-2 primary-blue text-white font-medium rounded-lg shadow-lg transition duration-150">
+                                    Save changes
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Right Column: Instructions -->
+                    <div class="p-6 bg-[#2c2f32] rounded-xl border border-gray-700 h-fit">
+                        <h4 class="text-lg font-semibold text-white mb-3 border-b border-gray-700 pb-2">Instruction</h4>
+                        <div class="text-sm text-gray-400 space-y-4">
+                            <p>To use the Microsoft Azure Translator Text API, you need to obtain Azure credentials in the form of an API key. Follow these steps to get your Azure credentials for the Translate API:</p>
+                            
+                            <ol class="list-decimal list-inside space-y-3 pl-3">
+                                <li>
+                                    <p class="font-medium text-white">Subscription Key</p>
+                                    <ul class="list-disc list-inside ml-4 text-gray-400 space-y-1">
+                                        <li>Log in to the Azure portal</li>
+                                        <li>Navigate to your Translator Text resource.</li>
+                                        <li>In the left-hand menu, under "Settings," click on "Keys and Endpoint."</li>
+                                        <li>Copy either "key1" or "key2" under the "Keys" section. This is your Subscription Key.</li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <p class="font-medium text-white">Endpoint (URL)</p>
+                                    <ul class="list-disc list-inside ml-4 text-gray-400 space-y-1">
+                                        <li>In the same "Keys and Endpoint" section, find the "Endpoint" field.</li>
+                                        <li>Copy the URL next to "Endpoint." This is your Endpoint URL.</li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <p class="font-medium text-white">Subscription Region</p>
+                                    <ul class="list-disc list-inside ml-4 text-gray-400 space-y-1">
+                                        <li>In the same "Keys and Endpoint" section, find the "Location" field.</li>
+                                        <li>Copy the region value next to "Location." This is your Subscription Region.</li>
+                                    </ul>
+                                </li>
+                            </ol>
+                            
+                            <p class="pt-2">Now you have collected the necessary information:</p>
+                            <ul class="list-disc list-inside ml-4 font-mono text-xs space-y-1">
+                                <li>Subscription Key: [Your Subscription Key]</li>
+                                <li>Endpoint (URL): [Your Endpoint URL]</li>
+                                <li>Subscription Region: [Your Subscription Region]</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
     </div>
 
-    <!-- row -->
-    <div class="sm:grid sm:grid-cols-12 flex flex-col gap-2 bg-gray-800 p-3 rounded-md border border-gray-700"
-         data-method="Azure"
-         data-endpoint="https://bugfinder-admin-translator.cognitiveservices.azure.com/"
-         data-key="1234567890abcdef"
-         data-region="southeastasia">
-
-      <div class="sm:col-span-1">1</div>
-
-      <div class="sm:col-span-5 font-medium">Azure</div>
-
-      <div class="sm:col-span-3 flex items-center gap-2">
-        <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
-        <span class="text-sm text-emerald-400">Active</span>
-      </div>
-
-      <div class="sm:col-span-3 flex justify-end">
-        <button class="editBtn"
-        class="flex items-center gap-2 bg-gray-700 hover:bg-gray-600 px-3 py-1.5 rounded-md text-sm">
-  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-          d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5" />
-  </svg>
-  Edit
-</button>
-
-      </div>
-    </div>
-  </div>
-</div>
-
-
-
-<div id="editSection" class="hidden mx-auto">
-
-  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-
-    <!-- left form -->
-    <div class="lg:col-span-1 bg-gray-800 rounded-xl p-6 space-y-4">
-      <h2 class="text-lg font-semibold mb-2">Azure Translate API Configuration</h2>
-
-      <label class="block text-sm">
-        <span class="text-xs text-gray-400">End Point URL</span>
-        <input id="endpointInput"
-               class="w-full mt-1 rounded-md bg-gray-900 border border-gray-700 px-3 py-2 focus:outline-none"
-               type="text">
-      </label>
-
-      <label class="block text-sm relative">
-        <span class="text-xs text-gray-400">Subscription Key</span>
-        <input id="keyInput"
-               class="w-full mt-1 rounded-md bg-gray-900 border border-gray-700 px-3 py-2 pr-10 focus:outline-none"
-               type="password">
-
-        <!-- show/hide -->
-        <span id="toggleKey"
-              class="absolute top-7 right-3 cursor-pointer text-gray-400 hover:text-gray-200">
-          👁️
-        </span>
-      </label>
-
-      <label class="block text-sm">
-        <span class="text-xs text-gray-400">Subscription Region</span>
-        <input id="regionInput"
-               class="w-full mt-1 rounded-md bg-gray-900 border border-gray-700 px-3 py-2 focus:outline-none"
-               type="text">
-      </label>
-
-      <div class="flex items-center gap-3 pt-2">
-        <button id="saveBtn"
-                class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded text-sm font-medium">
-          Save changes
-        </button>
-
-        <button id="cancelBtn"
-                class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded text-sm font-medium">
-          Cancel
-        </button>
-      </div>
-    </div>
-
-    <!-- right instruction -->
-    <div class="lg:col-span-2 bg-gray-800 rounded-xl p-6 text-sm leading-relaxed">
-      <h3 class="text-lg font-semibold mb-3">Instruction</h3>
-
-      <p class="text-gray-300 mb-2">To use the Microsoft Azure Translator API, follow these steps:</p>
-
-      <ol class="list-decimal ml-4 space-y-2 text-gray-300">
-        <li>
-          <strong>Subscription Key</strong><br>
-          Log in to Azure → Go to Translator Resource → Under “Keys and Endpoint” copy Key1 or Key2.
-        </li>
-        <li>
-          <strong>Endpoint (URL)</strong><br>
-          From the same section, copy the URL under “Endpoint”.
-        </li>
-        <li>
-          <strong>Subscription Region</strong><br>
-          Region is found under “Location”.
-        </li>
-      </ol>
-
-      <p class="mt-4 text-gray-300">
-        You now have:
-        <ul class="list-disc ml-4 mt-2">
-          <li>Subscription Key</li>
-          <li>Endpoint URL</li>
-          <li>Subscription Region</li>
-        </ul>
-      </p>
-    </div>
-
-  </div>
-</div>
+    <script>
+        // Initialize Lucide icons on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+        });
+    </script>
                 </div>
 
                 <!-- 13. Plugin Settings Section (Placeholder) -->
@@ -1472,7 +1558,7 @@
             // This is already handled by the HTML structure where 'basic-control-settings'
             // is not hidden and the corresponding link has the active class.
             // But we can call showSection explicitly to ensure state consistency if needed:
-            // showSection('basic-control-settings'); 
+            // showSection('basic-control-settings');
         });
     </script>
     <script>
@@ -1485,92 +1571,7 @@
         document.getElementById("listPanel").classList.remove("hidden");
     }
 </script>
-  <script>
-    // Grab elements
-    const listSection = document.getElementById('listSection');
-    const editSection = document.getElementById('editSection');
-    const cancelBtn = document.getElementById('cancelEdit');
-    const editForm = document.getElementById('editForm');
-    const logoInput = document.getElementById('logoInput');
-    const previewLogo = document.getElementById('previewLogo');
 
-    // Add click listeners to all edit buttons
-    document.querySelectorAll('.btn-edit').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        // find the parent item element (one up)
-        const item = e.target.closest('[data-name]');
-        if (!item) return;
-
-        // Populate the form fields from data attributes
-        const form = editForm;
-        form.elements['name'].value = item.dataset.name || '';
-        form.elements['access'].value = item.dataset.access || '';
-        form.elements['secret'].value = item.dataset.secret || '';
-        form.elements['region'].value = item.dataset.region || '';
-        form.elements['bucket'].value = item.dataset.bucket || '';
-        form.elements['url'].value = item.dataset.url || '';
-
-        // status -> checkbox
-        form.elements['isActive'].checked = (item.dataset.status || '').toLowerCase() === 'active';
-
-        // preview (if logo url provided)
-        if (item.dataset.logo) {
-          previewLogo.style.backgroundImage = `url(${item.dataset.logo})`;
-          previewLogo.style.backgroundSize = 'cover';
-          previewLogo.textContent = '';
-        } else {
-          previewLogo.style.backgroundImage = '';
-          previewLogo.textContent = item.dataset.name ? item.dataset.name.split(' ')[0].charAt(0) : 'LOGO';
-        }
-
-        // Show edit section and hide list
-        listSection.classList.add('hidden');
-        editSection.classList.remove('hidden');
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      });
-    });
-
-    // Cancel returns to list
-    cancelBtn.addEventListener('click', () => {
-      editSection.classList.add('hidden');
-      listSection.classList.remove('hidden');
-    });
-
-    // Logo preview when selecting a file
-    logoInput.addEventListener('change', (e) => {
-      const file = e.target.files && e.target.files[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = function(ev) {
-        previewLogo.style.backgroundImage = `url(${ev.target.result})`;
-        previewLogo.style.backgroundSize = 'cover';
-        previewLogo.textContent = '';
-      };
-      reader.readAsDataURL(file);
-    });
-
-    // Example submit handler (replace with actual save logic)
-    editForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      // Collect values (you'd send to server)
-      const data = {
-        name: e.target.elements['name'].value,
-        access: e.target.elements['access'].value,
-        secret: e.target.elements['secret'].value,
-        region: e.target.elements['region'].value,
-        bucket: e.target.elements['bucket'].value,
-        url: e.target.elements['url'].value,
-        active: e.target.elements['isActive'].checked,
-      };
-      console.log('Saving data (demo):', data);
-
-      // Simulate save and return to list
-      editSection.classList.add('hidden');
-      listSection.classList.remove('hidden');
-      // Optional: show a toast or update the list items with changed data
-      alert('Saved (demo). Implement actual save to server here.');
-    });
-  </script>
     <script>
     // Simple toggle UI logic for demo
     const toggleCurrency = document.getElementById('toggleCurrency');
@@ -1631,7 +1632,6 @@
       }, 900);
     });
   </script>
-
 
   </body>
 </html>

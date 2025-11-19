@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+  <head class="">
+    <meta charset="utf-8" class="" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1"
+      class=""
+    />
+    <title class="">Plan List - Admin</title>
+    <link rel="stylesheet" href="/mlm_html//admin//style.css" />
+    <script src="https://cdn.tailwindcss.com" class=""></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+      .custom-scrollbar::-webkit-scrollbar {
+        height: 8px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background-color: #374151; /* Gray-700 */
+        border-radius: 4px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-track {
+        background-color: #1f2937; /* Gray-800 */
+      }
+    </style>
+        <style>
+        /* Configure Tailwind for the Inter font */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        :root {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Custom dark theme colors for consistency */
+        body {
+            background-color: #111827; /* Main background */
+        }
+        .card-bg { background-color: #1f2937; } /* Dark Blue/Gray for cards */
+        .input-bg { background-color: #19232c; } /* Slightly lighter dark input/header */
+        .primary-blue { background-color: #3b82f6; }
+        .primary-blue:hover { background-color: #2563eb; }
+        
+        /* Custom style for the status badge */
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 8px;
+            border-radius: 9999px; /* Pill shape */
+            font-weight: 500;
+            font-size: 0.75rem; /* text-xs */
+            line-height: 1;
+        }
+        .status-inactive {
+            color: #fca5a5; /* Red-300 */
+            background-color: rgba(239, 68, 68, 0.2); /* Red-500 with opacity */
+        }
+        .status-active {
+            color: #84cc16; /* Lime-500 */
+            background-color: rgba(132, 204, 22, 0.2); /* Lime-500 with opacity */
+        }
+        .toggle-switch input:checked ~ .slider {
+            background-color: var(--brand-blue);
+        }
+
+        .toggle-switch input:checked ~ .slider:before {
+            transform: translateX(20px);
+        }
+        
+        .slider {
+            background-color: #555555;
+            transition: .4s;
+        }
+
+        .slider:before {
+            background-color: white;
+            transition: .4s;
+        }
+        /* Style for the bordered sections */
+        .toggle-section {
+            border-top: 1px solid var(--border-color);
+            padding-top: 1.5rem; /* pt-6 */
+            padding-bottom: 1.5rem; /* pb-6 */
+        }
+    </style>
+    <script>
+        // Custom Tailwind configuration for consistent dark theme colors
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-blue': '#3b82f6',
+                        'dark-bg': '#2c2f32', /* Dark Blue/Gray for cards */
+                        'card-bg': '#111827', /* Main background */
+                        'header-bg': '#2c2f32', /* Slightly lighter dark header */
+                    }
+                }
+            }
+        }
+
+        // Function to toggle sidebar visibility on small screens
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar-nav');
+            sidebar.classList.toggle('hidden');
+            sidebar.classList.toggle('flex');
+        }
+    </script>
+  </head>
+  <body class="">
+    <!-- SIDEBAR (included dynamically) & MAIN CONTENT FLEX LAYOUT -->
+    <div class="flex h-screen">
+      <div id="sidebar-container" class="relative hidden lg:block">
+        <div data-include="components/sidebar.html"></div>
+      </div>
+      <!-- TOP BAR -->
+      <header class="fixed top-0 left-0 lg:left-64 right-0 z-40 w-full bg-[#2c2f32] py-3 px-4 flex items-center justify-between shadow">
+        <div class="flex items-center space-x-4 flex-1">
+          <!-- HAMBURGER AND MLM - visible below desktop -->
+          <div class="flex items-center space-x-2 lg:hidden">
+            <button
+              id="hamburgerBtn"
+              class="text-white p-2 hover:bg-gray-700 rounded"
+            >
+              <i class="fas fa-bars"></i>
+            </button>
+            <div class="text-xl font-bold text-red-500">MLM</div>
+          </div>
+
+          <!-- SEARCH -->
+          <div
+            class="flex items-center flex-1 max-w-xl rounded-full px-4 py-2 space-x-3 shadow-lg"
+          >
+            <i class="fas fa-search text-gray-400"></i>
+            <input
+              type="text"
+              placeholder="Search for a menu"
+              class="bg-transparent w-full focus:outline-none text-gray-300 placeholder-gray-400"
+            />
+          </div>
+        </div>
+
+        <!-- RIGHT SIDE -->
+        <div class="relative ml-4">
+          <!-- AVATAR BUTTON -->
+          <button id="avatarBtn">
+            <img
+              src="https://i.pravatar.cc/80"
+              class="w-10 h-10 rounded-full border border-gray-700 cursor-pointer"
+            />
+          </button>
+
+          <!-- DROPDOWN -->
+          <div
+            id="dropdownMenu"
+            class="hidden absolute right-0 mt-3 w-56 bg-gray-800 rounded-xl shadow-xl border border-gray-700 z-50"
+          >
+            <!-- PROFILE INFO -->
+            <div class="px-4 py-3 flex items-center gap-4">
+              <div>
+                <img
+                  src="https://i.pravatar.cc/80"
+                  class="w-10 h-10 rounded-full border border-gray-700 cursor-pointer"
+                />
+              </div>
+              <div>
+                <p class="text-sm font-semibold">admin</p>
+                <p class="text-xs text-gray-400">admin@gmail.com</p>
+              </div>
+            </div>
+
+            <!-- MENU ITEMS -->
+            <ul class="py-2">
+              <li>
+                <a
+                  href="#"
+                  class="block px-4 py-2 text-sm hover:bg-gray-700 transition"
+                  >Profile & account</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="block px-4 py-2 text-sm hover:bg-gray-700 transition"
+                  >Sign out</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div
+        id="main-content"
+        class="overflow-y-auto bg-[#2c2f32] text-white transition-all duration-300 ease-in-out"
+      >
+        <!-- DASHBOARD MAIN CONTENT -->
+
+        <div
+          id="main-content-wrapper"
+          class="fixed top-16 left-0 lg:left-64 right-0 bottom-0 overflow-y-auto overflow-x-hidden flex flex-col transition-all duration-300 ease-in-out"
+        >
+          <main class="bg-[#1e2022] mx-auto w-full text-white">
+
+            <div class="p-4 sm:p-6 min-h-screen">
+              <div class="mb-6 border-b border-gray-700">
+                <div class="flex items-end">
+                  <div class="flex-1 mb-2 sm:mb-0">
+                    <nav aria-label="breadcrumb">
+                      <ol class="flex items-center text-sm text-gray-500">
+                        <li class="flex items-center">
+                          <a
+                            class="text-gray-400 hover:text-gray-700"
+                            href="javascript:void(0);"
+                            >Dashboard</a
+                          >
+                          <span class="mx-2">/</span>
+                        </li>
+                        <li class="flex items-center">
+                          <a
+                            class="text-gray-400 hover:text-gray-700"
+                            href="javascript:void(0);"
+                            >Settings</a
+                          >
+                          <span class="mx-2">/</span>
+                        </li>
+                        <li class="text-white font-medium" aria-current="page">
+                          Plugin Controls
+                        </li>
+                      </ol>
+                    </nav>
+                    <h1 class="text-2xl font-bold text-white mt-2 mb-10">
+                      Plugin Controls
+                    </h1>
+                  </div>
+                </div>
+              </div>
+
+               <div class="max-w-7xl mx-auto">        
+        <!-- Toggle Button for Mobile Navigation -->
+        <button onclick="toggleSidebar()" class="lg:hidden w-full bg-dark-bg p-3 rounded-lg mb-4 flex items-center justify-center text-white font-medium hover:bg-dark-bg/80 transition duration-150">
+            <i data-lucide="menu" class="h-5 w-5 mr-2"></i>
+            Jump To Settings
+        </button>
+
+        <!-- Main Content Grid -->
+        <div class="flex gap-x-6">
+            
+            <!-- Left Column: Navigation (Hidden on mobile by default) -->
+            <div id="sidebar-nav" class="w-[350px] mb-6 lg:mb-0 hidden lg:block lg:sticky lg:top-8 self-start bg-dark-bg rounded-xl p-4 border border-gray-700 h-fit">
+                <h3 class="text-white font-semibold mb-3 text-lg border-b border-gray-700 pb-2">Jump To</h3>
+                
+                <nav class="space-y-1" id="settings-nav">
+                    <!-- Note: data-target attribute links to the corresponding section ID -->
+                    <a href="#" data-target="menu" class="nav-link flex items-center space-x-2 p-2 rounded-lg bg-primary-blue text-white transition duration-150">
+                        <i data-lucide="settings-2" class="h-4 w-4"></i>
+                        <span class="text-sm">Menu</span>
+                    </a>
+                    <a href="#" data-target="task" class="nav-link flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-700 transition duration-150">
+                        <i data-lucide="cookie" class="h-4 w-4"></i>
+                        <span class="text-sm">Task</span>
+                    </a>
+                    <a href="#" data-target="fb-messenger" class="nav-link flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-700 transition duration-150">
+                        <i data-lucide="wrench" class="h-4 w-4"></i>
+                        <span class="text-sm">Fb Messenger</span>
+                    </a>
+                    <a href="#" data-target="google-recaptcha" class="nav-link flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-700 transition duration-150">
+                        <i data-lucide="lock" class="h-4 w-4"></i>
+                        <span class="text-sm">Google Recaptcha</span>
+                    </a>
+                    <a href="#"
+                    data-target="manul-recaptcha" 
+                    class="nav-link flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-700 transition duration-150">
+                        <i data-lucide="bell" class="h-4 w-4"></i>
+                        <span class="text-sm">Manul Recaptcha</span>
+                    </a>
+                    <a href="#" data-target="google-analytics" class="nav-link flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-700 transition duration-150">
+                        <i data-lucide="inbox" class="h-4 w-4"></i>
+                        <span class="text-sm">Google Analytics</span>
+                    </a>
+                </nav>
+            </div>
+
+            <!-- Right Column: Settings Sections -->
+            <div id="settings-content" class="w-full">
+                
+                <!-- Menu -->
+                <div id="menu" class="settings-section">
+                    <!-- Basic Controls Card -->
+                    <div class="max-w-3xl bg-dark-bg rounded-xl shadow-2xl container-card p-6 md:p-8">
+
+        <h1 class="text-xl font-bold mb-6">Plugin Configuration</h1>
+        
+        <div class="space-y-0">
+            
+            <!-- Plugin Item 1: Tawk -->
+            <div class="plugin-item py-4 flex items-center justify-between">
+                <div class="flex items-start flex-grow">
+                    <!-- Icon Placeholder (Tawk - using a placeholder color/shape) -->
+                    <div class="w-10 h-10 mr-4 mt-1 rounded-full bg-pink-500 flex items-center justify-center flex-shrink-0">
+                        <!-- Simple SVG for Tawk/Chat icon -->
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.692C4.545 15.651 5 14.619 5 13c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
+                    </div>
+                    <div>
+                        <p class="text-white font-semibold">Tawk</p>
+                        <p class="text-sm text-gray-400">Message your customers, they'll love you for it</p>
+                    </div>
+                </div>
+                
+                <!-- Action / Edit Button -->
+                <button class="inline-flex items-center px-4 py-2 border border-gray-600 text-sm font-medium rounded-lg shadow-sm text-white bg-gray-600 hover:bg-gray-700 transition duration-150 ml-4">
+                    Edit
+                </button>
+            </div>
+            
+            <!-- Plugin Item 2: FB Messenger -->
+            <div class="plugin-item py-4 flex items-center justify-between">
+                <div class="flex items-start flex-grow">
+                    <!-- Icon Placeholder (FB Messenger) -->
+                    <div class="w-10 h-10 mr-4 mt-1 rounded-full bg-indigo-600 flex items-center justify-center flex-shrink-0">
+                        <!-- Simple SVG for Messenger icon -->
+                        <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 14h-2v-4h-2V8h6v2h-2v4z"/></svg>
+                    </div>
+                    <div>
+                        <p class="text-white font-semibold">FB Messenger</p>
+                        <p class="text-sm text-gray-400">Message your customers, they'll love you for it</p>
+                    </div>
+                </div>
+                
+                <!-- Action / Edit Button -->
+                <button class="inline-flex items-center px-4 py-2 border border-gray-600 text-sm font-medium rounded-lg shadow-sm text-white bg-gray-600 hover:bg-gray-700 transition duration-150 ml-4">
+                    Edit
+                </button>
+            </div>
+            
+            <!-- Plugin Item 3: Google Recaptcha (with Toggle) -->
+            <div class="plugin-item py-4 flex items-center justify-between">
+                <div class="flex items-start flex-grow">
+                    <!-- Icon Placeholder (Google Recaptcha) -->
+                    <div class="w-10 h-10 mr-4 mt-1 rounded-full bg-blue-500 flex items-center justify-center flex-shrink-0">
+                         <!-- Simple SVG for Recaptcha icon -->
+                         <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.617 4.01l-4.17 4.173a1.5 1.5 0 01-2.122 0L9 14.12l-2.001-2.002a1.5 1.5 0 010-2.121l4.172-4.172a1.5 1.5 0 012.121 0l4.172 4.172a1.5 1.5 0 010 2.121z"></path></svg>
+                    </div>
+                    <div>
+                        <p class="text-white font-semibold">Google Recaptcha</p>
+                        <p class="text-sm text-gray-400">reCAPTCHA protects your website from fraud and abuse.</p>
+                    </div>
+                </div>
+
+                <div class="flex items-center space-x-4 flex-shrink-0 ml-4">
+                    <!-- Toggle Switch -->
+                    <label class="toggle-switch relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" value="" class="sr-only peer">
+                        <div class="slider w-10 h-5 rounded-full peer-focus:outline-none after:absolute after:top-[2px] after:left-[2px] after:h-4 after:w-4 after:rounded-full after:bg-white after:transition-all"></div>
+                    </label>
+
+                    <!-- Edit Button -->
+                    <button class="inline-flex items-center px-4 py-2 border border-gray-600 text-sm font-medium rounded-lg shadow-sm text-white bg-gray-600 hover:bg-gray-700 transition duration-150">
+                        Edit
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Plugin Item 4: Manual Recaptcha (with Toggle) -->
+            <div class="plugin-item py-4 flex items-center justify-between">
+                <div class="flex items-start flex-grow">
+                    <!-- Icon Placeholder (Manual Recaptcha) -->
+                    <div class="w-10 h-10 mr-4 mt-1 rounded-full bg-gray-700 flex items-center justify-center flex-shrink-0">
+                         <!-- Simple SVG for Lock icon -->
+                         <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 10a3 3 0 116 0v2"></path></svg>
+                    </div>
+                    <div>
+                        <p class="text-white font-semibold">Manual Recaptcha</p>
+                        <p class="text-sm text-gray-400">reCAPTCHA protects your website from fraud and abuse.</p>
+                    </div>
+                </div>
+
+                <div class="flex items-center space-x-4 flex-shrink-0 ml-4">
+                    <!-- Toggle Switch (Checked/Active State for demo) -->
+                    <label class="toggle-switch relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" value="" class="sr-only peer" checked>
+                        <div class="slider w-10 h-5 rounded-full peer-focus:outline-none after:absolute after:top-[2px] after:left-[2px] after:h-4 after:w-4 after:rounded-full after:bg-white after:transition-all"></div>
+                    </label>
+
+                    <!-- Edit Button -->
+                    <button class="inline-flex items-center px-4 py-2 border border-gray-600 text-sm font-medium rounded-lg shadow-sm text-white bg-gray-600 hover:bg-gray-700 transition duration-150">
+                        Edit
+                    </button>
+                </div>
+            </div>
+
+            <!-- Plugin Item 5: Google Analytics (No Toggle) -->
+            <div class="plugin-item py-4 flex items-center justify-between border-b-0">
+                <div class="flex items-start flex-grow">
+                    <!-- Icon Placeholder (Google Analytics) -->
+                    <div class="w-10 h-10 mr-4 mt-1 rounded-full bg-orange-500 flex items-center justify-center flex-shrink-0">
+                         <!-- Simple SVG for Analytics/Chart icon -->
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l2-2 2 2m0-4l2-2 2 2m0 4l-2 2-2-2m-2 2l-2 2-2-2"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17H7a2 2 0 01-2-2V7a2 2 0 012-2h10a2 2 0 012 2v8a2 2 0 01-2 2z"></path></svg>
+                    </div>
+                    <div>
+                        <p class="text-white font-semibold">Google Analytics</p>
+                        <p class="text-sm text-gray-400">Google Analytics is a web analytics service offered by Google</p>
+                    </div>
+                </div>
+                
+                <!-- Action / Edit Button -->
+                <button class="inline-flex items-center px-4 py-2 border border-gray-600 text-sm font-medium rounded-lg shadow-sm text-white bg-gray-600 hover:bg-gray-700 transition duration-150 ml-4">
+                    Edit
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+                   
+                </div>
+
+                <!-- 1. Task -->
+                <div id="task" class="settings-section hidden">
+                    <div class="max-w-3xl bg-dark-bg rounded-xl shadow-2xl container-card p-6">
+
+        <h1 class="text-xl font-bold mb-6">Tawk Configuration</h1>
+        
+        <form>
+            <!-- Tawk ID Input Field -->
+            <div class="mb-8">
+                <div class="flex items-center mb-1">
+                    <label for="tawk-id" class="text-sm font-semibold text-white mr-2">Tawk ID</label>
+                    <!-- Info icon for tooltip/help -->
+                    <svg class="w-4 h-4 text-gray-400 cursor-pointer" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" title="Enter your unique Tawk.to property ID."><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                </div>
+                <input type="text" id="tawk-id" value="OSLDSF465" class="w-full px-4 py-2 bg-dark-bg border border-gray-700 rounded-lg input-field focus:ring-brand-blue focus:border-brand-blue transition duration-150">
+            </div>
+
+            <!-- Tawk Status Toggle Section -->
+            <div class="flex items-center justify-between border-t border-gray-700 pt-6">
+                <div>
+                    <p class="text-sm font-semibold text-white">Tawk Status</p>
+                    <p class="text-xs text-gray-400 mt-1">Enable your tawk chat system in your application.</p>
+                </div>
+
+                <!-- Toggle Switch -->
+                <label class="toggle-switch relative inline-flex items-center cursor-pointer flex-shrink-0 ml-4">
+                    <input type="checkbox" value="" class="sr-only peer" checked>
+                    <div class="slider w-10 h-5 rounded-full peer-focus:outline-none after:absolute after:top-[2px] after:left-[2px] after:h-4 after:w-4 after:rounded-full after:bg-white after:transition-all"></div>
+                </label>
+            </div>
+
+            <!-- Save Changes Button -->
+            <div class="mt-8 flex justify-end">
+                <button type="submit" class="px-6 py-2 bg-blue-600 text-white font-medium rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition duration-150">
+                    Save changes
+                </button>
+            </div>
+        </form>
+
+    </div>
+                </div>
+
+                <!-- 2. Fb-Messenger -->
+                <div id="fb-messenger" class="settings-section hidden">
+                    <div class="max-w-3xl bg-dark-bg shadow-2xl container-card p-6 md:p-8 rounded-lg">
+
+        <h1 class="text-xl font-bold mb-6">FB Messenger Configuration</h1>
+        
+        <form>
+            <!-- App ID Input Field -->
+            <div class="mb-6">
+                <div class="flex items-center mb-1">
+                    <label for="app-id" class="text-sm font-semibold text-white mr-2">App ID</label>
+                    <!-- Info icon for tooltip/help -->
+                    <svg class="w-4 h-4 text-gray-400 cursor-pointer" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" title="Enter your Facebook App ID."><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                </div>
+                <input type="text" id="app-id" value="KLSDKF789" class="w-full bg-dark-bg border border-gray-700 px-4 py-2 rounded-lg input-field focus:ring-brand-blue focus:border-brand-blue transition duration-150">
+            </div>
+
+            <!-- Page ID Input Field -->
+            <div class="mb-8">
+                <div class="flex items-center mb-1">
+                    <label for="page-id" class="text-sm font-semibold text-white mr-2">Page ID</label>
+                    <!-- Info icon for tooltip/help -->
+                    <svg class="w-4 h-4 text-gray-400 cursor-pointer" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" title="Enter your Facebook Page ID."><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                </div>
+                <input type="text" id="page-id" value="654646977" class="w-full bg-dark-bg border border-gray-700 px-4 py-2 rounded-lg input-field focus:ring-brand-blue focus:border-brand-blue transition duration-150">
+            </div>
+
+            <!-- FB Messenger Status Toggle Section -->
+            <div class="flex items-center justify-between border-t border-gray-700 pt-6">
+                <div>
+                    <p class="text-sm font-semibold text-white">FB Messenger Status</p>
+                    <p class="text-xs text-gray-400 mt-1">Enable status fb messenger chat in your system.</p>
+                </div>
+
+                <!-- Toggle Switch -->
+                <label class="toggle-switch relative inline-flex items-center cursor-pointer flex-shrink-0 ml-4">
+                    <input type="checkbox" value="" class="sr-only peer" checked>
+                    <div class="slider w-10 h-5 rounded-full peer-focus:outline-none after:absolute after:top-[2px] after:left-[2px] after:h-4 after:w-4 after:rounded-full after:bg-white after:transition-all"></div>
+                </label>
+            </div>
+
+            <!-- Save Changes Button -->
+            <div class="mt-8 flex justify-end">
+                <button type="submit" class="px-6 py-2 bg-blue-600 text-white font-medium rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition duration-150">
+                    Save changes
+                </button>
+            </div>
+        </form>
+
+    </div>
+                </div>
+
+                <!-- 3. Google-Recaptcha -->
+                <div id="google-recaptcha" class="settings-section hidden">
+                    <div class="max-w-3xl bg-dark-bg rounded-xl shadow-2xl container-card p-6 md:p-8">
+
+        <h1 class="text-xl font-bold mb-6">Google Recaptcha Configuration</h1>
+        
+        <form>
+            <!-- Google Recaptcha Site Key Input Field -->
+            <div class="mb-6">
+                <label for="site-key" class="block text-sm font-semibold text-white mb-1">Google Recaptcha Site Key</label>
+                <input type="text" id="site-key" value="6LfXgEmAAAA0rAr264-Tcw7K97JDzCnlgyBmKz" class="w-full bg-dark-bg border border-gray-700 px-4 py-2 rounded-lg input-field focus:ring-brand-blue focus:border-brand-blue transition duration-150">
+            </div>
+
+            <!-- Google Recaptcha Secret Key Input Field -->
+            <div class="mb-8">
+                <label for="secret-key" class="block text-sm font-semibold text-white mb-1">Google Recaptcha Secret Key</label>
+                <input type="text" id="secret-key" value="6LfXgEmAAAA08m8pKanAh7HJRmbbcPNvf9blkT" class="w-full bg-dark-bg border border-gray-700 px-4 py-2 rounded-lg input-field focus:ring-brand-blue focus:border-brand-blue transition duration-150">
+            </div>
+
+            <!-- --- Toggle Sections --- -->
+
+            <!-- Admin Login Toggle -->
+            <div class="toggle-section flex items-center justify-between mb-4">
+                <div class="flex items-start">
+                    <!-- Icon placeholder (User/Admin icon) -->
+                    <svg class="w-6 h-6 mr-3 text-blue-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H9a1 1 0 01-1-1v-1a2 2 0 012-2h4a2 2 0 012 2v1a1 1 0 01-1 1zm0 0l2 2m-2-2l-2-2"></path></svg>
+                    <div>
+                        <p class="text-sm font-semibold text-white">Admin Login</p>
+                        <p class="text-xs text-gray-400 mt-1">Google reCAPTCHA is used to verify that a user accessing a website is indeed a human and not a bot.</p>
+                    </div>
+                </div>
+
+                <!-- Toggle Switch -->
+                <label class="toggle-switch relative inline-flex items-center cursor-pointer flex-shrink-0 ml-4">
+                    <input type="checkbox" value="" class="sr-only peer">
+                    <div class="slider w-10 h-5 rounded-full peer-focus:outline-none after:absolute after:top-[2px] after:left-[2px] after:h-4 after:w-4 after:rounded-full after:bg-white after:transition-all"></div>
+                </label>
+            </div>
+
+            <!-- User Login Toggle -->
+            <div class="toggle-section flex items-center justify-between mb-4">
+                <div class="flex items-start">
+                    <!-- Icon placeholder (User icon) -->
+                    <svg class="w-6 h-6 mr-3 text-blue-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                    <div>
+                        <p class="text-sm font-semibold text-white">User Login</p>
+                        <p class="text-xs text-gray-400 mt-1">Google reCAPTCHA is used to verify that a user accessing a website is indeed a human and not a bot.</p>
+                    </div>
+                </div>
+
+                <!-- Toggle Switch -->
+                <label class="toggle-switch relative inline-flex items-center cursor-pointer flex-shrink-0 ml-4">
+                    <input type="checkbox" value="" class="sr-only peer">
+                    <div class="slider w-10 h-5 rounded-full peer-focus:outline-none after:absolute after:top-[2px] after:left-[2px] after:h-4 after:w-4 after:rounded-full after:bg-white after:transition-all"></div>
+                </label>
+            </div>
+
+            <!-- User Registration Toggle -->
+            <div class="toggle-section flex items-center justify-between mb-4">
+                <div class="flex items-start">
+                    <!-- Icon placeholder (User icon) -->
+                    <svg class="w-6 h-6 mr-3 text-blue-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                    <div>
+                        <p class="text-sm font-semibold text-white">User Registration</p>
+                        <p class="text-xs text-gray-400 mt-1">Google reCAPTCHA is used to verify that a user accessing a website is indeed a human and not a bot.</p>
+                    </div>
+                </div>
+
+                <!-- Toggle Switch (Active for demo) -->
+                <label class="toggle-switch relative inline-flex items-center cursor-pointer flex-shrink-0 ml-4">
+                    <input type="checkbox" value="" class="sr-only peer" checked>
+                    <div class="slider w-10 h-5 rounded-full peer-focus:outline-none after:absolute after:top-[2px] after:left-[2px] after:h-4 after:w-4 after:rounded-full after:bg-white after:transition-all"></div>
+                </label>
+            </div>
+
+            <!-- Status Toggle -->
+            <div class="toggle-section flex items-center justify-between mb-4 pb-0">
+                <div class="flex items-start">
+                    <!-- Icon placeholder (Status icon) -->
+                    <svg class="w-6 h-6 mr-3 text-blue-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    <div>
+                        <p class="text-sm font-semibold text-white">Status</p>
+                        <p class="text-xs text-gray-400 mt-1">Enable Google reCAPTCHA on your application to enhance security by verifying human interaction.</p>
+                    </div>
+                </div>
+
+                <!-- Toggle Switch -->
+                <label class="toggle-switch relative inline-flex items-center cursor-pointer flex-shrink-0 ml-4">
+                    <input type="checkbox" value="" class="sr-only peer">
+                    <div class="slider w-10 h-5 rounded-full peer-focus:outline-none after:absolute after:top-[2px] after:left-[2px] after:h-4 after:w-4 after:rounded-full after:bg-white after:transition-all"></div>
+                </label>
+            </div>
+
+            <!-- Save Changes Button -->
+            <div class="mt-8 flex justify-end">
+                <button type="submit" class="px-6 py-2 bg-blue-600 text-white font-medium rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition duration-150">
+                    Save changes
+                </button>
+            </div>
+        </form>
+
+    </div>
+                </div>
+
+                <!-- 4. Manul-Recaptcha -->
+                <div id="manul-recaptcha" class="settings-section hidden">
+                    <div class="max-w-3xl bg-dark-bg rounded-xl shadow-2xl container-card p-6 md:p-8">
+
+        <h1 class="text-xl font-bold mb-6">Manual Recaptcha</h1>
+        
+        <form>
+            <!-- Admin Login Toggle -->
+            <div class="toggle-section flex items-center justify-between">
+                <div class="flex items-start">
+                    <!-- Icon placeholder (Shield/Security icon) -->
+                    <svg class="w-6 h-6 mr-3 text-blue-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.015A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-9.618 3.047A12.001 12.001 0 002 15c0 5.093 3.475 9.427 8.165 10.28a1.5 1.5 0 001.67 0C18.525 24.427 22 20.093 22 15c0-3.093-1.042-5.968-2.822-8.225z"></path></svg>
+                    <div>
+                        <p class="text-sm font-semibold text-white">Admin Login</p>
+                        <p class="text-xs text-gray-400 mt-1">Manual reCAPTCHA is a security feature integrated into the log process that verifies human interaction.</p>
+                    </div>
+                </div>
+
+                <!-- Toggle Switch -->
+                <label class="toggle-switch relative inline-flex items-center cursor-pointer flex-shrink-0 ml-4">
+                    <input type="checkbox" value="" class="sr-only peer">
+                    <div class="slider w-10 h-5 rounded-full peer-focus:outline-none after:absolute after:top-[2px] after:left-[2px] after:h-4 after:w-4 after:rounded-full after:bg-white after:transition-all"></div>
+                </label>
+            </div>
+
+            <!-- User Login Toggle -->
+            <div class="toggle-section flex items-center justify-between">
+                <div class="flex items-start">
+                    <!-- Icon placeholder (Shield/Security icon) -->
+                    <svg class="w-6 h-6 mr-3 text-blue-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.015A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-9.618 3.047A12.001 12.001 0 002 15c0 5.093 3.475 9.427 8.165 10.28a1.5 1.5 0 001.67 0C18.525 24.427 22 20.093 22 15c0-3.093-1.042-5.968-2.822-8.225z"></path></svg>
+                    <div>
+                        <p class="text-sm font-semibold text-white">User Login</p>
+                        <p class="text-xs text-gray-400 mt-1">Manual reCAPTCHA is a security feature integrated into the log process that verifies human interaction.</p>
+                    </div>
+                </div>
+
+                <!-- Toggle Switch -->
+                <label class="toggle-switch relative inline-flex items-center cursor-pointer flex-shrink-0 ml-4">
+                    <input type="checkbox" value="" class="sr-only peer">
+                    <div class="slider w-10 h-5 rounded-full peer-focus:outline-none after:absolute after:top-[2px] after:left-[2px] after:h-4 after:w-4 after:rounded-full after:bg-white after:transition-all"></div>
+                </label>
+            </div>
+
+            <!-- User Registration Toggle -->
+            <div class="toggle-section flex items-center justify-between">
+                <div class="flex items-start">
+                    <!-- Icon placeholder (Shield/Security icon) -->
+                    <svg class="w-6 h-6 mr-3 text-blue-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.015A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-9.618 3.047A12.001 12.001 0 002 15c0 5.093 3.475 9.427 8.165 10.28a1.5 1.5 0 001.67 0C18.525 24.427 22 20.093 22 15c0-3.093-1.042-5.968-2.822-8.225z"></path></svg>
+                    <div>
+                        <p class="text-sm font-semibold text-white">User Registration</p>
+                        <p class="text-xs text-gray-400 mt-1">Manual reCAPTCHA is a security feature integrated into the register process that verifies human interaction.</p>
+                    </div>
+                </div>
+
+                <!-- Toggle Switch (Active for demo) -->
+                <label class="toggle-switch relative inline-flex items-center cursor-pointer flex-shrink-0 ml-4">
+                    <input type="checkbox" value="" class="sr-only peer" checked>
+                    <div class="slider w-10 h-5 rounded-full peer-focus:outline-none after:absolute after:top-[2px] after:left-[2px] after:h-4 after:w-4 after:rounded-full after:bg-white after:transition-all"></div>
+                </label>
+            </div>
+
+            <!-- Status Toggle -->
+            <div class="toggle-section flex items-center justify-between pb-0">
+                <div class="flex items-start">
+                    <!-- Icon placeholder (Shield/Security icon) -->
+                    <svg class="w-6 h-6 mr-3 text-blue-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.015A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-9.618 3.047A12.001 12.001 0 002 15c0 5.093 3.475 9.427 8.165 10.28a1.5 1.5 0 001.67 0C18.525 24.427 22 20.093 22 15c0-3.093-1.042-5.968-2.822-8.225z"></path></svg>
+                    <div>
+                        <p class="text-sm font-semibold text-white">Status</p>
+                        <p class="text-xs text-gray-400 mt-1">Enable Manual reCAPTCHA on your application to enhance security by verifying human interaction.</p>
+                    </div>
+                </div>
+
+                <!-- Toggle Switch -->
+                <label class="toggle-switch relative inline-flex items-center cursor-pointer flex-shrink-0 ml-4">
+                    <input type="checkbox" value="" class="sr-only peer">
+                    <div class="slider w-10 h-5 rounded-full peer-focus:outline-none after:absolute after:top-[2px] after:left-[2px] after:h-4 after:w-4 after:rounded-full after:bg-white after:transition-all"></div>
+                </label>
+            </div>
+
+            <!-- Save Changes Button -->
+            <div class="mt-8 flex justify-start">
+                <button type="submit" class="px-6 py-2 bg-blue-600 text-white font-medium rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition duration-150">
+                    Save changes
+                </button>
+            </div>
+        </form>
+
+    </div>
+                </div>
+                
+                <!-- 5. Google-Analytics -->
+                <div id="google-analytics" class="settings-section hidden">
+                    <div class="max-w-3xl bg-dark-bg rounded-xl shadow-2xl container-card p-6 md:p-8">
+
+        <h1 class="text-xl font-bold mb-6">Google Analytics Configuration</h1>
+        
+        <form>
+            <!-- Measurement ID Input Field -->
+            <div class="mb-8">
+                <label for="measurement-id" class="block text-sm font-semibold text-white mb-1">MEASUREMENT ID</label>
+                <input type="text" id="measurement-id" value="aaaaaa" class="w-full bg-dark-bg border border-gray-700 px-4 py-2 rounded-lg input-field focus:ring-brand-blue focus:border-brand-blue transition duration-150">
+            </div>
+
+            <!-- Google Analytic Status Toggle Section -->
+            <div class="toggle-section flex items-center justify-between">
+                <div>
+                    <p class="text-sm font-semibold text-white">Google Analytic Status</p>
+                    <p class="text-xs text-gray-400 mt-1">Enable google analytics is used to track and analyze website traffic.</p>
+                </div>
+
+                <!-- Toggle Switch -->
+                <label class="toggle-switch relative inline-flex items-center cursor-pointer flex-shrink-0 ml-4">
+                    <input type="checkbox" value="" class="sr-only peer">
+                    <div class="slider w-10 h-5 rounded-full peer-focus:outline-none after:absolute after:top-[2px] after:left-[2px] after:h-4 after:w-4 after:rounded-full after:bg-white after:transition-all"></div>
+                </label>
+            </div>
+
+            <!-- Save Changes Button -->
+            <div class="mt-8 flex justify-end">
+                <button type="submit" class="px-6 py-2 bg-blue-600 text-white font-medium rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition duration-150">
+                    Save changes
+                </button>
+            </div>
+        </form>
+
+    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+          </main>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("componentsLoaded", () => {
+        const hamburgerBtn = document.getElementById("hamburgerBtn");
+        const sidebarContainer = document.getElementById("sidebar-container");
+
+        hamburgerBtn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          sidebarContainer.classList.toggle("hidden");
+        });
+      });
+    </script>
+    <script src="./js/include.js"></script>
+    <script src="./js/admin.js"></script>
+    <script>
+      const avatarBtn = document.getElementById("avatarBtn");
+      const dropdown = document.getElementById("dropdownMenu");
+
+      // Toggle on click
+      avatarBtn.addEventListener("click", () => {
+        dropdown.classList.toggle("hidden");
+      });
+
+      // Close when clicking outside
+      document.addEventListener("click", (e) => {
+        if (!avatarBtn.contains(e.target) && !dropdown.contains(e.target)) {
+          dropdown.classList.add("hidden");
+        }
+      });
+    </script>
+        <!-- Initialize Lucide icons -->
+    <script>
+        /**
+         * Toggles the visibility of the sidebar on small screens.
+         */
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar-nav');
+            sidebar.classList.toggle('hidden');
+            // If you want it to behave like a standard block element when visible on mobile:
+            // sidebar.classList.toggle('block'); 
+            // We use 'block' for mobile layout but keep 'lg:block' for desktop
+        }
+
+        /**
+         * Handles the navigation click event to switch between settings sections.
+         * @param {string} targetId - The ID of the settings section to display.
+         */
+        function showSection(targetId) {
+            // 1. Hide all sections
+            const sections = document.querySelectorAll('.settings-section');
+            sections.forEach(section => {
+                section.classList.add('hidden');
+            });
+
+            // 2. Show the target section
+            const targetSection = document.getElementById(targetId);
+            if (targetSection) {
+                targetSection.classList.remove('hidden');
+            }
+
+            // 3. Update active link styling
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.classList.remove('bg-primary-blue', 'text-white');
+                link.classList.add('hover:bg-gray-700');
+            });
+
+            // Find the clicked link and apply active style
+            const activeLink = document.querySelector(`[data-target="${targetId}"]`);
+            if (activeLink) {
+                activeLink.classList.add('bg-primary-blue', 'text-white');
+                activeLink.classList.remove('hover:bg-gray-700');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize Lucide icons
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+
+            // Set up click handlers for navigation links
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    const targetId = this.getAttribute('data-target');
+                    showSection(targetId);
+                    
+                    // Hide sidebar on mobile after clicking a link
+                    if (window.innerWidth < 1024) { // 1024px is Tailwind's 'lg' breakpoint
+                        toggleSidebar();
+                    }
+                });
+            });
+
+            // Initialize: Show the default section ('basic-control-settings')
+            // This is already handled by the HTML structure where 'basic-control-settings'
+            // is not hidden and the corresponding link has the active class.
+            // But we can call showSection explicitly to ensure state consistency if needed:
+            // showSection('basic-control-settings');
+        });
+    </script>
+    <script>
+document.addEventListener('DOMContentLoaded', () => {
+  // --- CONFIG: list the section IDs in the same order as your plugin items (fallback mapping) ---
+  const fallbackSectionOrder = [
+    'task',
+    'fb-messenger',
+    'google-recaptcha',
+    'manul-recaptcha',
+    'google-analytics'
+  ];
+
+  // --- Utility: robust showSection that matches your UI styles ---
+  function robustShowSection(targetId) {
+    if (!targetId) {
+      console.warn('robustShowSection called with empty targetId');
+      return;
+    }
+
+    // Hide all sections
+    const sections = document.querySelectorAll('.settings-section');
+    sections.forEach(s => s.classList.add('hidden'));
+
+    // Show target
+    const target = document.getElementById(targetId);
+    if (!target) {
+      console.error('robustShowSection: target element not found for id:', targetId);
+      return;
+    }
+    target.classList.remove('hidden');
+
+    // Update nav-link active state
+    const navLinks = document.querySelectorAll('.nav-link');
+    navLinks.forEach(link => {
+      link.classList.remove('bg-primary-blue', 'text-white');
+      link.classList.add('hover:bg-gray-700');
+    });
+    const activeLink = document.querySelector(`.nav-link[data-target="${targetId}"]`);
+    if (activeLink) {
+      activeLink.classList.add('bg-primary-blue', 'text-white');
+      activeLink.classList.remove('hover:bg-gray-700');
+    }
+
+    console.log('Showing section:', targetId);
+  }
+
+  // Use existing showSection if available, otherwise our robustShowSection
+  const showSectionFn = (typeof showSection === 'function') ? showSection : robustShowSection;
+
+  // Find Edit buttons in your plugin list.
+  // Strategy: prefer buttons with data-target; fallback: map by .plugin-item order.
+  const editButtonsWithTarget = Array.from(document.querySelectorAll('.plugin-item button[data-target]'));
+  const allPluginItems = Array.from(document.querySelectorAll('.plugin-item'));
+  const editButtonsFallback = [];
+
+  // Collect explicit-target buttons
+  const explicitButtons = editButtonsWithTarget.map(btn => ({
+    btn,
+    target: btn.getAttribute('data-target')
+  }));
+
+  // Collect fallback buttons (buttons inside plugin items with no data-target attr)
+  allPluginItems.forEach((item, idx) => {
+    // choose the first button inside plugin-item (you use single Edit button per item)
+    const btn = item.querySelector('button');
+    if (btn && !btn.hasAttribute('data-target')) {
+      // map index -> fallback section id (if available)
+      const fallbackTarget = fallbackSectionOrder[idx] || null;
+      editButtonsFallback.push({ btn, fallbackTarget, index: idx });
+    }
+  });
+
+  // Attach listeners to explicit-target buttons
+  explicitButtons.forEach(({ btn, target }) => {
+    btn.classList.add('edit-btn'); // optional helper class
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      console.log('Edit button clicked (explicit): target=', target);
+      showSectionFn(target);
+
+      // scroll into view
+      const settingsContent = document.getElementById('settings-content') || document.getElementById('main-content-wrapper');
+      const targetEl = document.getElementById(target);
+      if (settingsContent && targetEl) {
+        const topOffset = targetEl.getBoundingClientRect().top - settingsContent.getBoundingClientRect().top;
+        settingsContent.scrollTo({ top: Math.max(0, topOffset - 12), behavior: 'smooth' });
+      } else if (targetEl) {
+        targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+
+  // Attach listeners to fallback buttons (if any)
+  editButtonsFallback.forEach(({ btn, fallbackTarget, index }) => {
+    btn.classList.add('edit-btn'); // optional
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (fallbackTarget) {
+        console.log('Edit button clicked (fallback by index): idx=', index, ' mappedTarget=', fallbackTarget);
+        showSectionFn(fallbackTarget);
+        const settingsContent = document.getElementById('settings-content') || document.getElementById('main-content-wrapper');
+        const targetEl = document.getElementById(fallbackTarget);
+        if (settingsContent && targetEl) {
+          const topOffset = targetEl.getBoundingClientRect().top - settingsContent.getBoundingClientRect().top;
+          settingsContent.scrollTo({ top: Math.max(0, topOffset - 12), behavior: 'smooth' });
+        } else if (targetEl) {
+          targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      } else {
+        console.warn('No fallback target for Edit button at index', index);
+      }
+    });
+  });
+
+  // If there are no buttons at all, log for debugging
+  if (explicitButtons.length === 0 && editButtonsFallback.length === 0) {
+    console.warn('No Edit buttons found by the script. Selectors used: ".plugin-item button[data-target]" and " .plugin-item button" (fallback).');
+  } else {
+    console.log(`Edit buttons wired: explicit=${explicitButtons.length}, fallback=${editButtonsFallback.length}`);
+  }
+
+  // Helpful runtime check: show initial state in console
+  console.log('Available settings sections (ids):', Array.from(document.querySelectorAll('.settings-section')).map(s => s.id));
+});
+</script>
+
+
+
+  </body>
+</html>
