@@ -369,7 +369,7 @@
             </div>
 
             <!-- Right Column: Settings Sections -->
-            <div id="settings-content" class="w-full space-y-8">
+            <div id="settings-content" class="w-full">
                 
                 <!-- 1. Basic Controls Section (Default Active) -->
                 <div id="basic-control-settings" class="settings-section space-y-8">
@@ -1151,11 +1151,11 @@
 
                 <!-- 11. Exchange API Settings Section (Placeholder) -->
                 <div id="exchange-api-settings" class="settings-section hidden">
-                    <div class="mx-auto bg-[#2c2f32]">
+                    <div class="mx-auto bg-[#2c2f32] rounded-xl">
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 
       <!-- Left: Main settings (span 2 on md+) -->
-      <div class="md:col-span-2 space-y-6">
+      <div class="md:col-span-2">
         <div class="card soft-border rounded-xl p-6">
           <h2 class="text-lg font-semibold mb-2">Exchange Api Setting</h2>
           <p class="text-sm text-gray-400 mb-4">Configure fiat & crypto currency providers and update schedule.</p>
@@ -1539,6 +1539,30 @@
                 lucide.createIcons();
             }
 
+            // Check URL parameters for section
+            const urlParams = new URLSearchParams(window.location.search);
+            const sectionParam = urlParams.get('section');
+            let defaultSection = 'basic-control-settings'; // Default section
+
+            if (sectionParam === 'gdpr-cookie-settings') {
+                defaultSection = 'gdpr-cookie-settings';
+            } else if (sectionParam === 'app-settings') {
+                defaultSection = 'app-settings';
+            } else if (sectionParam === 'login-settings') {
+                defaultSection = 'login-settings';
+            } else if (sectionParam === 'language-settings') {
+                defaultSection = 'language-settings';
+            } else if (sectionParam === 'storage-settings') {
+                defaultSection = 'storage-settings';
+            } else if (sectionParam === 'exchange-api-settings') {
+                defaultSection = 'exchange-api-settings';
+            } else if (sectionParam === 'translate-api-settings') {
+                defaultSection = 'translate-api-settings';
+            }
+
+            // Show the appropriate section based on URL param
+            showSection(defaultSection);
+
             // Set up click handlers for navigation links
             const navLinks = document.querySelectorAll('.nav-link');
             navLinks.forEach(link => {
@@ -1546,19 +1570,13 @@
                     event.preventDefault();
                     const targetId = this.getAttribute('data-target');
                     showSection(targetId);
-                    
+
                     // Hide sidebar on mobile after clicking a link
                     if (window.innerWidth < 1024) { // 1024px is Tailwind's 'lg' breakpoint
                         toggleSidebar();
                     }
                 });
             });
-
-            // Initialize: Show the default section ('basic-control-settings')
-            // This is already handled by the HTML structure where 'basic-control-settings'
-            // is not hidden and the corresponding link has the active class.
-            // But we can call showSection explicitly to ensure state consistency if needed:
-            // showSection('basic-control-settings');
         });
     </script>
     <script>

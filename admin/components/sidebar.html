@@ -112,9 +112,6 @@
         text-transform: uppercase;
         padding: 1px  1px;
       }
-      .dark .sidebar-group-title {
-        color: #9ca3af; /* Lighter for dark mode */
-      }
 
       /* Sidebar Menu */
       .sidebar-menu {
@@ -146,9 +143,6 @@
       .sidebar-menu-link:hover {
         background-color: rgba(0, 0, 0, 0.05); /* Light hover */
       }
-      .dark .sidebar-menu-link:hover {
-        background-color: rgba(255, 255, 255, 0.05); /* Dark hover */
-      }
 
       /* Sidebar Submenu */
       .sidebar-submenu {
@@ -168,13 +162,6 @@
         color: #111827; /* Darker for light mode */
         background: rgba(0, 0, 0, 0.03);
       }
-      .dark .sidebar-submenu-item a {
-        color: #c1c6cf; /* Dark mode */
-      }
-      .dark .sidebar-submenu-item a:hover {
-        color: #fff;
-        background: rgba(255, 255, 255, 0.03);
-      }
 
       /* Active states */
       .sidebar-menu-item.active .sidebar-submenu {
@@ -192,55 +179,6 @@
       .dropdown-icon {
         transition: transform 0.2s;
       }
-      .sidebar-menu-item.active .dropdown-icon {
-        transform: rotate(180deg);
-        transition: 0.3s ease;
-      }
-
-      /* Content Eye Icon */
-      .sidebar-content-eye {
-        color: #6b7280; /* Light mode */
-      }
-      .dark .sidebar-content-eye {
-        color: #9ca3af; /* Dark mode */
-      }
-
-      /* Sidebar Footer */
-      .sidebar-footer {
-        /* No specific styles */
-      }
-
-      /* Sidebar Version */
-      .sidebar-version {
-        color: #6b7280; /* Light mode */
-      }
-      .dark .sidebar-version {
-        color: #9ca3af; /* Dark mode */
-      }
-
-      /* Sidebar Theme Toggle */
-      .sidebar-theme-toggle {
-        border: 1px solid rgba(0, 0, 0, 0.1); /* Light border */
-        transition: all 0.2s ease;
-      }
-      .sidebar-theme-toggle:hover {
-        background-color: rgba(0, 0, 0, 0.05); /* Light hover */
-        transform: scale(1.05);
-      }
-      .dark .sidebar-theme-toggle {
-        border-color: rgba(251, 191, 36, 0.3); /* Yellow border for dark */
-      }
-      .dark .sidebar-theme-toggle:hover {
-        background-color: rgba(251, 191, 36, 0.1); /* Yellow hover for dark */
-      }
-
-      /* Sidebar Theme Icon */
-      .sidebar-theme-icon {
-        color: #333; /* Light mode */
-      }
-      .dark .sidebar-theme-icon {
-        color: #fbbf24; /* Yellow for dark mode */
-      }
 
       /* Sidebar Toggle */
       .sidebar-toggle {
@@ -248,12 +186,6 @@
       }
       .sidebar-toggle:hover {
         background-color: #4b5563; /* Lighter hover */
-      }
-      .dark .sidebar-toggle {
-        background-color: #1f2937; /* Dark mode */
-      }
-      .dark .sidebar-toggle:hover {
-        background-color: #374151; /* Dark hover */
       }
 
       /* Sidebar Toggle Icon */
@@ -521,7 +453,7 @@
             </li>
 
             <li class="sidebar-menu-item menu-item">
-              <a href="#" class="sidebar-menu-link"
+              <a href="manage-staff.html" class="sidebar-menu-link"
                 ><i class="fas fa-user-tie"></i>
                 <span class="sidebar-item-text text-only">Manage Staff</span></a
               >

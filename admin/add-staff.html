@@ -145,7 +145,7 @@
                 <div class="flex items-end">
                   <div class="flex-1 mb-2 sm:mb-0">
                     <nav aria-label="breadcrumb">
-                      <ol class="flex items-center text-sm text-gray-500 mb-8">
+                      <ol class="flex items-center text-sm text-gray-500">
                         <li class="flex items-center">
                           <a
                             class="text-gray-400 hover:text-gray-700"
@@ -155,22 +155,94 @@
                           <span class="mx-2">/</span>
                         </li>
                         <li class="text-white font-medium" aria-current="page">
-                          Settings
+                          Add Staff
                         </li>
                       </ol>
                     </nav>
+                    <h1 class="text-2xl font-bold text-white mt-2 mb-10">
+                      Add Staff
+                    </h1>
                   </div>
                 </div>
               </div>
               
-              <div class="max-w-7xl mx-auto">
-        <h1 class="text-3xl font-bold text-white mb-8">System Configuration</h1>
+              <div class="max-w-2xl mx-auto rounded-xl shadow-2xl container-card p-6 md:p-8 bg-dark-bg">
+
+        <h1 class="text-xl font-bold mb-8">Staff Information</h1>
         
-        <!-- Settings Grid Container -->
-        <!-- Responsive layout: 1 column on mobile, 2 on small/tablet, 3 on larger screens -->
-        <div id="settings-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            <!-- Cards will be injected here by JavaScript -->
-        </div>
+        <form>
+            <!-- Name and Role (Two-column layout) -->
+            <div class="input-group">
+                <!-- Name Field -->
+                <div>
+                    <label for="name" class="block text-sm font-medium text-white mb-1">Name</label>
+                    <input type="text" id="name" placeholder="Enter staff name" class="w-full px-4 py-2 rounded-lg bg-dark-bg border border-gray-700  transition duration-150">
+                </div>
+
+                <!-- Role Field -->
+                <div>
+                    <label for="role" class="block text-sm font-medium text-white mb-1">Role</label>
+                    <select id="role" class="w-full px-4 py-2 rounded-lg bg-dark-bg border border-gray-700  select-field transition duration-150">
+                        <option value="">Select a role...</option>
+                        <option value="admin">Admin</option>
+                        <option value="manager">Manager</option>
+                        <option value="editor">Editor</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Email Field (Full width) -->
+            <div class="mb-6">
+                <label for="email" class="block text-sm font-medium text-white mb-1">Email</label>
+                <div class="relative">
+                    <input type="email" id="email" placeholder="Enter staff email" class="w-full pl-4 pr-10 py-2 rounded-lg bg-dark-bg border border-gray-700  transition duration-150">
+                    <!-- Email Icon -->
+                    <svg class="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8m-2 4v7a2 2 0 01-2 2H7a2 2 0 01-2-2v-7"></path></svg>
+                </div>
+            </div>
+
+            <!-- Username and Password (Two-column layout) -->
+            <div class="input-group mb-8">
+                <!-- Username Field -->
+                <div>
+                    <label for="username" class="block text-sm font-medium text-white mb-1">Username</label>
+                    <div class="relative">
+                        <input type="text" id="username" placeholder="Enter staff email" class="w-full pl-4 pr-10 py-2 rounded-lg bg-dark-bg border border-gray-700  transition duration-150">
+                        <!-- Email Icon (Used for Username in image) -->
+                        <svg class="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8m-2 4v7a2 2 0 01-2 2H7a2 2 0 01-2-2v-7"></path></svg>
+                    </div>
+                </div>
+
+                <!-- Password Field -->
+                <div>
+                    <label for="password" class="block text-sm font-medium text-white mb-1">Password</label>
+                    <input type="password" id="password" placeholder="Enter staff password" class="w-full px-4 py-2 rounded-lg bg-dark-bg border border-gray-700  transition duration-150">
+                </div>
+            </div>
+            
+            <!-- Status Toggle Section -->
+            <div class="flex items-center justify-between border-t border-gray-700 pt-6">
+                <div class="flex items-center">
+                    <p class="text-sm font-semibold text-white mr-2">Status</p>
+                    <!-- Help Icon (Question mark) -->
+                    <svg class="w-4 h-4 text-gray-400 cursor-pointer" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c0-1.543.818-3 2.15-3 1.332 0 2.57 1.457 2.57 3 0 2.4-3.5 1.5-3.5 4v1m0-2h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                </div>
+
+                <!-- Toggle Switch (Active for demo) -->
+                <label class="toggle-switch relative inline-flex items-center cursor-pointer flex-shrink-0 ml-4">
+                    <input type="checkbox" value="" class="sr-only peer" checked>
+                    <div class="slider w-10 h-5 rounded-full peer-focus:outline-none after:absolute after:top-[2px] after:left-[2px] after:h-4 after:w-4 after:rounded-full after:bg-white after:transition-all"></div>
+                </label>
+            </div>
+
+            <!-- Save Button -->
+            <div class="mt-8">
+                <button type="submit" class="w-full px-6 py-3 bg-blue-600 text-white text-lg font-medium rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition duration-150">
+                    Save
+                </button>
+            </div>
+        </form>
+
     </div>
             </div>
           </main>
@@ -206,91 +278,6 @@
           dropdown.classList.add("hidden");
         }
       });
-    </script>
-        <script>
-        // Data for all settings cards, with explicit icons for better visual representation.
-const cardsData = [
-    { icon: 'settings-2', title: 'Basic Control', link: 'basic-control.html',
-      description: 'Basic settings such as, site title, timezone, currency, notifications, verifications and so on.' },
-
-    { icon: 'cookie', title: 'GDPR Cookie', link: 'basic-control.html?section=gdpr-cookie-settings',
-      description: 'Cookie such as, cookie title, cookie image, text, status, cookie button and so on.' },
-
-    { icon: 'wrench', title: 'App Setting', link: 'basic-control.html?section=app-settings',
-      description: 'App Settings such as, App base color, App version, App build and so on.' },
-
-    { icon: 'image', title: 'Logo', link: 'basic-control.html?section=login-settings',
-      description: 'Logo settings such as, footer logo, admin logo, favicon, breadcrumb.' },
-
-    { icon: 'bell', title: 'Push Notification', link: 'push-notification.html',
-      description: 'Push notification settings such as, firebase configuration and push notification templates.' },
-
-    { icon: 'inbox', title: 'In App Notification', link: 'in-app-notification.html',
-      description: 'In app notification settings such as, pusher configuration and in app notification templates.' },
-
-    { icon: 'mail', title: 'Email', link: 'email.html',
-      description: 'Email settings such as, email configuration and email templates.' },
-
-    { icon: 'message-square', title: 'SMS', link: 'sms.html',
-      description: 'SMS settings such as, SMS configuration and SMS templates.' },
-
-    { icon: 'globe-lock', title: 'Language', link: 'basic-control.html?section=language-settings',
-      description: 'Language settings such as, create new language, add keywords and so on.' },
-
-    { icon: 'archive', title: 'Storage', link: 'basic-control.html?section=storage-settings',
-      description: 'Storage settings such as, store images.' },
-
-    { icon: 'shuffle', title: 'Exchange API', link: 'basic-control.html?section=exchange-api-settings',
-      description: 'Currency Layer Access Key, Coin Market Cap App Key, Select update time and so on.' },
-
-    { icon: 'file-text', title: 'Translate Api', link: 'basic-control.html?section=translate-api-settings',
-      description: 'Translate API service for google sheet, drive and others.' },
-
-    { icon: 'plug-2', title: 'Plugin', link: 'plugin.html',
-      description: 'Manage and configure third-party plugins, hooks, and extensions for custom features.' },
-
-    { icon: 'hard-hat', title: 'Maintenance Mode', link: 'maintenance-mode.html',
-      description: 'Activate or deactivate maintenance mode, configure message, and set access bypass rules.' },
-];
-
-        /**
-         * Generates the HTML string for a single setting card.
-         * @param {object} data - Card data including icon, title, and description.
-         * @returns {string} The card HTML.
-         */
-function createCardHtml(data) {
-    return `
-        <div class="bg-dark-bg p-6 rounded-xl shadow-lg border border-gray-800 hover:border-primary-blue transition duration-200 cursor-pointer">
-            <div class="flex items-start space-x-4">
-                <div class="p-3 rounded-full bg-gray-700/50 text-primary-blue">
-                    <i data-lucide="${data.icon}" class="h-6 w-6"></i>
-                </div>
-                <div>
-                    <h3 class="text-lg font-medium text-white mb-1">${data.title}</h3>
-                    <p class="text-sm text-gray-400 mb-3">${data.description}</p>
-                    <a href="${data.link}" class="text-sm font-medium hover:underline flex items-center space-x-1">
-                        <span>Change Setting</span>
-                        <i data-lucide="chevron-right" class="h-4 w-4"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-    `;
-}
-
-
-        // Render all cards into the grid
-        document.addEventListener('DOMContentLoaded', () => {
-            const settingsGrid = document.getElementById('settings-grid');
-            
-            // Map the data to HTML strings and join them
-            settingsGrid.innerHTML = cardsData.map(createCardHtml).join('');
-
-            // Re-render Lucide icons after dynamic content insertion
-            if (typeof lucide !== 'undefined') {
-                lucide.createIcons();
-            }
-        });
     </script>
   </body>
 </html>
