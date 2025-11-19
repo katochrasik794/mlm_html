@@ -1,0 +1,1637 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+  <head class="">
+    <meta charset="utf-8" class="" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1"
+      class=""
+    />
+    <title class="">Plan List - Admin</title>
+    <link rel="stylesheet" href="/mlm_html//admin//style.css" />
+    <script src="https://cdn.tailwindcss.com" class=""></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+      .custom-scrollbar::-webkit-scrollbar {
+        height: 8px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background-color: #374151; /* Gray-700 */
+        border-radius: 4px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-track {
+        background-color: #1f2937; /* Gray-800 */
+      }
+    </style>
+    <script>
+        // Custom Tailwind configuration for consistent dark theme colors
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-blue': '#3b82f6',
+                        'dark-bg': '#1f2937', /* Dark Blue/Gray for cards */
+                        'card-bg': '#111827', /* Main background */
+                        'header-bg': '#19232c', /* Slightly lighter dark header */
+                    }
+                }
+            }
+        }
+
+        // Function to toggle sidebar visibility on small screens
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar-nav');
+            sidebar.classList.toggle('hidden');
+            sidebar.classList.toggle('flex');
+        }
+    </script>
+  </head>
+  <body class="">
+    <!-- SIDEBAR (included dynamically) & MAIN CONTENT FLEX LAYOUT -->
+    <div class="flex h-screen">
+      <div id="sidebar-container" class="relative hidden lg:block">
+        <div data-include="components/sidebar.html"></div>
+      </div>
+      <!-- TOP BAR -->
+      <header class="fixed top-0 left-0 lg:left-64 right-0 z-40 w-full bg-[#2c2f32] py-3 px-4 flex items-center justify-between shadow">
+        <div class="flex items-center space-x-4 flex-1">
+          <!-- HAMBURGER AND MLM - visible below desktop -->
+          <div class="flex items-center space-x-2 lg:hidden">
+            <button
+              id="hamburgerBtn"
+              class="text-white p-2 hover:bg-gray-700 rounded"
+            >
+              <i class="fas fa-bars"></i>
+            </button>
+            <div class="text-xl font-bold text-red-500">MLM</div>
+          </div>
+
+          <!-- SEARCH -->
+          <div
+            class="flex items-center flex-1 max-w-xl rounded-full px-4 py-2 space-x-3 shadow-lg"
+          >
+            <i class="fas fa-search text-gray-400"></i>
+            <input
+              type="text"
+              placeholder="Search for a menu"
+              class="bg-transparent w-full focus:outline-none text-gray-300 placeholder-gray-400"
+            />
+          </div>
+        </div>
+
+        <!-- RIGHT SIDE -->
+        <div class="relative ml-4">
+          <!-- AVATAR BUTTON -->
+          <button id="avatarBtn">
+            <img
+              src="https://i.pravatar.cc/80"
+              class="w-10 h-10 rounded-full border border-gray-700 cursor-pointer"
+            />
+          </button>
+
+          <!-- DROPDOWN -->
+          <div
+            id="dropdownMenu"
+            class="hidden absolute right-0 mt-3 w-56 bg-gray-800 rounded-xl shadow-xl border border-gray-700 z-50"
+          >
+            <!-- PROFILE INFO -->
+            <div class="px-4 py-3 flex items-center gap-4">
+              <div>
+                <img
+                  src="https://i.pravatar.cc/80"
+                  class="w-10 h-10 rounded-full border border-gray-700 cursor-pointer"
+                />
+              </div>
+              <div>
+                <p class="text-sm font-semibold">admin</p>
+                <p class="text-xs text-gray-400">admin@gmail.com</p>
+              </div>
+            </div>
+
+            <!-- MENU ITEMS -->
+            <ul class="py-2">
+              <li>
+                <a
+                  href="#"
+                  class="block px-4 py-2 text-sm hover:bg-gray-700 transition"
+                  >Profile & account</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="block px-4 py-2 text-sm hover:bg-gray-700 transition"
+                  >Sign out</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div
+        id="main-content"
+        class="overflow-y-auto bg-[#2c2f32] text-white transition-all duration-300 ease-in-out"
+      >
+        <!-- DASHBOARD MAIN CONTENT -->
+
+        <div
+          id="main-content-wrapper"
+          class="fixed top-16 left-0 lg:left-64 right-0 bottom-0 overflow-y-auto overflow-x-hidden flex flex-col transition-all duration-300 ease-in-out"
+        >
+          <main class="bg-[#1e2022] mx-auto w-full text-white">
+
+            <div class="p-4 sm:p-6 min-h-screen">
+              <div class="mb-6 border-b border-gray-700">
+                <div class="flex items-end">
+                  <div class="flex-1 mb-2 sm:mb-0">
+                    <nav aria-label="breadcrumb">
+                      <ol class="flex items-center text-sm text-gray-500">
+                        <li class="flex items-center">
+                          <a
+                            class="text-gray-400 hover:text-gray-700"
+                            href="javascript:void(0);"
+                            >Dashboard</a
+                          >
+                          <span class="mx-2">/</span>
+                        </li>
+                        <li class="text-white font-medium" aria-current="page">
+                          Subscriber List
+                        </li>
+                      </ol>
+                    </nav>
+                    <h1 class="text-2xl font-bold text-white mt-2 mb-10">
+                      Subscriber List
+                    </h1>
+                  </div>
+                </div>
+              </div>
+
+               <div class="max-w-7xl mx-auto">
+        <!-- Attention Banner -->
+        <div class="bg-yellow-900/40 text-yellow-300 p-4 rounded-lg flex items-start space-x-3 mb-6 border border-yellow-700">
+            <i data-lucide="alert-triangle" class="h-5 w-5 flex-shrink-0 mt-0.5"></i>
+            <div>
+                <strong class="font-semibold">Attention!</strong>
+                <p class="text-sm">If you get 500 (server error) for some reason, please turn on Debug Log and try again. Then you can see what was missing in your system.</p>
+            </div>
+        </div>
+        
+        <!-- Toggle Button for Mobile Navigation -->
+        <button onclick="toggleSidebar()" class="lg:hidden w-full bg-dark-bg p-3 rounded-lg mb-4 flex items-center justify-center text-white font-medium hover:bg-dark-bg/80 transition duration-150">
+            <i data-lucide="menu" class="h-5 w-5 mr-2"></i>
+            Jump To Settings
+        </button>
+
+        <!-- Main Content Grid -->
+        <div class="flex gap-x-6">
+            
+            <!-- Left Column: Navigation (Hidden on mobile by default) -->
+            <div id="sidebar-nav" class="w-[350px] mb-6 lg:mb-0 hidden lg:block lg:sticky lg:top-8 self-start bg-dark-bg rounded-xl p-4 border border-gray-700 h-fit">
+                <h3 class="text-white font-semibold mb-3 text-lg border-b border-gray-700 pb-2">Jump To</h3>
+                
+                <nav class="space-y-1" id="settings-nav">
+                    <!-- Note: data-target attribute links to the corresponding section ID -->
+                    <a href="#" data-target="basic-control-settings" class="nav-link flex items-center space-x-2 p-2 rounded-lg bg-primary-blue text-white transition duration-150">
+                        <i data-lucide="settings-2" class="h-4 w-4"></i>
+                        <span class="text-sm">Basic Control Settings</span>
+                    </a>
+                    <a href="#" data-target="gdpr-cookie-settings" class="nav-link flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-700 transition duration-150">
+                        <i data-lucide="cookie" class="h-4 w-4"></i>
+                        <span class="text-sm">GDPR Cookie Settings</span>
+                    </a>
+                    <a href="#" data-target="app-settings" class="nav-link flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-700 transition duration-150">
+                        <i data-lucide="wrench" class="h-4 w-4"></i>
+                        <span class="text-sm">App Settings</span>
+                    </a>
+                    <a href="#" data-target="login-settings" class="nav-link flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-700 transition duration-150">
+                        <i data-lucide="lock" class="h-4 w-4"></i>
+                        <span class="text-sm">Login Settings</span>
+                    </a>
+                    <a href="#" data-target="push-notification-settings" class="nav-link flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-700 transition duration-150">
+                        <i data-lucide="bell" class="h-4 w-4"></i>
+                        <span class="text-sm">Push Notification Settings</span>
+                    </a>
+                    <a href="#" data-target="in-app-notification-settings" class="nav-link flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-700 transition duration-150">
+                        <i data-lucide="inbox" class="h-4 w-4"></i>
+                        <span class="text-sm">In App Notification Settings</span>
+                    </a>
+                    <a href="#" data-target="email-settings" class="nav-link flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-700 transition duration-150">
+                        <i data-lucide="mail" class="h-4 w-4"></i>
+                        <span class="text-sm">Email Settings</span>
+                    </a>
+                    <a href="#" data-target="sms-settings" class="nav-link flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-700 transition duration-150">
+                        <i data-lucide="message-square" class="h-4 w-4"></i>
+                        <span class="text-sm">SMS Settings</span>
+                    </a>
+                    <a href="#" data-target="language-settings" class="nav-link flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-700 transition duration-150">
+                        <i data-lucide="globe-lock" class="h-4 w-4"></i>
+                        <span class="text-sm">Language Settings</span>
+                    </a>
+                    <a href="#" data-target="storage-settings" class="nav-link flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-700 transition duration-150">
+                        <i data-lucide="archive" class="h-4 w-4"></i>
+                        <span class="text-sm">Storage Settings</span>
+                    </a>
+                    <a href="#" data-target="exchange-api-settings" class="nav-link flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-700 transition duration-150">
+                        <i data-lucide="shuffle" class="h-4 w-4"></i>
+                        <span class="text-sm">Exchange API Settings</span>
+                    </a>
+                    <a href="#" data-target="translate-api-settings" class="nav-link flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-700 transition duration-150">
+                        <i data-lucide="file-text" class="h-4 w-4"></i>
+                        <span class="text-sm">Translate Api Settings</span>
+                    </a>
+                    <a href="#" data-target="plugin-settings" class="nav-link flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-700 transition duration-150">
+                        <i data-lucide="plug-2" class="h-4 w-4"></i>
+                        <span class="text-sm">Plugin Settings</span>
+                    </a>
+                    <a href="#" data-target="maintenance-mode-settings" class="nav-link flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-700 transition duration-150">
+                        <i data-lucide="hard-hat" class="h-4 w-4"></i>
+                        <span class="text-sm">Maintenance Mode Settings</span>
+                    </a>
+                </nav>
+            </div>
+
+            <!-- Right Column: Settings Sections -->
+            <div id="settings-content" class="w-full space-y-8">
+                
+                <!-- 1. Basic Controls Section (Default Active) -->
+                <div id="basic-control-settings" class="settings-section space-y-8">
+                    <!-- Basic Controls Card -->
+                    <div class="bg-dark-bg p-6 rounded-xl shadow-lg border border-gray-700">
+                        <h3 class="text-xl font-semibold text-white mb-6 border-b border-gray-700 pb-3">Basic Controls</h3>
+                        
+                        <form class="space-y-4">
+                            <!-- Two-column form layout -->
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
+                                
+                                <!-- Site Title -->
+                                <div>
+                                    <label for="site-title" class="block text-sm font-medium text-gray-400">Site Title</label>
+                                    <input type="text" id="site-title" value="Hyip Pro" class="mt-1 block w-full bg-header-bg border border-gray-600 rounded-md shadow-sm p-2.5 text-sm text-white focus:ring-primary-blue focus:border-primary-blue" />
+                                </div>
+
+                                <!-- Time Zone -->
+                                <div>
+                                    <label for="time-zone" class="block text-sm font-medium text-gray-400">Time Zone</label>
+                                    <select id="time-zone" class="mt-1 block w-full bg-header-bg border border-gray-600 rounded-md shadow-sm p-2.5 text-sm text-white focus:ring-primary-blue focus:border-primary-blue">
+                                        <option value="utc" selected>UTC</option>
+                                        <option value="est">EST</option>
+                                    </select>
+                                </div>
+
+                                <!-- Base Currency -->
+                                <div>
+                                    <label for="base-currency" class="block text-sm font-medium text-gray-400">Base Currency</label>
+                                    <select id="base-currency" class="mt-1 block w-full bg-header-bg border border-gray-600 rounded-md shadow-sm p-2.5 text-sm text-white focus:ring-primary-blue focus:border-primary-blue">
+                                        <option value="usd" selected>USD</option>
+                                    </select>
+                                </div>
+
+                                <!-- Currency Symbol -->
+                                <div>
+                                    <label for="currency-symbol" class="block text-sm font-medium text-gray-400">Currency Symbol</label>
+                                    <input type="text" id="currency-symbol" value="$" class="mt-1 block w-full bg-header-bg border border-gray-600 rounded-md shadow-sm p-2.5 text-sm text-white focus:ring-primary-blue focus:border-primary-blue" />
+                                </div>
+                                
+                                <!-- Fraction Number -->
+                                <div>
+                                    <label for="fraction-number" class="block text-sm font-medium text-gray-400">Fraction Number</label>
+                                    <input type="number" id="fraction-number" value="2" class="mt-1 block w-full bg-header-bg border border-gray-600 rounded-md shadow-sm p-2.5 text-sm text-white focus:ring-primary-blue focus:border-primary-blue" />
+                                </div>
+                                
+                                <!-- Digits -->
+                                <div>
+                                    <label for="digits" class="block text-sm font-medium text-gray-400">Digits</label>
+                                    <input type="number" id="digits" value="30" class="mt-1 block w-full bg-header-bg border border-gray-600 rounded-md shadow-sm p-2.5 text-sm text-white focus:ring-primary-blue focus:border-primary-blue" />
+                                </div>
+
+                                <!-- Minimum Transfer -->
+                                <div>
+                                    <label for="min-transfer" class="block text-sm font-medium text-gray-400">Minimum Transfer</label>
+                                    <input type="number" id="min-transfer" value="1.00" class="mt-1 block w-full bg-header-bg border border-gray-600 rounded-md shadow-sm p-2.5 text-sm text-white focus:ring-primary-blue focus:border-primary-blue" />
+                                </div>
+
+                                <!-- Maximum Transfer -->
+                                <div>
+                                    <label for="max-transfer" class="block text-sm font-medium text-gray-400">Maximum Transfer</label>
+                                    <input type="number" id="max-transfer" value="9000000.00" class="mt-1 block w-full bg-header-bg border border-gray-600 rounded-md shadow-sm p-2.5 text-sm text-white focus:ring-primary-blue focus:border-primary-blue" />
+                                </div>
+
+                                <!-- Transfer Charge -->
+                                <div>
+                                    <label for="transfer-charge" class="block text-sm font-medium text-gray-400">Transfer Charge</label>
+                                    <input type="number" id="transfer-charge" value="0.00" class="mt-1 block w-full bg-header-bg border border-gray-600 rounded-md shadow-sm p-2.5 text-sm text-white focus:ring-primary-blue focus:border-primary-blue" />
+                                </div>
+                                
+                                <!-- Bonus Amount -->
+                                <div>
+                                    <label for="bonus-amount" class="block text-sm font-medium text-gray-400">Bonus Amount</label>
+                                    <input type="number" id="bonus-amount" value="10.00" class="mt-1 block w-full bg-header-bg border border-gray-600 rounded-md shadow-sm p-2.5 text-sm text-white focus:ring-primary-blue focus:border-primary-blue" />
+                                </div>
+                                
+                                <!-- Investment Terminate Charge -->
+                                <div class="md:col-span-2">
+                                    <label for="terminate-charge" class="block text-sm font-medium text-gray-400">Investment Terminate Charge</label>
+                                    <div class="relative mt-1">
+                                        <input type="number" id="terminate-charge" value="10.00" class="block w-full bg-header-bg border border-gray-600 rounded-md shadow-sm pr-10 p-2.5 text-sm text-white focus:ring-primary-blue focus:border-primary-blue" />
+                                        <span class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400">%</span>
+                                    </div>
+                                </div>
+                                
+                                <!-- Date Format -->
+                                <div>
+                                    <label for="date-format" class="block text-sm font-medium text-gray-400">Date Format</label>
+                                    <input type="text" id="date-format" value="19 Nov 2025" class="mt-1 block w-full bg-header-bg border border-gray-600 rounded-md shadow-sm p-2.5 text-sm text-white focus:ring-primary-blue focus:border-primary-blue" />
+                                </div>
+                                
+                                <!-- Admin URL Prefix -->
+                                <div>
+                                    <label for="admin-prefix" class="block text-sm font-medium text-gray-400">Admin URL Prefix</label>
+                                    <input type="text" id="admin-prefix" value="admin" class="mt-1 block w-full bg-header-bg border border-gray-600 rounded-md shadow-sm p-2.5 text-sm text-white focus:ring-primary-blue focus:border-primary-blue" />
+                                </div>
+
+                                <!-- Color Pickers (Full width) -->
+                                <div class="md:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
+                                    <!-- Primary Color -->
+                                    <div>
+                                        <label for="primary-color" class="block text-sm font-medium text-gray-400">Primary Color</label>
+                                        <div class="flex items-center space-x-3 mt-1">
+                                            <div class="color-primary h-10 w-10 rounded-full border-2 border-white/50" style="background-color: #6DFF00;"></div>
+                                            <input type="color" id="primary-color" value="#6DFF00" class="h-10 w-full bg-transparent border border-gray-600 rounded-md p-1 cursor-pointer" />
+                                        </div>
+                                    </div>
+
+                                    <!-- Secondary Color -->
+                                    <div>
+                                        <label for="secondary-color" class="block text-sm font-medium text-gray-400">Secondary Color</label>
+                                        <div class="flex items-center space-x-3 mt-1">
+                                            <div class="color-secondary h-10 w-10 rounded-full border-2 border-white/50" style="background-color: #7B29A8;"></div>
+                                            <input type="color" id="secondary-color" value="#7B29A8" class="h-10 w-full bg-transparent border border-gray-600 rounded-md p-1 cursor-pointer" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            
+                            <!-- Save Button -->
+                            <div class="pt-4">
+                                <button type="submit" class="px-6 py-2 bg-primary-blue text-white font-medium rounded-lg shadow-lg hover:bg-blue-600 transition duration-150">
+                                    Save Changes
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                     <!-- System Control Card (Part of Basic Controls for the original design) -->
+                    <div class="bg-dark-bg p-6 rounded-xl shadow-lg border border-gray-700">
+                        <h3 class="text-xl font-semibold text-white mb-6 border-b border-gray-700 pb-3">System Control</h3>
+                        
+                        <form class="space-y-6">
+                            <!-- Toggle Controls -->
+                            <div class="space-y-4">
+                                <!-- Strong Password -->
+                                <div class="flex items-center justify-between">
+                                    <div class="flex flex-col">
+                                        <label class="text-white font-medium">Strong Password</label>
+                                        <p class="text-sm text-gray-400">Create a secure password using our generator tool.</p>
+                                    </div>
+                                    <label class="relative inline-flex items-center cursor-pointer">
+                                        <input type="checkbox" value="" class="sr-only peer" checked>
+                                        <div class="w-11 h-6 bg-gray-600 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary-blue/50 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-blue"></div>
+                                    </label>
+                                </div>
+
+                                <!-- Registration -->
+                                <div class="flex items-center justify-between">
+                                    <div class="flex flex-col">
+                                        <label class="text-white font-medium">Registration</label>
+                                        <p class="text-sm text-gray-400">Enable or Disable User Registration</p>
+                                    </div>
+                                    <label class="relative inline-flex items-center cursor-pointer">
+                                        <input type="checkbox" value="" class="sr-only peer" checked>
+                                        <div class="w-11 h-6 bg-gray-600 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary-blue/50 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-blue"></div>
+                                    </label>
+                                </div>
+
+                                <!-- Joining Bonus -->
+                                <div class="flex items-center justify-between">
+                                    <div class="flex flex-col">
+                                        <label class="text-white font-medium">Joining Bonus</label>
+                                        <p class="text-sm text-gray-400">Enable or Disable User Joining Bonus.</p>
+                                    </div>
+                                    <label class="relative inline-flex items-center cursor-pointer">
+                                        <input type="checkbox" value="" class="sr-only peer" checked>
+                                        <div class="w-11 h-6 bg-gray-600 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary-blue/50 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-blue"></div>
+                                    </label>
+                                </div>
+
+                                <!-- Debug Log -->
+                                <div class="flex items-center justify-between">
+                                    <div class="flex flex-col">
+                                        <label class="text-white font-medium">Debug Log</label>
+                                        <p class="text-sm text-gray-400">Debug logs are generated.</p>
+                                    </div>
+                                    <label class="relative inline-flex items-center cursor-pointer">
+                                        <input type="checkbox" value="" class="sr-only peer">
+                                        <div class="w-11 h-6 bg-gray-600 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary-blue/50 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-blue"></div>
+                                    </label>
+                                </div>
+
+                                <!-- Over Pop Up Set -->
+                                <div class="flex items-center justify-between">
+                                    <div class="flex flex-col">
+                                        <label class="text-white font-medium">Over Pop Up Set</label>
+                                        <p class="text-sm text-gray-400">Set the above time in the over pop-up set.</p>
+                                    </div>
+                                    <label class="relative inline-flex items-center cursor-pointer">
+                                        <input type="checkbox" value="" class="sr-only peer">
+                                        <div class="w-11 h-6 bg-gray-600 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary-blue/50 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-blue"></div>
+                                    </label>
+                                </div>
+                                
+                                <!-- Space Between Currency & Amount -->
+                                <div class="flex items-center justify-between">
+                                    <div class="flex flex-col">
+                                        <label class="text-white font-medium">Space Between Currency & Amount</label>
+                                        <p class="text-sm text-gray-400">The customary currency symbol follows the amount, and is preceded by a space.</p>
+                                    </div>
+                                    <label class="relative inline-flex items-center cursor-pointer">
+                                        <input type="checkbox" value="" class="sr-only peer">
+                                        <div class="w-11 h-6 bg-gray-600 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary-blue/50 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-blue"></div>
+                                    </label>
+                                </div>
+
+                                <!-- Currency Position In Left -->
+                                <div class="flex items-center justify-between">
+                                    <div class="flex flex-col">
+                                        <label class="text-white font-medium">Currency Position In Left</label>
+                                        <p class="text-sm text-gray-400">The currency position can be on the left or right of the amount.</p>
+                                    </div>
+                                    <label class="relative inline-flex items-center cursor-pointer">
+                                        <input type="checkbox" value="" class="sr-only peer">
+                                        <div class="w-11 h-6 bg-gray-600 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary-blue/50 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-blue"></div>
+                                    </label>
+                                </div>
+                                
+                                <!-- Force SSL -->
+                                <div class="flex items-center justify-between">
+                                    <div class="flex flex-col">
+                                        <label class="text-white font-medium">Force SSL</label>
+                                        <p class="text-sm text-gray-400">To force the HTTPS connection on your website.</p>
+                                    </div>
+                                    <label class="relative inline-flex items-center cursor-pointer">
+                                        <input type="checkbox" value="" class="sr-only peer">
+                                        <div class="w-11 h-6 bg-gray-600 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary-blue/50 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-blue"></div>
+                                    </label>
+                                </div>
+                                
+                                <!-- User Termination -->
+                                <div class="flex items-center justify-between">
+                                    <div class="flex flex-col">
+                                        <label class="text-white font-medium">User Termination</label>
+                                        <p class="text-sm text-gray-400">If you want user terminate investment then turn on this button.</p>
+                                    </div>
+                                    <label class="relative inline-flex items-center cursor-pointer">
+                                        <input type="checkbox" value="" class="sr-only peer">
+                                        <div class="w-11 h-6 bg-gray-600 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary-blue/50 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-blue"></div>
+                                    </label>
+                                </div>
+                                
+                            </div>
+                            
+                            <!-- Save Button -->
+                            <div class="pt-4">
+                                <button type="submit" class="px-6 py-2 bg-primary-blue text-white font-medium rounded-lg shadow-lg hover:bg-blue-600 transition duration-150">
+                                    Save Changes
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                   
+                </div>
+
+                <!-- 2. GDPR Cookie Settings Section -->
+                <div id="gdpr-cookie-settings" class="settings-section hidden">
+                    <div class="bg-dark-bg p-6 rounded-xl shadow-lg border border-gray-700">
+                        <h3 class="text-xl font-semibold text-white mb-6 border-b border-gray-700 pb-3">GDPR Cookie Settings</h3>
+                        
+                        <form class="space-y-6">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
+                                <!-- Title -->
+                                <div>
+                                    <label for="cookie-title" class="block text-sm font-medium text-gray-400">Title</label>
+                                    <input type="text" id="cookie-title" value="We use cookies!" class="mt-1 block w-full bg-header-bg border border-gray-600 rounded-md shadow-sm p-2.5 text-sm text-white focus:ring-primary-blue focus:border-primary-blue" />
+                                </div>
+                                <!-- Button Name -->
+                                <div>
+                                    <label for="cookie-btn-name" class="block text-sm font-medium text-gray-400">Button Name</label>
+                                    <input type="text" id="cookie-btn-name" value="See more" class="mt-1 block w-full bg-header-bg border border-gray-600 rounded-md shadow-sm p-2.5 text-sm text-white focus:ring-primary-blue focus:border-primary-blue" />
+                                </div>
+                                <!-- Button URL -->
+                                <div>
+                                    <label for="cookie-btn-url" class="block text-sm font-medium text-gray-400">Button Url</label>
+                                    <input type="text" id="cookie-btn-url" value="http://localhost/hyip_pro/cookie-policy" class="mt-1 block w-full bg-header-bg border border-gray-600 rounded-md shadow-sm p-2.5 text-sm text-white focus:ring-primary-blue focus:border-primary-blue" />
+                                </div>
+                                <!-- Cookie Status Toggle -->
+                                <div class="flex items-center justify-between">
+                                    <div class="flex flex-col">
+                                        <label class="text-white font-medium">Cookie Status</label>
+                                        <p class="text-sm text-gray-400">Enable or Disable Cookie</p>
+                                    </div>
+                                    <label class="relative inline-flex items-center cursor-pointer">
+                                        <input type="checkbox" value="" class="sr-only peer" checked>
+                                        <div class="w-11 h-6 bg-gray-600 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary-blue/50 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-blue"></div>
+                                    </label>
+                                </div>
+                                <!-- Short Text (Full Width) -->
+                                <div class="md:col-span-2">
+                                    <label for="cookie-short-text" class="block text-sm font-medium text-gray-400">Short Text</label>
+                                    <textarea id="cookie-short-text" rows="3" class="mt-1 block w-full bg-header-bg border border-gray-600 rounded-md shadow-sm p-2.5 text-sm text-white focus:ring-primary-blue focus:border-primary-blue">We use cookies to ensure that give you the best experience on your website.</textarea>
+                                </div>
+                                
+                                <!-- Cookie Image (Placeholder) -->
+                                <div class="md:col-span-2">
+                                    <label for="cookie-image" class="block text-sm font-medium text-gray-400 mb-2">Cookie Image</label>
+                                    <div class="w-full h-48 border-2 border-dashed border-gray-600 rounded-md flex flex-col items-center justify-center p-4">
+                                        <img src="https://placehold.co/100x100/374151/ffffff?text=Cookie" alt="Cookie Placeholder" class="mb-2 rounded-lg">
+                                        <p class="text-sm text-gray-500">Browse your file here</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Save Button -->
+                            <div class="pt-4">
+                                <button type="submit" class="px-6 py-2 bg-primary-blue text-white font-medium rounded-lg shadow-lg hover:bg-blue-600 transition duration-150">
+                                    Save changes
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- 3. App Settings Section -->
+                <div id="app-settings" class="settings-section hidden">
+                    <div class="bg-dark-bg p-6 rounded-xl shadow-lg border border-gray-700">
+                        <h3 class="text-xl font-semibold text-white mb-6 border-b border-gray-700 pb-3">App Settings</h3>
+                        
+                        <form class="space-y-6">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
+                                <!-- App Color -->
+                                <div>
+                                    <label for="app-color" class="block text-sm font-medium text-gray-400">App Color</label>
+                                    <div class="flex items-center space-x-3 mt-1">
+                                        <div class="h-10 w-10 rounded-full border-2 border-white/50" style="background-color: #7b29a8;"></div>
+                                        <input type="color" id="app-color" value="#7B29A8" class="h-10 w-full bg-transparent border border-gray-600 rounded-md p-1 cursor-pointer" />
+                                    </div>
+                                </div>
+                                <!-- App Version -->
+                                <div>
+                                    <label for="app-version" class="block text-sm font-medium text-gray-400">App Version</label>
+                                    <input type="text" id="app-version" value="1.1.0" class="mt-1 block w-full bg-header-bg border border-gray-600 rounded-md shadow-sm p-2.5 text-sm text-white focus:ring-primary-blue focus:border-primary-blue" />
+                                </div>
+                                <!-- App Build -->
+                                <div>
+                                    <label for="app-build" class="block text-sm font-medium text-gray-400">App Build</label>
+                                    <input type="text" id="app-build" value="25,26,27" class="mt-1 block w-full bg-header-bg border border-gray-600 rounded-md shadow-sm p-2.5 text-sm text-white focus:ring-primary-blue focus:border-primary-blue" />
+                                </div>
+                                <!-- Is Major Version Toggle -->
+                                <div class="flex items-center justify-between">
+                                    <div class="flex flex-col">
+                                        <label class="text-white font-medium">Is Major Version</label>
+                                        <p class="text-sm text-gray-400">Enable or Disable Is Major Version</p>
+                                    </div>
+                                    <label class="relative inline-flex items-center cursor-pointer">
+                                        <input type="checkbox" value="" class="sr-only peer" checked>
+                                        <div class="w-11 h-6 bg-gray-600 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary-blue/50 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-blue"></div>
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <!-- Save Button -->
+                            <div class="pt-4">
+                                <button type="submit" class="px-6 py-2 bg-primary-blue text-white font-medium rounded-lg shadow-lg hover:bg-blue-600 transition duration-150">
+                                    Save changes
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- 4. Login Settings Section (Placeholder) -->
+                <div id="login-settings" class="settings-section hidden">
+                    <div class="max-w-5xl mx-auto bg-gray-900 text-white p-6 rounded-lg">
+    <h2 class="text-lg font-semibold mb-6">Logo, Favicon & Breadcrumb Settings</h2>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        
+        <!-- Website Logo -->
+        <div class="bg-gray-800 p-4 rounded-lg border border-gray-700">
+            <p class="mb-3 font-medium">Website Logo</p>
+            <div class="flex items-center justify-center bg-gray-700 rounded-lg h-48">
+                <img src="/mnt/data/741f81b7-368f-4091-a3d4-95505fe50285.png" 
+                     alt="Dummy Image" class="h-32 object-contain opacity-80" />
+            </div>
+            <button class="mt-3 w-full bg-gray-700 hover:bg-gray-600 text-sm py-2 rounded">
+                Browse your file here
+            </button>
+        </div>
+
+        <!-- Favicon -->
+        <div class="bg-gray-800 p-4 rounded-lg border border-gray-700">
+            <p class="mb-3 font-medium">Favicon</p>
+            <div class="flex items-center justify-center bg-gray-700 rounded-lg h-48">
+                <img src="https://dummyimage.com/100x100/444/ccc.png&text=Favicon" 
+                     alt="Favicon" class="h-20 object-contain opacity-80" />
+            </div>
+            <button class="mt-3 w-full bg-gray-700 hover:bg-gray-600 text-sm py-2 rounded">
+                Browse your file here
+            </button>
+        </div>
+
+        <!-- Admin Default Logo -->
+        <div class="bg-gray-800 p-4 rounded-lg border border-gray-700">
+            <p class="mb-3 font-medium">Admin Default Logo</p>
+            <div class="flex items-center justify-center bg-gray-700 rounded-lg h-48">
+                <img src="https://dummyimage.com/150x60/555/ccc.png&text=Admin+Logo" 
+                     alt="Admin Logo" class="h-16 object-contain opacity-80" />
+            </div>
+            <button class="mt-3 w-full bg-gray-700 hover:bg-gray-600 text-sm py-2 rounded">
+                Browse your file here
+            </button>
+        </div>
+
+        <!-- Admin Logo Dark Mode -->
+        <div class="bg-gray-800 p-4 rounded-lg border border-gray-700">
+            <p class="mb-3 font-medium">Admin Logo Dark Mode</p>
+            <div class="flex items-center justify-center bg-gray-700 rounded-lg h-48">
+                <img src="https://dummyimage.com/150x60/666/eee.png&text=Dark+Logo" 
+                     alt="Dark Logo" class="h-16 object-contain opacity-80" />
+            </div>
+            <button class="mt-3 w-full bg-gray-700 hover:bg-gray-600 text-sm py-2 rounded">
+                Browse your file here
+            </button>
+        </div>
+    </div>
+
+    <button class="mt-6 bg-blue-600 hover:bg-blue-700 px-6 py-2 rounded text-white">
+        Save changes
+    </button>
+</div>
+
+                </div>
+
+                <!-- 5. Push Notification Settings Section (Placeholder) -->
+                <div id="push-notification-settings" class="settings-section hidden">
+                    <div class="bg-dark-bg p-6 rounded-xl shadow-lg border border-gray-700">
+                        <h3 class="text-xl font-semibold text-white mb-6 border-b border-gray-700 pb-3">Push Notification Settings</h3>
+                        <p class="text-gray-400">Placeholder content for Push Notification settings. You can add forms here for: Firebase configuration, push notification templates, etc.</p>
+                        <div class="mt-4 pt-4 border-t border-gray-700">
+                            <button type="submit" class="px-6 py-2 bg-primary-blue text-white font-medium rounded-lg shadow-lg hover:bg-blue-600 transition duration-150">
+                                Save changes
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 6. In App Notification Settings Section (Placeholder) -->
+                <div id="in-app-notification-settings" class="settings-section hidden">
+                    <div class="bg-dark-bg p-6 rounded-xl shadow-lg border border-gray-700">
+                        <h3 class="text-xl font-semibold text-white mb-6 border-b border-gray-700 pb-3">In App Notification Settings</h3>
+                        <p class="text-gray-400">Placeholder content for In App Notification settings. You can add forms here for: Pusher configuration and in app notification templates, etc.</p>
+                        <div class="mt-4 pt-4 border-t border-gray-700">
+                            <button type="submit" class="px-6 py-2 bg-primary-blue text-white font-medium rounded-lg shadow-lg hover:bg-blue-600 transition duration-150">
+                                Save changes
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 7. Email Settings Section (Placeholder) -->
+                <div id="email-settings" class="settings-section hidden">
+                    <div class="bg-dark-bg p-6 rounded-xl shadow-lg border border-gray-700">
+                        <h3 class="text-xl font-semibold text-white mb-6 border-b border-gray-700 pb-3">Email Settings</h3>
+                        <p class="text-gray-400">Placeholder content for Email settings. You can add forms here for: Email configuration and email templates, etc.</p>
+                        <div class="mt-4 pt-4 border-t border-gray-700">
+                            <button type="submit" class="px-6 py-2 bg-primary-blue text-white font-medium rounded-lg shadow-lg hover:bg-blue-600 transition duration-150">
+                                Save changes
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 8. SMS Settings Section (Placeholder) -->
+                <div id="sms-settings" class="settings-section hidden">
+                    <div class="bg-dark-bg p-6 rounded-xl shadow-lg border border-gray-700">
+                        <h3 class="text-xl font-semibold text-white mb-6 border-b border-gray-700 pb-3">SMS Settings</h3>
+                        <p class="text-gray-400">Placeholder content for SMS settings. You can add forms here for: SMS configuration and SMS templates, etc.</p>
+                        <div class="mt-4 pt-4 border-t border-gray-700">
+                            <button type="submit" class="px-6 py-2 bg-primary-blue text-white font-medium rounded-lg shadow-lg hover:bg-blue-600 transition duration-150">
+                                Save changes
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 9. Language Settings Section (Placeholder) -->
+                <div id="language-settings" class="settings-section hidden">
+                    <div id="listPanel" class="max-w-5xl mx-auto bg-gray-900 p-6 rounded-lg">
+
+    <div class="flex items-center justify-between mb-4">
+        <h2 class="text-lg font-semibold">Languages</h2>
+        <button class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded text-sm">
+            Add Language
+        </button>
+    </div>
+
+    <div class="overflow-x-auto">
+        <table class="w-full text-left border-separate border-spacing-y-3">
+            <thead>
+                <tr class="bg-gray-800 text-gray-300">
+                    <th class="py-3 px-4 text-sm font-medium">NAME</th>
+                    <th class="py-3 px-4 text-sm font-medium">SHORT NAME</th>
+                    <th class="py-3 px-4 text-sm font-medium">STATUS</th>
+                    <th class="py-3 px-4 text-sm font-medium">ACTION</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                <!-- English Row -->
+                <tr class="bg-gray-800 rounded-lg">
+                    <td class="py-3 px-4">English</td>
+                    <td class="py-3 px-4">en</td>
+                    <td class="py-3 px-4">
+                        <span class="bg-blue-600/30 text-blue-300 text-xs px-2 py-1 rounded">● Default</span>
+                        <span class="bg-green-600/30 text-green-300 text-xs px-2 py-1 rounded ml-2">● Active</span>
+                    </td>
+                    <td class="py-3 px-4">
+                        <button onclick="showEdit()"
+                                class="flex items-center gap-1 bg-gray-700 hover:bg-gray-600 px-3 py-1 text-sm rounded">
+                            ✏️ Edit
+                        </button>
+                    </td>
+                </tr>
+
+                <!-- Spanish Row -->
+                <tr class="bg-gray-800 rounded-lg">
+                    <td class="py-3 px-4">Spanish</td>
+                    <td class="py-3 px-4">es</td>
+                    <td class="py-3 px-4">
+                        <span class="bg-green-600/30 text-green-300 text-xs px-2 py-1 rounded">● Active</span>
+                    </td>
+                    <td class="py-3 px-4">
+                        <button onclick="showEdit()"
+                                class="flex items-center gap-1 bg-gray-700 hover:bg-gray-600 px-3 py-1 text-sm rounded">
+                            ✏️ Edit
+                        </button>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+<!-- ░░░ EDIT VIEW (hidden by default) ░░░ -->
+<div id="editPanel" class="hidden max-w-5xl mx-auto bg-gray-900 p-6 rounded-lg">
+
+    <div class="flex items-center justify-between mb-6">
+        <h2 class="text-lg font-semibold">Edit English Language</h2>
+
+        <button onclick="hideEdit()" 
+                class="bg-gray-700 hover:bg-gray-600 px-3 py-1 rounded text-sm">
+            ← Back
+        </button>
+    </div>
+
+    <!-- Name -->
+    <label class="block mb-1 text-sm">Name</label>
+    <input type="text" value="English"
+           class="w-full bg-gray-800 border border-gray-700 p-2 rounded mb-4">
+
+    <!-- Short Name -->
+    <label class="block mb-1 text-sm">Short Name</label>
+    <select class="w-full bg-gray-800 border border-gray-700 p-2 rounded mb-6">
+        <option>EN - English</option>
+    </select>
+
+    <!-- RTL Toggle -->
+    <div class="mb-6">
+        <p class="font-medium mb-1">RTL</p>
+        <p class="text-gray-400 text-sm mb-2">
+            Enable RTL the language orientation for a more user-friendly experience.
+        </p>
+        <label class="inline-flex items-center cursor-pointer">
+            <input type="checkbox" class="sr-only peer">
+            <div class="w-11 h-6 bg-gray-600 rounded-full peer peer-checked:bg-blue-600 transition"></div>
+        </label>
+    </div>
+
+    <!-- Language Status Toggle -->
+    <div class="mb-6">
+        <p class="font-medium mb-1">Language Status</p>
+        <p class="text-gray-400 text-sm mb-2">
+            Empower users to display their language preferences by enabling a language status feature.
+        </p>
+        <label class="inline-flex items-center cursor-pointer">
+            <input checked type="checkbox" class="sr-only peer">
+            <div class="w-11 h-6 bg-gray-600 rounded-full peer peer-checked:bg-blue-600 transition"></div>
+        </label>
+    </div>
+
+    <!-- Default Language Toggle -->
+    <div class="mb-6">
+        <p class="font-medium mb-1">Default Language</p>
+        <p class="text-gray-400 text-sm mb-2">
+            Select English as the default language for your preferred setting.
+        </p>
+        <label class="inline-flex items-center cursor-pointer">
+            <input checked type="checkbox" class="sr-only peer">
+            <div class="w-11 h-6 bg-gray-600 rounded-full peer peer-checked:bg-blue-600 transition"></div>
+        </label>
+    </div>
+
+    <!-- Flag Upload -->
+    <div class="bg-gray-800 w-40 h-40 flex flex-col items-center justify-center rounded border border-gray-700">
+        <img src="/mnt/data/f58b2a3e-781a-4445-aed4-2e039d3da0cc.png"
+             class="h-20 object-contain mb-2">
+        <p class="text-sm text-gray-300">Browse your file<br>here</p>
+    </div>
+
+    <button class="mt-6 bg-blue-600 hover:bg-blue-700 px-6 py-2 rounded text-white">
+        Save changes
+    </button>
+
+</div>
+                </div>
+
+                <!-- 10. Storage Settings Section (Placeholder) -->
+                <div id="storage-settings" class="settings-section hidden">
+                     <div class="mx-auto">
+    <!-- Card wrapper -->
+    <div id="listSection" class="space-y-6">
+      <div class="bg-gray-800 rounded-xl p-4">
+        <h2 class="text-lg font-semibold text-gray-100 mb-2">File Storage System</h2>
+        <p class="text-sm text-gray-400 mb-4">Manage storage connections — edit, enable or disable.</p>
+
+        <!-- Table header (desktop) -->
+        <div class="hidden sm:grid grid-cols-12 gap-4 text-xs text-gray-400 uppercase px-3 py-2 border-b border-gray-700">
+          <div class="col-span-1">SL.</div>
+          <div class="col-span-5">File Storage System</div>
+          <div class="col-span-3">Status</div>
+          <div class="col-span-3 text-right">Action</div>
+        </div>
+
+        <!-- Items list -->
+        <div class="space-y-3 mt-2">
+          <!-- Example item 1 -->
+          <div
+            class="bg-gray-850/50 sm:grid sm:grid-cols-12 sm:items-center rounded-lg px-3 py-3 sm:py-2 flex items-start gap-3"
+            data-name="Amazon S3"
+            data-access="xys6"
+            data-secret="xys"
+            data-region="xys5"
+            data-bucket="xys6"
+            data-url="xysds"
+            data-status="Inactive"
+            data-logo=""
+          >
+            <!-- serial -->
+            <div class="w-6 sm:col-span-1 text-sm font-medium text-gray-300">1</div>
+
+            <!-- logo + name -->
+            <div class="flex items-center gap-3 sm:col-span-5">
+              <div class="w-10 h-10 rounded-full flex items-center justify-center bg-blue-600 shrink-0 text-white font-bold">S3</div>
+              <div>
+                <div class="font-semibold text-sm">Amazon S3</div>
+                <div class="text-xs text-gray-400 hidden sm:block">Object storage</div>
+              </div>
+            </div>
+
+            <!-- status -->
+            <div class="sm:col-span-3 flex items-center gap-2 mt-2 sm:mt-0">
+              <span class="inline-flex items-center text-xs font-medium rounded-full px-2.5 py-1"
+                    data-badge>
+                <span class="w-2 h-2 rounded-full mr-2 bg-pink-600"></span>
+                Inactive
+              </span>
+            </div>
+
+            <!-- actions -->
+            <div class="sm:col-span-3 mt-2 sm:mt-0 flex justify-end items-center gap-2">
+              <button class="btn-edit inline-flex items-center gap-2 bg-gray-700 hover:bg-gray-700/80 text-sm px-3 py-1.5 rounded-md">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5"/></svg>
+                <span>Edit</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Example item 2 -->
+          <div
+            class="bg-gray-850/50 sm:grid sm:grid-cols-12 sm:items-center rounded-lg px-3 py-3 sm:py-2 flex items-start gap-3"
+            data-name="SFTP"
+            data-access="acc-sftp"
+            data-secret="sec-sftp"
+            data-region="region-sftp"
+            data-bucket="n/a"
+            data-url="sftp://example.com"
+            data-status="Inactive"
+            data-logo=""
+          >
+            <div class="w-6 sm:col-span-1 text-sm font-medium text-gray-300">2</div>
+
+            <div class="flex items-center gap-3 sm:col-span-5">
+              <div class="w-10 h-10 rounded-full flex items-center justify-center bg-gray-600 shrink-0 text-white">SF</div>
+              <div>
+                <div class="font-semibold text-sm">SFTP</div>
+                <div class="text-xs text-gray-400 hidden sm:block">File Transfer</div>
+              </div>
+            </div>
+
+            <div class="sm:col-span-3 flex items-center gap-2 mt-2 sm:mt-0">
+              <span class="inline-flex items-center text-xs font-medium rounded-full px-2.5 py-1">
+                <span class="w-2 h-2 rounded-full mr-2 bg-pink-600"></span>
+                Inactive
+              </span>
+            </div>
+
+            <div class="sm:col-span-3 mt-2 sm:mt-0 flex justify-end items-center gap-2">
+              <button class="btn-edit inline-flex items-center gap-2 bg-gray-700 hover:bg-gray-700/80 text-sm px-3 py-1.5 rounded-md">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5"/></svg>
+                <span>Edit</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Example item 3 (Local storage active) -->
+          <div
+            class="bg-gray-850/50 sm:grid sm:grid-cols-12 sm:items-center rounded-lg px-3 py-3 sm:py-2 flex items-start gap-3"
+            data-name="Local Storage"
+            data-access=""
+            data-secret=""
+            data-region=""
+            data-bucket=""
+            data-url=""
+            data-status="Active"
+            data-logo=""
+          >
+            <div class="w-6 sm:col-span-1 text-sm font-medium text-gray-300">5</div>
+
+            <div class="flex items-center gap-3 sm:col-span-5">
+              <div class="w-10 h-10 rounded-full flex items-center justify-center bg-green-600 shrink-0 text-white">L</div>
+              <div>
+                <div class="font-semibold text-sm">Local Storage</div>
+                <div class="text-xs text-gray-400 hidden sm:block">Local uploads</div>
+              </div>
+            </div>
+
+            <div class="sm:col-span-3 flex items-center gap-2 mt-2 sm:mt-0">
+              <span class="inline-flex items-center text-xs font-medium rounded-full px-2.5 py-1">
+                <span class="w-2 h-2 rounded-full mr-2 bg-emerald-400"></span>
+                Active
+              </span>
+            </div>
+
+            <div class="sm:col-span-3 mt-2 sm:mt-0 flex justify-end items-center gap-2">
+              <button class="btn-edit inline-flex items-center gap-2 bg-gray-700 hover:bg-gray-700/80 text-sm px-3 py-1.5 rounded-md">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5"/></svg>
+                <span>Edit</span>
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Edit panel (hidden initially) -->
+    <div id="editSection" class="hidden">
+      <div class="bg-gray-800 rounded-xl p-6 mt-6">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="text-lg font-semibold">Edit File Storage</h3>
+          <div class="flex items-center gap-2">
+            <button id="cancelEdit" class="text-sm px-3 py-1.5 rounded-md bg-gray-700 hover:bg-gray-700/80">Cancel</button>
+          </div>
+        </div>
+
+        <form id="editForm" class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+          <!-- left col -->
+          <div class="space-y-3">
+            <label class="block text-sm">Name
+              <input name="name" required class="mt-1 block w-full rounded-md bg-gray-900 border border-gray-700 px-3 py-2 text-gray-200 focus:outline-none focus:ring-1 focus:ring-indigo-500" />
+            </label>
+
+            <label class="block text-sm">Secret Access Key
+              <input name="secret" class="mt-1 block w-full rounded-md bg-gray-900 border border-gray-700 px-3 py-2 text-gray-200 focus:outline-none" />
+            </label>
+
+            <label class="block text-sm">Bucket
+              <input name="bucket" class="mt-1 block w-full rounded-md bg-gray-900 border border-gray-700 px-3 py-2 text-gray-200 focus:outline-none" />
+            </label>
+
+            <label class="block text-sm">Choose Logo
+              <div class="mt-2 dashed border-2 border-gray-700 rounded-lg p-4 flex items-start gap-4">
+                <div class="w-20 h-20 rounded bg-gray-700 flex items-center justify-center text-white font-bold" id="previewLogo">Logo</div>
+                <div class="flex-1">
+                  <input type="file" id="logoInput" accept="image/*" class="text-xs text-gray-400" />
+                  <p class="text-xs text-gray-500 mt-2">Browse your file here</p>
+                </div>
+              </div>
+            </label>
+          </div>
+
+          <!-- right col -->
+          <div class="space-y-3">
+            <label class="block text-sm">Access Key Id
+              <input name="access" class="mt-1 block w-full rounded-md bg-gray-900 border border-gray-700 px-3 py-2 text-gray-200 focus:outline-none" />
+            </label>
+
+            <label class="block text-sm">Default Region
+              <input name="region" class="mt-1 block w-full rounded-md bg-gray-900 border border-gray-700 px-3 py-2 text-gray-200 focus:outline-none" />
+            </label>
+
+            <label class="block text-sm">Url
+              <input name="url" class="mt-1 block w-full rounded-md bg-gray-900 border border-gray-700 px-3 py-2 text-gray-200 focus:outline-none" />
+            </label>
+
+            <div class="pt-2">
+              <button type="submit" class="bg-blue-600 hover:bg-blue-700 transition inline-flex items-center gap-2 px-4 py-2 rounded text-sm font-medium">
+                Save changes
+              </button>
+            </div>
+          </div>
+
+          <!-- full width status field under form (optional) -->
+          <div class="lg:col-span-2">
+            <label class="inline-flex items-center gap-2">
+              <input type="checkbox" name="isActive" class="h-4 w-4 text-indigo-500 rounded" />
+              <span class="text-sm text-gray-300">Active</span>
+            </label>
+          </div>
+        </form>
+      </div>
+    </div>
+
+  </div>
+
+
+                </div>
+
+                <!-- 11. Exchange API Settings Section (Placeholder) -->
+                <div id="exchange-api-settings" class="settings-section hidden">
+                    <div class="mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+      <!-- Left: Main settings (span 2 on md+) -->
+      <div class="md:col-span-2 space-y-6">
+        <div class="card soft-border rounded-xl p-6">
+          <h2 class="text-lg font-semibold mb-2">Exchange Api Setting</h2>
+          <p class="text-sm text-gray-400 mb-4">Configure fiat & crypto currency providers and update schedule.</p>
+
+          <!-- CurrencyLayer config (Fiat) -->
+          <div class="space-y-4">
+            <div class="text-sm font-medium text-gray-300">CurrencyLayer Api Config (Fiat Currency)</div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <label class="text-sm">
+                <div class="text-xs text-gray-400 mb-1">Access Key</div>
+                <input id="currencyAccess" class="w-full rounded-md bg-gray-800 border border-gray-700 px-3 py-2 text-gray-200 focus:outline-none focus:ring-1 focus:ring-indigo-500" value="fa7ca33920ecc8e4b620f08f93c05c26" />
+              </label>
+
+              <label class="text-sm">
+                <div class="text-xs text-gray-400 mb-1">Select Update Time</div>
+                <select id="currencyUpdateTime" class="w-full rounded-md bg-gray-800 border border-gray-700 px-3 py-2 text-gray-200 focus:outline-none">
+                  <option>Every Minute</option>
+                  <option>Every 5 Minutes</option>
+                  <option>Every 10 Minutes</option>
+                  <option>Hourly</option>
+                </select>
+              </label>
+            </div>
+
+            <div class="flex items-center justify-between gap-4">
+              <div>
+                <div class="text-xs text-gray-400">Update Currency Rate</div>
+                <div class="text-sm text-gray-300">Auto update your site currency rate.</div>
+              </div>
+
+              <!-- toggle -->
+              <div>
+                <button id="toggleCurrency" aria-pressed="false"
+                        class="toggle inline-flex items-center gap-3 px-3 py-1 rounded-full bg-gray-800 border border-gray-700">
+                  <span id="currencyDot" class="w-3 h-3 rounded-full bg-pink-600 block translate-x-0 transition-transform"></span>
+                  <span id="currencyLabel" class="text-xs text-gray-300">Off</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <hr class="my-5 border-gray-700" />
+
+          <!-- CoinMarketCap config (Crypto) -->
+          <div class="space-y-4">
+            <div class="text-sm font-medium text-gray-300">CoinMarketCap Api Config (Crypto Currency)</div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <label class="text-sm">
+                <div class="text-xs text-gray-400 mb-1">Coin Market Cap App Key</div>
+                <input id="cmcKey" class="w-full rounded-md bg-gray-800 border border-gray-700 px-3 py-2 text-gray-200 focus:outline-none" value="726ffba5-8523-4071-92d4-1775dbc481c4" />
+              </label>
+
+              <label class="text-sm">
+                <div class="text-xs text-gray-400 mb-1">Select Update Time</div>
+                <select id="cmcUpdateTime" class="w-full rounded-md bg-gray-800 border border-gray-700 px-3 py-2 text-gray-200 focus:outline-none">
+                  <option>Every Minute</option>
+                  <option>Every 5 Minutes</option>
+                  <option>Every 10 Minutes</option>
+                  <option>Hourly</option>
+                </select>
+              </label>
+            </div>
+
+            <div class="flex items-center justify-between gap-4">
+              <div>
+                <div class="text-xs text-gray-400">Auto Update Currency Rate</div>
+                <div class="text-sm text-gray-300">Auto update your site currency rate.</div>
+              </div>
+
+              <!-- toggle -->
+              <div>
+                <button id="toggleCMC" aria-pressed="true"
+                        class="toggle inline-flex items-center gap-3 px-3 py-1 rounded-full bg-gray-800 border border-gray-700">
+                  <span id="cmcDot" class="w-3 h-3 rounded-full bg-emerald-400 block translate-x-5 transition-transform"></span>
+                  <span id="cmcLabel" class="text-xs text-gray-300">On</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="mt-4 flex justify-end">
+              <button id="saveBtn" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-md text-sm font-medium">Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Instruction cards -->
+      <div class="space-y-4">
+        <div class="card soft-border rounded-xl p-4">
+          <h4 class="text-sm font-semibold mb-2">Currency Layer Instructions</h4>
+          <p class="text-xs text-gray-400 leading-relaxed">
+            Currencylayer provides a simple REST API with real-time and historical exchange rates for 168 world currencies,
+            delivering currency pairs in universally usable JSON format — compatible with any of your applications. Spot exchange
+            rate data is retrieved from several major forex data providers in real-time, validated, processed and delivered hourly,
+            Every 10 minutes, or even within the 60-second market window.
+          </p>
+          <a class="inline-flex items-center gap-2 mt-3 text-xs text-indigo-300" href="#" target="_blank" rel="noreferrer">Create an account ↗</a>
+        </div>
+
+        <div class="card soft-border rounded-xl p-4">
+          <h4 class="text-sm font-semibold mb-2">Coin Market Cap Instructions</h4>
+          <p class="text-xs text-gray-400 leading-relaxed">
+            CoinMarketCap is the world’s most-referenced price-tracking website for cryptoassets. Its mission is to make crypto discoverable
+            and efficient globally by empowering retail users with unbiased, high quality and accurate information for drawing their own
+            informed conclusions. Get your free API keys to start integrating.
+          </p>
+          <a class="inline-flex items-center gap-2 mt-3 text-xs text-indigo-300" href="#" target="_blank" rel="noreferrer">Create an account ↗</a>
+        </div>
+      </div>
+
+    </div> <!-- grid -->
+  </div> <!-- container -->
+                </div>
+
+                <!-- 12. Translate Api Settings Section (Placeholder) -->
+                <div id="translate-api-settings" class="settings-section hidden">
+                    <div id="listSection" class="mx-auto">
+  <div class="bg-gray-800 rounded-xl p-4">
+    <h2 class="text-lg font-semibold mb-4">Translate API Configuration</h2>
+
+    <!-- table header -->
+    <div class="hidden sm:grid grid-cols-12 text-xs uppercase text-gray-400 border-b border-gray-700 pb-2 mb-3">
+      <div class="col-span-1">SL</div>
+      <div class="col-span-5">Translate Method</div>
+      <div class="col-span-3">Status</div>
+      <div class="col-span-3 text-right">Action</div>
+    </div>
+
+    <!-- row -->
+    <div class="sm:grid sm:grid-cols-12 flex flex-col gap-2 bg-gray-800 p-3 rounded-md border border-gray-700"
+         data-method="Azure"
+         data-endpoint="https://bugfinder-admin-translator.cognitiveservices.azure.com/"
+         data-key="1234567890abcdef"
+         data-region="southeastasia">
+
+      <div class="sm:col-span-1">1</div>
+
+      <div class="sm:col-span-5 font-medium">Azure</div>
+
+      <div class="sm:col-span-3 flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+        <span class="text-sm text-emerald-400">Active</span>
+      </div>
+
+      <div class="sm:col-span-3 flex justify-end">
+        <button class="editBtn"
+        class="flex items-center gap-2 bg-gray-700 hover:bg-gray-600 px-3 py-1.5 rounded-md text-sm">
+  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5" />
+  </svg>
+  Edit
+</button>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div id="editSection" class="hidden mx-auto">
+
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+    <!-- left form -->
+    <div class="lg:col-span-1 bg-gray-800 rounded-xl p-6 space-y-4">
+      <h2 class="text-lg font-semibold mb-2">Azure Translate API Configuration</h2>
+
+      <label class="block text-sm">
+        <span class="text-xs text-gray-400">End Point URL</span>
+        <input id="endpointInput"
+               class="w-full mt-1 rounded-md bg-gray-900 border border-gray-700 px-3 py-2 focus:outline-none"
+               type="text">
+      </label>
+
+      <label class="block text-sm relative">
+        <span class="text-xs text-gray-400">Subscription Key</span>
+        <input id="keyInput"
+               class="w-full mt-1 rounded-md bg-gray-900 border border-gray-700 px-3 py-2 pr-10 focus:outline-none"
+               type="password">
+
+        <!-- show/hide -->
+        <span id="toggleKey"
+              class="absolute top-7 right-3 cursor-pointer text-gray-400 hover:text-gray-200">
+          👁️
+        </span>
+      </label>
+
+      <label class="block text-sm">
+        <span class="text-xs text-gray-400">Subscription Region</span>
+        <input id="regionInput"
+               class="w-full mt-1 rounded-md bg-gray-900 border border-gray-700 px-3 py-2 focus:outline-none"
+               type="text">
+      </label>
+
+      <div class="flex items-center gap-3 pt-2">
+        <button id="saveBtn"
+                class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded text-sm font-medium">
+          Save changes
+        </button>
+
+        <button id="cancelBtn"
+                class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded text-sm font-medium">
+          Cancel
+        </button>
+      </div>
+    </div>
+
+    <!-- right instruction -->
+    <div class="lg:col-span-2 bg-gray-800 rounded-xl p-6 text-sm leading-relaxed">
+      <h3 class="text-lg font-semibold mb-3">Instruction</h3>
+
+      <p class="text-gray-300 mb-2">To use the Microsoft Azure Translator API, follow these steps:</p>
+
+      <ol class="list-decimal ml-4 space-y-2 text-gray-300">
+        <li>
+          <strong>Subscription Key</strong><br>
+          Log in to Azure → Go to Translator Resource → Under “Keys and Endpoint” copy Key1 or Key2.
+        </li>
+        <li>
+          <strong>Endpoint (URL)</strong><br>
+          From the same section, copy the URL under “Endpoint”.
+        </li>
+        <li>
+          <strong>Subscription Region</strong><br>
+          Region is found under “Location”.
+        </li>
+      </ol>
+
+      <p class="mt-4 text-gray-300">
+        You now have:
+        <ul class="list-disc ml-4 mt-2">
+          <li>Subscription Key</li>
+          <li>Endpoint URL</li>
+          <li>Subscription Region</li>
+        </ul>
+      </p>
+    </div>
+
+  </div>
+</div>
+                </div>
+
+                <!-- 13. Plugin Settings Section (Placeholder) -->
+                <div id="plugin-settings" class="settings-section hidden">
+                    <div class="bg-dark-bg p-6 rounded-xl shadow-lg border border-gray-700">
+                        <h3 class="text-xl font-semibold text-white mb-6 border-b border-gray-700 pb-3">Plugin Settings</h3>
+                        <p class="text-gray-400">Placeholder content for Plugin settings. You can add forms here to manage external plugins/integrations.</p>
+                        <div class="mt-4 pt-4 border-t border-gray-700">
+                            <button type="submit" class="px-6 py-2 bg-primary-blue text-white font-medium rounded-lg shadow-lg hover:bg-blue-600 transition duration-150">
+                                Save changes
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 14. Maintenance Mode Settings Section (Placeholder) -->
+                <div id="maintenance-mode-settings" class="settings-section hidden">
+                    <div class="bg-dark-bg p-6 rounded-xl shadow-lg border border-gray-700">
+                        <h3 class="text-xl font-semibold text-white mb-6 border-b border-gray-700 pb-3">Maintenance Mode Settings</h3>
+                        <p class="text-gray-400">Placeholder content for Maintenance Mode settings. You can add forms here to enable/disable maintenance mode and set a bypass key.</p>
+                        <div class="mt-4 pt-4 border-t border-gray-700">
+                            <button type="submit" class="px-6 py-2 bg-primary-blue text-white font-medium rounded-lg shadow-lg hover:bg-blue-600 transition duration-150">
+                                Save changes
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+          </main>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("componentsLoaded", () => {
+        const hamburgerBtn = document.getElementById("hamburgerBtn");
+        const sidebarContainer = document.getElementById("sidebar-container");
+
+        hamburgerBtn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          sidebarContainer.classList.toggle("hidden");
+        });
+      });
+    </script>
+    <script src="./js/include.js"></script>
+    <script src="./js/admin.js"></script>
+    <script>
+      const avatarBtn = document.getElementById("avatarBtn");
+      const dropdown = document.getElementById("dropdownMenu");
+
+      // Toggle on click
+      avatarBtn.addEventListener("click", () => {
+        dropdown.classList.toggle("hidden");
+      });
+
+      // Close when clicking outside
+      document.addEventListener("click", (e) => {
+        if (!avatarBtn.contains(e.target) && !dropdown.contains(e.target)) {
+          dropdown.classList.add("hidden");
+        }
+      });
+    </script>
+        <!-- Initialize Lucide icons -->
+    <script>
+        /**
+         * Toggles the visibility of the sidebar on small screens.
+         */
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar-nav');
+            sidebar.classList.toggle('hidden');
+            // If you want it to behave like a standard block element when visible on mobile:
+            // sidebar.classList.toggle('block'); 
+            // We use 'block' for mobile layout but keep 'lg:block' for desktop
+        }
+
+        /**
+         * Handles the navigation click event to switch between settings sections.
+         * @param {string} targetId - The ID of the settings section to display.
+         */
+        function showSection(targetId) {
+            // 1. Hide all sections
+            const sections = document.querySelectorAll('.settings-section');
+            sections.forEach(section => {
+                section.classList.add('hidden');
+            });
+
+            // 2. Show the target section
+            const targetSection = document.getElementById(targetId);
+            if (targetSection) {
+                targetSection.classList.remove('hidden');
+            }
+
+            // 3. Update active link styling
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.classList.remove('bg-primary-blue', 'text-white');
+                link.classList.add('hover:bg-gray-700');
+            });
+
+            // Find the clicked link and apply active style
+            const activeLink = document.querySelector(`[data-target="${targetId}"]`);
+            if (activeLink) {
+                activeLink.classList.add('bg-primary-blue', 'text-white');
+                activeLink.classList.remove('hover:bg-gray-700');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize Lucide icons
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+
+            // Set up click handlers for navigation links
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    const targetId = this.getAttribute('data-target');
+                    showSection(targetId);
+                    
+                    // Hide sidebar on mobile after clicking a link
+                    if (window.innerWidth < 1024) { // 1024px is Tailwind's 'lg' breakpoint
+                        toggleSidebar();
+                    }
+                });
+            });
+
+            // Initialize: Show the default section ('basic-control-settings')
+            // This is already handled by the HTML structure where 'basic-control-settings'
+            // is not hidden and the corresponding link has the active class.
+            // But we can call showSection explicitly to ensure state consistency if needed:
+            // showSection('basic-control-settings'); 
+        });
+    </script>
+    <script>
+    function showEdit() {
+        document.getElementById("listPanel").classList.add("hidden");
+        document.getElementById("editPanel").classList.remove("hidden");
+    }
+    function hideEdit() {
+        document.getElementById("editPanel").classList.add("hidden");
+        document.getElementById("listPanel").classList.remove("hidden");
+    }
+</script>
+  <script>
+    // Grab elements
+    const listSection = document.getElementById('listSection');
+    const editSection = document.getElementById('editSection');
+    const cancelBtn = document.getElementById('cancelEdit');
+    const editForm = document.getElementById('editForm');
+    const logoInput = document.getElementById('logoInput');
+    const previewLogo = document.getElementById('previewLogo');
+
+    // Add click listeners to all edit buttons
+    document.querySelectorAll('.btn-edit').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        // find the parent item element (one up)
+        const item = e.target.closest('[data-name]');
+        if (!item) return;
+
+        // Populate the form fields from data attributes
+        const form = editForm;
+        form.elements['name'].value = item.dataset.name || '';
+        form.elements['access'].value = item.dataset.access || '';
+        form.elements['secret'].value = item.dataset.secret || '';
+        form.elements['region'].value = item.dataset.region || '';
+        form.elements['bucket'].value = item.dataset.bucket || '';
+        form.elements['url'].value = item.dataset.url || '';
+
+        // status -> checkbox
+        form.elements['isActive'].checked = (item.dataset.status || '').toLowerCase() === 'active';
+
+        // preview (if logo url provided)
+        if (item.dataset.logo) {
+          previewLogo.style.backgroundImage = `url(${item.dataset.logo})`;
+          previewLogo.style.backgroundSize = 'cover';
+          previewLogo.textContent = '';
+        } else {
+          previewLogo.style.backgroundImage = '';
+          previewLogo.textContent = item.dataset.name ? item.dataset.name.split(' ')[0].charAt(0) : 'LOGO';
+        }
+
+        // Show edit section and hide list
+        listSection.classList.add('hidden');
+        editSection.classList.remove('hidden');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    });
+
+    // Cancel returns to list
+    cancelBtn.addEventListener('click', () => {
+      editSection.classList.add('hidden');
+      listSection.classList.remove('hidden');
+    });
+
+    // Logo preview when selecting a file
+    logoInput.addEventListener('change', (e) => {
+      const file = e.target.files && e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(ev) {
+        previewLogo.style.backgroundImage = `url(${ev.target.result})`;
+        previewLogo.style.backgroundSize = 'cover';
+        previewLogo.textContent = '';
+      };
+      reader.readAsDataURL(file);
+    });
+
+    // Example submit handler (replace with actual save logic)
+    editForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      // Collect values (you'd send to server)
+      const data = {
+        name: e.target.elements['name'].value,
+        access: e.target.elements['access'].value,
+        secret: e.target.elements['secret'].value,
+        region: e.target.elements['region'].value,
+        bucket: e.target.elements['bucket'].value,
+        url: e.target.elements['url'].value,
+        active: e.target.elements['isActive'].checked,
+      };
+      console.log('Saving data (demo):', data);
+
+      // Simulate save and return to list
+      editSection.classList.add('hidden');
+      listSection.classList.remove('hidden');
+      // Optional: show a toast or update the list items with changed data
+      alert('Saved (demo). Implement actual save to server here.');
+    });
+  </script>
+    <script>
+    // Simple toggle UI logic for demo
+    const toggleCurrency = document.getElementById('toggleCurrency');
+    const currencyDot = document.getElementById('currencyDot');
+    const currencyLabel = document.getElementById('currencyLabel');
+
+    const toggleCMC = document.getElementById('toggleCMC');
+    const cmcDot = document.getElementById('cmcDot');
+    const cmcLabel = document.getElementById('cmcLabel');
+
+    function setToggleState(button, dot, label, on) {
+      button.setAttribute('aria-pressed', on ? 'true' : 'false');
+      if (on) {
+        dot.classList.remove('bg-pink-600', 'translate-x-0');
+        dot.classList.add('bg-emerald-400', 'translate-x-5');
+        label.textContent = 'On';
+      } else {
+        dot.classList.remove('bg-emerald-400', 'translate-x-5');
+        dot.classList.add('bg-pink-600', 'translate-x-0');
+        label.textContent = 'Off';
+      }
+    }
+
+    // initial states (currency Off, cmc On)
+    setToggleState(toggleCurrency, currencyDot, currencyLabel, false);
+    setToggleState(toggleCMC, cmcDot, cmcLabel, true);
+
+    toggleCurrency.addEventListener('click', () => {
+      const isOn = toggleCurrency.getAttribute('aria-pressed') === 'true';
+      setToggleState(toggleCurrency, currencyDot, currencyLabel, !isOn);
+    });
+
+    toggleCMC.addEventListener('click', () => {
+      const isOn = toggleCMC.getAttribute('aria-pressed') === 'true';
+      setToggleState(toggleCMC, cmcDot, cmcLabel, !isOn);
+    });
+
+    // Save button (demo)
+    document.getElementById('saveBtn').addEventListener('click', () => {
+      const data = {
+        currencyAccess: document.getElementById('currencyAccess').value,
+        currencyUpdateTime: document.getElementById('currencyUpdateTime').value,
+        currencyAuto: toggleCurrency.getAttribute('aria-pressed') === 'true',
+        cmcKey: document.getElementById('cmcKey').value,
+        cmcUpdateTime: document.getElementById('cmcUpdateTime').value,
+        cmcAuto: toggleCMC.getAttribute('aria-pressed') === 'true'
+      };
+      // replace with an actual API call in your app
+      console.log('Saving exchange settings', data);
+      // small visual feedback
+      const btn = document.getElementById('saveBtn');
+      btn.disabled = true;
+      btn.textContent = 'Saving...';
+      setTimeout(() => {
+        btn.disabled = false;
+        btn.textContent = 'Save changes';
+        alert('Settings saved (demo). Replace with real API call.');
+      }, 900);
+    });
+  </script>
+
+
+  </body>
+</html>

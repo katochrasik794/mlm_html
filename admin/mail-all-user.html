@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+  <head class="">
+    <meta charset="utf-8" class="" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1"
+      class=""
+    />
+    <title class="">Plan List - Admin</title>
+    <link rel="stylesheet" href="/mlm_html//admin//style.css" />
+    <script src="https://cdn.tailwindcss.com" class=""></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+      .custom-scrollbar::-webkit-scrollbar {
+        height: 8px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background-color: #374151; /* Gray-700 */
+        border-radius: 4px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-track {
+        background-color: #1f2937; /* Gray-800 */
+      }
+    </style>
+  </head>
+  <body class="">
+    <!-- SIDEBAR (included dynamically) & MAIN CONTENT FLEX LAYOUT -->
+    <div class="flex h-screen">
+      <div id="sidebar-container" class="relative hidden lg:block">
+        <div data-include="components/sidebar.html"></div>
+      </div>
+      <!-- TOP BAR -->
+      <header class="fixed top-0 left-0 lg:left-64 right-0 z-40 w-full bg-[#2c2f32] py-3 px-4 flex items-center justify-between shadow">
+        <div class="flex items-center space-x-4 flex-1">
+          <!-- HAMBURGER AND MLM - visible below desktop -->
+          <div class="flex items-center space-x-2 lg:hidden">
+            <button
+              id="hamburgerBtn"
+              class="text-white p-2 hover:bg-gray-700 rounded"
+            >
+              <i class="fas fa-bars"></i>
+            </button>
+            <div class="text-xl font-bold text-red-500">MLM</div>
+          </div>
+
+          <!-- SEARCH -->
+          <div
+            class="flex items-center flex-1 max-w-xl rounded-full px-4 py-2 space-x-3 shadow-lg"
+          >
+            <i class="fas fa-search text-gray-400"></i>
+            <input
+              type="text"
+              placeholder="Search for a menu"
+              class="bg-transparent w-full focus:outline-none text-gray-300 placeholder-gray-400"
+            />
+          </div>
+        </div>
+
+        <!-- RIGHT SIDE -->
+        <div class="relative ml-4">
+          <!-- AVATAR BUTTON -->
+          <button id="avatarBtn">
+            <img
+              src="https://i.pravatar.cc/80"
+              class="w-10 h-10 rounded-full border border-gray-700 cursor-pointer"
+            />
+          </button>
+
+          <!-- DROPDOWN -->
+          <div
+            id="dropdownMenu"
+            class="hidden absolute right-0 mt-3 w-56 bg-gray-800 rounded-xl shadow-xl border border-gray-700 z-50"
+          >
+            <!-- PROFILE INFO -->
+            <div class="px-4 py-3 flex items-center gap-4">
+              <div>
+                <img
+                  src="https://i.pravatar.cc/80"
+                  class="w-10 h-10 rounded-full border border-gray-700 cursor-pointer"
+                />
+              </div>
+              <div>
+                <p class="text-sm font-semibold">admin</p>
+                <p class="text-xs text-gray-400">admin@gmail.com</p>
+              </div>
+            </div>
+
+            <!-- MENU ITEMS -->
+            <ul class="py-2">
+              <li>
+                <a
+                  href="#"
+                  class="block px-4 py-2 text-sm hover:bg-gray-700 transition"
+                  >Profile & account</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="block px-4 py-2 text-sm hover:bg-gray-700 transition"
+                  >Sign out</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div
+        id="main-content"
+        class="overflow-y-auto bg-[#2c2f32] text-white transition-all duration-300 ease-in-out"
+      >
+        <!-- DASHBOARD MAIN CONTENT -->
+
+        <div
+          id="main-content-wrapper"
+          class="fixed top-16 left-0 lg:left-64 right-0 bottom-0 overflow-y-auto overflow-x-hidden flex flex-col transition-all duration-300 ease-in-out"
+        >
+          <main class="bg-[#1e2022] mx-auto w-full text-white">
+
+            <div class="p-4 sm:p-6 min-h-screen">
+              <div class="mb-6 border-b border-gray-700">
+                <div class="flex items-end">
+                  <div class="flex-1 mb-2 sm:mb-0">
+                    <nav aria-label="breadcrumb">
+                      <ol class="flex items-center text-sm text-gray-500">
+                        <li class="flex items-center">
+                          <a
+                            class="text-gray-400 hover:text-gray-700"
+                            href="javascript:void(0);"
+                            >Dashboard</a
+                          >
+                          <span class="mx-2">/</span>
+                        </li>
+                        <li class="text-white font-medium" aria-current="page">
+                          Users Management
+                        </li>
+                        <span class="mx-2">/</span>
+                        <li class="text-white font-medium" aria-current="page">
+                          Mail All Users
+                        </li>
+                      </ol>
+                    </nav>
+                    <h1 class="text-2xl font-bold text-white mt-2 mb-10">
+                      Mail All Users
+                    </h1>
+                  </div>
+                </div>
+              </div>
+
+              <div class="flex items-center justify-center">
+                <div class="w-full max-w-4xl bg-[#2c2f32] shadow-2xl rounded-xl p-6 md:p-8 text-white">
+
+        <!-- Header -->
+        <h1 class="text-2xl md:text-3xl font-bold mb-6 text-gray-100">Mail To Users</h1>
+
+        <!-- Subject Field -->
+        <div class="mb-6">
+            <label for="subject" class="block text-sm font-medium text-gray-300 mb-2">Subject</label>
+            <input type="text" id="subject" placeholder="Subject"
+                class="w-full bg-[#2c2f32] border border-gray-700 text-gray-100 p-3 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
+        </div>
+
+        <!-- Email Body Rich Text Editor Simulation -->
+        <div class="mb-6">
+            <label class="block text-sm font-medium text-gray-300 mb-2">Email Body</label>
+
+            <!-- Rich Text Editor Toolbar -->
+            <div class="bg-[#2c2f32] border border-gray-700 rounded-t-lg p-2 flex flex-wrap gap-1 sm:gap-2 items-center">
+
+                <!-- Formatting Controls (Simulated) -->
+                <button title="Bold" class="p-2 rounded-lg hover:bg-gray-700 font-bold">B</button>
+                <button title="Italic" class="p-2 rounded-lg hover:bg-gray-700 italic">I</button>
+                <button title="Underline" class="p-2 rounded-lg hover:bg-gray-700 underline">U</button>
+                
+                <!-- Separator -->
+                <div class="h-6 w-px bg-dark-border mx-1"></div>
+
+                <!-- Font Selection (Simulated Dropdown) -->
+                <div class="relative group">
+                    <button class="flex items-center p-2 rounded-lg hover:bg-gray-700 text-sm">
+                        Inter <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                </div>
+
+                <!-- Text Color (Simulated) -->
+                <button title="Text Color" class="p-2 rounded-lg hover:bg-gray-700 flex items-center">
+                    A<div class="w-2 h-2 ml-1 rounded-full bg-yellow-400"></div>
+                </button>
+                
+                <!-- Separator -->
+                <div class="h-6 w-px bg-dark-border mx-1"></div>
+
+                <!-- List/Alignment/Insert Controls (Simulated Icons/Text) -->
+                <button title="Bulleted List" class="p-2 rounded-lg hover:bg-gray-700">&#x2630;</button> <!-- Unicode for list icon -->
+                <button title="Numbered List" class="p-2 rounded-lg hover:bg-gray-700">&#x2261;</button> <!-- Unicode for another list icon -->
+                <button title="Align Left" class="p-2 rounded-lg hover:bg-gray-700">&#x2263;</button>
+                <button title="Align Center" class="p-2 rounded-lg hover:bg-gray-700">&#x2261;</button>
+                <button title="Align Right" class="p-2 rounded-lg hover:bg-gray-700">&#x2264;</button>
+
+                <!-- Separator -->
+                <div class="h-6 w-px bg-dark-border mx-1 hidden sm:block"></div>
+
+                <!-- Insert Media (Simulated Icons) -->
+                <button title="Insert Table" class="p-2 rounded-lg hover:bg-gray-700 hidden sm:block">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M3 14h18m-9-4v8m-9 0h18a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                </button>
+                <button title="Insert Link" class="p-2 rounded-lg hover:bg-gray-700 hidden sm:block">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.101v8.828m4-4a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
+                </button>
+                <button title="Insert Image" class="p-2 rounded-lg hover:bg-gray-700 hidden sm:block">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L15 15m-2-6h6m-3 3V7m6 10H4a2 2 0 01-2-2V6a2 2 0 012-2h16a2 2 0 012 2v10a2 2 0 01-2 2z"></path></svg>
+                </button>
+                <button title="Insert Video" class="p-2 rounded-lg hover:bg-gray-700 hidden sm:block">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                </button>
+
+                <!-- Separator -->
+                <div class="h-6 w-px bg-dark-border mx-1"></div>
+
+                <!-- Code View / Help -->
+                <button title="Code View" class="p-2 rounded-lg hover:bg-gray-700 flex items-center space-x-1">
+                    <span class="text-sm">&lt;/&gt;</span>
+                </button>
+                <button title="Help" class="p-2 rounded-lg hover:bg-gray-700 flex items-center space-x-1">
+                    <span class="text-sm">?</span>
+                </button>
+
+            </div>
+
+            <!-- Textarea for Email Body -->
+            <textarea
+                id="email-body"
+                rows="15"
+                class="w-full bg-[#2c2f32] border border-gray-700 text-gray-100 p-4 rounded-b-lg focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out resize-y"
+                placeholder="Start typing your email content here..."
+            ></textarea>
+        </div>
+
+        <!-- Send Button -->
+        <div class="mt-8">
+            <button
+                type="submit"
+                class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow-md transition duration-200 ease-in-out focus:outline-none focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50"
+            >
+                Send
+            </button>
+        </div>
+
+    </div>
+              </div>
+              
+            </div>
+          </main>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("componentsLoaded", () => {
+        const hamburgerBtn = document.getElementById("hamburgerBtn");
+        const sidebarContainer = document.getElementById("sidebar-container");
+
+        hamburgerBtn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          sidebarContainer.classList.toggle("hidden");
+        });
+      });
+    </script>
+    <script src="./js/include.js"></script>
+    <script src="./js/admin.js"></script>
+    <script>
+      const avatarBtn = document.getElementById("avatarBtn");
+      const dropdown = document.getElementById("dropdownMenu");
+
+      // Toggle on click
+      avatarBtn.addEventListener("click", () => {
+        dropdown.classList.toggle("hidden");
+      });
+
+      // Close when clicking outside
+      document.addEventListener("click", (e) => {
+        if (!avatarBtn.contains(e.target) && !dropdown.contains(e.target)) {
+          dropdown.classList.add("hidden");
+        }
+      });
+    </script>
+  </body>
+</html>

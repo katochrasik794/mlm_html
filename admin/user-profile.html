@@ -365,29 +365,106 @@
     </div>
             </div>
 
-            <div id="send-mail-view" class="hidden lg:col-span-3">
-                <div class="card rounded-lg p-6 shadow-2xl bg-[#2c2f32]">
-                    <h2 class="text-2xl font-semibold mb-6 border-b border-gray-600 pb-3">Send Email To Abel Morillo</h2>
-                    <form action="#" method="POST">
-                        <div class="mb-4">
-                            <label for="subject" class="block text-sm font-medium text-gray-200 mb-1">Subject</label>
-                            <input type="text" id="subject" name="subject" placeholder="Subject" class="w-full p-2.5 rounded-md bg-[#2c2f32] border border-gray-600 focus:ring-red-400 focus:border-red-400" required>
-                        </div>
-                        <div class="mb-6">
-                            <label for="email-body" class="block text-sm font-medium text-gray-200 mb-1">Email Body</label>
-                            <div class="bg-gray-600 p-2 rounded-t-md flex flex-wrap gap-2 items-center">
-                                <span class="text-xs">Editor Toolbar Placeholder:</span>
-                                <button type="button" class="p-1 rounded bg-gray-700 hover:bg-gray-800 font-bold">B</button>
-                                <button type="button" class="p-1 rounded bg-gray-700 hover:bg-gray-800 italic">I</button>
-                                <button type="button" class="flex items-center p-1 rounded bg-gray-700 hover:bg-gray-800 text-yellow-400">A</button>
-                                <button type="button" class="flex items-center p-1 rounded bg-gray-700 hover:bg-gray-800 text-sm">Remove Font Style (CTRL+\)</button>
-                            </div>
-                            <textarea id="email-body" name="email-body" rows="10" class="w-full p-3 rounded-b-md bg-[#2c2f32] border border-t-0 border-gray-60 focus:ring-red-400 focus:border-red-400 resize-y" required></textarea>
-                        </div>
-                        <button type="submit" class="py-2 px-6 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-md transition duration-150">Send</button>
-                        <button type="button" id="cancel-mail-btn" class="py-2 px-6 ml-4 bg-gray-600 hover:bg-gray-700 text-white font-semibold rounded-md transition duration-150">Cancel</button>
-                    </form>
+            <div id="send-mail-view" class="hidden lg:col-span-4">
+                <div class="w-full bg-[#2c2f32] shadow-2xl rounded-xl p-6 md:p-8 text-white">
+
+        <!-- Header -->
+        <h1 class="text-2xl md:text-3xl font-bold mb-6 text-gray-100">Mail To Users</h1>
+
+        <!-- Subject Field -->
+        <div class="mb-6">
+            <label for="subject" class="block text-sm font-medium text-gray-300 mb-2">Subject</label>
+            <input type="text" id="subject" placeholder="Subject"
+                class="w-full bg-[#2c2f32] border border-gray-700 text-gray-100 p-3 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
+        </div>
+
+        <!-- Email Body Rich Text Editor Simulation -->
+        <div class="mb-6">
+            <label class="block text-sm font-medium text-gray-300 mb-2">Email Body</label>
+
+            <!-- Rich Text Editor Toolbar -->
+            <div class="bg-[#2c2f32] border border-gray-700 rounded-t-lg p-2 flex flex-wrap gap-1 sm:gap-2 items-center">
+
+                <!-- Formatting Controls (Simulated) -->
+                <button title="Bold" class="p-2 rounded-lg hover:bg-gray-700 font-bold">B</button>
+                <button title="Italic" class="p-2 rounded-lg hover:bg-gray-700 italic">I</button>
+                <button title="Underline" class="p-2 rounded-lg hover:bg-gray-700 underline">U</button>
+                
+                <!-- Separator -->
+                <div class="h-6 w-px bg-dark-border mx-1"></div>
+
+                <!-- Font Selection (Simulated Dropdown) -->
+                <div class="relative group">
+                    <button class="flex items-center p-2 rounded-lg hover:bg-gray-700 text-sm">
+                        Inter <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
                 </div>
+
+                <!-- Text Color (Simulated) -->
+                <button title="Text Color" class="p-2 rounded-lg hover:bg-gray-700 flex items-center">
+                    A<div class="w-2 h-2 ml-1 rounded-full bg-yellow-400"></div>
+                </button>
+                
+                <!-- Separator -->
+                <div class="h-6 w-px bg-dark-border mx-1"></div>
+
+                <!-- List/Alignment/Insert Controls (Simulated Icons/Text) -->
+                <button title="Bulleted List" class="p-2 rounded-lg hover:bg-gray-700">&#x2630;</button> <!-- Unicode for list icon -->
+                <button title="Numbered List" class="p-2 rounded-lg hover:bg-gray-700">&#x2261;</button> <!-- Unicode for another list icon -->
+                <button title="Align Left" class="p-2 rounded-lg hover:bg-gray-700">&#x2263;</button>
+                <button title="Align Center" class="p-2 rounded-lg hover:bg-gray-700">&#x2261;</button>
+                <button title="Align Right" class="p-2 rounded-lg hover:bg-gray-700">&#x2264;</button>
+
+                <!-- Separator -->
+                <div class="h-6 w-px bg-dark-border mx-1 hidden sm:block"></div>
+
+                <!-- Insert Media (Simulated Icons) -->
+                <button title="Insert Table" class="p-2 rounded-lg hover:bg-gray-700 hidden sm:block">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M3 14h18m-9-4v8m-9 0h18a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                </button>
+                <button title="Insert Link" class="p-2 rounded-lg hover:bg-gray-700 hidden sm:block">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.101v8.828m4-4a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
+                </button>
+                <button title="Insert Image" class="p-2 rounded-lg hover:bg-gray-700 hidden sm:block">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L15 15m-2-6h6m-3 3V7m6 10H4a2 2 0 01-2-2V6a2 2 0 012-2h16a2 2 0 012 2v10a2 2 0 01-2 2z"></path></svg>
+                </button>
+                <button title="Insert Video" class="p-2 rounded-lg hover:bg-gray-700 hidden sm:block">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                </button>
+
+                <!-- Separator -->
+                <div class="h-6 w-px bg-dark-border mx-1"></div>
+
+                <!-- Code View / Help -->
+                <button title="Code View" class="p-2 rounded-lg hover:bg-gray-700 flex items-center space-x-1">
+                    <span class="text-sm">&lt;/&gt;</span>
+                </button>
+                <button title="Help" class="p-2 rounded-lg hover:bg-gray-700 flex items-center space-x-1">
+                    <span class="text-sm">?</span>
+                </button>
+
+            </div>
+
+            <!-- Textarea for Email Body -->
+            <textarea
+                id="email-body"
+                rows="15"
+                class="w-full bg-[#2c2f32] border border-gray-700 text-gray-100 p-4 rounded-b-lg focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out resize-y"
+                placeholder="Start typing your email content here..."
+            ></textarea>
+        </div>
+
+        <!-- Send Button -->
+        <div class="mt-8">
+            <button
+                type="submit"
+                class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow-md transition duration-200 ease-in-out focus:outline-none focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50"
+            >
+                Send
+            </button>
+        </div>
+
+    </div>
             </div>
 
         </main>
