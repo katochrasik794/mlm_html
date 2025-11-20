@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+  <head class="">
+    <meta charset="utf-8" class="" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1"
+      class=""
+    />
+    <title class="">Plan List - Admin</title>
+    <link rel="stylesheet" href="/mlm_html//admin//style.css" />
+    <script src="https://cdn.tailwindcss.com" class=""></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+      .custom-scrollbar::-webkit-scrollbar {
+        height: 8px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background-color: #374151; /* Gray-700 */
+        border-radius: 4px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-track {
+        background-color: #1f2937; /* Gray-800 */
+      }
+      .config-input {
+            width: 50px; /* Smaller width for compact layout */
+            padding: 4px 8px;
+            background-color: #2c2f32; /* Even darker background for inputs */
+            border: 1px solid #374151; /* Gray-700 */
+            border-radius: 6px;
+            font-size: 0.875rem; /* text-sm */
+            color: #d1d5db; /* gray-300 */
+            outline: none;
+            transition: border-color 0.15s ease-in-out;
+        }
+        .config-input:focus {
+            border-color: #3b82f6; /* primary */
+            box-shadow: 0 0 0 1px #3b82f6;
+        }
+    </style>
+        <script>
+        // Custom Tailwind configuration for consistent dark theme colors
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-blue': '#3b82f6',
+                        'dark-bg': '#2c2f32', /* Dark Blue/Gray for cards */
+                        'card-bg': '#111827', /* Main background */
+                        'primary': '#3b82f6', // Blue-500
+                        'secondary': '#2c2f32', // Gray-800
+                        'background': '#2c2f32', 
+                    }
+                }
+            }
+        }
+    </script>
+  </head>
+  <body class="">
+    <!-- SIDEBAR (included dynamically) & MAIN CONTENT FLEX LAYOUT -->
+    <div class="flex h-screen">
+      <div id="sidebar-container" class="relative hidden lg:block">
+        <div data-include="components/sidebar.html"></div>
+      </div>
+      <!-- TOP BAR -->
+      <header class="fixed top-0 left-0 lg:left-64 right-0 z-40 w-full bg-[#2c2f32] py-3 px-4 flex items-center justify-between shadow">
+        <div class="flex items-center space-x-4 flex-1">
+          <!-- HAMBURGER AND MLM - visible below desktop -->
+          <div class="flex items-center space-x-2 lg:hidden">
+            <button
+              id="hamburgerBtn"
+              class="text-white p-2 hover:bg-gray-700 rounded"
+            >
+              <i class="fas fa-bars"></i>
+            </button>
+            <div class="text-xl font-bold text-red-500">MLM</div>
+          </div>
+
+          <!-- SEARCH -->
+          <div
+            class="flex items-center flex-1 max-w-xl rounded-full px-4 py-2 space-x-3 shadow-lg"
+          >
+            <i class="fas fa-search text-gray-400"></i>
+            <input
+              type="text"
+              placeholder="Search for a menu"
+              class="bg-transparent w-full focus:outline-none text-gray-300 placeholder-gray-400"
+            />
+          </div>
+        </div>
+
+        <!-- RIGHT SIDE -->
+        <div class="relative ml-4">
+          <!-- AVATAR BUTTON -->
+          <button id="avatarBtn">
+            <img
+              src="https://i.pravatar.cc/80"
+              class="w-10 h-10 rounded-full border border-gray-700 cursor-pointer"
+            />
+          </button>
+
+          <!-- DROPDOWN -->
+          <div
+            id="dropdownMenu"
+            class="hidden absolute right-0 mt-3 w-56 bg-gray-800 rounded-xl shadow-xl border border-gray-700 z-50"
+          >
+            <!-- PROFILE INFO -->
+            <div class="px-4 py-3 flex items-center gap-4">
+              <div>
+                <img
+                  src="https://i.pravatar.cc/80"
+                  class="w-10 h-10 rounded-full border border-gray-700 cursor-pointer"
+                />
+              </div>
+              <div>
+                <p class="text-sm font-semibold">admin</p>
+                <p class="text-xs text-gray-400">admin@gmail.com</p>
+              </div>
+            </div>
+
+            <!-- MENU ITEMS -->
+            <ul class="py-2">
+              <li>
+                <a
+                  href="#"
+                  class="block px-4 py-2 text-sm hover:bg-gray-700 transition"
+                  >Profile & account</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="block px-4 py-2 text-sm hover:bg-gray-700 transition"
+                  >Sign out</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div
+        id="main-content"
+        class="overflow-y-auto bg-[#2c2f32] text-white transition-all duration-300 ease-in-out"
+      >
+        <!-- DASHBOARD MAIN CONTENT -->
+
+        <div
+          id="main-content-wrapper"
+          class="fixed top-16 left-0 lg:left-64 right-0 bottom-0 overflow-y-auto overflow-x-hidden flex flex-col transition-all duration-300 ease-in-out"
+        >
+          <main class="bg-[#1e2022] mx-auto w-full text-white">
+
+            <div class="p-4 sm:p-6 min-h-screen">
+              <div class="mb-6 border-b border-gray-700">
+                <div class="flex items-end">
+                  <div class="flex-1 mb-2 sm:mb-0">
+                    <nav aria-label="breadcrumb">
+                      <ol class="flex items-center text-sm text-gray-500">
+                        <li class="flex items-center">
+                          <a
+                            class="text-gray-400 hover:text-gray-700"
+                            href="javascript:void(0);"
+                            >Dashboard</a
+                          >
+                          <span class="mx-2">/</span>
+                        </li>
+                        <li class="text-white font-medium" aria-current="page">
+                           Manual Gateway
+                        </li>
+                        <span class="mx-2">/</span>
+                        <li class="text-white font-medium" aria-current="page">
+                           Edit Bank Transfer
+                        </li>
+                      </ol>
+                    </nav>
+                    <h1 class="text-2xl font-bold text-white mt-2 mb-10">
+                       Edit Bank Transfer
+                    </h1>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mx-auto">
+
+        <!-- Form/Settings Container Card -->
+        <div class="bg-dark-bg rounded-xl shadow-2xl p-6 md:p-8 border border-gray-700">
+<div class="max-w-7xl mx-auto space-y-8 pb-10">
+
+        <!-- Header -->
+        <h1 class="text-3xl font-extrabold text-white mb-6">Edit Bank Transfer</h1>
+
+        <!-- Main Configuration Card -->
+        <div class="space-y-8">
+
+            <!-- Name and Manual Gateway Status Section -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                <!-- Name Input -->
+                <div class="space-y-1">
+                    <label for="bank-transfer-name" class="block text-sm font-medium text-gray-400">Name</label>
+                    <input type="text" id="bank-transfer-name" value="Bank Transfer"
+                        class="w-full bg-dark-bg border border-gray-600 rounded-lg p-3 text-white focus:ring-accent-blue focus:border-accent-blue transition duration-150">
+                </div>
+
+                <!-- Manual Gateway Status Toggle -->
+                <div class="space-y-1">
+                    <div class="flex justify-between items-center mb-1">
+                        <label class="text-sm font-medium text-gray-400">Manual Gateway Status</label>
+                        <!-- Toggle Switch -->
+                        <div class="relative inline-block w-12 h-6 rounded-full cursor-pointer bg-gray-700">
+                            <input type="checkbox" id="gateway-status-toggle" class="sr-only peer" checked>
+                            <div class="absolute left-0 top-0 w-6 h-6 bg-white rounded-full transition transform peer-checked:translate-x-full peer-checked:bg-accent-blue shadow-md"></div>
+                        </div>
+                    </div>
+                    <p class="text-xs text-gray-500 mt-0">Enable manual gateway status for your user to payment requirement.</p>
+                </div>
+            </div>
+
+            <!-- Gateway Description Section -->
+            <div>
+                <label for="gateway-description" class="block  text-sm font-medium text-gray-400 mb-1">Gateway Description</label>
+                <textarea id="gateway-description" rows="3" placeholder="Send form your payment gateway, your bank may charge you a cash advance fee."
+                    class="w-full bg-dark-bg border border-gray-600 rounded-lg p-3 text-white focus:ring-accent-blue focus:border-accent-blue transition duration-150"></textarea>
+            </div>
+
+            <!-- Payment Description (Rich Editor Mockup) Section -->
+            <div class="space-y-4">
+                <h2 class="text-lg font-semibold text-white">Payment Description</h2>
+                <div class="border border-gray-600 rounded-xl overflow-hidden">
+                    <!-- Text Editor Toolbar Mockup -->
+                    <div class="p-2 bg-dark-bg flex flex-wrap gap-2 text-gray-400 border-b border-gray-600">
+                        <button class="p-1 hover:bg-gray-600 rounded transition duration-100" title="Bold">B</button>
+                        <button class="p-1 hover:bg-gray-600 rounded transition duration-100 italic" title="Italic">I</button>
+                        <button class="p-1 hover:bg-gray-600 rounded transition duration-100 underline" title="Underline">U</button>
+                        <!-- Separator -->
+                        <span class="mx-1 text-gray-600">|</span>
+                        <select class="bg-dark-bg text-sm rounded focus:ring-accent-blue focus:border-accent-blue">
+                            <option>Inter</option>
+                            <option>Roboto</option>
+                        </select>
+                        <button class="p-1 hover:bg-gray-600 rounded transition duration-100" title="Text Color">
+                            <span class="w-3 h-3 block rounded-full bg-yellow-500"></span>
+                        </button>
+                        <button class="p-1 hover:bg-gray-600 rounded transition duration-100" title="Background Color">
+                            <span class="w-3 h-3 block border border-gray-400" style="background-color: #2d3748;"></span>
+                        </button>
+                        <!-- Alignment/List/Link/Image icons -->
+                        <button class="p-1 hover:bg-gray-600 rounded transition duration-100" title="Left Align">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16"></path></svg>
+                        </button>
+                        <button class="p-1 hover:bg-gray-600 rounded transition duration-100" title="Center Align">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                        </button>
+                        <button class="p-1 hover:bg-gray-600 rounded transition duration-100" title="Right Align">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M12 12h8m-8 6h16"></path></svg>
+                        </button>
+                        <button class="p-1 hover:bg-gray-600 rounded transition duration-100" title="Link">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101M16.929 17.071l1.101-1.101a4 4 0 000-5.656l-4-4a4 4 0 10-5.656 5.656"></path></svg>
+                        </button>
+                        <button class="p-1 hover:bg-gray-600 rounded transition duration-100" title="Image">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-12 0h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                        </button>
+                        <button class="p-1 hover:bg-gray-600 rounded transition duration-100" title="Code">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                        </button>
+                        <button class="p-1 hover:bg-gray-600 rounded transition duration-100" title="Help">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9.247a1 1 0 01.358-.838 1 1 0 01.597-.156 1 1 0 01.63.156 1 1 0 01.358.838M12 18h.01M17 6H7a2 2 0 00-2 2v8a2 2 0 002 2h10a2 2 0 002-2V8a2 2 0 00-2-2z"></path></svg>
+                        </button>
+                    </div>
+
+                    <!-- Editor Content Area -->
+                    <div class="flex flex-col md:flex-row bg-dark-bg">
+                        <!-- File Upload/Image Preview Area -->
+                        <div class="md:w-1/4 p-4 border-r border-gray-600 flex justify-center items-start">
+                            <div class="w-full max-w-xs bg-dark-bg border border-dashed border-gray-600 rounded-xl p-6 text-center space-y-3 cursor-pointer hover:border-accent-blue transition duration-200">
+                                <!-- Placeholder Icon -->
+                                <div class="mx-auto w-16 h-16 bg-dark-bg rounded-lg flex items-center justify-center">
+                                    <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3v-6a3 3 0 00-3-3H7a3 3 0 00-3 3v6a3 3 0 003 3z"></path></svg>
+                                </div>
+                                <p class="text-sm text-gray-400 font-medium">Bank Transfer</p>
+                                <p class="text-xs text-gray-500">Browse your file here</p>
+                            </div>
+                        </div>
+
+                        <!-- Text Input Area -->
+                        <textarea rows="10" placeholder="Send form your payment gateway, your bank may charge you a cash advance fee.Send form your payment gateway, your bank may charge you a cash advance fee.Send form your payment gateway, your bank may charge you a cash advance fee.Send form your payment gateway, your bank may charge you a cash advance fee.Send form your payment gateway, your bank may charge you a cash advance fee.Send form your payment gateway, your bank may charge you a cash advance fee."
+                            class="md:w-3/4 p-4 bg-dark-bg border-none rounded-b-xl md:rounded-bl-none text-white focus:outline-none resize-none"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Payment Information (Dynamic Fields) Section -->
+            <div class="space-y-4 border border-gray-700 py-4 px-4 rounded-xl">
+                <div class="flex justify-between items-center">
+                    <h2 class="text-lg font-semibold text-white">Payment Information</h2>
+                    <button class="flex items-center space-x-1 bg-blue-600  hover:bg-blue-600 text-white font-medium py-2 px-3 rounded-lg text-sm transition duration-150 shadow-md shadow-blue-900/50">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                        <span>Add Field</span>
+                    </button>
+                </div>
+
+                <!-- Table Header (Visible on medium screens and up) -->
+                <div class="hidden md:grid md:grid-cols-12 text-sm font-medium text-gray-400 border-b border-gray-700 pb-2 mb-2 px-3">
+                    <div class="col-span-4">FIELD NAME</div>
+                    <div class="col-span-3">INPUT TYPE</div>
+                    <div class="col-span-3">VALIDATION TYPE</div>
+                    <div class="col-span-2 text-right">ACTIONS</div>
+                </div>
+
+                <!-- Dynamic Field Row Component -->
+                <div id="dynamic-fields-container" class="space-y-3">
+                    <!-- Example Field Rows -->
+                    <div class="payment-field  p-4 rounded-xl shadow-inner md:grid md:grid-cols-12 md:items-center md:gap-4 transition duration-200 hover:bg-gray-600/50">
+                        <!-- Field Name (col-span-4) -->
+                        <div class="md:col-span-4 space-y-1">
+                            <label class="block text-xs font-medium text-gray-400   md:hidden">FIELD NAME</label>
+                            <input type="text" value="Account Number" class="w-full bg-dark-bg border border-gray-600 rounded-lg p-2 text-white text-sm focus:ring-accent-blue focus:border-accent-blue">
+                        </div>
+
+                        <!-- Input Type (col-span-3) -->
+                        <div class="md:col-span-3 space-y-1 mt-3 md:mt-0">
+                            <label class="block text-xs font-medium text-gray-400 md:hidden">INPUT TYPE</label>
+                            <select class="w-full bg-dark-bg border border-gray-600 rounded-lg p-2 text-white text-sm focus:ring-accent-blue focus:border-accent-blue">
+                                <option>Text</option>
+                                <option>Number</option>
+                                <option>Date</option>
+                            </select>
+                        </div>
+
+                        <!-- Validation Type (col-span-3) -->
+                        <div class="md:col-span-3 space-y-1 mt-3 md:mt-0">
+                            <label class="block text-xs font-medium text-gray-400 md:hidden">VALIDATION TYPE</label>
+                            <select class="w-full bg-dark-bg border border-gray-600 rounded-lg p-2 text-white text-sm focus:ring-accent-blue focus:border-accent-blue">
+                                <option>Required</option>
+                                <option>Optional</option>
+                            </select>
+                        </div>
+
+                        <!-- Actions (col-span-2) -->
+                        <div class="md:col-span-2 flex justify-end items-center space-x-2 mt-4 md:mt-0">
+                            <button title="View Code" class="p-2 text-gray-400 hover:text-white hover:bg-gray-600 rounded-full transition duration-150">
+                                <!-- Code Icon -->
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                            </button>
+                            <button title="Delete Field" class="p-2 text-red-400 hover:text-red-500 hover:bg-gray-600 rounded-full transition duration-150">
+                                <!-- Trash Icon -->
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Second Field Row -->
+                    <div class="payment-field  p-4 rounded-xl shadow-inner md:grid md:grid-cols-12 md:items-center md:gap-4 transition duration-200 hover:bg-gray-600/50">
+                        <!-- Field Name (col-span-4) -->
+                        <div class="md:col-span-4 space-y-1">
+                            <label class="block text-xs font-medium text-gray-400 md:hidden">FIELD NAME</label>
+                            <input type="text" value="Beneficiary Name" class="w-full bg-dark-bg border border-gray-600 rounded-lg p-2 text-white text-sm focus:ring-accent-blue focus:border-accent-blue">
+                        </div>
+
+                        <!-- Input Type (col-span-3) -->
+                        <div class="md:col-span-3 space-y-1 mt-3 md:mt-0">
+                            <label class="block text-xs font-medium text-gray-400 md:hidden">INPUT TYPE</label>
+                            <select class="w-full bg-dark-bg border border-gray-600 rounded-lg p-2 text-white text-sm focus:ring-accent-blue focus:border-accent-blue">
+                                <option>Text</option>
+                                <option>Number</option>
+                                <option>Date</option>
+                            </select>
+                        </div>
+
+                        <!-- Validation Type (col-span-3) -->
+                        <div class="md:col-span-3 space-y-1 mt-3 md:mt-0">
+                            <label class="block text-xs font-medium text-gray-400 md:hidden">VALIDATION TYPE</label>
+                            <select class="w-full bg-dark-bg border border-gray-600 rounded-lg p-2 text-white text-sm focus:ring-accent-blue focus:border-accent-blue">
+                                <option>Required</option>
+                                <option>Optional</option>
+                            </select>
+                        </div>
+
+                        <!-- Actions (col-span-2) -->
+                        <div class="md:col-span-2 flex justify-end items-center space-x-2 mt-4 md:mt-0">
+                            <button title="View Code" class="p-2 text-gray-400 hover:text-white hover:bg-gray-600 rounded-full transition duration-150">
+                                <!-- Code Icon -->
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                            </button>
+                            <button title="Delete Field" class="p-2 text-red-400 hover:text-red-500 hover:bg-gray-600 rounded-full transition duration-150">
+                                <!-- Trash Icon -->
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                            </button>
+                        </div>
+                    </div>
+
+                     <!-- Third Field Row (File Input Type) -->
+                     <div class="payment-field bg-dark-bg p-4 rounded-xl shadow-inner md:grid md:grid-cols-12 md:items-center md:gap-4 transition duration-200 hover:bg-gray-600/50">
+                        <!-- Field Name (col-span-4) -->
+                        <div class="md:col-span-4 space-y-1">
+                            <label class="block text-xs font-medium text-gray-400 md:hidden">FIELD NAME</label>
+                            <input type="text" value="NID" class="w-full bg-dark-bg border border-gray-600 rounded-lg p-2 text-white text-sm focus:ring-accent-blue focus:border-accent-blue">
+                        </div>
+
+                        <!-- Input Type (col-span-3) -->
+                        <div class="md:col-span-3 space-y-1 mt-3 md:mt-0">
+                            <label class="block text-xs font-medium text-gray-400 md:hidden">INPUT TYPE</label>
+                            <select class="w-full bg-dark-bg border border-gray-600 rounded-lg p-2 text-white text-sm focus:ring-accent-blue focus:border-accent-blue">
+                                <option>File</option>
+                                <option>Text</option>
+                                <option>Number</option>
+                            </select>
+                        </div>
+
+                        <!-- Validation Type (col-span-3) -->
+                        <div class="md:col-span-3 space-y-1 mt-3 md:mt-0">
+                            <label class="block text-xs font-medium text-gray-400 md:hidden">VALIDATION TYPE</label>
+                            <select class="w-full bg-dark-bg border border-gray-600 rounded-lg p-2 text-white text-sm focus:ring-accent-blue focus:border-accent-blue">
+                                <option>Required</option>
+                                <option>Optional</option>
+                            </select>
+                        </div>
+
+                        <!-- Actions (col-span-2) -->
+                        <div class="md:col-span-2 flex justify-end items-center space-x-2 mt-4 md:mt-0">
+                            <button title="View Code" class="p-2 text-gray-400 hover:text-white hover:bg-gray-600 rounded-full transition duration-150">
+                                <!-- Code Icon -->
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                            </button>
+                            <button title="Delete Field" class="p-2 text-red-400 hover:text-red-500 hover:bg-gray-600 rounded-full transition duration-150">
+                                <!-- Trash Icon -->
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Fourth Field Row -->
+                    <div class="payment-field bg-dark-bg p-4 rounded-xl shadow-inner md:grid md:grid-cols-12 md:items-center md:gap-4 transition duration-200 hover:bg-gray-600/50">
+                        <!-- Field Name (col-span-4) -->
+                        <div class="md:col-span-4 space-y-1">
+                            <label class="block text-xs font-medium text-gray-400 md:hidden">FIELD NAME</label>
+                            <input type="text" value="Address" class="w-full bg-dark-bg border border-gray-600 rounded-lg p-2 text-white text-sm focus:ring-accent-blue focus:border-accent-blue">
+                        </div>
+
+                        <!-- Input Type (col-span-3) -->
+                        <div class="md:col-span-3 space-y-1 mt-3 md:mt-0">
+                            <label class="block text-xs font-medium text-gray-400 md:hidden">INPUT TYPE</label>
+                            <select class="w-full bg-dark-bg border border-gray-600 rounded-lg p-2 text-white text-sm focus:ring-accent-blue focus:border-accent-blue">
+                                <option>Text</option>
+                                <option>Number</option>
+                                <option>Date</option>
+                            </select>
+                        </div>
+
+                        <!-- Validation Type (col-span-3) -->
+                        <div class="md:col-span-3 space-y-1 mt-3 md:mt-0">
+                            <label class="block text-xs font-medium text-gray-400 md:hidden">VALIDATION TYPE</label>
+                            <select class="w-full bg-dark-bg border border-gray-600 rounded-lg p-2 text-white text-sm focus:ring-accent-blue focus:border-accent-blue">
+                                <option>Required</option>
+                                <option>Optional</option>
+                            </select>
+                        </div>
+
+                        <!-- Actions (col-span-2) -->
+                        <div class="md:col-span-2 flex justify-end items-center space-x-2 mt-4 md:mt-0">
+                            <button title="View Code" class="p-2 text-gray-400 hover:text-white hover:bg-gray-600 rounded-full transition duration-150">
+                                <!-- Code Icon -->
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                            </button>
+                            <button title="Delete Field" class="p-2 text-red-400 hover:text-red-500 hover:bg-gray-600 rounded-full transition duration-150">
+                                <!-- Trash Icon -->
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- End Example Field Rows -->
+                </div>
+            </div>
+
+                        <!-- Supported Currencies Configuration Table -->
+            <h2 class="text-lg font-semibold text-gray-100 mt-4 mb-4 border-t border-gray-700 pt-6">Supported Currencies Configuration</h2>
+
+                <div class="max-w-7xl mx-auto bg-secondary rounded-xl shadow-2xl p-6 md:p-8 border border-gray-700">
+
+        <h2 class="text-xl font-semibold text-gray-100 mb-6">Supported Currencies Configuration</h2>
+
+        <div class="overflow-x-auto rounded-lg border border-gray-700">
+            <table class="min-w-full divide-y divide-gray-700">
+                <thead class="bg-gray-600/50">
+                    <!-- Single Header Row with all relevant columns -->
+                    <tr>
+                        <th scope="col" class="px-3 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider min-w-[100px]">CURRENCY SYMBOL</th>
+                        <th scope="col" class="px-3 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider min-w-[150px]">CONVERSION RATE </th>
+                        <th scope="col" class="px-3 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider min-w-[120px]">MIN LIMIT</th>
+                        <th scope="col" class="px-3 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider min-w-[120px]">MAX LIMIT</th>
+                        <th scope="col" class="px-3 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider min-w-[100px]">PERCENTAGE CHARGE</th>
+                        <th scope="col" class="px-3 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider min-w-[100px]">FIXED CHARGE</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-700 bg-secondary">
+                    
+                    <!-- Row 1: USD Configuration -->
+                    <tr class="hover:bg-gray-800 transition">
+                        <!-- 1. Currency Symbol -->
+                        <td class="px-3 py-3 whitespace-nowrap text-sm font-medium text-gray-300">USD</td>
+                        
+                        <!-- 2. Conversion Rate -->
+                        <td class="px-3 py-3 text-sm text-gray-300">
+                            <div class="flex items-center space-x-1">
+                                <span class="text-gray-400 text-xs">1 USD =</span>
+                                <input type="number" value="1.0000" class="config-input w-16 text-right">
+                            </div>
+                        </td>
+                        
+                        <!-- 3. Min Limit -->
+                        <td class="px-3 py-3 text-sm text-gray-300">
+                            <div class="flex items-center space-x-1">
+                                <span class="text-gray-400 text-xs">USD</span>
+                                <input type="number" value="5.00" class="config-input w-16 text-right">
+                            </div>
+                        </td>
+                        
+                        <!-- 4. Max Limit -->
+                        <td class="px-3 py-3 text-sm text-gray-300">
+                            <div class="flex items-center space-x-1">
+                                <span class="text-gray-400 text-xs">USD</span>
+                                <input type="number" value="500000.00" class="config-input w-20 text-right">
+                            </div>
+                        </td>
+
+                        <!-- 5. Percentage Charge -->
+                        <td class="px-3 py-3 text-sm text-gray-300">
+                            <div class="flex items-center space-x-1">
+                                <input type="number" value="0.25" class="config-input w-12 text-right">
+                                <span class="text-gray-400 text-xs">%</span>
+                            </div>
+                        </td>
+                        
+                        <!-- 6. Fixed Charge -->
+                        <td class="px-3 py-3 text-sm text-gray-300">
+                            <div class="flex items-center space-x-1">
+                                <input type="number" value="0.50" class="config-input w-12 text-right">
+                                <span class="text-gray-400 text-xs">USD</span>
+                            </div>
+                        </td>
+                    </tr>
+                    
+                    <!-- Row 2: EUR Configuration -->
+                    <tr class="hover:bg-gray-800 transition">
+                        <!-- 1. Currency Symbol -->
+                        <td class="px-3 py-3 whitespace-nowrap text-sm font-medium text-gray-300">EUR</td>
+                        
+                        <!-- 2. Conversion Rate -->
+                        <td class="px-3 py-3 text-sm text-gray-300">
+                            <div class="flex items-center space-x-1">
+                                <span class="text-gray-400 text-xs">1 USD =</span>
+                                <input type="number" value="0.9175" class="config-input w-16 text-right">
+                            </div>
+                        </td>
+                        
+                        <!-- 3. Min Limit -->
+                        <td class="px-3 py-3 text-sm text-gray-300">
+                            <div class="flex items-center space-x-1">
+                                <span class="text-gray-400 text-xs">EUR</span>
+                                <input type="number" value="4.00" class="config-input w-16 text-right">
+                            </div>
+                        </td>
+                        
+                        <!-- 4. Max Limit -->
+                        <td class="px-3 py-3 text-sm text-gray-300">
+                            <div class="flex items-center space-x-1">
+                                <span class="text-gray-400 text-xs">EUR</span>
+                                <input type="number" value="450000.00" class="config-input w-20 text-right">
+                            </div>
+                        </td>
+
+                        <!-- 5. Percentage Charge -->
+                        <td class="px-3 py-3 text-sm text-gray-300">
+                            <div class="flex items-center space-x-1">
+                                <input type="number" value="0.30" class="config-input w-12 text-right">
+                                <span class="text-gray-400 text-xs">%</span>
+                            </div>
+                        </td>
+                        
+                        <!-- 6. Fixed Charge -->
+                        <td class="px-3 py-3 text-sm text-gray-300">
+                            <div class="flex items-center space-x-1">
+                                <input type="number" value="0.75" class="config-input w-12 text-right">
+                                <span class="text-gray-400 text-xs">EUR</span>
+                            </div>
+                        </td>
+                    </tr>
+                    
+                    <!-- Row 3: GBP Configuration -->
+                    <tr class="hover:bg-gray-800 transition">
+                        <!-- 1. Currency Symbol -->
+                        <td class="px-3 py-3 whitespace-nowrap text-sm font-medium text-gray-300">GBP</td>
+                        
+                        <!-- 2. Conversion Rate -->
+                        <td class="px-3 py-3 text-sm text-gray-300">
+                            <div class="flex items-center space-x-1">
+                                <span class="text-gray-400 text-xs">1 USD =</span>
+                                <input type="number" value="0.7812" class="config-input w-16 text-right">
+                            </div>
+                        </td>
+                        
+                        <!-- 3. Min Limit -->
+                        <td class="px-3 py-3 text-sm text-gray-300">
+                            <div class="flex items-center space-x-1">
+                                <span class="text-gray-400 text-xs">GBP</span>
+                                <input type="number" value="3.00" class="config-input w-16 text-right">
+                            </div>
+                        </td>
+                        
+                        <!-- 4. Max Limit -->
+                        <td class="px-3 py-3 text-sm text-gray-300">
+                            <div class="flex items-center space-x-1">
+                                <span class="text-gray-400 text-xs">GBP</span>
+                                <input type="number" value="400000.00" class="config-input w-20 text-right">
+                            </div>
+                        </td>
+
+                        <!-- 5. Percentage Charge -->
+                        <td class="px-3 py-3 text-sm text-gray-300">
+                            <div class="flex items-center space-x-1">
+                                <input type="number" value="0.20" class="config-input w-12 text-right">
+                                <span class="text-gray-400 text-xs">%</span>
+                            </div>
+                        </td>
+                        
+                        <!-- 6. Fixed Charge -->
+                        <td class="px-3 py-3 text-sm text-gray-300">
+                            <div class="flex items-center space-x-1">
+                                <input type="number" value="1.00" class="config-input w-12 text-right">
+                                <span class="text-gray-400 text-xs">GBP</span>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <!-- Row 4: JPY Configuration -->
+                    <tr class="hover:bg-gray-800 transition">
+                        <!-- 1. Currency Symbol -->
+                        <td class="px-3 py-3 whitespace-nowrap text-sm font-medium text-gray-300">JPY</td>
+                        
+                        <!-- 2. Conversion Rate -->
+                        <td class="px-3 py-3 text-sm text-gray-300">
+                            <div class="flex items-center space-x-1">
+                                <span class="text-gray-400 text-xs">1 USD =</span>
+                                <input type="number" value="155.45" class="config-input w-16 text-right">
+                            </div>
+                        </td>
+                        
+                        <!-- 3. Min Limit -->
+                        <td class="px-3 py-3 text-sm text-gray-300">
+                            <div class="flex items-center space-x-1">
+                                <span class="text-gray-400 text-xs">JPY</span>
+                                <input type="number" value="500.00" class="config-input w-16 text-right">
+                            </div>
+                        </td>
+                        
+                        <!-- 4. Max Limit -->
+                        <td class="px-3 py-3 text-sm text-gray-300">
+                            <div class="flex items-center space-x-1">
+                                <span class="text-gray-400 text-xs">JPY</span>
+                                <input type="number" value="50000000" class="config-input w-20 text-right">
+                            </div>
+                        </td>
+
+                        <!-- 5. Percentage Charge -->
+                        <td class="px-3 py-3 text-sm text-gray-300">
+                            <div class="flex items-center space-x-1">
+                                <input type="number" value="0.50" class="config-input w-12 text-right">
+                                <span class="text-gray-400 text-xs">%</span>
+                            </div>
+                        </td>
+                        
+                        <!-- 6. Fixed Charge -->
+                        <td class="px-3 py-3 text-sm text-gray-300">
+                            <div class="flex items-center space-x-1">
+                                <input type="number" value="500" class="config-input w-12 text-right">
+                                <span class="text-gray-400 text-xs">JPY</span>
+                            </div>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Save Button -->
+        <div class="mt-8 flex justify-start">
+            <button type="button" class="px-6 py-2 text-base font-medium text-white bg-primary rounded-lg hover:bg-blue-700 transition shadow-lg">
+                Save changes
+            </button>
+        </div>
+    </div>
+        </div>
+    </div>
+        </div>
+    </div>
+            </div>
+          </main>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("componentsLoaded", () => {
+        const hamburgerBtn = document.getElementById("hamburgerBtn");
+        const sidebarContainer = document.getElementById("sidebar-container");
+
+        hamburgerBtn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          sidebarContainer.classList.toggle("hidden");
+        });
+      });
+    </script>
+    <script src="./js/include.js"></script>
+    <script src="./js/admin.js"></script>
+    <script>
+      const avatarBtn = document.getElementById("avatarBtn");
+      const dropdown = document.getElementById("dropdownMenu");
+
+      // Toggle on click
+      avatarBtn.addEventListener("click", () => {
+        dropdown.classList.toggle("hidden");
+      });
+
+      // Close when clicking outside
+      document.addEventListener("click", (e) => {
+        if (!avatarBtn.contains(e.target) && !dropdown.contains(e.target)) {
+          dropdown.classList.add("hidden");
+        }
+      });
+    </script>
+
+  </body>
+</html>
+        

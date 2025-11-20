@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+  <head class="">
+    <meta charset="utf-8" class="" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1"
+      class=""
+    />
+    <title class="">Plan List - Admin</title>
+    <link rel="stylesheet" href="/mlm_html//admin//style.css" />
+    <script src="https://cdn.tailwindcss.com" class=""></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+      .custom-scrollbar::-webkit-scrollbar {
+        height: 8px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background-color: #374151; /* Gray-700 */
+        border-radius: 4px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-track {
+        background-color: #1f2937; /* Gray-800 */
+      }
+      .config-input {
+            width: 50px; /* Smaller width for compact layout */
+            padding: 4px 8px;
+            background-color: #2c2f32; /* Even darker background for inputs */
+            border: 1px solid #374151; /* Gray-700 */
+            border-radius: 6px;
+            font-size: 0.875rem; /* text-sm */
+            color: #d1d5db; /* gray-300 */
+            outline: none;
+            transition: border-color 0.15s ease-in-out;
+        }
+        .config-input:focus {
+            border-color: #3b82f6; /* primary */
+            box-shadow: 0 0 0 1px #3b82f6;
+        }
+    </style>
+        <script>
+        // Custom Tailwind configuration for consistent dark theme colors
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-blue': '#3b82f6',
+                        'dark-bg': '#2c2f32', /* Dark Blue/Gray for cards */
+                        'card-bg': '#111827', /* Main background */
+                        'primary': '#3b82f6', // Blue-500
+                        'secondary': '#2c2f32', // Gray-800
+                        'background': '#2c2f32', 
+                    }
+                }
+            }
+        }
+    </script>
+  </head>
+  <body class="">
+    <!-- SIDEBAR (included dynamically) & MAIN CONTENT FLEX LAYOUT -->
+    <div class="flex h-screen">
+      <div id="sidebar-container" class="relative hidden lg:block">
+        <div data-include="components/sidebar.html"></div>
+      </div>
+      <!-- TOP BAR -->
+      <header class="fixed top-0 left-0 lg:left-64 right-0 z-40 w-full bg-[#2c2f32] py-3 px-4 flex items-center justify-between shadow">
+        <div class="flex items-center space-x-4 flex-1">
+          <!-- HAMBURGER AND MLM - visible below desktop -->
+          <div class="flex items-center space-x-2 lg:hidden">
+            <button
+              id="hamburgerBtn"
+              class="text-white p-2 hover:bg-gray-700 rounded"
+            >
+              <i class="fas fa-bars"></i>
+            </button>
+            <div class="text-xl font-bold text-red-500">MLM</div>
+          </div>
+
+          <!-- SEARCH -->
+          <div
+            class="flex items-center flex-1 max-w-xl rounded-full px-4 py-2 space-x-3 shadow-lg"
+          >
+            <i class="fas fa-search text-gray-400"></i>
+            <input
+              type="text"
+              placeholder="Search for a menu"
+              class="bg-transparent w-full focus:outline-none text-gray-300 placeholder-gray-400"
+            />
+          </div>
+        </div>
+
+        <!-- RIGHT SIDE -->
+        <div class="relative ml-4">
+          <!-- AVATAR BUTTON -->
+          <button id="avatarBtn">
+            <img
+              src="https://i.pravatar.cc/80"
+              class="w-10 h-10 rounded-full border border-gray-700 cursor-pointer"
+            />
+          </button>
+
+          <!-- DROPDOWN -->
+          <div
+            id="dropdownMenu"
+            class="hidden absolute right-0 mt-3 w-56 bg-gray-800 rounded-xl shadow-xl border border-gray-700 z-50"
+          >
+            <!-- PROFILE INFO -->
+            <div class="px-4 py-3 flex items-center gap-4">
+              <div>
+                <img
+                  src="https://i.pravatar.cc/80"
+                  class="w-10 h-10 rounded-full border border-gray-700 cursor-pointer"
+                />
+              </div>
+              <div>
+                <p class="text-sm font-semibold">admin</p>
+                <p class="text-xs text-gray-400">admin@gmail.com</p>
+              </div>
+            </div>
+
+            <!-- MENU ITEMS -->
+            <ul class="py-2">
+              <li>
+                <a
+                  href="#"
+                  class="block px-4 py-2 text-sm hover:bg-gray-700 transition"
+                  >Profile & account</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="block px-4 py-2 text-sm hover:bg-gray-700 transition"
+                  >Sign out</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div
+        id="main-content"
+        class="overflow-y-auto bg-[#2c2f32] text-white transition-all duration-300 ease-in-out"
+      >
+        <!-- DASHBOARD MAIN CONTENT -->
+
+        <div
+          id="main-content-wrapper"
+          class="fixed top-16 left-0 lg:left-64 right-0 bottom-0 overflow-y-auto overflow-x-hidden flex flex-col transition-all duration-300 ease-in-out"
+        >
+          <main class="bg-[#1e2022] mx-auto w-full text-white">
+
+            <div class="p-4 sm:p-6 min-h-screen">
+              <div class="mb-6 border-b border-gray-700">
+                <div class="flex items-end">
+                  <div class="flex-1 mb-2 sm:mb-0">
+                    <nav aria-label="breadcrumb">
+                      <ol class="flex items-center text-sm text-gray-500">
+                        <li class="flex items-center">
+                          <a
+                            class="text-gray-400 hover:text-gray-700"
+                            href="javascript:void(0);"
+                            >Dashboard</a
+                          >
+                          <span class="mx-2">/</span>
+                        </li>
+                        <li class="text-white font-medium" aria-current="page">
+                           Payment Method
+                        </li>
+                        <span class="mx-2">/</span>
+                        <li class="text-white font-medium" aria-current="page">
+                           Edit Stripe
+                        </li>
+                      </ol>
+                    </nav>
+                    <h1 class="text-2xl font-bold text-white mt-2 mb-10">
+                       Edit Stripe
+                    </h1>
+                  </div>
+                </div>
+              </div>
+
+              <div class="max-w-7xl mx-auto">
+        
+        <!-- Header -->
+        <h1 class="text-2xl font-bold mb-6 text-gray-100">Edit Stripe</h1>
+
+        <!-- Form/Settings Container Card -->
+        <div class="bg-secondary rounded-xl shadow-2xl p-6 md:p-8 border border-gray-700">
+
+            <!-- General Settings Section -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6 mb-10">
+                
+                <!-- 1. Name Input -->
+                <div>
+                    <label for="gatewayName" class="block text-sm font-medium text-gray-300 mb-1">Name</label>
+                    <input type="text" id="gatewayName" value="Stripe" class="w-full px-4 py-2 bg-dark-bg rounded-lg border border-gray-700 focus:ring-primary focus:border-primary placeholder-gray-500" readonly>
+                </div>
+
+                <!-- 2. Supported Currency Dropdown/Tags -->
+                <div class="flex flex-col">
+                    <label class="block text-sm font-medium text-gray-300 mb-1">Supported Currency</label>
+                    <div class="flex flex-wrap gap-2 p-2 bg-dark-bg rounded-lg border border-gray-700 w-full">
+                        <span class="inline-flex items-center px-3 py-1 text-sm font-medium bg-gray-700 text-gray-100 rounded-full">USD</span>
+                        <span class="inline-flex items-center px-3 py-1 text-sm font-medium bg-gray-700 text-gray-100 rounded-full">GBP</span>
+                        <!-- Placeholder for currency selection dropdown -->
+                        <select class="bg-gray-800 text-gray-400 text-sm border-none focus:ring-0 focus:border-none">
+                            <option value="">Select more...</option>
+                            <option value="EUR">EUR</option>
+                            <option value="JPY">JPY</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Parameters Header -->
+                <div class="md:col-span-2">
+                    <h2 class="text-lg font-semibold text-gray-100 mt-4 mb-4">Parameters</h2>
+                </div>
+
+                <!-- 3. Secret Key Input -->
+                <div>
+                    <label for="secretKey" class="block text-sm font-medium text-gray-300 mb-1">Secret Key</label>
+                    <input type="text" id="secretKey" value="sk_test_a231SDR...SAmV73MjAiB" class="w-full px-4 py-2 bg-dark-bg rounded-lg border border-gray-700 focus:ring-primary focus:border-primary placeholder-gray-500" placeholder="Enter Secret Key">
+                </div>
+
+                <!-- 4. Publishable Key Input -->
+                <div>
+                    <label for="publishableKey" class="block text-sm font-medium text-gray-300 mb-1">Publishable Key</label>
+                    <input type="text" id="publishableKey" value="pk_test_a231SS...dbqpiJQ7MaoPPbu" class="w-full px-4 py-2 bg-dark-bg rounded-lg border border-gray-700 focus:ring-primary focus:border-primary placeholder-gray-500" placeholder="Enter Publishable Key">
+                </div>
+
+                <!-- 5. Description Textarea (Full Width) -->
+                <div class="md:col-span-2">
+                    <label for="description" class="block text-sm font-medium text-gray-300 mb-1">Description</label>
+                    <textarea id="description" rows="3" class="w-full px-4 py-2 bg-dark-bg rounded-lg border border-gray-700 focus:ring-primary focus:border-primary placeholder-gray-500 resize-none">Send form your payment gateway, your bank may charge you a cash advance fee.</textarea>
+                </div>
+
+            </div>
+            
+            <!-- Logo, Status, and Environment Section -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 items-start border-t border-gray-700 pt-6 mb-10">
+                
+                <!-- 6. Logo Upload Area -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-300 mb-3">Logo</label>
+                    <div class="flex flex-col items-center justify-center p-4 border-2 border-dashed border-gray-700 rounded-lg bg-dark-bg h-32 w-full max-w-[150px]">
+                        <!-- Simulated Stripe Logo -->
+                        <img src="https://placehold.co/60x60/3e95ff/ffffff?text=Stripe" alt="Stripe Logo Placeholder" class="mb-2 h-10 w-auto rounded-md">
+                        <p class="text-xs text-gray-400">Browse your file here</p>
+                    </div>
+                </div>
+
+                <!-- 7. Status Toggle -->
+                <div class="flex flex-col justify-start">
+                    <label class="block text-sm font-medium text-gray-300 mb-3">Status</label>
+                    <div class="flex justify-between items-start">
+                        <div class="text-sm">
+                            <p class="text-gray-400">Enable to your gateway status</p>
+                        </div>
+                        <label for="statusToggle" class="relative inline-flex items-center cursor-pointer ml-4">
+                            <input type="checkbox" id="statusToggle" class="sr-only peer" checked>
+                            <div class="w-11 h-6 bg-gray-700 rounded-full peer peer-focus:ring-2 peer-focus:ring-blue-500 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- 8. Test Environment Toggle -->
+                <div class="flex flex-col justify-start">
+                    <label class="block text-sm font-medium text-gray-300 mb-3">Test Environment</label>
+                    <div class="flex justify-between items-start">
+                        <div class="text-sm">
+                            <p class="text-gray-400">To test your payment gateway, set up a sandbox environment.</p>
+                        </div>
+                        <label for="testEnvToggle" class="relative inline-flex items-center cursor-pointer ml-4">
+                            <input type="checkbox" id="testEnvToggle" class="sr-only peer">
+                            <div class="w-11 h-6 bg-gray-700 rounded-full peer peer-focus:ring-2 peer-focus:ring-blue-500 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Supported Currencies Configuration Table -->
+            <h2 class="text-lg font-semibold text-gray-100 mt-4 mb-4 border-t border-gray-700 pt-6">Supported Currencies Configuration</h2>
+
+                <div class="max-w-7xl mx-auto bg-secondary rounded-xl shadow-2xl p-6 md:p-8 border border-gray-700">
+
+        <h2 class="text-xl font-semibold text-gray-100 mb-6">Supported Currencies Configuration</h2>
+
+        <div class="overflow-x-auto rounded-lg border border-gray-700">
+            <table class="min-w-full divide-y divide-gray-700">
+                <thead class="bg-gray-600/50">
+                    <!-- Single Header Row with all relevant columns -->
+                    <tr>
+                        <th scope="col" class="px-3 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider min-w-[100px]">CURRENCY SYMBOL</th>
+                        <th scope="col" class="px-3 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider min-w-[150px]">CONVERSION RATE </th>
+                        <th scope="col" class="px-3 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider min-w-[120px]">MIN LIMIT</th>
+                        <th scope="col" class="px-3 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider min-w-[120px]">MAX LIMIT</th>
+                        <th scope="col" class="px-3 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider min-w-[100px]">PERCENTAGE CHARGE</th>
+                        <th scope="col" class="px-3 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider min-w-[100px]">FIXED CHARGE</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-700 bg-secondary">
+                    
+                    <!-- Row 1: USD Configuration -->
+                    <tr class="hover:bg-gray-800 transition">
+                        <!-- 1. Currency Symbol -->
+                        <td class="px-3 py-3 whitespace-nowrap text-sm font-medium text-gray-300">USD</td>
+                        
+                        <!-- 2. Conversion Rate -->
+                        <td class="px-3 py-3 text-sm text-gray-300">
+                            <div class="flex items-center space-x-1">
+                                <span class="text-gray-400 text-xs">1 USD =</span>
+                                <input type="number" value="1.0000" class="config-input w-16 text-right">
+                            </div>
+                        </td>
+                        
+                        <!-- 3. Min Limit -->
+                        <td class="px-3 py-3 text-sm text-gray-300">
+                            <div class="flex items-center space-x-1">
+                                <span class="text-gray-400 text-xs">USD</span>
+                                <input type="number" value="5.00" class="config-input w-16 text-right">
+                            </div>
+                        </td>
+                        
+                        <!-- 4. Max Limit -->
+                        <td class="px-3 py-3 text-sm text-gray-300">
+                            <div class="flex items-center space-x-1">
+                                <span class="text-gray-400 text-xs">USD</span>
+                                <input type="number" value="500000.00" class="config-input w-20 text-right">
+                            </div>
+                        </td>
+
+                        <!-- 5. Percentage Charge -->
+                        <td class="px-3 py-3 text-sm text-gray-300">
+                            <div class="flex items-center space-x-1">
+                                <input type="number" value="0.25" class="config-input w-12 text-right">
+                                <span class="text-gray-400 text-xs">%</span>
+                            </div>
+                        </td>
+                        
+                        <!-- 6. Fixed Charge -->
+                        <td class="px-3 py-3 text-sm text-gray-300">
+                            <div class="flex items-center space-x-1">
+                                <input type="number" value="0.50" class="config-input w-12 text-right">
+                                <span class="text-gray-400 text-xs">USD</span>
+                            </div>
+                        </td>
+                    </tr>
+                    
+                    <!-- Row 2: EUR Configuration -->
+                    <tr class="hover:bg-gray-800 transition">
+                        <!-- 1. Currency Symbol -->
+                        <td class="px-3 py-3 whitespace-nowrap text-sm font-medium text-gray-300">EUR</td>
+                        
+                        <!-- 2. Conversion Rate -->
+                        <td class="px-3 py-3 text-sm text-gray-300">
+                            <div class="flex items-center space-x-1">
+                                <span class="text-gray-400 text-xs">1 USD =</span>
+                                <input type="number" value="0.9175" class="config-input w-16 text-right">
+                            </div>
+                        </td>
+                        
+                        <!-- 3. Min Limit -->
+                        <td class="px-3 py-3 text-sm text-gray-300">
+                            <div class="flex items-center space-x-1">
+                                <span class="text-gray-400 text-xs">EUR</span>
+                                <input type="number" value="4.00" class="config-input w-16 text-right">
+                            </div>
+                        </td>
+                        
+                        <!-- 4. Max Limit -->
+                        <td class="px-3 py-3 text-sm text-gray-300">
+                            <div class="flex items-center space-x-1">
+                                <span class="text-gray-400 text-xs">EUR</span>
+                                <input type="number" value="450000.00" class="config-input w-20 text-right">
+                            </div>
+                        </td>
+
+                        <!-- 5. Percentage Charge -->
+                        <td class="px-3 py-3 text-sm text-gray-300">
+                            <div class="flex items-center space-x-1">
+                                <input type="number" value="0.30" class="config-input w-12 text-right">
+                                <span class="text-gray-400 text-xs">%</span>
+                            </div>
+                        </td>
+                        
+                        <!-- 6. Fixed Charge -->
+                        <td class="px-3 py-3 text-sm text-gray-300">
+                            <div class="flex items-center space-x-1">
+                                <input type="number" value="0.75" class="config-input w-12 text-right">
+                                <span class="text-gray-400 text-xs">EUR</span>
+                            </div>
+                        </td>
+                    </tr>
+                    
+                    <!-- Row 3: GBP Configuration -->
+                    <tr class="hover:bg-gray-800 transition">
+                        <!-- 1. Currency Symbol -->
+                        <td class="px-3 py-3 whitespace-nowrap text-sm font-medium text-gray-300">GBP</td>
+                        
+                        <!-- 2. Conversion Rate -->
+                        <td class="px-3 py-3 text-sm text-gray-300">
+                            <div class="flex items-center space-x-1">
+                                <span class="text-gray-400 text-xs">1 USD =</span>
+                                <input type="number" value="0.7812" class="config-input w-16 text-right">
+                            </div>
+                        </td>
+                        
+                        <!-- 3. Min Limit -->
+                        <td class="px-3 py-3 text-sm text-gray-300">
+                            <div class="flex items-center space-x-1">
+                                <span class="text-gray-400 text-xs">GBP</span>
+                                <input type="number" value="3.00" class="config-input w-16 text-right">
+                            </div>
+                        </td>
+                        
+                        <!-- 4. Max Limit -->
+                        <td class="px-3 py-3 text-sm text-gray-300">
+                            <div class="flex items-center space-x-1">
+                                <span class="text-gray-400 text-xs">GBP</span>
+                                <input type="number" value="400000.00" class="config-input w-20 text-right">
+                            </div>
+                        </td>
+
+                        <!-- 5. Percentage Charge -->
+                        <td class="px-3 py-3 text-sm text-gray-300">
+                            <div class="flex items-center space-x-1">
+                                <input type="number" value="0.20" class="config-input w-12 text-right">
+                                <span class="text-gray-400 text-xs">%</span>
+                            </div>
+                        </td>
+                        
+                        <!-- 6. Fixed Charge -->
+                        <td class="px-3 py-3 text-sm text-gray-300">
+                            <div class="flex items-center space-x-1">
+                                <input type="number" value="1.00" class="config-input w-12 text-right">
+                                <span class="text-gray-400 text-xs">GBP</span>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <!-- Row 4: JPY Configuration -->
+                    <tr class="hover:bg-gray-800 transition">
+                        <!-- 1. Currency Symbol -->
+                        <td class="px-3 py-3 whitespace-nowrap text-sm font-medium text-gray-300">JPY</td>
+                        
+                        <!-- 2. Conversion Rate -->
+                        <td class="px-3 py-3 text-sm text-gray-300">
+                            <div class="flex items-center space-x-1">
+                                <span class="text-gray-400 text-xs">1 USD =</span>
+                                <input type="number" value="155.45" class="config-input w-16 text-right">
+                            </div>
+                        </td>
+                        
+                        <!-- 3. Min Limit -->
+                        <td class="px-3 py-3 text-sm text-gray-300">
+                            <div class="flex items-center space-x-1">
+                                <span class="text-gray-400 text-xs">JPY</span>
+                                <input type="number" value="500.00" class="config-input w-16 text-right">
+                            </div>
+                        </td>
+                        
+                        <!-- 4. Max Limit -->
+                        <td class="px-3 py-3 text-sm text-gray-300">
+                            <div class="flex items-center space-x-1">
+                                <span class="text-gray-400 text-xs">JPY</span>
+                                <input type="number" value="50000000" class="config-input w-20 text-right">
+                            </div>
+                        </td>
+
+                        <!-- 5. Percentage Charge -->
+                        <td class="px-3 py-3 text-sm text-gray-300">
+                            <div class="flex items-center space-x-1">
+                                <input type="number" value="0.50" class="config-input w-12 text-right">
+                                <span class="text-gray-400 text-xs">%</span>
+                            </div>
+                        </td>
+                        
+                        <!-- 6. Fixed Charge -->
+                        <td class="px-3 py-3 text-sm text-gray-300">
+                            <div class="flex items-center space-x-1">
+                                <input type="number" value="500" class="config-input w-12 text-right">
+                                <span class="text-gray-400 text-xs">JPY</span>
+                            </div>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Save Button -->
+        <div class="mt-8 flex justify-start">
+            <button type="button" class="px-6 py-2 text-base font-medium text-white bg-primary rounded-lg hover:bg-blue-700 transition shadow-lg">
+                Save changes
+            </button>
+        </div>
+    </div>
+        </div>
+    </div>
+            </div>
+          </main>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("componentsLoaded", () => {
+        const hamburgerBtn = document.getElementById("hamburgerBtn");
+        const sidebarContainer = document.getElementById("sidebar-container");
+
+        hamburgerBtn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          sidebarContainer.classList.toggle("hidden");
+        });
+      });
+    </script>
+    <script src="./js/include.js"></script>
+    <script src="./js/admin.js"></script>
+    <script>
+      const avatarBtn = document.getElementById("avatarBtn");
+      const dropdown = document.getElementById("dropdownMenu");
+
+      // Toggle on click
+      avatarBtn.addEventListener("click", () => {
+        dropdown.classList.toggle("hidden");
+      });
+
+      // Close when clicking outside
+      document.addEventListener("click", (e) => {
+        if (!avatarBtn.contains(e.target) && !dropdown.contains(e.target)) {
+          dropdown.classList.add("hidden");
+        }
+      });
+    </script>
+
+  </body>
+</html>
